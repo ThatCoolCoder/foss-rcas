@@ -1,0 +1,56 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://Scripts/AngleTracker.cs" type="Script" id=1]
+[ext_resource path="res://Scenes/Aircraft/Aircraft.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scripts/Physics/Fluids/SpatialFluidRepository.cs" type="Script" id=3]
+[ext_resource path="res://Scripts/Physics/Fluids/Air.cs" type="Script" id=4]
+[ext_resource path="res://Scripts/Physics/Fluids/SpatialFluidBeacon.cs" type="Script" id=5]
+[ext_resource path="res://Scripts/World.cs" type="Script" id=6]
+[ext_resource path="res://Scripts/CameraZoom.cs" type="Script" id=7]
+
+[sub_resource type="SpatialMaterial" id=1]
+albedo_color = Color( 0.129412, 0.819608, 0.513726, 1 )
+
+[node name="World" type="Spatial"]
+script = ExtResource( 6 )
+
+[node name="SpatialFluidRepository" type="Spatial" parent="."]
+script = ExtResource( 3 )
+
+[node name="CameraHolder" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 3.30011 )
+script = ExtResource( 1 )
+Enabled = false
+TargetPath = NodePath("../Aircraft")
+
+[node name="Camera" type="Camera" parent="CameraHolder"]
+current = true
+far = 500.0
+script = ExtResource( 7 )
+
+[node name="Aircraft" parent="." instance=ExtResource( 2 )]
+transform = Transform( -0.0816254, 0, 0.996663, 0, 1, 0, -0.996663, 0, -0.0816254, -3.99356, 0.101244, -1.71533 )
+mass = 0.5
+gravity_scale = 1.0
+
+[node name="Camera2" type="Camera" parent="Aircraft"]
+transform = Transform( -1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, 0.133297, 0.218379, -1.62758 )
+far = 500.0
+
+[node name="Ground" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.445101, 0 )
+material_override = SubResource( 1 )
+use_collision = true
+width = 200.0
+height = 1.0
+depth = 200.0
+
+[node name="Air" type="Spatial" parent="."]
+script = ExtResource( 4 )
+DensityMultiplier = 3.0
+GustFrequency = 30.0
+DirectionDegrees = -90.0
+DirectionChangeFrequency = 20.0
+
+[node name="SpatialFluidBeacon" type="Spatial" parent="Air"]
+script = ExtResource( 5 )

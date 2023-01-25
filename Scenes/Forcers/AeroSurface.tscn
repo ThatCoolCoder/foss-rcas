@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/Physics/Forcers/AeroSurface.cs" type="Script" id=1]
+[ext_resource path="res://Art/ForcerPreviewMaterial.tres" type="Material" id=2]
+
+[node name="AeroSurface" type="Spatial"]
+script = ExtResource( 1 )
+
+[node name="CSGBox" type="CSGBox" parent="."]
+material_override = ExtResource( 2 )
+width = 1.0
+height = 0.05
+depth = 1.0
