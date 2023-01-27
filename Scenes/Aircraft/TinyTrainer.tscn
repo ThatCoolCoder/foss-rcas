@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scripts/Physics/SpatialFluidEffectable.cs" type="Script" id=1]
-[ext_resource path="res://Art/Aircraft.glb" type="PackedScene" id=2]
+[ext_resource path="res://Art/Aircraft/TinyTrainer/TinyTrainer.glb" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Forcers/ControlledMotor.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Resources/WingDragCoefficient.tres" type="Curve" id=4]
 [ext_resource path="res://Scenes/Forcers/AeroSurface.tscn" type="PackedScene" id=5]
@@ -21,7 +21,7 @@ extents = Vector3( 0.0244759, 0.0182759, 0.306211 )
 [sub_resource type="BoxShape" id=4]
 extents = Vector3( 0.0812936, 0.0379009, 0.0134837 )
 
-[node name="Aircraft" type="RigidBody"]
+[node name="TinyTrainer" type="RigidBody"]
 mass = 0.45
 physics_material_override = SubResource( 5 )
 can_sleep = false

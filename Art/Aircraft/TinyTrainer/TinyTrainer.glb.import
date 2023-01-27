@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/Boat.glb-e88b34a53e05ebe47497832e290593ab.scn"
+path="res://.import/TinyTrainer.glb-7040fb48afb49cf568950959fb045344.scn"
 
 [deps]
 
-source_file="res://Art/Boat/Boat.glb"
-dest_files=[ "res://.import/Boat.glb-e88b34a53e05ebe47497832e290593ab.scn" ]
+source_file="res://Art/Aircraft/TinyTrainer/TinyTrainer.glb"
+dest_files=[ "res://.import/TinyTrainer.glb-7040fb48afb49cf568950959fb045344.scn" ]
 
 [params]
 
