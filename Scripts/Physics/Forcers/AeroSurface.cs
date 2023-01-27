@@ -28,6 +28,7 @@ namespace Physics.Forcers
             }
         }
 
+        private static readonly Curve flatPlateLiftCoefficient = ResourceLoader.Load<Curve>("res://Resources/FlatPlateLiftCoefficient.tres");
 
         // Thickness of the wing - used for parasitic drag calculations
         [Export] public float Thickness { get; set; }
@@ -49,21 +50,45 @@ namespace Physics.Forcers
             // Velocity relative to the rotation of self
             var localVelocity = basis.XformInv(relativeVelocity);
 
+            // Regular lift (modelled as airfoil)
+            var regularLiftVector = CalculateLiftForce(basis, localVelocity.WithX(0), TotalLiftCoefficient, ParasiticDragCoefficient, density);
+            // Spanwise lift (modelled as a flat plate)
+            var spanwiseLiftVector = CalculateLiftForce(basis, localVelocity.WithZ(0), flatPlateLiftCoefficient, ParasiticDragCoefficient, density);
+
+            var liftVector = regularLiftVector + spanwiseLiftVector;
+
+            var dragVector = CalculateDragForce(basis, localVelocity, relativeVelocity, density);
+
+            if (debugModeActive)
+            {
+                DebugLineDrawer.RegisterLineStatic(this, GlobalTranslation, GlobalTranslation + liftVector, Colors.Blue, 1);
+                DebugLineDrawer.RegisterLineStatic(this, GlobalTranslation, GlobalTranslation + dragVector, Colors.Red, 2);
+            }
+
+            return liftVector + dragVector;
+        }
+
+        private Vector3 CalculateLiftForce(Basis basis, Vector3 localVelocity, Curve totalLiftCurve, Curve parasiticDragCurve, float fluidDensity)
+        {
             var localSpeedSquared = localVelocity.LengthSquared();
 
             var aoa = CalculateAngleOfAttack(localVelocity);
 
-            var liftCoefficient = InterpolateFromQuarterAoaCurve(TotalLiftCoefficient, aoa);
-            var parasiticDragCoefficient = InterpolateFromQuarterAoaCurve(ParasiticDragCoefficient, aoa);
-
-            var liftMag = CalculateAeroForceMagnitude(liftCoefficient, area, density, localSpeedSquared);
-            var frontalArea = CalculateFrontalArea(aoa);
-            var dragMag = CalculateAeroForceMagnitude(parasiticDragCoefficient, frontalArea, density, localSpeedSquared);
-
+            var liftCoefficient = InterpolateFromQuarterAoaCurve(totalLiftCurve, aoa);
+            var liftMag = CalculateAeroForceMagnitude(liftCoefficient, area, fluidDensity, localSpeedSquared);
             var liftVector = basis.y * liftMag * (HasPositiveAoa(aoa) ? 1 : -1);
-            var dragVector = -relativeVelocity.Normalized() * dragMag;
 
-            return liftVector + dragVector;
+            return liftVector;
+        }
+
+        private Vector3 CalculateDragForce(Basis basis, Vector3 localVelocity, Vector3 relativeVelocity, float fluidDensity)
+        {
+            var aoa = CalculateAngleOfAttack(localVelocity);
+            var localSpeedSquared = localVelocity.LengthSquared();
+            var parasiticDragCoefficient = InterpolateFromQuarterAoaCurve(ParasiticDragCoefficient, aoa);
+            var frontalArea = CalculateFrontalArea(aoa);
+            var dragMag = CalculateAeroForceMagnitude(parasiticDragCoefficient, frontalArea, fluidDensity, localSpeedSquared);
+            return -relativeVelocity.Normalized() * dragMag;
         }
 
         private float CalculateAngleOfAttack(Vector3 localVelocity)

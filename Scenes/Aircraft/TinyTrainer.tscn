@@ -37,7 +37,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.07424e-05, -0.0916161 )
 shape = SubResource( 1 )
 
 [node name="TailCollider" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0697765, -0.345285 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0680826, -0.345285 )
 shape = SubResource( 1 )
 
 [node name="LandingGearCollider" type="CollisionShape" parent="."]
@@ -52,7 +52,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.002, 0.218519 )
 ForLiquid = false
 Radius = 0.06
 ExitSpeed = 500.0
-FreeWheelWhenOff = true
 ThrottleActionName = "throttle"
 
 [node name="Wing" type="Spatial" parent="."]
@@ -100,20 +99,26 @@ ParasiticDragCoefficient = ExtResource( 4 )
 AreaMultiplier = 0.6
 Thickness = 0.005
 
+[node name="HorizontalStabiliser" parent="." instance=ExtResource( 5 )]
+transform = Transform( 0.294853, -3.73431e-07, 0, 1.10107e-07, 1, 0, 0, 0, 0.0642731, 0, -0.0027601, -0.325843 )
+ForLiquid = false
+TotalLiftCoefficient = ExtResource( 6 )
+ParasiticDragCoefficient = ExtResource( 4 )
+AreaMultiplier = 0.5
+Thickness = 0.005
+
 [node name="Elevator" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0027601, -0.356128 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0027601, -0.358904 )
 script = ExtResource( 7 )
 Reversed = true
 ActionName = "elevator"
 
 [node name="AeroSurface" parent="Elevator" instance=ExtResource( 5 )]
-transform = Transform( 0.294853, -3.73431e-07, 0, 1.10107e-07, 1, 0, 0, 0, 0.103778, 0, 0, 0.0106265 )
+transform = Transform( 0.294853, -3.73431e-07, 0, 1.10107e-07, 1, 0, 0, 0, 0.0398277, 0, 0, -0.0195128 )
 TargetPath = NodePath("../..")
 ForLiquid = false
 TotalLiftCoefficient = ExtResource( 6 )
 ParasiticDragCoefficient = ExtResource( 4 )
-AreaMultiplier = 0.6
-Thickness = 0.005
 
 [node name="AileronL" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.176, 0.0212449, -0.0718101 )
@@ -140,18 +145,27 @@ ForLiquid = false
 TotalLiftCoefficient = ExtResource( 6 )
 ParasiticDragCoefficient = ExtResource( 4 )
 
+[node name="VerticalStabiiser" parent="." instance=ExtResource( 5 )]
+transform = Transform( -4.63029e-08, -1, 0, 0.111, -4.17142e-07, 0, 0, 0, 0.0562263, -2.94508e-09, 0.0700471, -0.323952 )
+TargetPath = NodePath("..")
+ForLiquid = false
+TotalLiftCoefficient = ExtResource( 6 )
+ParasiticDragCoefficient = ExtResource( 4 )
+AreaMultiplier = 0.75
+Thickness = 0.005
+
 [node name="RudderHolder" type="Spatial" parent="."]
 transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -4.53532e-10, 0.0103756, -0.340662 )
 
 [node name="Rudder" type="Spatial" parent="RudderHolder"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0450679, -1.96998e-09, -0.012595 )
 script = ExtResource( 7 )
 ActionName = "rudder"
 
 [node name="AeroSurface" parent="RudderHolder/Rudder" instance=ExtResource( 5 )]
-transform = Transform( 0.111, -3.73431e-07, 0, 4.14509e-08, 1, 0, 0, 0, 0.079, 0.057, 0, 0 )
+transform = Transform( 0.111, -3.73431e-07, 0, 4.14509e-08, 1, 0, 0, 0, 0.0406959, 0.0148292, 1.84335e-09, -0.0194301 )
 TargetPath = NodePath("../../..")
 ForLiquid = false
 TotalLiftCoefficient = ExtResource( 6 )
 ParasiticDragCoefficient = ExtResource( 4 )
-AreaMultiplier = 0.6
 Thickness = 0.005

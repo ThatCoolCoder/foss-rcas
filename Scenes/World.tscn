@@ -20,18 +20,18 @@ script = ExtResource( 3 )
 [node name="CameraHolder" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 3.30011 )
 script = ExtResource( 1 )
-TargetPath = NodePath("../Aircraft")
+TargetPath = NodePath("../TinyTrainer")
 
 [node name="Camera" type="Camera" parent="CameraHolder"]
 current = true
 far = 500.0
 script = ExtResource( 7 )
 
-[node name="Aircraft" parent="." instance=ExtResource( 2 )]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3.99356, 0.736766, -1.71533 )
+[node name="TinyTrainer" parent="." instance=ExtResource( 2 )]
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3.99356, 0.197505, -1.71533 )
 mass = 0.5
 
-[node name="OnBoardDebugCamera" type="Camera" parent="Aircraft"]
+[node name="OnBoardDebugCamera" type="Camera" parent="TinyTrainer"]
 transform = Transform( -1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, 0.133297, 0.218379, -1.62758 )
 far = 500.0
 
