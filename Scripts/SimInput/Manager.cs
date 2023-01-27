@@ -67,7 +67,7 @@ namespace SimInput
             }
             catch (KeyNotFoundException)
             {
-                // GD.PrintErr($"Unknown action: {actionName}");
+                GD.PrintErr($"Unknown action: {actionName}");
                 return 0;
             }
         }

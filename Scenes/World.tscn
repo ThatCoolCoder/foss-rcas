@@ -20,7 +20,6 @@ script = ExtResource( 3 )
 [node name="CameraHolder" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 3.30011 )
 script = ExtResource( 1 )
-Enabled = false
 TargetPath = NodePath("../Aircraft")
 
 [node name="Camera" type="Camera" parent="CameraHolder"]
@@ -29,10 +28,10 @@ far = 500.0
 script = ExtResource( 7 )
 
 [node name="Aircraft" parent="." instance=ExtResource( 2 )]
-transform = Transform( -0.0816254, 0, 0.996663, 0, 1, 0, -0.996663, 0, -0.0816254, -3.99356, 0.101244, -1.71533 )
+transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -3.99356, 0.736766, -1.71533 )
 mass = 0.5
 
-[node name="Camera2" type="Camera" parent="Aircraft"]
+[node name="OnBoardDebugCamera" type="Camera" parent="Aircraft"]
 transform = Transform( -1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, 0.133297, 0.218379, -1.62758 )
 far = 500.0
 
@@ -46,10 +45,64 @@ depth = 200.0
 
 [node name="Air" type="Spatial" parent="."]
 script = ExtResource( 4 )
-DensityMultiplier = 3.0
 GustFrequency = 30.0
 DirectionDegrees = -90.0
 DirectionChangeFrequency = 20.0
 
 [node name="SpatialFluidBeacon" type="Spatial" parent="Air"]
 script = ExtResource( 5 )
+
+[node name="VisualReferences" type="Spatial" parent="."]
+__meta__ = {
+"_editor_description_": "It's difficult to see where the plane is going if the environment is a completely plain world, so I added these"
+}
+
+[node name="CSGBox" type="CSGBox" parent="VisualReferences"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.83641, 35.7605 )
+use_collision = true
+height = 3.61851
+
+[node name="CSGBox2" type="CSGBox" parent="VisualReferences"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 27.2254, 1.83641, 35.7605 )
+use_collision = true
+height = 3.61851
+
+[node name="CSGBox3" type="CSGBox" parent="VisualReferences"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 27.2254, 1.83641, 2.24596 )
+use_collision = true
+height = 3.61851
+
+[node name="CSGBox4" type="CSGBox" parent="VisualReferences"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 27.2254, 1.83641, -37.7711 )
+use_collision = true
+height = 3.61851
+
+[node name="CSGBox5" type="CSGBox" parent="VisualReferences"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.36435, 1.83641, -37.7711 )
+use_collision = true
+height = 3.61851
+
+[node name="CSGBox6" type="CSGBox" parent="VisualReferences"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -36.2756, 1.83641, -37.7711 )
+use_collision = true
+height = 3.61851
+
+[node name="CSGBox7" type="CSGBox" parent="VisualReferences"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -36.2756, 1.83641, 1.85529 )
+use_collision = true
+height = 3.61851
+
+[node name="CSGBox8" type="CSGBox" parent="VisualReferences"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -36.2756, 1.83641, 32.9856 )
+use_collision = true
+height = 3.61851
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.50817, 0.861257, 0, -0.861257, 0.50817, 0, 2.61583, 0 )
+light_energy = 0.503
+light_indirect_energy = 1.302
+shadow_enabled = true
+shadow_bias = 0.0
+directional_shadow_split_1 = 0.029
+directional_shadow_split_2 = 0.106
+directional_shadow_split_3 = 0.229

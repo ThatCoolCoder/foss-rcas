@@ -13,7 +13,7 @@ namespace Physics.Forcers
         private List<Fluids.FluidType> fluidTypes = new();
         protected SpatialFluidEffectable target { get; private set; }
 
-        public static bool ShowDebugAreas { get; set; } = true;
+        protected static bool debugModeActive { get; set; } = (bool)ProjectSettings.GetSetting("global/fluid_physics_debug");
 
         public override void _Ready()
         {
@@ -37,6 +37,11 @@ namespace Physics.Forcers
 
             var totalForce = target.Fluids.Where(f => fluidTypes.Contains(f.Type)).Select(f => CalculateForce(f, state)).Aggregate(Vector3.Zero, (prev, next) => prev + next);
             var position = GlobalTranslation;
+            if (debugModeActive)
+            {
+                DebugLineDrawer.RegisterLineStatic(this, GlobalTranslation, GlobalTranslation + totalForce);
+            }
+
             position -= target.GlobalTransform.origin;
             state.AddForce(totalForce, position);
         }
