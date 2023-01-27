@@ -11,10 +11,10 @@ public class ControlSurface : Spatial
 
     public override void _Process(float delta)
     {
-		var rawValue = SimInputManager.GetAxisValue(ActionName);
+        var rawValue = SimInput.Manager.GetAxisValue(ActionName);
         rawValue *= Mathf.Deg2Rad(MaxDeflectionDegrees);
         if (Reversed) rawValue *= -1;
         Rotation = Rotation.WithX(rawValue);
     }
-    
+
 }

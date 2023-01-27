@@ -31,7 +31,6 @@ script = ExtResource( 7 )
 [node name="Aircraft" parent="." instance=ExtResource( 2 )]
 transform = Transform( -0.0816254, 0, 0.996663, 0, 1, 0, -0.996663, 0, -0.0816254, -3.99356, 0.101244, -1.71533 )
 mass = 0.5
-gravity_scale = 1.0
 
 [node name="Camera2" type="Camera" parent="Aircraft"]
 transform = Transform( -1, 0, -8.9407e-08, 0, 1, 0, 8.9407e-08, 0, -1, 0.133297, 0.218379, -1.62758 )
