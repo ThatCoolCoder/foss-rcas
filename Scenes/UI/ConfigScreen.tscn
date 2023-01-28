@@ -1,0 +1,126 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scripts/UI/ConfigScreen.cs" type="Script" id=1]
+[ext_resource path="res://Resources/Theme.tres" type="Theme" id=2]
+[ext_resource path="res://Resources/Fonts/Heading2.tres" type="DynamicFont" id=4]
+
+[node name="ConfigScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 2 )
+script = ExtResource( 1 )
+
+[node name="TopBar" type="Control" parent="."]
+margin_right = 1024.0
+
+[node name="BackButton" type="Button" parent="TopBar"]
+margin_right = 44.0
+margin_bottom = 30.0
+text = "Back"
+
+[node name="Heading" type="Label" parent="TopBar"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -100.0
+margin_right = 100.0
+margin_bottom = 30.0
+grow_horizontal = 2
+size_flags_horizontal = 0
+custom_fonts/font = ExtResource( 4 )
+text = "Select flight options"
+align = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 20
+custom_constants/margin_top = 50
+custom_constants/margin_left = 20
+custom_constants/margin_bottom = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+margin_left = 20.0
+margin_top = 50.0
+margin_right = 1004.0
+margin_bottom = 580.0
+
+[node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer/VBoxContainer"]
+margin_right = 984.0
+margin_bottom = 500.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+split_offset = 1
+
+[node name="LocationSelector" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HSplitContainer"]
+margin_right = 487.0
+margin_bottom = 500.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Heading" type="Label" parent="MarginContainer/VBoxContainer/HSplitContainer/LocationSelector"]
+margin_right = 487.0
+margin_bottom = 30.0
+custom_fonts/font = ExtResource( 4 )
+text = "Location"
+align = 1
+
+[node name="OptionButton" type="OptionButton" parent="MarginContainer/VBoxContainer/HSplitContainer/LocationSelector"]
+margin_top = 34.0
+margin_right = 29.0
+margin_bottom = 60.0
+size_flags_horizontal = 0
+
+[node name="Image" type="TextureRect" parent="MarginContainer/VBoxContainer/HSplitContainer/LocationSelector"]
+margin_top = 64.0
+margin_right = 487.0
+margin_bottom = 500.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+expand = true
+stretch_mode = 5
+
+[node name="AircraftSelector" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HSplitContainer"]
+margin_left = 499.0
+margin_right = 984.0
+margin_bottom = 500.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Heading" type="Label" parent="MarginContainer/VBoxContainer/HSplitContainer/AircraftSelector"]
+margin_right = 485.0
+margin_bottom = 30.0
+custom_fonts/font = ExtResource( 4 )
+text = "Aircraft"
+align = 1
+valign = 1
+
+[node name="OptionButton" type="OptionButton" parent="MarginContainer/VBoxContainer/HSplitContainer/AircraftSelector"]
+margin_top = 34.0
+margin_right = 29.0
+margin_bottom = 60.0
+size_flags_horizontal = 0
+
+[node name="Image" type="TextureRect" parent="MarginContainer/VBoxContainer/HSplitContainer/AircraftSelector"]
+margin_top = 64.0
+margin_right = 485.0
+margin_bottom = 500.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+expand = true
+stretch_mode = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+margin_top = 504.0
+margin_right = 984.0
+margin_bottom = 530.0
+alignment = 2
+
+[node name="PlayButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+margin_left = 948.0
+margin_right = 984.0
+margin_bottom = 26.0
+text = "Go!"
+
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/HSplitContainer/LocationSelector/OptionButton" to="." method="_on_LocationSelector_item_selected"]
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/HSplitContainer/AircraftSelector/OptionButton" to="." method="_on_AircraftSelector_item_selected"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/PlayButton" to="." method="_on_PlayButton_pressed"]

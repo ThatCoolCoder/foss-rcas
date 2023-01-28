@@ -23,7 +23,7 @@ class DebugLineDrawer : ImmediateGeometry
     public override void _EnterTree()
     {
         instance = this;
-        MaterialOverride = new SpatialMaterial() { VertexColorUseAsAlbedo = true };
+        MaterialOverride = new SpatialMaterial() { FlagsUnshaded = true, VertexColorUseAsAlbedo = true };
     }
 
     public override void _ExitTree()

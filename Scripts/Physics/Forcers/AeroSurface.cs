@@ -28,7 +28,7 @@ namespace Physics.Forcers
             }
         }
 
-        private static readonly Curve flatPlateLiftCoefficient = ResourceLoader.Load<Curve>("res://Resources/FlatPlateLiftCoefficient.tres");
+        private static readonly Curve flatPlateLiftCoefficient = ResourceLoader.Load<Curve>("res://Resources/AeroCurves/FlatPlateLiftCoefficient.tres");
 
         // Thickness of the wing - used for parasitic drag calculations
         [Export] public float Thickness { get; set; }
