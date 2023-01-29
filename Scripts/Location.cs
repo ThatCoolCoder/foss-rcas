@@ -11,7 +11,7 @@ public class Location : Spatial
 
     public override void _Ready()
     {
-        GetNode<AngleTracker>("CameraHolder").Target = Aircraft;
+        GetNode<GroundCamera>("Camera").Target = Aircraft;
         launcher = GetNode<AircraftLauncher>("AircraftLauncher");
         GD.Print(Aircraft);
         Reset();
