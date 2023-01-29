@@ -35,7 +35,7 @@ namespace Physics.Forcers
 
         public override void _Ready()
         {
-            GetNode<Spatial>("CSGBox").Visible = debugModeActive;
+            GetNode<Spatial>("CSGBox").Visible = DebugModeActive;
 
             base._Ready();
         }
@@ -59,7 +59,7 @@ namespace Physics.Forcers
 
             var dragVector = CalculateDragForce(basis, localVelocity, relativeVelocity, density);
 
-            if (debugModeActive)
+            if (DebugModeActive)
             {
                 DebugLineDrawer.RegisterLineStatic(this, GlobalTranslation, GlobalTranslation + liftVector, Colors.Blue, 1);
                 DebugLineDrawer.RegisterLineStatic(this, GlobalTranslation, GlobalTranslation + dragVector, Colors.Red, 2);

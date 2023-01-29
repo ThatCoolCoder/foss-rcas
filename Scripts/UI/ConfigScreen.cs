@@ -40,8 +40,10 @@ namespace UI
             location.Aircraft = aircraft;
 
             var root = GetTree().Root;
+            var tree = GetTree();
             root.RemoveChild(this);
             root.AddChild(location);
+            tree.CurrentScene = location;
             QueueFree();
         }
     }

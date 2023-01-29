@@ -8,18 +8,21 @@ public class Location : Spatial
     public override void _Ready()
     {
         GetNode<AngleTracker>("CameraHolder").Target = Aircraft;
-
-        Aircraft.Transform = GetNode<Spatial>("StartLocation").Transform;
+        Reset();
     }
 
     public override void _Process(float delta)
     {
         if (Input.IsActionJustPressed("reset"))
         {
-            Aircraft.LinearVelocity = Vector3.Zero;
-            Aircraft.AngularVelocity = Vector3.Zero;
-
-            _Ready();
+            Reset();
         }
+    }
+
+    private void Reset()
+    {
+        Aircraft.LinearVelocity = Vector3.Zero;
+        Aircraft.AngularVelocity = Vector3.Zero;
+        Aircraft.Transform = GetNode<Spatial>("StartLocation").Transform;
     }
 }
