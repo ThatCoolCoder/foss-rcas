@@ -20,45 +20,45 @@ alignment = 1
 
 [node name="Heading" type="Label" parent="VBoxContainer"]
 margin_left = 409.0
-margin_top = 203.0
+margin_top = 208.0
 margin_right = 614.0
-margin_bottom = 262.0
+margin_bottom = 267.0
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 2 )
 text = "FossRCAS"
 
 [node name="Label" type="Label" parent="VBoxContainer"]
-margin_left = 221.0
-margin_top = 282.0
-margin_right = 803.0
-margin_bottom = 321.0
+margin_left = 258.0
+margin_top = 287.0
+margin_right = 766.0
+margin_bottom = 322.0
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 4 )
 text = "Free and open source RC aviation simulator"
 
 [node name="Spacer" type="Control" parent="VBoxContainer"]
-margin_top = 341.0
+margin_top = 342.0
 margin_right = 1024.0
-margin_bottom = 341.0
+margin_bottom = 342.0
 
 [node name="ButtonsHolder" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 361.0
+margin_top = 362.0
 margin_right = 1024.0
-margin_bottom = 397.0
+margin_bottom = 391.0
 custom_constants/separation = 40
 alignment = 1
 
 [node name="PlayButton" type="Button" parent="VBoxContainer/ButtonsHolder"]
-margin_left = 427.0
-margin_right = 483.0
-margin_bottom = 36.0
+margin_left = 441.0
+margin_right = 485.0
+margin_bottom = 29.0
 custom_fonts/font = ExtResource( 3 )
 text = "Play"
 
 [node name="AboutButton" type="Button" parent="VBoxContainer/ButtonsHolder"]
-margin_left = 523.0
-margin_right = 597.0
-margin_bottom = 36.0
+margin_left = 525.0
+margin_right = 583.0
+margin_bottom = 29.0
 custom_fonts/font = ExtResource( 3 )
 text = "About"
 

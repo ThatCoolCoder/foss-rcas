@@ -52,6 +52,9 @@ namespace ContentManagement
                 }
             }
 
+            aircraftList = aircraftList.OrderBy(x => x.Name).ToList();
+            locationList = locationList.OrderBy(x => x.Name).ToList();
+
             return (aircraftList, locationList);
         }
     }

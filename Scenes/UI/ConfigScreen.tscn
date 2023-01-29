@@ -1,8 +1,10 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/UI/ConfigScreen.cs" type="Script" id=1]
 [ext_resource path="res://Resources/Theme.tres" type="Theme" id=2]
-[ext_resource path="res://Resources/Fonts/Heading2.tres" type="DynamicFont" id=4]
+[ext_resource path="res://Scenes/UI/AircraftSelector.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Resources/Fonts/Heading1.tres" type="DynamicFont" id=4]
+[ext_resource path="res://Scenes/UI/LocationSelector.tscn" type="PackedScene" id=5]
 
 [node name="ConfigScreen" type="Control"]
 anchor_right = 1.0
@@ -46,82 +48,30 @@ margin_bottom = 580.0
 
 [node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer/VBoxContainer"]
 margin_right = 984.0
-margin_bottom = 500.0
+margin_bottom = 505.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 split_offset = 1
 
-[node name="LocationSelector" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HSplitContainer"]
-margin_right = 487.0
-margin_bottom = 500.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
+[node name="LocationSelector" parent="MarginContainer/VBoxContainer/HSplitContainer" instance=ExtResource( 5 )]
+margin_bottom = 505.0
 
-[node name="Heading" type="Label" parent="MarginContainer/VBoxContainer/HSplitContainer/LocationSelector"]
-margin_right = 487.0
-margin_bottom = 30.0
-custom_fonts/font = ExtResource( 4 )
-text = "Location"
-align = 1
-
-[node name="OptionButton" type="OptionButton" parent="MarginContainer/VBoxContainer/HSplitContainer/LocationSelector"]
-margin_top = 34.0
-margin_right = 29.0
-margin_bottom = 60.0
-size_flags_horizontal = 0
-
-[node name="Image" type="TextureRect" parent="MarginContainer/VBoxContainer/HSplitContainer/LocationSelector"]
-margin_top = 64.0
-margin_right = 487.0
-margin_bottom = 500.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-expand = true
-stretch_mode = 5
-
-[node name="AircraftSelector" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HSplitContainer"]
+[node name="AircraftSelector" parent="MarginContainer/VBoxContainer/HSplitContainer" instance=ExtResource( 3 )]
 margin_left = 499.0
 margin_right = 984.0
-margin_bottom = 500.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Heading" type="Label" parent="MarginContainer/VBoxContainer/HSplitContainer/AircraftSelector"]
-margin_right = 485.0
-margin_bottom = 30.0
-custom_fonts/font = ExtResource( 4 )
-text = "Aircraft"
-align = 1
-valign = 1
-
-[node name="OptionButton" type="OptionButton" parent="MarginContainer/VBoxContainer/HSplitContainer/AircraftSelector"]
-margin_top = 34.0
-margin_right = 29.0
-margin_bottom = 60.0
-size_flags_horizontal = 0
-
-[node name="Image" type="TextureRect" parent="MarginContainer/VBoxContainer/HSplitContainer/AircraftSelector"]
-margin_top = 64.0
-margin_right = 485.0
-margin_bottom = 500.0
-size_flags_horizontal = 3
-size_flags_vertical = 3
-expand = true
-stretch_mode = 5
+margin_bottom = 505.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-margin_top = 504.0
+margin_top = 509.0
 margin_right = 984.0
 margin_bottom = 530.0
 alignment = 2
 
 [node name="PlayButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
-margin_left = 948.0
+margin_left = 954.0
 margin_right = 984.0
-margin_bottom = 26.0
+margin_bottom = 21.0
 text = "Go!"
 
 [connection signal="pressed" from="TopBar/BackButton" to="." method="_on_BackButton_pressed"]
-[connection signal="item_selected" from="MarginContainer/VBoxContainer/HSplitContainer/LocationSelector/OptionButton" to="." method="_on_LocationSelector_item_selected"]
-[connection signal="item_selected" from="MarginContainer/VBoxContainer/HSplitContainer/AircraftSelector/OptionButton" to="." method="_on_AircraftSelector_item_selected"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/PlayButton" to="." method="_on_PlayButton_pressed"]

@@ -7,44 +7,24 @@ namespace UI
 {
     public class ConfigScreen : Control
     {
-        private OptionButton aircraftSelector;
-        private TextureRect aircraftThumbnail;
-        private List<ContentManagement.Aircraft> availableAircraft = new();
-
-        private OptionButton locationSelector;
-        private TextureRect locationThumbnail;
-        private List<ContentManagement.Location> availableLocations = new();
+        private AircraftSelector aircraftSelector;
+        private LocationSelector locationSelector;
 
         public override void _Ready()
         {
-            aircraftSelector = GetNode<OptionButton>("MarginContainer/VBoxContainer/HSplitContainer/AircraftSelector/OptionButton");
-            aircraftThumbnail = GetNode<TextureRect>("MarginContainer/VBoxContainer/HSplitContainer/AircraftSelector/Image");
-
-            locationSelector = GetNode<OptionButton>("MarginContainer/VBoxContainer/HSplitContainer/LocationSelector/OptionButton");
-            locationThumbnail = GetNode<TextureRect>("MarginContainer/VBoxContainer/HSplitContainer/LocationSelector/Image");
+            aircraftSelector = GetNode<AircraftSelector>("MarginContainer/VBoxContainer/HSplitContainer/AircraftSelector/");
+            locationSelector = GetNode<LocationSelector>("MarginContainer/VBoxContainer/HSplitContainer/LocationSelector/");
 
             UpdateAvailableContent();
         }
 
         private void UpdateAvailableContent()
         {
-            (availableAircraft, _) = ContentManagement.ContentLoader.FindContent("res://Scenes/Aircraft/");
-            foreach (var a in availableAircraft) aircraftSelector.AddItem(a.Name);
-            _on_AircraftSelector_item_selected(0);
+            var (availableAircraft, _) = ContentManagement.ContentLoader.FindContent("res://Scenes/Aircraft/");
+            aircraftSelector.AvailableAircraft = availableAircraft;
 
-            (_, availableLocations) = ContentManagement.ContentLoader.FindContent("res://Scenes/Locations/");
-            foreach (var l in availableLocations) locationSelector.AddItem(l.Name);
-            _on_LocationSelector_item_selected(0);
-        }
-
-        public void _on_AircraftSelector_item_selected(int index)
-        {
-            aircraftThumbnail.Texture = ResourceLoader.Load<Texture>(availableAircraft[index].GetThumbnailPath());
-        }
-
-        public void _on_LocationSelector_item_selected(int index)
-        {
-            locationThumbnail.Texture = ResourceLoader.Load<Texture>(availableLocations[index].GetThumbnailPath());
+            var (_, availableLocations) = ContentManagement.ContentLoader.FindContent("res://Scenes/Locations/");
+            locationSelector.AvailableLocations = availableLocations;
         }
 
         public void _on_BackButton_pressed()
@@ -54,8 +34,8 @@ namespace UI
 
         public void _on_PlayButton_pressed()
         {
-            var location = ResourceLoader.Load<PackedScene>(availableLocations[locationSelector.Selected].GetScenePath()).Instance<Location>();
-            var aircraft = ResourceLoader.Load<PackedScene>(availableAircraft[aircraftSelector.Selected].GetScenePath()).Instance<RigidBody>();
+            var location = ResourceLoader.Load<PackedScene>(locationSelector.SelectedLocation.GetScenePath()).Instance<Location>();
+            var aircraft = ResourceLoader.Load<PackedScene>(aircraftSelector.SelectedAircraft.GetScenePath()).Instance<RigidBody>();
             location.AddChild(aircraft);
             location.Aircraft = aircraft;
 
