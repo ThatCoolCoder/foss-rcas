@@ -54,6 +54,7 @@ size_flags_vertical = 3
 split_offset = 1
 
 [node name="LocationSelector" parent="MarginContainer/VBoxContainer/HSplitContainer" instance=ExtResource( 5 )]
+margin_right = 487.0
 margin_bottom = 505.0
 
 [node name="AircraftSelector" parent="MarginContainer/VBoxContainer/HSplitContainer" instance=ExtResource( 3 )]

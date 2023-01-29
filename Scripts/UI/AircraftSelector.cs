@@ -2,41 +2,35 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class AircraftSelector : Control
+using ContentManagement;
+
+namespace UI
 {
-    public ContentManagement.Aircraft SelectedAircraft
+    public class AircraftSelector : AbstractContentSelector<Aircraft>
     {
-        get
+        private static readonly Dictionary<AircraftPowerType, string> PowerTypeNames = new()
         {
-            return AvailableAircraft[selector.Selected];
-        }
-    }
+            {AircraftPowerType.ElectricPropeller, "Electric propeller"},
+            {AircraftPowerType.ElectricDuctedFan, "EDF"},
+            {AircraftPowerType.InternalCombustion, "Internal combustion"},
+            {AircraftPowerType.Turbine, "Turbine"},
+            {AircraftPowerType.Other, "Other"},
+        };
 
-    private OptionButton selector;
-    private TextureRect thumbnail;
-    public List<ContentManagement.Aircraft> AvailableAircraft
-    {
-        get
+        protected override string FormatCustomInfo()
         {
-            return _availableAircraft;
-        }
-        set
-        {
-            _availableAircraft = value;
-            selector.Clear();
-            foreach (var a in _availableAircraft) selector.AddItem(a.Name);
-            _on_OptionButton_item_selected(0);
-        }
-    }
-    private List<ContentManagement.Aircraft> _availableAircraft = new();
+            var needsLauncherText = SelectedItem.NeedsLauncher ? "yes" : "no";
+            var formattedPowerType = SelectedItem.CustomPowerType == null
+                ? PowerTypeNames[SelectedItem.PowerType]
+                : SelectedItem.CustomPowerType;
 
-    public override void _Ready()
-    {
-        selector = GetNode<OptionButton>("VBoxContainer/OptionButton");
-        thumbnail = GetNode<TextureRect>("VBoxContainer/Image");
-    }
-    public void _on_OptionButton_item_selected(int index)
-    {
-        thumbnail.Texture = ResourceLoader.Load<Texture>(SelectedAircraft.GetThumbnailPath());
+            return
+$@"Wingspan: {SelectedItem.WingSpan * 1000:0}mm
+Length: {SelectedItem.Length * 1000:0}mm
+Weight: {SelectedItem.Weight:0.000}kg
+Power type: {formattedPowerType}
+Number of channels: {SelectedItem.ChannelCount}
+Hand launched: {needsLauncherText}";
+        }
     }
 }

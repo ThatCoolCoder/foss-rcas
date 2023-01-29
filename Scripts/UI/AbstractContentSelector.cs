@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace UI
 {
@@ -16,6 +17,7 @@ namespace UI
 
         private OptionButton selector;
         private TextureRect thumbnail;
+        private RichTextLabel mainText;
         public List<T> AvailableItems
         {
             get
@@ -36,12 +38,29 @@ namespace UI
         {
             selector = GetNode<OptionButton>("VBoxContainer/OptionButton");
             thumbnail = GetNode<TextureRect>("VBoxContainer/Image");
+            mainText = GetNode<RichTextLabel>("VBoxContainer/RichTextLabel");
         }
         public void _on_OptionButton_item_selected(int index)
         {
             thumbnail.Texture = ResourceLoader.Load<Texture>(SelectedItem.GetThumbnailPath());
+
+            var customInfo = FormatCustomInfo();
+
+            var formattedCredits = String.Join("\n", SelectedItem.Credits.Select(p => $"  {p.Key}: {p.Value}"));
+            if (formattedCredits != "") formattedCredits = "Credits:\n" + formattedCredits;
+
+            var sections = new List<string>()
+            {
+                $" By {SelectedItem.Author}\tVersion: {SelectedItem.Version}\tDate: Put a date here",
+                SelectedItem.Description,
+                customInfo,
+                formattedCredits
+            };
+
+            mainText.BbcodeText = String.Join("\n\n", sections.Select(x => x.Trim()).Where(x => x != ""));
+
         }
 
-        public abstract string FormatCustomInfo();
+        protected abstract string FormatCustomInfo();
     }
 }

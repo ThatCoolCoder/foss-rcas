@@ -21,10 +21,10 @@ namespace UI
         private void UpdateAvailableContent()
         {
             var (availableAircraft, _) = ContentManagement.ContentLoader.FindContent("res://Scenes/Aircraft/");
-            aircraftSelector.AvailableAircraft = availableAircraft;
+            aircraftSelector.AvailableItems = availableAircraft;
 
             var (_, availableLocations) = ContentManagement.ContentLoader.FindContent("res://Scenes/Locations/");
-            locationSelector.AvailableLocations = availableLocations;
+            locationSelector.AvailableItems = availableLocations;
         }
 
         public void _on_BackButton_pressed()
@@ -34,8 +34,8 @@ namespace UI
 
         public void _on_PlayButton_pressed()
         {
-            var location = ResourceLoader.Load<PackedScene>(locationSelector.SelectedLocation.GetScenePath()).Instance<Location>();
-            var aircraft = ResourceLoader.Load<PackedScene>(aircraftSelector.SelectedAircraft.GetScenePath()).Instance<RigidBody>();
+            var location = ResourceLoader.Load<PackedScene>(locationSelector.SelectedItem.GetScenePath()).Instance<Location>();
+            var aircraft = ResourceLoader.Load<PackedScene>(aircraftSelector.SelectedItem.GetScenePath()).Instance<RigidBody>();
             location.AddChild(aircraft);
             location.Aircraft = aircraft;
 
