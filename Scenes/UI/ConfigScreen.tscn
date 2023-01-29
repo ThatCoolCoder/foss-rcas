@@ -121,6 +121,7 @@ margin_right = 984.0
 margin_bottom = 26.0
 text = "Go!"
 
+[connection signal="pressed" from="TopBar/BackButton" to="." method="_on_BackButton_pressed"]
 [connection signal="item_selected" from="MarginContainer/VBoxContainer/HSplitContainer/LocationSelector/OptionButton" to="." method="_on_LocationSelector_item_selected"]
 [connection signal="item_selected" from="MarginContainer/VBoxContainer/HSplitContainer/AircraftSelector/OptionButton" to="." method="_on_AircraftSelector_item_selected"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/PlayButton" to="." method="_on_PlayButton_pressed"]

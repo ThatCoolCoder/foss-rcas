@@ -1,0 +1,16 @@
+name = "FT Tiny Trainer"
+author = "ThatCoolCoder"
+version = "0.1.0"
+description = """
+A simple plane with generally good flying characterics.
+This model is based on the author's example, which happens to be very overweight.
+Despite that, it still has enough power to fly and perform basic maneuvers
+"""
+
+[aircraft]
+wingspan = 0.94
+length = 0.6
+weight = 0.45
+power_type = 0
+channels = 4
+needs_launcher = false

@@ -1,0 +1,10 @@
+name = "Plain Location"
+author = "ThatCoolCoder"
+version = "0.1.0"
+description = """
+A very plain and simple location designed for testing
+"""
+
+[location]
+world_location = "Abstract place"
+elevation = 0

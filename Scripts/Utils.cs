@@ -24,21 +24,29 @@ public static class Utils
         return Mathf.Round(number / roundTo) * roundTo;
     }
 
-    public static List<string> GetItemsInDirectory(string path)
+    public static List<string> GetItemsInDirectory(string path, bool recursive = true)
     {
         var dir = new Directory();
         var files = new List<string>();
+
+        if (!path.EndsWith("/")) path += "/";
 
         if (dir.Open(path) == Error.Ok)
         {
             dir.ListDirBegin();
 
-
             while (true)
             {
-                var file = dir.GetNext();
-                if (file == "") break;
-                files.Add(file);
+                var entry = dir.GetNext();
+                if (entry == "") break;
+
+                var entryPath = dir.GetCurrentDir() + entry;
+
+                if (dir.CurrentIsDir())
+                {
+                    if (recursive && entry != "." && entry != "..") files.AddRange(GetItemsInDirectory(entryPath, recursive));
+                }
+                else files.Add(entryPath);
             }
 
             dir.ListDirEnd();

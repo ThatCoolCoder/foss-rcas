@@ -3,4 +3,7 @@
     <TargetFramework>net472</TargetFramework>
     <LangVersion>9</LangVersion>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Samboy063.Tomlet" Version="5.1.2" />
+  </ItemGroup>
 </Project>
