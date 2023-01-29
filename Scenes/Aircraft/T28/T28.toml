@@ -1,0 +1,19 @@
+name = "T28 Trojan"
+author = "ThatCoolCoder"
+version = "0.1.0"
+description = """
+Based on the infamous T-28 Trojan, this is a fun model that with care can be flown in a park.
+It's only a cheap foamy, so the appearance isn't completely scale, but it still looks great in the air.
+"""
+
+[aircraft]
+wingspan = 0.65
+length = 0.55
+weight = 0.43
+power_type = 0
+channels = 4
+
+[aircraft.launcher]
+speed = 10
+height = 1.5
+angle = 30

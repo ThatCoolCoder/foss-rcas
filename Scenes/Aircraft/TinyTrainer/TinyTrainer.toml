@@ -13,4 +13,3 @@ length = 0.6
 weight = 0.45
 power_type = 0
 channels = 3
-needs_launcher = false

@@ -38,6 +38,7 @@ namespace ContentManagement
                 {
                     var aircraft = TomletMain.To<Aircraft>(tomlString);
                     aircraft.LoadedFrom = filePath;
+                    aircraft.NeedsLauncher = document.ContainsKey("aircraft.launcher");
                     aircraftList.Add(aircraft);
                 }
                 else if (document.ContainsKey("location"))

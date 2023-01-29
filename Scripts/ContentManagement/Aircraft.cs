@@ -12,9 +12,10 @@ namespace ContentManagement
         [PropName("power_type")] public AircraftPowerType PowerType { get; set; }
         [PropName("custom_power_type")] public string CustomPowerType { get; set; } = null;
         [PropName("channels")] public int ChannelCount { get; set; }
-        [PropName("needs_launcher")] public bool NeedsLauncher { get; set; } = false;
-        [PropName("launcher_height")] public float LauncherHeight { get; set; }
-        [PropName("launcher_speed")] public float LauncherSpeed { get; set; }
+        public bool NeedsLauncher { get; set; } = false;
+        [PropName("launcher.height")] public float LauncherHeight { get; set; }
+        [PropName("launcher.speed")] public float LauncherSpeed { get; set; }
+        [PropName("launcher.angle")] public float LauncherAngleDegrees { get; set; }
 
         class PropNameAttribute : TomlPropertyAttribute
         {

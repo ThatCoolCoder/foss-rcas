@@ -32,10 +32,23 @@ namespace UI
             GetTree().ChangeScene("res://Scenes/UI/StartScreen.tscn");
         }
 
+
         public void _on_PlayButton_pressed()
         {
             var location = ResourceLoader.Load<PackedScene>(locationSelector.SelectedItem.GetScenePath()).Instance<Location>();
+            if (aircraftSelector.SelectedItem.NeedsLauncher)
+            {
+                location.LauncherSettings = new()
+                {
+                    Speed = aircraftSelector.SelectedItem.LauncherSpeed,
+                    Height = aircraftSelector.SelectedItem.LauncherHeight,
+                    Angle = Mathf.Deg2Rad(aircraftSelector.SelectedItem.LauncherAngleDegrees),
+                };
+            }
+
             var aircraft = ResourceLoader.Load<PackedScene>(aircraftSelector.SelectedItem.GetScenePath()).Instance<RigidBody>();
+
+
             location.AddChild(aircraft);
             location.Aircraft = aircraft;
 

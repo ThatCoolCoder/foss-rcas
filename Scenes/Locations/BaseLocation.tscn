@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/AngleTracker.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/Physics/Fluids/SpatialFluidBeacon.cs" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Scripts/Physics/Fluids/Air.cs" type="Script" id=4]
 [ext_resource path="res://Scripts/Physics/Fluids/SpatialFluidRepository.cs" type="Script" id=5]
 [ext_resource path="res://Scripts/Location.cs" type="Script" id=6]
+[ext_resource path="res://Scripts/AircraftLauncher.cs" type="Script" id=7]
 
 [node name="BaseLocation" type="Spatial"]
 script = ExtResource( 6 )
@@ -36,3 +37,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.283917, 0 )
 __meta__ = {
 "_editor_description_": "Orient this so that Z-positive is facing in the direction of flight"
 }
+
+[node name="AircraftLauncher" type="Spatial" parent="."]
+script = ExtResource( 7 )

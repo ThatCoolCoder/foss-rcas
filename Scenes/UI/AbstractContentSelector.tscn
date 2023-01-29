@@ -63,4 +63,4 @@ Custom Info
 Credits:
 John Doe: art"
 
-[connection signal="item_selected" from="VBoxContainer/OptionButton" to="VBoxContainer" method="_on_OptionButton_item_selected"]
+[connection signal="item_selected" from="VBoxContainer/OptionButton" to="." method="_on_OptionButton_item_selected"]
