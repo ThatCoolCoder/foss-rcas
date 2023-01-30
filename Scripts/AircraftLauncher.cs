@@ -28,7 +28,7 @@ public class AircraftLauncher : Spatial
 
     public void Launch()
     {
-        if (used) return;
+        if (used || target == null) return;
 
         used = true;
         target.Mode = RigidBody.ModeEnum.Rigid;

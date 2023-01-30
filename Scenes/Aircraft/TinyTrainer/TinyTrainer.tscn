@@ -111,15 +111,18 @@ ParasiticDragCoefficient = ExtResource( 4 )
 AreaMultiplier = 0.5
 Thickness = 0.005
 
-[node name="Elevator" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.015896, -0.358904 )
+[node name="ElevatorHolder" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.998006, -0.0631215, 0, 0.0631215, 0.998006, 0, 0.0133523, -0.357598 )
+
+[node name="Elevator" type="Spatial" parent="ElevatorHolder"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00292868, -0.000963628 )
 script = ExtResource( 7 )
 Reversed = true
 ActionName = "elevator"
 
-[node name="AeroSurface" parent="Elevator" instance=ExtResource( 5 )]
+[node name="AeroSurface" parent="ElevatorHolder/Elevator" instance=ExtResource( 5 )]
 transform = Transform( 0.294853, -3.73431e-07, 0, 1.10107e-07, 1, 0, 0, 0, 0.0398277, 0, 0, -0.0195128 )
-TargetPath = NodePath("../..")
+TargetPath = NodePath("../../..")
 ForLiquid = false
 TotalLiftCoefficient = ExtResource( 9 )
 ParasiticDragCoefficient = ExtResource( 4 )
