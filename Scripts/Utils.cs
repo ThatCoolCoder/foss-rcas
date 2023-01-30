@@ -5,6 +5,13 @@ using System.Linq;
 
 public static class Utils
 {
+    public static void LogError(string message, Node node = null)
+    {
+        if (node == null) GD.PrintErr($"Error: {message}");
+        else GD.PrintErr($"Error: {message} ({node.GetPath().ToString()})");
+        GD.PrintStack();
+    }
+
     public static float MirrorNumber(float number, float mirrorValue)
     {
         if (number < mirrorValue) return number;

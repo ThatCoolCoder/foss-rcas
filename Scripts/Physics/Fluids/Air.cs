@@ -60,9 +60,9 @@ namespace Physics.Fluids
             return 1.293f * DensityMultiplier;
         }
 
-        public float HeightAtPoint(Vector3 _point)
+        public bool ContainsPoint(Vector3 _point)
         {
-            return 0;
+            return true; // air is everywhere
         }
 
         public Vector3 VelocityAtPoint(Vector3 _point)

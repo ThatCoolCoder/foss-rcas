@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Scripts/Physics/SpatialFluidEffectable.cs" type="Script" id=1]
 [ext_resource path="res://Art/Aircraft/TinyTrainer/TinyTrainer.glb" type="PackedScene" id=2]
@@ -9,6 +9,8 @@
 [ext_resource path="res://Scripts/ControlSurface.cs" type="Script" id=7]
 [ext_resource path="res://Scenes/Mirror.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Resources/AeroCurves/FlatPlateLiftCoefficient.tres" type="Curve" id=9]
+[ext_resource path="res://Scripts/Physics/Fluids/Propwash.cs" type="Script" id=10]
+[ext_resource path="res://Scripts/Physics/Fluids/SpatialFluidBeacon.cs" type="Script" id=11]
 
 [sub_resource type="PhysicsMaterial" id=5]
 friction = 0.33
@@ -56,7 +58,14 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0166561, 0.218519 )
 ForLiquid = false
 Radius = 0.06
 ExitSpeed = 27.778
+FreeWheelWhenOff = true
 ThrottleActionName = "throttle"
+
+[node name="Propwash" type="Spatial" parent="ControlledMotor"]
+script = ExtResource( 10 )
+
+[node name="SpatialFluidBeacon" type="Spatial" parent="ControlledMotor/Propwash"]
+script = ExtResource( 11 )
 
 [node name="Wing" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0447151, 0.00252075 )

@@ -8,9 +8,12 @@ namespace Physics.Fluids
     public class SpatialFluidBeacon : Spatial
     {
         [Export] public NodePath FluidPath { get; set; } = null;
+        [Export] public bool Enabled { get; set; } = true;
 
         public override void _Ready()
         {
+            if (!Enabled) return;
+
             var repository = SpatialFluidRepository.FindSpatialFluidRepository(GetTree());
             if (GetParent() is ISpatialFluid f)
             {
@@ -22,7 +25,7 @@ namespace Physics.Fluids
             }
             else
             {
-                GD.PrintErr($"SpatialFluidBeacon is not a child of an ISpatialFluid and has no FluidPath defined ({GetPath()})");
+                Utils.LogError($"SpatialFluidBeacon is not a child of an ISpatialFluid and has no FluidPath defined", this);
             }
         }
     }

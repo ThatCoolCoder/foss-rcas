@@ -10,6 +10,7 @@ namespace Physics.Forcers
         [Export] public float ExitSpeed { get; set; }
         [Export] public float ThrustProportion { get; set; } // -1 to +1
         [Export] public bool FreeWheelWhenOff { get; set; } // If this is true, motor will not generate any drag when thrustproportion = 0
+        public float lastExitSpeed { get; private set; } // last exit speed, relative to world
 
         public override Vector3 CalculateForce(ISpatialFluid fluid, PhysicsDirectBodyState state)
         {
@@ -21,6 +22,8 @@ namespace Physics.Forcers
             var entrySpeed = localVelocity.z;
             var effectiveExitSpeed = ThrustProportion * ExitSpeed;
             var deltaSpeed = effectiveExitSpeed - entrySpeed;
+
+            lastExitSpeed = deltaSpeed;
 
             var area = Mathf.Pi * Radius * Radius;
 

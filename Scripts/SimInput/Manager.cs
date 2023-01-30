@@ -19,7 +19,7 @@ namespace SimInput
             new("aileron", 0),
             new("elevator", 1, multiplier: -1),
             new("rudder", 2),
-            new("throttle", 3, multiplier: -1),
+            new("throttle", 3, multiplier: -1, deadzoneEnd: .025f),
         };
 
         private static Dictionary<int, AxisMapping> axisLookup = new();
@@ -67,7 +67,7 @@ namespace SimInput
             }
             catch (KeyNotFoundException)
             {
-                GD.PrintErr($"Unknown action: {actionName}");
+                Utils.LogError($"Unknown action: {actionName}");
                 return 0;
             }
         }

@@ -33,8 +33,7 @@ namespace Physics.Fluids
             var repository = nodes.Count > 0 ? nodes[0] as SpatialFluidRepository : null;
             if (repository == null)
             {
-                GD.PrintErr($"Unable to find a SpatialFluidRepository in the scene");
-                GD.PrintStack();
+                Utils.LogError($"Unable to find a SpatialFluidRepository in the scene");
             }
             return repository;
         }

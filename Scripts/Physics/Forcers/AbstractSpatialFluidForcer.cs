@@ -13,6 +13,9 @@ namespace Physics.Forcers
         private List<Fluids.FluidType> fluidTypes = new();
         protected SpatialFluidEffectable target { get; private set; }
 
+        // If this is true, does not run CalculateForce on fluids that it's not within. Set this to false if you care about the edges of fluids (eg floating)
+        protected bool autoCheckInsideFluid { get; set; } = true;
+
         public static bool DebugModeActive { get; set; } = (bool)ProjectSettings.GetSetting("global/physics_debug_active");
 
         public override void _Ready()
@@ -35,7 +38,13 @@ namespace Physics.Forcers
         {
             if (!Enabled) return;
 
-            var totalForce = target.Fluids.Where(f => fluidTypes.Contains(f.Type)).Select(f => CalculateForce(f, state)).Aggregate(Vector3.Zero, (prev, next) => prev + next);
+            var candidateFluids = target.Fluids.Where(f => fluidTypes.Contains(f.Type));
+            if (autoCheckInsideFluid)
+            {
+                candidateFluids = candidateFluids.Where(f => f.ContainsPoint(GlobalTranslation));
+            }
+            var totalForce = candidateFluids.Select(f => CalculateForce(f, state))
+                .Aggregate(Vector3.Zero, (prev, next) => prev + next);
             var position = GlobalTranslation;
             if (DebugModeActive)
             {

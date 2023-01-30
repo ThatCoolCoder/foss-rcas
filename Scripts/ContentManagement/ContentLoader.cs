@@ -49,7 +49,7 @@ namespace ContentManagement
                 }
                 else
                 {
-                    GD.PrintErr($"Error parsing {filePath}: no aircraft or location section was present");
+                    Utils.LogError($"Error parsing {filePath}: no aircraft or location section was present");
                 }
             }
 
