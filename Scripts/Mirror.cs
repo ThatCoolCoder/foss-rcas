@@ -11,7 +11,7 @@ public class Mirror : Spatial
 
         duplicate.Translation = duplicate.Translation.WithX(-duplicate.Translation.x);
         duplicate.Scale = duplicate.Scale.WithX(-duplicate.Scale.x);
-        duplicate.Rotation = duplicate.Rotation.WithX(-duplicate.Rotation.z);
+        duplicate.Rotation = duplicate.Rotation.WithZ(-duplicate.Rotation.z);
         duplicate.Name = GetParent<Spatial>().Name + "Mirrored";
 
         duplicate.GetNode(new NodePath(Name)).Free(); // prevent that from having a mirror node and getting into an infinite loop

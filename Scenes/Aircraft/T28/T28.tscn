@@ -129,6 +129,7 @@ Thickness = 0.005
 [node name="Elevator" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00418614, -0.2687 )
 script = ExtResource( 2 )
+MaxDeflectionDegrees = 15.0
 Reversed = true
 ActionName = "elevator"
 
@@ -154,10 +155,11 @@ transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -4.5353
 [node name="Rudder" type="Spatial" parent="RudderHolder"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0117185, -5.1223e-10, 0.0396395 )
 script = ExtResource( 2 )
+MaxDeflectionDegrees = 8.0
 ActionName = "rudder"
 
 [node name="AeroSurface" parent="RudderHolder/Rudder" instance=ExtResource( 5 )]
-transform = Transform( 0.111, -3.73432e-07, 0, 4.14509e-08, 1, 0, 0, 0, 0.0329688, 0.0148292, 1.84335e-09, -0.0142157 )
+transform = Transform( 0.124525, -4.24259e-07, 0, 4.08597e-08, 1, 0, 0, 0, 0.0329688, 0.00725566, 2.1744e-09, -0.0142157 )
 TargetPath = NodePath("../../..")
 ForLiquid = false
 TotalLiftCoefficient = ExtResource( 4 )
