@@ -13,7 +13,6 @@ public class Location : Spatial
     {
         GetNode<GroundCamera>("Camera").Target = Aircraft;
         launcher = GetNode<AircraftLauncher>("AircraftLauncher");
-        GD.Print(Aircraft);
         Reset();
     }
 

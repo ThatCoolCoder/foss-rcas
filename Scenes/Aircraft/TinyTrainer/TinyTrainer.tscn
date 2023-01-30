@@ -48,14 +48,14 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0867387, -0.345285 )
 shape = SubResource( 1 )
 
 [node name="LandingGearCollider" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0640542, 0.105012 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0640542, 0.0815887 )
 shape = SubResource( 4 )
 
 [node name="ControlledMotor" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0166561, 0.218519 )
 ForLiquid = false
 Radius = 0.06
-ExitSpeed = 500.0
+ExitSpeed = 27.778
 ThrottleActionName = "throttle"
 
 [node name="Wing" type="Spatial" parent="."]
