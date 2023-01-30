@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -16,7 +17,9 @@ namespace Physics.Forcers
         // If this is true, does not run CalculateForce on fluids that it's not within. Set this to false if you care about the edges of fluids (eg floating)
         protected bool autoCheckInsideFluid { get; set; } = true;
 
-        public static bool DebugModeActive { get; set; } = (bool)ProjectSettings.GetSetting("global/physics_debug_active");
+        public static bool DebugModeActive { get; private set; } = (bool)ProjectSettings.GetSetting("global/physics_debug_active");
+        protected static event Action onDebugModeChanged;
+        private bool debugModeWasActive = false;
 
         public override void _Ready()
         {
@@ -27,6 +30,8 @@ namespace Physics.Forcers
 
             if (ForLiquid) fluidTypes.Add(Fluids.FluidType.Liquid);
             else fluidTypes.Add(Fluids.FluidType.Gas);
+
+            debugModeWasActive = DebugModeActive;
 
             base._Ready();
         }
@@ -46,6 +51,7 @@ namespace Physics.Forcers
             var totalForce = candidateFluids.Select(f => CalculateForce(f, state))
                 .Aggregate(Vector3.Zero, (prev, next) => prev + next);
             var position = GlobalTranslation;
+            if (debugModeWasActive) DebugLineDrawer.ClearLinesStatic(this);
             if (DebugModeActive)
             {
                 DebugLineDrawer.RegisterLineStatic(this, GlobalTranslation, GlobalTranslation + totalForce);
@@ -53,11 +59,20 @@ namespace Physics.Forcers
 
             position -= target.GlobalTransform.origin;
             state.AddForce(totalForce, position);
+
+            debugModeWasActive = DebugModeActive;
+        }
+
+        public static void SetDebugModeActive(bool newDebugModeActive)
+        {
+            DebugModeActive = newDebugModeActive;
+            if (onDebugModeChanged != null) onDebugModeChanged.Invoke();
         }
 
         public override void _ExitTree()
         {
             target.UnregisterForcer(this);
+            if (debugModeWasActive) DebugLineDrawer.ClearLinesStatic(this);
         }
     }
 }

@@ -35,8 +35,8 @@ namespace Physics.Forcers
 
         public override void _Ready()
         {
-            GetNode<Spatial>("CSGBox").Visible = DebugModeActive;
-
+            UpdateDebugBoxVisibility();
+            onDebugModeChanged += UpdateDebugBoxVisibility;
             base._Ready();
         }
 
@@ -156,6 +156,16 @@ namespace Physics.Forcers
         {
             // Checks if the lift vector should point up or down depending on the AOA
             return (aoa < Mathf.Pi / 2 || aoa > Mathf.Pi && aoa < Mathf.Pi * 1.5f);
+        }
+
+        private void UpdateDebugBoxVisibility()
+        {
+            GetNode<Spatial>("CSGBox").Visible = DebugModeActive;
+        }
+
+        public override void _ExitTree()
+        {
+            onDebugModeChanged -= UpdateDebugBoxVisibility;
         }
     }
 }
