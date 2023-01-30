@@ -62,10 +62,10 @@ namespace Physics.Fluids
 
         private float AngleToPoint(Vector3 globalPoint)
         {
-            var local = ToLocal(globalPoint); // todo: don't know if tolocal actually takes into account rotation like it ought to
+            var local = ToLocal(globalPoint);
             var squashed = new Vector2(local.x, local.y);
             var sideDisplacement = squashed.Length();
-            return Mathf.Atan2(sideDisplacement, -local.z);
+            return Mathf.Atan2(sideDisplacement, local.z);
         }
 
         public FluidType Type { get; set; } = FluidType.Gas;

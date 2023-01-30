@@ -23,7 +23,7 @@ public class AircraftLauncher : Spatial
         target.LinearVelocity = Vector3.Zero;
         target.AngularVelocity = Vector3.Zero;
         target.Translation = new Vector3(0, Settings.Height, 0);
-        target.Rotation = new Vector3(-Settings.Angle, Rotation.y, 0);
+        target.Rotation = new Vector3(Settings.Angle, Rotation.y, 0);
     }
 
     public void Launch()
@@ -32,6 +32,6 @@ public class AircraftLauncher : Spatial
 
         used = true;
         target.Mode = RigidBody.ModeEnum.Rigid;
-        target.LinearVelocity = (Vector3.Forward * Settings.Speed).Rotated(Vector3.Right, Settings.Angle).Rotated(Vector3.Up, Rotation.y + Mathf.Pi);
+        target.LinearVelocity = (Vector3.Forward * Settings.Speed).Rotated(Vector3.Right, Settings.Angle).Rotated(Vector3.Up, Rotation.y);
     }
 }

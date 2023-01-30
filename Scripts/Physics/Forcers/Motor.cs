@@ -19,7 +19,7 @@ namespace Physics.Forcers
             var density = fluid.DensityAtPoint(GlobalTransform.origin);
             var relativeVelocity = state.GetVelocityAtGlobalPosition(target, this) - fluid.VelocityAtPoint(GlobalTransform.origin);
             var localVelocity = GlobalTransform.basis.XformInv(relativeVelocity);
-            var entrySpeed = localVelocity.z;
+            var entrySpeed = -localVelocity.z;
             var effectiveExitSpeed = ThrustProportion * ExitSpeed;
             var deltaSpeed = effectiveExitSpeed - entrySpeed;
 
@@ -31,7 +31,7 @@ namespace Physics.Forcers
 
             var force = density * velocityAtDisk * area * deltaSpeed;
 
-            return GlobalTransform.basis.z * force;
+            return -GlobalTransform.basis.z * force;
         }
     }
 }
