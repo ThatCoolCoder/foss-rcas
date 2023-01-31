@@ -50,18 +50,34 @@ custom_constants/separation = 40
 alignment = 1
 
 [node name="PlayButton" parent="VBoxContainer/ButtonsHolder" instance=ExtResource( 7 )]
-margin_left = 441.0
-margin_right = 485.0
+margin_left = 331.0
+margin_right = 375.0
 margin_bottom = 29.0
 custom_fonts/font = ExtResource( 3 )
 text = "Play"
 ScenePath = "res://Scenes/UI/FlightSettings/FlightSettingsScreen.tscn"
 
+[node name="SettingsButton" parent="VBoxContainer/ButtonsHolder" instance=ExtResource( 7 )]
+margin_left = 415.0
+margin_right = 489.0
+margin_bottom = 29.0
+custom_fonts/font = ExtResource( 3 )
+text = "Settings"
+ScenePath = "res://Scenes/UI/Settings/SettingsScreen.tscn"
+
 [node name="AboutButton" type="Button" parent="VBoxContainer/ButtonsHolder"]
-margin_left = 525.0
-margin_right = 583.0
+margin_left = 529.0
+margin_right = 587.0
 margin_bottom = 29.0
 custom_fonts/font = ExtResource( 3 )
 text = "About"
+
+[node name="CreditsButton" parent="VBoxContainer/ButtonsHolder" instance=ExtResource( 7 )]
+margin_left = 627.0
+margin_right = 692.0
+margin_bottom = 29.0
+custom_fonts/font = ExtResource( 3 )
+text = "Credits"
+ScenePath = "res://Scenes/UI/Credits.tscn"
 
 [connection signal="pressed" from="VBoxContainer/ButtonsHolder/AboutButton" to="." method="_on_AboutButton_pressed"]

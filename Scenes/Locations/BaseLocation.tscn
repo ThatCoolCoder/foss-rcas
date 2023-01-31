@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/GroundCamera.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/Physics/Fluids/SpatialFluidBeacon.cs" type="Script" id=2]
@@ -7,8 +7,7 @@
 [ext_resource path="res://Scripts/Physics/Fluids/SpatialFluidRepository.cs" type="Script" id=5]
 [ext_resource path="res://Scripts/Location.cs" type="Script" id=6]
 [ext_resource path="res://Scripts/AircraftLauncher.cs" type="Script" id=7]
-[ext_resource path="res://Resources/Fonts/Heading2.tres" type="DynamicFont" id=8]
-[ext_resource path="res://Scenes/UI/Misc/SceneOpenerButton.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/UI/Misc/BackButton.tscn" type="PackedScene" id=8]
 
 [node name="BaseLocation" type="Spatial"]
 script = ExtResource( 6 )
@@ -63,12 +62,12 @@ mouse_filter = 1
 margin_right = 1004.0
 margin_bottom = 29.0
 
-[node name="BackButton" parent="CanvasLayer/HUD/VSplitContainer/TopBar" instance=ExtResource( 9 )]
+[node name="BackButton" parent="CanvasLayer/HUD/VSplitContainer/TopBar" instance=ExtResource( 8 )]
+margin_left = 0.0
+margin_top = 0.0
 margin_right = 48.0
 margin_bottom = 29.0
-custom_fonts/font = ExtResource( 8 )
-text = "Back"
-ScenePath = "res://Scenes/UI/ConfigScreen.tscn"
+ScenePath = "res://Scenes/UI/FlightSettings/FlightSettingsScreen.tscn"
 
 [node name="BottomBar" type="Control" parent="CanvasLayer/HUD/VSplitContainer"]
 margin_top = 580.0

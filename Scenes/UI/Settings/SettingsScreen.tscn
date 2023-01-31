@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/UI/Misc/Heading.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/UI/Misc/BackButton.tscn" type="PackedScene" id=2]
+
+[node name="SettingsScreen" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+rect_pivot_offset = Vector2( -483, -148 )
+
+[node name="BackButton" parent="." instance=ExtResource( 2 )]
+ScenePath = "res://Scenes/UI/StartScreen.tscn"
+
+[node name="Heading" parent="." instance=ExtResource( 1 )]
+Text = "Settings"

@@ -1,10 +1,17 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scenes/UI/FlightSettings/AbstractContentSelector.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scripts/UI/LocationSelector.cs" type="Script" id=2]
+[ext_resource path="res://Scripts/UI/FlightSettings/LocationSelector.cs" type="Script" id=2]
 
 [node name="LocationSelector" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
+[node name="VBoxContainer" parent="." index="0"]
+margin_right = 473.0
+margin_bottom = 71.0
+
 [node name="Heading" parent="VBoxContainer" index="0"]
 text = "Location"
+
+[node name="OptionButton" parent="VBoxContainer" index="1"]
+items = [ "Content name", null, false, 0, null ]
