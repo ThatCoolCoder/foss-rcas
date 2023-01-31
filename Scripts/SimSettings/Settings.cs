@@ -18,6 +18,11 @@ namespace SimSettings
         public static readonly string SavePath = "user://settings.toml";
         public static Settings Current { get; private set; } = null;
 
+        public static void SetCurrent(Settings settings)
+        {
+            Current = Clone(settings);
+        }
+
         public static Settings Load()
         {
             using var f = new File();
@@ -30,7 +35,7 @@ namespace SimSettings
                 return new Settings();
             }
         }
-        public static void LoadCurrentSettings()
+        public static void LoadCurrent()
         {
             Current = Load();
         }
@@ -42,9 +47,20 @@ namespace SimSettings
             f.StoreString(TomletMain.TomlStringFrom(settings));
         }
 
-        public static void SaveCurrentSettings()
+        public static void SaveCurrent()
         {
             Save(Current);
+        }
+
+        public static Settings Clone(Settings settings)
+        {
+            // Some might consider this hacky, I think it's not since we already have ensured that the TOML conversion is safe
+            return TomletMain.To<Settings>(TomletMain.TomlStringFrom(settings));
+        }
+
+        public static Settings CloneCurrent()
+        {
+            return Clone(Current);
         }
 
         #endregion StaticSection

@@ -8,7 +8,7 @@ namespace UI
     {
         public override void _Ready()
         {
-            SimSettings.Settings.LoadCurrentSettings();
+            SimSettings.Settings.LoadCurrent();
         }
 
         public void _on_PlayButton_pressed()

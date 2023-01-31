@@ -39,3 +39,4 @@ Todo:
 - It's likely that godot won't include the aircraft metadata .toml files in export, so tell it that they're assets
 - Make all "modules" instanceable scenes? (instead of just scripts)
 - Electrics simulation to optionally simulate battery drain.
+    - apply this to other engine types too

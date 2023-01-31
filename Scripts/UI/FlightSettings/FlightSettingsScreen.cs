@@ -34,7 +34,7 @@ namespace UI
         {
             SimSettings.Settings.Current.LastLoadedAircraft = aircraftSelector.SelectedItem.LoadedFrom;
             SimSettings.Settings.Current.LastLoadedLocation = locationSelector.SelectedItem.LoadedFrom;
-            SimSettings.Settings.SaveCurrentSettings();
+            SimSettings.Settings.SaveCurrent();
         }
 
         private void TryLoadLastLoaded<T>(string lastLoadedPath, AbstractContentSelector<T> selector) where T : ContentManagement.ContentItem
