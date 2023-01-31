@@ -11,7 +11,9 @@ public class Location : Spatial
 
     public override void _Ready()
     {
-        GetNode<GroundCamera>("Camera").Target = Aircraft;
+        var camera = GetNode<GroundCamera>("Camera");
+        camera.Target = Aircraft;
+        camera.ZoomSettings = SimSettings.Settings.Current.GroundCameraZoomSettings;
         launcher = GetNode<AircraftLauncher>("AircraftLauncher");
         Reset();
     }

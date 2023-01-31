@@ -61,6 +61,18 @@ namespace UI
 
         }
 
+        public void SelectItem(int index)
+        {
+            if (index >= AvailableItems.Count || index < 0)
+            {
+                Utils.LogError($"Requested to select item at index {index} but there are only {AvailableItems.Count}", this);
+                return;
+            }
+
+            selector.Select(index);
+            _on_OptionButton_item_selected(index);
+        }
+
         protected abstract string FormatCustomInfo();
     }
 }

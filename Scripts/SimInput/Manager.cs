@@ -12,7 +12,7 @@ namespace SimInput
         // Todo: add support for customisation of controls, and for more channels.
         // Possible todo: see if there is any way to get rid of this by writing a custom module for the regular input manager.
 
-        private static Manager instance;
+        private static Manager Instance;
 
         public static List<AxisMapping> AxisMappings = new()
         {
@@ -35,12 +35,12 @@ namespace SimInput
 
         public override void _EnterTree()
         {
-            instance = this;
+            Instance = this;
         }
 
         public override void _ExitTree()
         {
-            instance = null;
+            Instance = null;
         }
 
         public override void _Input(InputEvent _event)

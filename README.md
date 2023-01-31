@@ -8,15 +8,20 @@ All units are the base SI units unless explcitly stated so.
 
 In accordance with Godot convention, -z is forward. In Blender +y is forward.
 
-A note on singletons+autoload in this project: there have been a few cases where autoload was desirable. Unfortuantely, because this is C#, the automatic global variable feature is not available like in GDscript. So instead we use the singleton pattern, in which the instance is registered by the non-static part of the class when it enters/exits tree.
+A note on singletons+autoload in this project: there have been a few cases where autoload was desirable. Unfortunately, because this is C#, the automatic global variable feature is not available like in GDscript. So instead we use the singleton pattern, in which the instance is registered by the non-static autoloaded part of the class when it enters/exits tree.
+
+ctrl+d to toggle debug mode, r to reset plane, space to launch plane, ctrl+shift+r to restart entire simulator.
 
 Todo:
-- improve wing physics: allow importing some better format of curves and have it so that the AOA curves are not stupidly symmetrical 
+- improve wing physics: allow importing some better format of curves and have it so that the AOA curves are not always symmetrical 
 - add body drag
+- make the WIP settings system only save on exit?
 - add settings screen to configure various things
-    - as part of the settings, remember what the last plane you flew was
+    - as part of the settings, remember what previous plane and location was
     - add custom mapping of controller axis to sim axis (eg axis01 -> aileron)
+        - while we're at it, might as well move the rest of the input to siminputmanager?
 - add support for controls mixing and trimming (on a per-aircraft basis)
+    - I suggest adding a ControlHub node that the controllables can then query.
     - While users could configure this on their TXs, it seems nice to let them create a single generic sim model and have at least the mixing done automatically.
     - Plus, some people might be using gamepads or other input methods anyway.
     - Likely would be best to implement this through some text-based format (toml?)

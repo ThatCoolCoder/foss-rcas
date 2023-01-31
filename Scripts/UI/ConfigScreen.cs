@@ -16,6 +16,9 @@ namespace UI
             locationSelector = GetNode<LocationSelector>("MarginContainer/VBoxContainer/HSplitContainer/LocationSelector/");
 
             UpdateAvailableContent();
+
+            TryLoadLastLoaded(SimSettings.Settings.Current.LastLoadedAircraft, aircraftSelector);
+            TryLoadLastLoaded(SimSettings.Settings.Current.LastLoadedLocation, locationSelector);
         }
 
         private void UpdateAvailableContent()
@@ -25,6 +28,21 @@ namespace UI
 
             var (_, availableLocations) = ContentManagement.ContentLoader.FindContent("res://Scenes/Locations/");
             locationSelector.AvailableItems = availableLocations;
+        }
+
+        private void RememberLastLoadedContent()
+        {
+            SimSettings.Settings.Current.LastLoadedAircraft = aircraftSelector.SelectedItem.LoadedFrom;
+            SimSettings.Settings.Current.LastLoadedLocation = locationSelector.SelectedItem.LoadedFrom;
+            SimSettings.Settings.SaveCurrentSettings();
+        }
+
+        private void TryLoadLastLoaded<T>(string lastLoadedPath, AbstractContentSelector<T> selector) where T : ContentManagement.ContentItem
+        {
+            // Try loading the thing that was loaded the previous time
+
+            var index = selector.AvailableItems.FindIndex(x => x.LoadedFrom == lastLoadedPath);
+            if (index > 0) selector.SelectItem(index);
         }
 
         public void _on_BackButton_pressed()
@@ -48,7 +66,6 @@ namespace UI
 
             var aircraft = ResourceLoader.Load<PackedScene>(aircraftSelector.SelectedItem.GetScenePath()).Instance<RigidBody>();
 
-
             location.AddChild(aircraft);
             location.Aircraft = aircraft;
 
@@ -58,6 +75,8 @@ namespace UI
             root.AddChild(location);
             tree.CurrentScene = location;
             QueueFree();
+
+            RememberLastLoadedContent();
         }
     }
 }

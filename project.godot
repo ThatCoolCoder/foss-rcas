@@ -22,7 +22,7 @@ GlobalKeybinds="*res://Scripts/GlobalKeybinds.cs"
 
 [global]
 
-physics_debug_active=true
+physics_debug_active=false
 
 [input]
 
