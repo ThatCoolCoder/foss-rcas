@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Resources/Theme.tres" type="Theme" id=1]
 [ext_resource path="res://Resources/Fonts/Heading0.tres" type="DynamicFont" id=2]
 [ext_resource path="res://Resources/Fonts/Heading2.tres" type="DynamicFont" id=3]
 [ext_resource path="res://Resources/Fonts/Heading1.tres" type="DynamicFont" id=4]
 [ext_resource path="res://Scripts/UI/StartScreen.cs" type="Script" id=5]
+[ext_resource path="res://Scenes/UI/Misc/SceneOpenerButton.tscn" type="PackedScene" id=7]
 
 [node name="StartScreen" type="Control"]
 anchor_right = 1.0
@@ -48,12 +49,13 @@ margin_bottom = 391.0
 custom_constants/separation = 40
 alignment = 1
 
-[node name="PlayButton" type="Button" parent="VBoxContainer/ButtonsHolder"]
+[node name="PlayButton" parent="VBoxContainer/ButtonsHolder" instance=ExtResource( 7 )]
 margin_left = 441.0
 margin_right = 485.0
 margin_bottom = 29.0
 custom_fonts/font = ExtResource( 3 )
 text = "Play"
+ScenePath = "res://Scenes/UI/FlightSettings/FlightSettingsScreen.tscn"
 
 [node name="AboutButton" type="Button" parent="VBoxContainer/ButtonsHolder"]
 margin_left = 525.0
@@ -62,5 +64,4 @@ margin_bottom = 29.0
 custom_fonts/font = ExtResource( 3 )
 text = "About"
 
-[connection signal="pressed" from="VBoxContainer/ButtonsHolder/PlayButton" to="." method="_on_PlayButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/ButtonsHolder/AboutButton" to="." method="_on_AboutButton_pressed"]

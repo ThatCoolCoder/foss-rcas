@@ -1,6 +1,5 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Resources/Fonts/Heading2.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Resources/Theme.tres" type="Theme" id=2]
 [ext_resource path="res://Scripts/UI/AircraftSelector.cs" type="Script" id=3]
 [ext_resource path="res://Scenes/Aircraft/TinyTrainer/TinyTrainer.png" type="Texture" id=4]
@@ -31,18 +30,17 @@ valign = 1
 
 [node name="OptionButton" type="OptionButton" parent="VBoxContainer"]
 margin_top = 39.0
-margin_right = 139.0
-margin_bottom = 68.0
+margin_right = 116.0
+margin_bottom = 63.0
 size_flags_horizontal = 0
-custom_fonts/font = ExtResource( 1 )
 text = "Content name"
 items = [ "Content name", null, false, 0, null ]
 selected = 0
 
 [node name="Image" type="TextureRect" parent="VBoxContainer"]
-margin_top = 72.0
+margin_top = 67.0
 margin_right = 485.0
-margin_bottom = 331.0
+margin_bottom = 329.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 texture = ExtResource( 4 )
@@ -50,7 +48,7 @@ expand = true
 stretch_mode = 5
 
 [node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer"]
-margin_top = 335.0
+margin_top = 333.0
 margin_right = 485.0
 margin_bottom = 595.0
 size_flags_vertical = 3

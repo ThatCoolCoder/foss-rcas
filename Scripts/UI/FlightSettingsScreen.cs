@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace UI
 {
-    public class ConfigScreen : Control
+    public class FlightSettingsScreen : Control
     {
         private AircraftSelector aircraftSelector;
         private LocationSelector locationSelector;
