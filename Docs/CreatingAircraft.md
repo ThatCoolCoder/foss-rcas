@@ -4,13 +4,49 @@ This is a preliminary document and needs to be expanded on in the future.
 
 ## Prerequisites
 
-While it might be technically possible to create models without installing the Godot engine, it's recommended that you do.
+While it might be technically possible to create models without installing the Godot engine, the easiest way to make models is to install the Godot engine and download the source code for 
 
 ## Modelling
 
 The modelling process can be done in whatever 3d software you want, provided that it can export to GLTF.
 
 For your first model, it might be prefereable to skip this step and build the craft using the CSG primitives in Godot.
+
+## Metadata and filesystem
+
+A `.toml` file is used to define your aircraft and make it loadable. Below is an example file:
+
+```toml
+name = "My Amazing Plane" # display name
+author = "Your name"
+version = "0.1.0"
+description = """
+This plane is very amazing. It flies beautifully.
+"""
+
+[aircraft]
+wingspan = 0.75 # (metres)
+length = 0.55
+weight = 0.3 # (kilograms)
+power_type = 4 # see the subsection "Power Types"
+custom_power_type = "One jet and one prop" # If this is specified, overrides the power type specified above
+channels = 4
+
+[aircraft.launcher] # This section is optional, if it's not present then the craft is placed on the ground
+speed = 10 # metres per second
+height = 1.5 # metres above ground that it's launched from
+angle = 30 # upward angle (in degrees) that the craft is launched at
+```
+
+The file should be located in a subfolder with the same name as itself. Along with this there should be a PNG thumbnail (1024x600px) and a .tscn file with the same name. For example:
+```
+Scenes
+|-- Aircraft
+    |-- MyAmazingPlane
+    |   |-- MyAmazingPlane.png
+    |   |-- MyAmazingPlane.toml
+    |   |-- MyAmazingPlane.tscn
+```
 
 ## Node setup
 
@@ -55,42 +91,6 @@ A basic propeller/edf motor can be created using a `Motor` . But this isn't cont
 
 It's possible to simulate propwash by adding a `PropWash` node as a child of a Motor. To make the propwash actually do anything, it needs a `SpatialFluidBeacon` as a child.
 
-## Metadata
-
-A `.toml` file is used to define your aircraft and make it loadable. Below is an example file:
-
-```toml
-name = "My Amazing Plane" # display name
-author = "Your name"
-version = "0.1.0"
-description = """
-This plane is very amazing. It flies beautifully.
-"""
-
-[aircraft]
-wingspan = 0.75 # (metres)
-length = 0.55
-weight = 0.3 # (kilograms)
-power_type = 4 # see the subsection "Power Types"
-custom_power_type = "One jet and one prop" # If this is specified, overrides the power type specified above
-channels = 4
-
-[aircraft.launcher] # This section is optional, if it's not present then the craft is placed on the ground
-speed = 10 # metres per second
-height = 1.5 # metres above ground that it's launched from
-angle = 30 # upward angle (in degrees) that the craft is launched at
-```
-
-The file should be located in a subfolder with the same name as itself. Along with this there should be a PNG thumbnail (1024x600px) and a .tscn file with the same name. For example:
-```
-Main Aircraft Folder
-|-- MyAmazingPlane
-    |-- MyAmazingPlane.png
-    |-- MyAmazingPlane.toml
-    |-- MyAmazingPlane.tscn
-
-```
-
 #### Power types
 ```
 Electric propeller      0
@@ -102,4 +102,6 @@ Other                   4
 
 ## Distributing
 
-Currently there is no system for loading 3rd-party models, but I need to write about how to make the paths relative so that the craft can be loaded when there is such a system.
+If your goal was to create an aircraft to be added to the base set, then no further distributing is needed. Simply create a pull request to the repository with your changes. Note that while new aircraft are currently welcome, some degree of quality is required, and at some point the base repository will stop accepting new models.
+
+If you want to distribute your aircraft as an addon, unfortunately that is not possible yet. Currently there is no system for loading 3rd-party models. When there is, I need to write about how to make the paths relative so that addon craft can be loaded.
