@@ -68,7 +68,7 @@ script = ExtResource( 10 )
 script = ExtResource( 11 )
 
 [node name="Wing" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0447151, -0.00303788 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0447151, -0.0294717 )
 __meta__ = {
 "_editor_description_": "The wing is done in sections so that we get good-enough rolling resistance. Only half is made, then it is mirrored"
 }

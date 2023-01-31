@@ -30,7 +30,7 @@ Todo:
     - procedural
     - can link motor sound to an advanced motor simulation? (rpm, air disturbance factor)
 - possibly rework physics system to support non-fluid effectors
-- Even though the CG is apparently already really far back, the models feel nose heavy. If I move the CG further back, they don't become tailheavy, but they have weird rolling movements while pitching (asymmetric stall?)
+- Even though the CG is apparently already really far back, the models don't fly tailheavy. If I move the CG further back, they become suddenly very tailheavy"
 - Should spatialfluidrepository become an autoload singleton?
 - Make mod system
     - Scanning for aircraft files in other directories is not difficult
