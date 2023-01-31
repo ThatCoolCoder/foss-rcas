@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-namespace UI
+namespace UI.FlightSettings
 {
     public class LocationSelector : AbstractContentSelector<ContentManagement.Location>
     {

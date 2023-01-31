@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace UI
+namespace UI.FlightSettings
 {
     public abstract class AbstractContentSelector<T> : Control where T : ContentManagement.ContentItem
     {

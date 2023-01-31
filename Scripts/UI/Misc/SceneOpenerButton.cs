@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-namespace UI
+namespace UI.Misc
 {
     public class SceneOpenerButton : Button
     {

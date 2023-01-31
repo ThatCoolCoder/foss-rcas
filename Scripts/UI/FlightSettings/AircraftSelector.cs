@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 using ContentManagement;
 
-namespace UI
+namespace UI.FlightSettings
 {
     public class AircraftSelector : AbstractContentSelector<Aircraft>
     {

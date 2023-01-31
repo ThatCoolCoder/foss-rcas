@@ -7,7 +7,7 @@ using Tomlet;
 
 namespace ContentManagement
 {
-    public static class ContentLoader
+    public static class Loader
     {
         public static (List<Aircraft>, List<Location>) FindContent(string path)
         {

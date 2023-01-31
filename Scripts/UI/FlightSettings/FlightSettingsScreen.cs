@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace UI
+namespace UI.FlightSettings
 {
     public class FlightSettingsScreen : Control
     {
@@ -12,21 +12,23 @@ namespace UI
 
         public override void _Ready()
         {
-            aircraftSelector = GetNode<AircraftSelector>("MarginContainer/VBoxContainer/HSplitContainer/AircraftSelector/");
-            locationSelector = GetNode<LocationSelector>("MarginContainer/VBoxContainer/HSplitContainer/LocationSelector/");
+            aircraftSelector = GetNode<AircraftSelector>("MarginContainer/VBoxContainer/HSplitContainer/AircraftSelector");
+            locationSelector = GetNode<LocationSelector>("MarginContainer/VBoxContainer/HSplitContainer/LocationSelector");
 
             UpdateAvailableContent();
 
-            TryLoadLastLoaded(SimSettings.Settings.Current.LastLoadedAircraft, aircraftSelector);
-            TryLoadLastLoaded(SimSettings.Settings.Current.LastLoadedLocation, locationSelector);
+            // Try load the most recently used content
+            TrySelectFromPath(SimSettings.Settings.Current.LastLoadedAircraft, aircraftSelector);
+            TrySelectFromPath(SimSettings.Settings.Current.LastLoadedLocation, locationSelector);
         }
 
         private void UpdateAvailableContent()
         {
-            var (availableAircraft, _) = ContentManagement.ContentLoader.FindContent("res://Scenes/Aircraft/");
-            aircraftSelector.AvailableItems = availableAircraft;
+            var (availableAircraft, availableLocations) = ContentManagement.Loader.FindContent(SimSettings.Settings.Current.AddOnRepositoryPath);
+            availableAircraft.AddRange(ContentManagement.Loader.FindContent(ContentManagement.Repositories.BaseAircraft).Item1);
+            availableLocations.AddRange(ContentManagement.Loader.FindContent(ContentManagement.Repositories.BaseLocations).Item2);
 
-            var (_, availableLocations) = ContentManagement.ContentLoader.FindContent("res://Scenes/Locations/");
+            aircraftSelector.AvailableItems = availableAircraft;
             locationSelector.AvailableItems = availableLocations;
         }
 
@@ -37,9 +39,9 @@ namespace UI
             SimSettings.Settings.SaveCurrent();
         }
 
-        private void TryLoadLastLoaded<T>(string lastLoadedPath, AbstractContentSelector<T> selector) where T : ContentManagement.ContentItem
+        private void TrySelectFromPath<T>(string lastLoadedPath, AbstractContentSelector<T> selector) where T : ContentManagement.ContentItem
         {
-            // Try loading the thing that was loaded the previous time
+            // Try selecting the item that was loaded from a specific path
 
             var index = selector.AvailableItems.FindIndex(x => x.LoadedFrom == lastLoadedPath);
             if (index > 0) selector.SelectItem(index);

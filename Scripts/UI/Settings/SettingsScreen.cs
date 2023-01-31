@@ -12,6 +12,8 @@ public class SettingsScreen : Control
     public override void _Ready()
     {
         NewSettings = Settings.CloneCurrent();
+
+
     }
 
     public void _on_Revert_pressed()
@@ -32,5 +34,10 @@ public class SettingsScreen : Control
         if (OnSettingsChanged != null) OnSettingsChanged.Invoke();
 
         GetTree().ChangeScene("res://Scenes/UI/StartScreen.tscn");
+    }
+
+    public override void _ExitTree()
+    {
+        OnSettingsChanged = null;
     }
 }

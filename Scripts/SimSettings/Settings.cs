@@ -12,6 +12,7 @@ namespace SimSettings
         public string LastLoadedAircraft { get; set; } = null;
         public string LastLoadedLocation { get; set; } = null;
         public int PhysicsFps { get; set; } = 1000; // might as well make this configurable since 1000 might be a bit much on slow computers
+        public string AddOnRepositoryPath { get; set; } = "user://AddOnContent/";
 
         #region StaticSection
 
