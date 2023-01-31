@@ -27,6 +27,7 @@ namespace ContentManagement
                 return content;
             });
 
+
             var parser = new TomlParser();
             foreach (var pair in fileMap)
             {

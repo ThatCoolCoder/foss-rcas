@@ -20,6 +20,7 @@ A `.toml` file is used to define your aircraft and make it loadable. Below is an
 name = "My Amazing Plane" # display name
 author = "Your name"
 version = "0.1.0"
+date_updated = 2023-01-31
 description = """
 This plane is very amazing. It flies beautifully.
 """

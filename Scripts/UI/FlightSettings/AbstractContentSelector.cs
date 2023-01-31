@@ -49,9 +49,10 @@ namespace UI
             var formattedCredits = String.Join("\n", SelectedItem.Credits.Select(p => $"  {p.Key}: {p.Value}"));
             if (formattedCredits != "") formattedCredits = "Credits:\n" + formattedCredits;
 
+            var formattedDate = SelectedItem.DateUpdated.ToString("dd MMMM yyyy");
             var sections = new List<string>()
             {
-                $" By {SelectedItem.Author}\tVersion: {SelectedItem.Version}\tDate: Put a date here",
+                $" By {SelectedItem.Author}\tVersion {SelectedItem.Version}\tUpdated {formattedDate}",
                 SelectedItem.Description,
                 customInfo,
                 formattedCredits

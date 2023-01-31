@@ -1,6 +1,7 @@
 name = "Plain Location"
 author = "ThatCoolCoder"
 version = "0.1.0"
+date_updated = 2023-01-30
 description = """
 A very plain and simple location designed for testing
 """

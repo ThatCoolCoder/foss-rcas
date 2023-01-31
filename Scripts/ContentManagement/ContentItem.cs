@@ -12,7 +12,7 @@ namespace ContentManagement
         [TomlProperty("author")] public string Author { get; set; } = "";
 
         [TomlProperty("version")] public string Version { get; set; } = "";
-        // public DateTime Date { get; set; }
+        [TomlProperty("date_updated")] public DateTime DateUpdated { get; set; } = DateTime.MinValue;
 
         [TomlProperty("description")] public string Description { get; set; } = "";
 
