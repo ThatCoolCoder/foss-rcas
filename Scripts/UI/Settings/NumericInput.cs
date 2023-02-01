@@ -5,10 +5,8 @@ using System;
 
 namespace UI.Settings
 {
-    public class NumericInput : HSplitContainer
+    public class NumericInput : SettingsRow
     {
-        private SettingReader<int> get;
-        private SettingWriter<int> set;
 
         NumericInput(SettingReader<int> _get, SettingWriter<int> _set)
         {
