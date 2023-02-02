@@ -9,18 +9,9 @@ namespace SimInput
     {
         // Godot's default input manager is woefully lacking in that it has no option to combine left/right movement of a stick into a single input.
         // So this is a simpler input manager that should be better for this use
-        // Todo: add support for customisation of controls, and for more channels.
         // Possible todo: see if there is any way to get rid of this by writing a custom module for the regular input manager.
 
         private static Manager Instance;
-
-        public static List<AxisMapping> AxisMappings = new()
-        {
-            new("aileron", 0),
-            new("elevator", 1, multiplier: -1),
-            new("rudder", 2),
-            new("throttle", 3, multiplier: -1, deadzoneEnd: .025f),
-        };
 
         private static Dictionary<int, AxisMapping> axisLookup = new();
 
@@ -29,8 +20,9 @@ namespace SimInput
 
         static Manager()
         {
-            axisLookup = AxisMappings.ToDictionary(x => x.Axis, x => x);
-            axisValues = AxisMappings.ToDictionary(x => x.Name, x => 0f);
+            var axisMappings = SimSettings.Settings.Current.InputMap.AxisMappings;
+            axisLookup = axisMappings.ToDictionary(x => x.Axis, x => x);
+            axisValues = axisMappings.ToDictionary(x => x.Name, x => 0f);
         }
 
         public override void _EnterTree()

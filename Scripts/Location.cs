@@ -13,7 +13,7 @@ public class Location : Spatial
     {
         var camera = GetNode<GroundCamera>("Camera");
         camera.Target = Aircraft;
-        camera.ZoomSettings = SimSettings.Settings.Current.GroundCameraZoomSettings;
+        camera.CurrentZoomSettings = SimSettings.Settings.Current.GroundCameraZoomSettings;
         launcher = GetNode<AircraftLauncher>("AircraftLauncher");
         Reset();
     }

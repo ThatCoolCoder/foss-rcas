@@ -7,8 +7,8 @@ namespace SimSettings
     public class Settings
     {
 
-        // public SimInputMap InputMap todo: code that class
-        public GroundCameraZoomSettings GroundCameraZoomSettings { get; set; } = new();
+        public GroundCamera.ZoomSettings GroundCameraZoomSettings { get; set; } = new();
+        public SimInput.InputMap InputMap { get; set; } = new();
         public string LastLoadedAircraft { get; set; } = null;
         public string LastLoadedLocation { get; set; } = null;
         public int PhysicsFps { get; set; } = 1000; // might as well make this configurable since 1000 might be a bit much on slow computers
