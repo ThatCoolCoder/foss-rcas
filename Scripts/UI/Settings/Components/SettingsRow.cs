@@ -13,9 +13,11 @@ namespace UI.Settings.Components
         protected SettingReader<T> read { get; private set; }
         protected SettingWriter<T> write { get; private set; }
 
-        protected SettingsRow<T> Config(string _name, SettingReader<T> _read, SettingWriter<T> _write)
+        protected SettingsRow<T> Config(Node parent, string _name, SettingReader<T> _read, SettingWriter<T> _write, string toolTip = "")
         {
             // We can't use the constructor because godot takes over that, so we need a custom init method
+
+            parent.AddChild(this);
 
             read = _read;
             write = _write;
@@ -23,15 +25,14 @@ namespace UI.Settings.Components
 
             GetNode<Label>("Label").Text = name;
 
+            HintTooltip = toolTip;
+
             SettingsScreen.OnSettingsChanged += OnSettingsChanged;
 
             return this;
         }
 
-        protected abstract void OnSettingsChanged()
-        {
-
-        }
+        protected abstract void OnSettingsChanged();
 
         public override void _ExitTree()
         {

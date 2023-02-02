@@ -1,0 +1,45 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/UI/Settings/Components/SettingsRow.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scripts/UI/Settings/Components/FileInput.cs" type="Script" id=2]
+
+[node name="FileInput" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." index="1"]
+margin_left = 92.0
+margin_right = 227.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+custom_constants/separation = 20
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer" index="0"]
+margin_right = 46.0
+margin_bottom = 40.0
+size_flags_horizontal = 3
+editable = false
+caret_blink = true
+caret_blink_speed = 0.5
+
+[node name="SelectFileButton" type="Button" parent="HBoxContainer" index="1"]
+margin_left = 66.0
+margin_right = 135.0
+margin_bottom = 40.0
+text = "Select file"
+
+[node name="FileDialog" type="FileDialog" parent="HBoxContainer" index="2"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -372.0
+margin_top = -232.0
+margin_right = 365.0
+margin_bottom = 232.0
+rect_min_size = Vector2( 150, 52.5 )
+popup_exclusive = true
+window_title = "Open a Directory"
+mode = 2
+
+[connection signal="pressed" from="HBoxContainer/SelectFileButton" to="." method="_on_SelectFileButton_pressed"]
+[connection signal="popup_hide" from="HBoxContainer/FileDialog" to="." method="_on_FileDialog_popup_hide"]

@@ -40,3 +40,4 @@ Todo:
 - Make all "modules" instanceable scenes? (instead of just scripts)
 - Electrics simulation to optionally simulate battery drain.
     - apply this to other engine types too
+- make settings fileinput lineedit editable?

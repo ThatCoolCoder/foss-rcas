@@ -5,8 +5,6 @@ public class GroundCamera : Camera
 {
     [Export] public bool Enabled { get; set; } = true;
     [Export] public NodePath TargetPath { get; set; }
-
-    public bool ZoomEnabled { get; set; } = true;
     public SimSettings.GroundCameraZoomSettings ZoomSettings;
     public Spatial Target { get; set; }
 
@@ -21,7 +19,7 @@ public class GroundCamera : Camera
         {
             LookAt(Target.GlobalTranslation, Vector3.Up);
 
-            if (ZoomEnabled)
+            if (ZoomSettings.Enabled)
             {
                 var fovProportion = Mathf.Atan(1 / ZoomSettings.StartDist) / Mathf.Deg2Rad(ZoomSettings.BaseFov);
 

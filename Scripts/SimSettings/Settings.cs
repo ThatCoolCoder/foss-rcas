@@ -14,6 +14,13 @@ namespace SimSettings
         public int PhysicsFps { get; set; } = 1000; // might as well make this configurable since 1000 might be a bit much on slow computers
         public string AddOnRepositoryPath { get; set; } = "user://AddOnContent/";
 
+        public void Apply()
+        {
+            // Some settings need to run code in order to apply, so do it here
+
+            Engine.IterationsPerSecond = PhysicsFps;
+        }
+
         #region StaticSection
 
         public static readonly string SavePath = "user://settings.toml";
@@ -22,6 +29,7 @@ namespace SimSettings
         public static void SetCurrent(Settings settings)
         {
             Current = Clone(settings);
+            Current.Apply();
         }
 
         public static Settings Load()
@@ -38,7 +46,7 @@ namespace SimSettings
         }
         public static void LoadCurrent()
         {
-            Current = Load();
+            SetCurrent(Load());
         }
 
         public static void Save(Settings settings)

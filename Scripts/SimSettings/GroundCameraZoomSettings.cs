@@ -3,6 +3,7 @@ namespace SimSettings
 {
     public class GroundCameraZoomSettings
     {
+        public bool Enabled { get; set; } = true;
         public float BaseFov { get; set; } = 70;
         public float StartDist { get; set; } = 40; // Maximum distance that plane can still be seen with base FOV
         // Rate of zoom compared to the "perfect rate". If this wasn't present, it would zoom perfectly and keep the plane the same size forever.
