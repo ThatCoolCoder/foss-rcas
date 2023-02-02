@@ -4,11 +4,13 @@
 [ext_resource path="res://Scripts/UI/Settings/Components/TextInput.cs" type="Script" id=2]
 
 [node name="TextInput" instance=ExtResource( 1 )]
+margin_right = 432.0
 script = ExtResource( 2 )
 
 [node name="LineEdit" type="LineEdit" parent="." index="1"]
 margin_left = 92.0
-margin_right = 138.0
+margin_right = 432.0
 margin_bottom = 40.0
+size_flags_horizontal = 7
 
 [connection signal="text_changed" from="LineEdit" to="." method="_on_LineEdit_text_changed"]

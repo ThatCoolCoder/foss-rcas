@@ -13,6 +13,11 @@ namespace SimInput
         public float DeadzoneEnd { get; set; }
         public float DeadzoneRest { get; set; }
 
+        public AxisMapping()
+        {
+            // toml needs empty constructor
+        }
+
         public AxisMapping(string name, int axis, float multiplier = 1, float deadzoneEnd = 0, float deadzoneRest = 0)
         {
             Name = name;
@@ -25,7 +30,7 @@ namespace SimInput
         public float Apply(float value)
         {
             // Apply the mapping to the raw value
-            // Inputs and outputs are in the 0 to 1 range
+            // Inputs and outputs are in the -1 to 1 range
 
             value = Mathf.Clamp(value * Multiplier, -1, 1);
 

@@ -7,7 +7,8 @@ namespace UI.Settings.Components
     {
         // Base class for settings row
 
-        // suggested usage: AddChild(DerivedScene.Instance<DerivedClass>().Config(a, b, c));
+        // suggested usage: AddChild(DerivedScene.Instance<DerivedClass>().Config(this, "Awesome setting" s => s.a, (s, v) => s.a = v ));
+        // You can also provide null instead of a parent and manually add it to the scene
 
         protected private string name { get; private set; }
         protected SettingReader<T> read { get; private set; }
@@ -17,7 +18,7 @@ namespace UI.Settings.Components
         {
             // We can't use the constructor because godot takes over that, so we need a custom init method
 
-            parent.AddChild(this);
+            if (parent != null) parent.AddChild(this);
 
             read = _read;
             write = _write;

@@ -13,21 +13,21 @@ namespace SimInput
 
         private static Manager Instance;
 
-        private static Dictionary<int, AxisMapping> axisLookup = new();
+        private Dictionary<int, AxisMapping> axisLookup = new();
 
         // Map of axis name to axis value
-        private static Dictionary<string, float> axisValues = new();
-
-        static Manager()
-        {
-            var axisMappings = SimSettings.Settings.Current.InputMap.AxisMappings;
-            axisLookup = axisMappings.ToDictionary(x => x.Axis, x => x);
-            axisValues = axisMappings.ToDictionary(x => x.Name, x => 0f);
-        }
+        private Dictionary<string, float> axisValues = new();
 
         public override void _EnterTree()
         {
             Instance = this;
+
+            var axisMappings = SimSettings.Settings.Current?.InputMap?.AxisMappings;
+            if (axisMappings != null)
+            {
+                axisLookup = axisMappings.ToDictionary(x => x.Axis, x => x);
+                axisValues = axisMappings.ToDictionary(x => x.Name, x => 0f);
+            }
         }
 
         public override void _ExitTree()
@@ -55,7 +55,7 @@ namespace SimInput
         {
             try
             {
-                return axisValues[actionName];
+                return Instance.axisValues[actionName];
             }
             catch (KeyNotFoundException)
             {
