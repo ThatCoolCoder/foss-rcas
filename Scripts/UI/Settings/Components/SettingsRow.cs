@@ -7,13 +7,11 @@ namespace UI.Settings.Components
     {
         // Base class for settings row
 
+        // suggested usage: AddChild(DerivedScene.Instance<DerivedClass>().Config(a, b, c));
+
         protected private string name { get; private set; }
         protected SettingReader<T> read { get; private set; }
         protected SettingWriter<T> write { get; private set; }
-
-        public static PackedScene Scene = null;
-
-        private bool initialized = false;
 
         protected SettingsRow<T> Config(string _name, SettingReader<T> _read, SettingWriter<T> _write)
         {
@@ -25,7 +23,19 @@ namespace UI.Settings.Components
 
             GetNode<Label>("Label").Text = name;
 
+            SettingsScreen.OnSettingsChanged += OnSettingsChanged;
+
             return this;
+        }
+
+        protected abstract void OnSettingsChanged()
+        {
+
+        }
+
+        public override void _ExitTree()
+        {
+            SettingsScreen.OnSettingsChanged -= OnSettingsChanged;
         }
     }
 }

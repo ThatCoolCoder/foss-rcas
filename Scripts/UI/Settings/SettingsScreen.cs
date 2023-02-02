@@ -17,7 +17,7 @@ namespace UI.Settings
         {
             NewSettings = Settings.CloneCurrent();
 
-            AddChild(new )
+            // AddChild(new )
         }
 
         public void _on_Revert_pressed()
