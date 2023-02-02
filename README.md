@@ -16,8 +16,8 @@ Todo:
 - improve wing physics: allow importing some better format of curves and have it so that the AOA curves are not always symmetrical 
 - add body drag
 - make the WIP settings system only save on exit?
+- make location altitude actually change air pressure (why not?)
 - add settings screen to configure various things
-    - as part of the settings, remember what previous plane and location was
     - add custom mapping of controller axis to sim axis (eg axis01 -> aileron)
         - while we're at it, might as well move the rest of the input to siminputmanager?
 - add support for controls mixing and trimming (on a per-aircraft basis)

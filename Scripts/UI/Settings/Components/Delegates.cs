@@ -3,6 +3,6 @@ using System;
 
 namespace UI.Settings.Components
 {
-    public delegate T SettingReader<T>();
-    public delegate void SettingWriter<T>(T value);
+    public delegate T SettingReader<T>(SimSettings.Settings settings);
+    public delegate void SettingWriter<T>(SimSettings.Settings settings, T value);
 }

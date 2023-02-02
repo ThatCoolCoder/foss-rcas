@@ -16,8 +16,6 @@ namespace UI.Settings
         public override void _Ready()
         {
             NewSettings = Settings.CloneCurrent();
-
-            // AddChild(new )
         }
 
         public void _on_Revert_pressed()
