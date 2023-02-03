@@ -36,12 +36,17 @@ margin_top = 85.0
 margin_right = 327.0
 margin_bottom = 103.0
 
-[node name="DeadzoneRest" parent="." instance=ExtResource( 4 )]
+[node name="Expo" parent="." instance=ExtResource( 4 )]
 margin_top = 107.0
 margin_right = 327.0
 margin_bottom = 125.0
 
-[node name="DeadzoneEnd" parent="." instance=ExtResource( 4 )]
+[node name="DeadzoneRest" parent="." instance=ExtResource( 4 )]
 margin_top = 129.0
 margin_right = 327.0
 margin_bottom = 147.0
+
+[node name="DeadzoneEnd" parent="." instance=ExtResource( 4 )]
+margin_top = 151.0
+margin_right = 327.0
+margin_bottom = 169.0

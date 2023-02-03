@@ -17,15 +17,14 @@ Todo:
 - add body drag
 - make the WIP settings system only save on exit?
 - make location altitude actually change air pressure (why not?)
-- add settings screen to configure various things
-    - add custom mapping of controller axis to sim axis (eg axis01 -> aileron)
-        - while we're at it, might as well move the rest of the input to siminputmanager?
+- move the rest of the input to siminputmanager?
 - add support for controls mixing and trimming (on a per-aircraft basis)
     - I suggest adding a ControlHub node that the controllables can then query.
     - While users could configure this on their TXs, it seems nice to let them create a single generic sim model and have at least the mixing done automatically.
     - Plus, some people might be using gamepads or other input methods anyway.
     - Likely would be best to implement this through some text-based format (toml?)
     - Add support for flight computers/gyros and program a couple of types so that we can have quadcopters
+    - Move expo to part of this mixing (since expo should be different on different planes)
 - audio
     - procedural
     - can link motor sound to an advanced motor simulation? (rpm, air disturbance factor)
