@@ -16,7 +16,7 @@ namespace UI.Settings
                 "Physics FPS",
                 s => s.PhysicsFps,
                 (s, v) => s.PhysicsFps = (int)v,
-                30, 1000, rounded: true,
+                30, 1000, step: 1,
                 toolTip: "Higher values give a more accurate simulation but may cause poor performance on lower-end hardware");
 
             FileInput.Scene.Instance<FileInput>().Config(

@@ -19,6 +19,8 @@ namespace SimSettings
             // Some settings need to run code in order to apply, so do it here
 
             Engine.IterationsPerSecond = PhysicsFps;
+
+            SimInput.Manager.ApplyAxisMappings();
         }
 
         #region StaticSection

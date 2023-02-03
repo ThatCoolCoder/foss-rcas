@@ -1,0 +1,99 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scenes/UI/Settings/Components/SettingsRow.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scripts/UI/Settings/Components/JoystickAxisInput.cs" type="Script" id=2]
+[ext_resource path="res://Resources/Fonts/Heading2.tres" type="DynamicFont" id=3]
+
+[node name="JoystickAxisInput" instance=ExtResource( 1 )]
+margin_right = 413.0
+script = ExtResource( 2 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." index="1"]
+margin_left = 92.0
+margin_right = 413.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( -600, -109 )
+size_flags_horizontal = 3
+
+[node name="CurrentValue" type="Label" parent="HBoxContainer" index="0"]
+margin_top = 11.0
+margin_right = 46.0
+margin_bottom = 29.0
+text = "Axis 05"
+
+[node name="ChangeAxisButton" type="Button" parent="HBoxContainer" index="1"]
+margin_left = 50.0
+margin_top = 8.0
+margin_right = 108.0
+margin_bottom = 32.0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+text = "Change"
+
+[node name="PopupDialog" type="PopupDialog" parent="." index="2"]
+visible = true
+margin_right = 300.0
+margin_bottom = 120.0
+popup_exclusive = true
+
+[node name="MarginContainer" type="MarginContainer" parent="PopupDialog" index="0"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PopupDialog/MarginContainer" index="0"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 290.0
+margin_bottom = 110.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Heading" type="Label" parent="PopupDialog/MarginContainer/VBoxContainer" index="0"]
+margin_left = 70.0
+margin_right = 210.0
+margin_bottom = 23.0
+size_flags_horizontal = 4
+custom_fonts/font = ExtResource( 3 )
+text = "Select joystick axis"
+
+[node name="AxisSelectInfo" type="Label" parent="PopupDialog/MarginContainer/VBoxContainer" index="1"]
+margin_left = 65.0
+margin_top = 27.0
+margin_right = 215.0
+margin_bottom = 45.0
+size_flags_horizontal = 4
+text = "Move an axis to select it..."
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PopupDialog/MarginContainer/VBoxContainer" index="2"]
+margin_top = 76.0
+margin_right = 280.0
+margin_bottom = 100.0
+size_flags_vertical = 10
+alignment = 1
+
+[node name="Cancel" type="Button" parent="PopupDialog/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
+margin_left = 25.0
+margin_right = 77.0
+margin_bottom = 24.0
+text = "Cancel"
+
+[node name="SelectAnotherAxis" type="Button" parent="PopupDialog/MarginContainer/VBoxContainer/HBoxContainer" index="1"]
+margin_left = 81.0
+margin_right = 221.0
+margin_bottom = 24.0
+text = "Select a different axis"
+
+[node name="Ok" type="Button" parent="PopupDialog/MarginContainer/VBoxContainer/HBoxContainer" index="2"]
+margin_left = 225.0
+margin_right = 254.0
+margin_bottom = 24.0
+text = "Ok"
+
+[connection signal="pressed" from="HBoxContainer/ChangeAxisButton" to="." method="_on_ChangeAxisButton_pressed"]
+[connection signal="pressed" from="PopupDialog/MarginContainer/VBoxContainer/HBoxContainer/Cancel" to="." method="_on_Cancel_pressed"]
+[connection signal="pressed" from="PopupDialog/MarginContainer/VBoxContainer/HBoxContainer/SelectAnotherAxis" to="." method="_on_SelectAnotherAxis_pressed"]
+[connection signal="pressed" from="PopupDialog/MarginContainer/VBoxContainer/HBoxContainer/Ok" to="." method="_on_Ok_pressed"]

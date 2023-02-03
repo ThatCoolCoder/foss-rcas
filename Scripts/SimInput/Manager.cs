@@ -13,14 +13,19 @@ namespace SimInput
 
         private static Manager Instance;
 
-        private Dictionary<int, AxisMapping> axisLookup = new();
+        private static Dictionary<int, AxisMapping> axisLookup = new();
 
         // Map of axis name to axis value
-        private Dictionary<string, float> axisValues = new();
+        private static Dictionary<string, float> axisValues = new();
 
         public override void _EnterTree()
         {
             Instance = this;
+        }
+
+        public static void ApplyAxisMappings()
+        {
+            // Need to call this on game startup and after axis mappings are changed.
 
             var axisMappings = SimSettings.Settings.Current?.InputMap?.AxisMappings;
             if (axisMappings != null)
@@ -55,7 +60,7 @@ namespace SimInput
         {
             try
             {
-                return Instance.axisValues[actionName];
+                return axisValues[actionName];
             }
             catch (KeyNotFoundException)
             {

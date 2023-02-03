@@ -50,7 +50,7 @@ namespace ContentManagement
                 }
                 else
                 {
-                    Utils.LogError($"Error parsing {filePath}: no aircraft or location section was present");
+                    Utils.LogError($"Failed parsing {filePath}: no aircraft or location section was present");
                 }
             }
 

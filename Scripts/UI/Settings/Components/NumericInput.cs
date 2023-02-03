@@ -10,7 +10,7 @@ namespace UI.Settings.Components
 
         public static PackedScene Scene = ResourceLoader.Load<PackedScene>("res://Scenes/UI/Settings/Components/NumericInput.tscn");
 
-        public NumericInput Config(Node parent, string name, SettingReader<float> read, SettingWriter<float> write, float min = 0, float max = 1, bool rounded = false, string toolTip = "")
+        public NumericInput Config(Node parent, string name, SettingReader<float> read, SettingWriter<float> write, float min = 0, float max = 1, float step = 0.01f, string toolTip = "")
         {
             base.Config(parent, name, read, write, toolTip);
 
@@ -18,7 +18,7 @@ namespace UI.Settings.Components
 
             spinBox.MinValue = min;
             spinBox.MaxValue = max;
-            spinBox.Rounded = rounded;
+            spinBox.Step = step;
 
             return this;
         }
