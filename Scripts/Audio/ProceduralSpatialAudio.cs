@@ -17,6 +17,7 @@ namespace Audio
         {
             generator.MixRate = sampleHz;
             Stream = generator;
+            generator.BufferLength = 0.1f;
             playback = GetStreamPlayback() as AudioStreamGeneratorPlayback;
             FillBuffer();
             Play();

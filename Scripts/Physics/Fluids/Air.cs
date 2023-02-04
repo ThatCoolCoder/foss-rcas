@@ -9,36 +9,7 @@ namespace Physics.Fluids
 
         [Export] public float DensityMultiplier { get; set; } = 1;
 
-        [Export] public float Speed { get; set; } = 0;
-        [Export] public float GustSpeedDelta { get; set; } = 0; // max gust speed = speed + gust speed delta
-        [Export] public float GustFrequency { get; set; } = 1;
-        [Export]
-        public float DirectionDegrees
-        {
-            get
-            {
-                return Mathf.Rad2Deg(direction);
-            }
-            set
-            {
-                direction = Mathf.Deg2Rad(value);
-            }
-        }
-        private float direction = 0;
-        [Export]
-        public float DirectionVariabilityDegrees // from 0 to 180
-        {
-            get
-            {
-                return Mathf.Rad2Deg(directionVariability);
-            }
-            set
-            {
-                directionVariability = Mathf.Deg2Rad(value);
-            }
-        }
-        private float directionVariability = 0;
-        [Export] public float DirectionChangeFrequency = 1;
+        public WindSettings WindSettings { get; set; } = new();
 
         private OpenSimplexNoise speedNoise = new();
         private OpenSimplexNoise directionNoise = new();
@@ -62,16 +33,16 @@ namespace Physics.Fluids
 
         public bool ContainsPoint(Vector3 _point)
         {
-            return true; // air is everywhere
+            return true; // air is everywhere, except underground or underwater, but air is so much less dense than those places that it doesn't matter
         }
 
         public Vector3 VelocityAtPoint(Vector3 _point)
         {
-            var gustSpeed = (speedNoise.GetNoise1d(time * GustFrequency) / 2 + 0.5f) * GustSpeedDelta;
-            var finalSpeed = Speed + gustSpeed;
+            var gustSpeed = (speedNoise.GetNoise1d(time * WindSettings.GustFrequency) / 2 + 0.5f) * WindSettings.GustSpeedDelta;
+            var finalSpeed = WindSettings.Speed + gustSpeed;
 
-            var directionDelta = (directionNoise.GetNoise1d(time * DirectionChangeFrequency)) * directionVariability;
-            var finalDirection = direction + directionDelta;
+            var directionDelta = (directionNoise.GetNoise1d(time * WindSettings.DirectionChangeFrequency)) * WindSettings.DirectionVariability;
+            var finalDirection = WindSettings.Direction + directionDelta;
 
             var flow = new Vector3(finalSpeed, 0, 0).Rotated(Vector3.Up, finalDirection);
 
@@ -84,5 +55,7 @@ namespace Physics.Fluids
         }
 
         public FluidType Type { get; set; } = FluidType.Gas;
+
+
     }
 }

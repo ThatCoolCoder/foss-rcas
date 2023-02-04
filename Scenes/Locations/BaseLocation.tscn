@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scripts/GroundCamera.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/Physics/Fluids/SpatialFluidBeacon.cs" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Scripts/AircraftLauncher.cs" type="Script" id=7]
 [ext_resource path="res://Scenes/UI/Misc/BackButton.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scripts/UI/FpsIndicator.cs" type="Script" id=9]
+[ext_resource path="res://Scripts/Audio/WindNoise.cs" type="Script" id=10]
 
 [node name="BaseLocation" type="Spatial"]
 script = ExtResource( 6 )
@@ -18,9 +19,6 @@ script = ExtResource( 5 )
 
 [node name="Air" type="Spatial" parent="."]
 script = ExtResource( 4 )
-GustFrequency = 30.0
-DirectionDegrees = -90.0
-DirectionChangeFrequency = 20.0
 
 [node name="SpatialFluidBeacon" type="Spatial" parent="Air"]
 script = ExtResource( 2 )
@@ -39,6 +37,11 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.909096, 1.87904 )
 current = true
 far = 500.0
 script = ExtResource( 1 )
+
+[node name="WindNoise" type="AudioStreamPlayer3D" parent="Camera"]
+script = ExtResource( 10 )
+VolumeMultiplier = 0.02
+AirPath = NodePath("../../Air")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -77,8 +80,10 @@ margin_bottom = 580.0
 size_flags_vertical = 8
 
 [node name="FpsIndicator" type="Label" parent="CanvasLayer/HUD/VSplitContainer/BottomBar"]
-margin_right = 41.0
+margin_left = 970.0
+margin_right = 1004.0
 margin_bottom = 18.0
+size_flags_horizontal = 10
 size_flags_vertical = 0
-text = "5 FFPS"
+text = "5 FPS"
 script = ExtResource( 9 )

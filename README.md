@@ -16,7 +16,7 @@ Todo:
 - improve wing physics: allow importing some better format of curves and have it so that the AOA curves are not always symmetrical 
 - add body drag
 - make the WIP settings system only save on exit?
-- make location altitude actually change air pressure (why not?)
+- make location altitude actually change air pressure (not very useful, but why not?)
 - move the rest of the input to siminputmanager?
 - add support for controls mixing and trimming (on a per-aircraft basis)
     - I suggest adding a ControlHub node that the controllables can then query.
@@ -40,3 +40,4 @@ Todo:
 - Electrics simulation to optionally simulate battery drain.
     - apply this to other engine types too
 - make settings fileinput lineedit editable?
+- add a way to configure wind in-game (likely requires large reconfiguration of flightsettingsscreen - vertical tab menu with icons?)

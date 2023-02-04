@@ -52,7 +52,8 @@ namespace Physics.Fluids
             var delta = point - motor.GlobalTranslation;
             var directionToPoint = delta.Normalized();
             var speedMultiplier = delta.LengthSquared() / MaxDistance;
-            return directionToPoint * speedMultiplier * Mathf.Max(motor.lastExitSpeed, 0); // don't let the wash go backwards
+            var velocity = directionToPoint * speedMultiplier * Mathf.Max(motor.lastExitSpeed, 0); // don't let the wash go backwards
+            return velocity + motor.lastEntryVelocity;
         }
 
         public Vector3 NormalAtPoint(Vector3 _point)

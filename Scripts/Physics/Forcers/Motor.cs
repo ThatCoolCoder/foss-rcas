@@ -11,13 +11,15 @@ namespace Physics.Forcers
         [Export] public float ThrustProportion { get; set; } // -1 to +1
         [Export] public bool FreeWheelWhenOff { get; set; } // If this is true, motor will not generate any drag when thrustproportion = 0
         public float lastExitSpeed { get; private set; } // last exit speed, relative to world
+        public Vector3 lastEntryVelocity { get; private set; } // hacky thing we need to make propwash work with wind
 
         public override Vector3 CalculateForce(ISpatialFluid fluid, PhysicsDirectBodyState state)
         {
             if (ThrustProportion == 0 && FreeWheelWhenOff) return Vector3.Zero;
 
             var density = fluid.DensityAtPoint(GlobalTransform.origin);
-            var relativeVelocity = state.GetVelocityAtGlobalPosition(target, this) - fluid.VelocityAtPoint(GlobalTransform.origin);
+            lastEntryVelocity = fluid.VelocityAtPoint(GlobalTransform.origin);
+            var relativeVelocity = state.GetVelocityAtGlobalPosition(target, this) - lastEntryVelocity;
             var localVelocity = GlobalTransform.basis.XformInv(relativeVelocity);
             var entrySpeed = -localVelocity.z;
             var effectiveExitSpeed = ThrustProportion * ExitSpeed;
