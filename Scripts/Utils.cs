@@ -12,6 +12,11 @@ public static class Utils
         GD.PrintStack();
     }
 
+    public static float MapNumber(float num, float oldMin, float oldMax, float newMin, float newMax)
+    {
+        return newMin + (num - oldMin) * (newMax - newMin) / (oldMax - oldMin);
+    }
+
     public static float MirrorNumber(float number, float mirrorValue)
     {
         if (number < mirrorValue) return number;

@@ -38,6 +38,8 @@ namespace Physics.Fluids
 
         public Vector3 VelocityAtPoint(Vector3 _point)
         {
+            return Vector3.Zero;
+
             var gustSpeed = (speedNoise.GetNoise1d(time * WindSettings.GustFrequency) / 2 + 0.5f) * WindSettings.GustSpeedDelta;
             var finalSpeed = WindSettings.Speed + gustSpeed;
 

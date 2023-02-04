@@ -8,13 +8,13 @@ namespace Physics.Forcers
     {
         // Basically a wing, not restricted to operating in air though.
         // Uses a model supporting lift, induced drag, and parasitic drag.
-        // Wing is oriented along the x/z plane, and works equally well when moved along that plane.
+        // Wing is oriented along the x/z plane, and forward is in the direction of z-negative
         // Area/size is determined by the scale of the entity in the scene, although there is also an area multiplier.
         // The multiplier's main use is to allow you to scale this to match size of a non-square object but still have correct area. EG use 0.5 for a triangle.
 
         // Angle of attack ranges from 0 to tau, and should be normalised to the correct range by wrapping around.
 
-        // Curves have values from 0 to 1, where 1 is a quarter turn of positive aoa. Remaining values are interpolated by "mirroring" the curve.
+        // Curves have values from 0 to 1, where 0 is -90° aoa and 1 is 90° aoa. Remaining values are interpolated by assuming the surface is a flat plate when run backwards.
         [Export] public Curve TotalLiftCoefficient { get; set; } // Total lift points perpendicular to surface and causes both true lift and induced drag
         [Export] public Curve ParasiticDragCoefficient { get; set; }
         [Export] public float AreaMultiplier { get; set; } = 1;
@@ -46,7 +46,7 @@ namespace Physics.Forcers
             var relativeVelocity = state.GetVelocityAtGlobalPosition(target, this) - fluid.VelocityAtPoint(GlobalTranslation);
 
             var basis = GlobalTransform.basis;
-            basis.Scale = Vector3.One; // need to remove factor of scale from basis
+            basis.Scale = Vector3.One;
             // Velocity relative to the rotation of self
             var localVelocity = basis.XformInv(relativeVelocity);
 
@@ -61,8 +61,8 @@ namespace Physics.Forcers
 
             if (DebugModeActive)
             {
-                DebugLineDrawer.RegisterLineStatic(this, GlobalTranslation, GlobalTranslation + liftVector, Colors.Blue, 1);
-                DebugLineDrawer.RegisterLineStatic(this, GlobalTranslation, GlobalTranslation + dragVector, Colors.Red, 2);
+                // DebugLineDrawer.RegisterLineStatic(this, GlobalTranslation, GlobalTranslation + liftVector, Colors.Blue, 1);
+                // DebugLineDrawer.RegisterLineStatic(this, GlobalTranslation, GlobalTranslation + dragVector, Colors.Red, 2);
             }
 
             return liftVector + dragVector;
@@ -74,7 +74,7 @@ namespace Physics.Forcers
 
             var aoa = CalculateAngleOfAttack(localVelocity);
 
-            var liftCoefficient = InterpolateFromQuarterAoaCurve(totalLiftCurve, aoa);
+            var liftCoefficient = InterpolateFromHalfAoaCurve(totalLiftCurve, aoa, flatPlateLiftCoefficient);
             var liftMag = CalculateAeroForceMagnitude(liftCoefficient, area, fluidDensity, localSpeedSquared);
             var liftVector = basis.y * liftMag * (HasPositiveAoa(aoa) ? 1 : -1);
 
@@ -85,7 +85,7 @@ namespace Physics.Forcers
         {
             var aoa = CalculateAngleOfAttack(localVelocity);
             var localSpeedSquared = localVelocity.LengthSquared();
-            var parasiticDragCoefficient = InterpolateFromQuarterAoaCurve(ParasiticDragCoefficient, aoa);
+            var parasiticDragCoefficient = InterpolateFromHalfAoaCurve(ParasiticDragCoefficient, aoa);
             var frontalArea = CalculateFrontalArea(aoa);
             var dragMag = CalculateAeroForceMagnitude(parasiticDragCoefficient, frontalArea, fluidDensity, localSpeedSquared);
             return -relativeVelocity.Normalized() * dragMag;
@@ -106,31 +106,27 @@ namespace Physics.Forcers
             return coefficient * area * density * speedSquared / 2;
         }
 
-        private float InterpolateFromQuarterAoaCurve(Curve curve, float aoa)
+        private float InterpolateFromHalfAoaCurve(Curve curve, float aoa, Curve backwardFlightCurve = null)
         {
-            // Interpolate a value, by presuming that the curve is "symmetric".
+            // Interpolate a value, by presuming that the surface is symmetrical
+            // Alternatively you can supply an extra curve to use when the surface moves backwards
             // Presumes that the aoa has already been normalised
-            // possible optimisation: move the curve lookup out of here and make this only mirroring,
-            // so we only do the mirroring once
 
-            // Mapping:
-            // 0-90 -> 0-90
-            // 90-180 -> 90-0
-            // 180-270 -> 0-90
-            // 270-360->90-0
+            if (backwardFlightCurve == null) backwardFlightCurve = curve;
+
 
             float deg90 = Mathf.Pi / 2;
-            float deg180 = Mathf.Pi;
-            float deg270 = deg90 + deg180;
 
-            float trueAoa = 0;
-            if (aoa < deg90) trueAoa = aoa;
-            else if (aoa < deg180) trueAoa = deg90 - (aoa - deg90);
-            else if (aoa < deg270) trueAoa = aoa - deg180;
-            else trueAoa = deg90 - (aoa - deg270);
-
-
-            return curve.Interpolate(AoaToCurveValue(trueAoa));
+            // Forward flight
+            if (aoa < deg90 || aoa > deg90 * 3)
+            {
+                if (aoa > Mathf.Pi) aoa -= Mathf.Tau;
+                return curve.Interpolate(Utils.MapNumber(aoa, -deg90, deg90, 0, 1));
+            }
+            // Backward flight
+            {
+                return backwardFlightCurve.Interpolate(Utils.MapNumber(aoa, deg90, deg90 * 3, 1, 0));
+            }
         }
 
         private float CalculateFrontalArea(float aoa)
