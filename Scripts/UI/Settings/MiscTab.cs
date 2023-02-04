@@ -26,6 +26,13 @@ namespace UI.Settings
                 (s, v) => s.AddOnRepositoryPath = v,
                 _mode: FileDialog.ModeEnum.OpenDir,
                 toolTip: "(doesn't do anything yet)");
+
+            BooleanInput.Scene.Instance<BooleanInput>().Config(
+                this,
+                "FPS counter enabled",
+                s => s.ShowFps,
+                (s, v) => s.ShowFps = v,
+                toolTip: "Whether to show the frames per second on screen");
         }
 
     }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Scripts/GroundCamera.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/Physics/Fluids/SpatialFluidBeacon.cs" type="Script" id=2]
@@ -8,6 +8,7 @@
 [ext_resource path="res://Scripts/Location.cs" type="Script" id=6]
 [ext_resource path="res://Scripts/AircraftLauncher.cs" type="Script" id=7]
 [ext_resource path="res://Scenes/UI/Misc/BackButton.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scripts/UI/FpsIndicator.cs" type="Script" id=9]
 
 [node name="BaseLocation" type="Spatial"]
 script = ExtResource( 6 )
@@ -69,9 +70,15 @@ margin_right = 48.0
 margin_bottom = 29.0
 ScenePath = "res://Scenes/UI/FlightSettings/FlightSettingsScreen.tscn"
 
-[node name="BottomBar" type="Control" parent="CanvasLayer/HUD/VSplitContainer"]
-margin_top = 580.0
+[node name="BottomBar" type="HBoxContainer" parent="CanvasLayer/HUD/VSplitContainer"]
+margin_top = 562.0
 margin_right = 1004.0
 margin_bottom = 580.0
-mouse_filter = 1
 size_flags_vertical = 8
+
+[node name="FpsIndicator" type="Label" parent="CanvasLayer/HUD/VSplitContainer/BottomBar"]
+margin_right = 41.0
+margin_bottom = 18.0
+size_flags_vertical = 0
+text = "5 FFPS"
+script = ExtResource( 9 )

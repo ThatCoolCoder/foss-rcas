@@ -153,7 +153,7 @@ script = ExtResource( 7 )
 ActionName = "aileron"
 
 [node name="AeroSurface" parent="RudderHolder/Rudder" instance=ExtResource( 5 )]
-transform = Transform( 0.111, -3.73431e-07, 0, 4.14509e-08, 1, 0, 0, 0, 0.0406959, 0.0148292, 1.84335e-09, 0.0215752 )
+transform = Transform( 0.111, -3.73431e-07, 0, 4.14509e-08, 1, 0, 0, 0, 0.0536885, 0.0148292, 1.84335e-09, 0.0269877 )
 TargetPath = NodePath("../../..")
 ForLiquid = false
 TotalLiftCoefficient = ExtResource( 9 )

@@ -11,7 +11,8 @@ namespace SimSettings
         public SimInput.InputMap InputMap { get; set; } = new();
         public string LastLoadedAircraft { get; set; } = null;
         public string LastLoadedLocation { get; set; } = null;
-        public int PhysicsFps { get; set; } = 1000; // might as well make this configurable since 1000 might be a bit much on slow computers
+        public int PhysicsFps { get; set; } = 60 * 8; // might as well make this configurable since this might be a bit much for old computers, or computers where the GPU can't keep up
+        public bool ShowFps { get; set; } = false;
         public string AddOnRepositoryPath { get; set; } = "user://AddOnContent/";
 
         public void Apply()
