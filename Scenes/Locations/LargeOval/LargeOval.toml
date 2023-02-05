@@ -1,0 +1,11 @@
+name = "Large Oval"
+author = "ThatCoolCoder"
+version = "0.1.0"
+date_updated = 2023-02-05
+description = """
+A large oval based on one near my house.
+"""
+
+[location]
+world_location = "Suburban US"
+elevation = 0
