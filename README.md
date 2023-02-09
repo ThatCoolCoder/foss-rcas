@@ -13,7 +13,7 @@ A note on singletons+autoload in this project: there have been a few cases where
 ctrl+d to toggle debug mode, r to reset plane, space to launch plane, ctrl+shift+r to restart entire simulator.
 
 Todo:
-- improve wing physics: allow importing some better format of curves and have it so that the AOA curves are not always symmetrical 
+- improve wing physics: allow importing some better format of curves and fix AOA finding
 - add body drag
 - make the WIP settings system only save on exit?
 - make location altitude actually change air pressure (not very useful, but why not?)
@@ -28,6 +28,9 @@ Todo:
 - audio
     - procedural
     - can link motor sound to an advanced motor simulation? (rpm, air disturbance factor)
+- Graphics
+    - need to get it running on old hardware (target: Intel HD 3000)
+    - make option to use impostors instead of trees
 - possibly rework physics system to support non-fluid effectors
 - Even though the CG is apparently already really far back, the models don't fly tailheavy. If I move the CG further back, they become suddenly very tailheavy" 
 - Should spatialfluidrepository become an autoload singleton?
