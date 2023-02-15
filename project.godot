@@ -20,6 +20,11 @@ DebugLineDrawer="*res://Scripts/DebugLineDrawer.cs"
 SimInputManager="*res://Scripts/SimInput/Manager.cs"
 GlobalKeybinds="*res://Scripts/GlobalKeybinds.cs"
 
+[display]
+
+window/size/width=1280
+window/size/height=720
+
 [global]
 
 physics_debug_active=false
