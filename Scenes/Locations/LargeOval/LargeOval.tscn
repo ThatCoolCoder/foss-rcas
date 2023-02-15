@@ -4,7 +4,7 @@
 [ext_resource path="res://Art/scythian_tombs_2_4k.exr" type="Texture" id=2]
 [ext_resource path="res://Art/Locations/LargeOval/LargeOval.glb" type="PackedScene" id=3]
 [ext_resource path="res://Scripts/SpawnAlongPath.cs" type="Script" id=4]
-[ext_resource path="res://Art/Common/Trees/Tree.glb" type="PackedScene" id=5]
+[ext_resource path="res://Art/Locations/LargeOval/ImpostorTree.tscn" type="PackedScene" id=5]
 
 [sub_resource type="PanoramaSky" id=1]
 panorama = ExtResource( 2 )
@@ -25,6 +25,22 @@ _data = {
 
 [node name="StartLocation" parent="." index="2"]
 transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0.283917, -2.07362 )
+
+[node name="VSplitContainer" parent="CanvasLayer/HUD" index="0"]
+margin_right = 1270.0
+margin_bottom = 710.0
+
+[node name="TopBar" parent="CanvasLayer/HUD/VSplitContainer" index="0"]
+margin_right = 1260.0
+
+[node name="BottomBar" parent="CanvasLayer/HUD/VSplitContainer" index="1"]
+margin_top = 682.0
+margin_right = 1260.0
+margin_bottom = 700.0
+
+[node name="FpsIndicator" parent="CanvasLayer/HUD/VSplitContainer/BottomBar" index="0"]
+margin_left = 1226.0
+margin_right = 1260.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="6"]
 environment = SubResource( 2 )

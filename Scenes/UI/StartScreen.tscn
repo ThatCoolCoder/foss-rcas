@@ -20,61 +20,61 @@ custom_constants/separation = 20
 alignment = 1
 
 [node name="Heading" type="Label" parent="VBoxContainer"]
-margin_left = 409.0
-margin_top = 208.0
-margin_right = 614.0
-margin_bottom = 267.0
+margin_left = 537.0
+margin_top = 268.0
+margin_right = 742.0
+margin_bottom = 327.0
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 2 )
 text = "FossRCAS"
 
 [node name="Label" type="Label" parent="VBoxContainer"]
-margin_left = 258.0
-margin_top = 287.0
-margin_right = 766.0
-margin_bottom = 322.0
+margin_left = 386.0
+margin_top = 347.0
+margin_right = 894.0
+margin_bottom = 382.0
 size_flags_horizontal = 4
 custom_fonts/font = ExtResource( 4 )
 text = "Free and open source RC aviation simulator"
 
 [node name="Spacer" type="Control" parent="VBoxContainer"]
-margin_top = 342.0
-margin_right = 1024.0
-margin_bottom = 342.0
+margin_top = 402.0
+margin_right = 1280.0
+margin_bottom = 402.0
 
 [node name="ButtonsHolder" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 362.0
-margin_right = 1024.0
-margin_bottom = 391.0
+margin_top = 422.0
+margin_right = 1280.0
+margin_bottom = 451.0
 custom_constants/separation = 40
 alignment = 1
 
 [node name="PlayButton" parent="VBoxContainer/ButtonsHolder" instance=ExtResource( 7 )]
-margin_left = 331.0
-margin_right = 375.0
+margin_left = 459.0
+margin_right = 503.0
 margin_bottom = 29.0
 custom_fonts/font = ExtResource( 3 )
 text = "Play"
 ScenePath = "res://Scenes/UI/FlightSettings/FlightSettingsScreen.tscn"
 
 [node name="SettingsButton" parent="VBoxContainer/ButtonsHolder" instance=ExtResource( 7 )]
-margin_left = 415.0
-margin_right = 489.0
+margin_left = 543.0
+margin_right = 617.0
 margin_bottom = 29.0
 custom_fonts/font = ExtResource( 3 )
 text = "Settings"
 ScenePath = "res://Scenes/UI/Settings/SettingsScreen.tscn"
 
 [node name="AboutButton" type="Button" parent="VBoxContainer/ButtonsHolder"]
-margin_left = 529.0
-margin_right = 587.0
+margin_left = 657.0
+margin_right = 715.0
 margin_bottom = 29.0
 custom_fonts/font = ExtResource( 3 )
 text = "About"
 
 [node name="CreditsButton" parent="VBoxContainer/ButtonsHolder" instance=ExtResource( 7 )]
-margin_left = 627.0
-margin_right = 692.0
+margin_left = 755.0
+margin_right = 820.0
 margin_bottom = 29.0
 custom_fonts/font = ExtResource( 3 )
 text = "Credits"
