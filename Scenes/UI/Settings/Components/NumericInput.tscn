@@ -4,11 +4,15 @@
 [ext_resource path="res://Scripts/UI/Settings/Components/NumericInput.cs" type="Script" id=2]
 
 [node name="NumericInput" instance=ExtResource( 1 )]
+margin_right = 527.0
 script = ExtResource( 2 )
 
+[node name="Label" parent="." index="0"]
+margin_right = 99.0
+
 [node name="SpinBox" type="SpinBox" parent="." index="1"]
-margin_left = 92.0
-margin_right = 154.0
+margin_left = 111.0
+margin_right = 173.0
 margin_bottom = 40.0
 size_flags_horizontal = 2
 

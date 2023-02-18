@@ -6,3 +6,6 @@
 
 [node name="Heading" parent="VBoxContainer" index="0"]
 text = "Aircraft"
+
+[node name="OptionButton" parent="VBoxContainer" index="1"]
+items = [ "Content name", null, false, 0, null ]

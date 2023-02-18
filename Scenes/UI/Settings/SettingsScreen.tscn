@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Resources/Fonts/Heading2.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Scenes/UI/Misc/BackButton.tscn" type="PackedScene" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Scenes/UI/Settings/ViewTab.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/UI/Settings/MiscTab.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/UI/Settings/InputTab.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/UI/Settings/GraphicsTab.tscn" type="PackedScene" id=8]
 
 [node name="SettingsScreen" type="Control"]
 anchor_right = 1.0
@@ -41,18 +42,20 @@ margin_bottom = 608.0
 size_flags_vertical = 3
 tab_align = 0
 
-[node name="Graphics" type="ScrollContainer" parent="VBoxContainer/MarginContainer/MainTabs"]
+[node name="Graphics" parent="VBoxContainer/MarginContainer/MainTabs" instance=ExtResource( 8 )]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 4.0
-margin_top = 32.0
+margin_top = 36.0
 margin_right = -4.0
 margin_bottom = -4.0
 
 [node name="View" parent="VBoxContainer/MarginContainer/MainTabs" instance=ExtResource( 5 )]
 visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
 margin_left = 4.0
-margin_top = 32.0
+margin_top = 36.0
 margin_right = -4.0
 margin_bottom = -4.0
 

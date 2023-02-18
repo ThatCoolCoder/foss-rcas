@@ -5,7 +5,7 @@ public class FpsIndicator : Label
 {
     public override void _Ready()
     {
-        Visible = SimSettings.Settings.Current.ShowFps;
+        Visible = SimSettings.Settings.Current.Graphics.ShowFps;
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

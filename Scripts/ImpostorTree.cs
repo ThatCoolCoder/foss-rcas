@@ -7,6 +7,8 @@ public class ImpostorTree : Spatial
     // Expects impostor to be a direct child called "Impostor" and real node to be a direct child called "RealNode"
 
     [Export] public int UpdateInterval { get; set; } = 10;
+    [Export] public bool UseGraphicsSettings { get; set; } = true; // Whether to use the graphics settings to override custom settings
+    [Export] public bool Enabled { get; set; } = true;
     [Export] public float ImpostorDistance { get; set; } = 30;
 
     private Camera camera;
@@ -33,7 +35,15 @@ public class ImpostorTree : Spatial
 
     private void UpdateVisibility()
     {
-        if(camera.GlobalTranslation.DistanceSquaredTo(GlobalTranslation) < ImpostorDistance * ImpostorDistance)
+        var showImpostor = false;
+        var trulyEnabled = UseGraphicsSettings ? SimSettings.Settings.Current.Graphics.UseImpostors : Enabled;
+        if (trulyEnabled)
+        {
+            var trueDistance = UseGraphicsSettings ? SimSettings.Settings.Current.Graphics.ImpostorDistance : ImpostorDistance;
+            showImpostor = camera.GlobalTranslation.DistanceSquaredTo(GlobalTranslation) < trueDistance * trueDistance;
+        }
+
+        if(showImpostor)
         {
             impostor.Visible = false;
             realNode.Visible = true;

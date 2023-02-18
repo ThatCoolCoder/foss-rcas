@@ -18,13 +18,13 @@ namespace UI.FlightSettings
             UpdateAvailableContent();
 
             // Try load the most recently used content
-            TrySelectFromPath(SimSettings.Settings.Current.LastLoadedAircraft, aircraftSelector);
-            TrySelectFromPath(SimSettings.Settings.Current.LastLoadedLocation, locationSelector);
+            TrySelectFromPath(SimSettings.Settings.Current.Misc.LastLoadedAircraft, aircraftSelector);
+            TrySelectFromPath(SimSettings.Settings.Current.Misc.LastLoadedLocation, locationSelector);
         }
 
         private void UpdateAvailableContent()
         {
-            var (availableAircraft, availableLocations) = ContentManagement.Loader.FindContent(SimSettings.Settings.Current.AddOnRepositoryPath);
+            var (availableAircraft, availableLocations) = ContentManagement.Loader.FindContent(SimSettings.Settings.Current.Misc.AddOnRepositoryPath);
             availableAircraft.AddRange(ContentManagement.Loader.FindContent(ContentManagement.Repositories.BaseAircraft).Item1);
             availableLocations.AddRange(ContentManagement.Loader.FindContent(ContentManagement.Repositories.BaseLocations).Item2);
 
@@ -34,8 +34,8 @@ namespace UI.FlightSettings
 
         private void RememberLastLoadedContent()
         {
-            SimSettings.Settings.Current.LastLoadedAircraft = aircraftSelector.SelectedItem.LoadedFrom;
-            SimSettings.Settings.Current.LastLoadedLocation = locationSelector.SelectedItem.LoadedFrom;
+            SimSettings.Settings.Current.Misc.LastLoadedAircraft = aircraftSelector.SelectedItem.LoadedFrom;
+            SimSettings.Settings.Current.Misc.LastLoadedLocation = locationSelector.SelectedItem.LoadedFrom;
             SimSettings.Settings.SaveCurrent();
         }
 

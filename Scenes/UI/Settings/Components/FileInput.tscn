@@ -4,17 +4,21 @@
 [ext_resource path="res://Scripts/UI/Settings/Components/FileInput.cs" type="Script" id=2]
 
 [node name="FileInput" instance=ExtResource( 1 )]
+margin_right = 620.0
 script = ExtResource( 2 )
 
+[node name="Label" parent="." index="0"]
+margin_right = 118.0
+
 [node name="HBoxContainer" type="HBoxContainer" parent="." index="1"]
-margin_left = 92.0
-margin_right = 227.0
+margin_left = 130.0
+margin_right = 620.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 custom_constants/separation = 20
 
 [node name="LineEdit" type="LineEdit" parent="HBoxContainer" index="0"]
-margin_right = 46.0
+margin_right = 401.0
 margin_bottom = 40.0
 size_flags_horizontal = 3
 editable = false
@@ -22,8 +26,8 @@ caret_blink = true
 caret_blink_speed = 0.5
 
 [node name="SelectFileButton" type="Button" parent="HBoxContainer" index="1"]
-margin_left = 66.0
-margin_right = 135.0
+margin_left = 421.0
+margin_right = 490.0
 margin_bottom = 40.0
 text = "Select file"
 

@@ -10,8 +10,8 @@ mouse_filter = 2
 script = ExtResource( 2 )
 
 [node name="Label" type="Label" parent="."]
-margin_left = 462.0
-margin_right = 562.0
+margin_left = 590.0
+margin_right = 690.0
 margin_bottom = 35.0
 grow_horizontal = 2
 size_flags_horizontal = 0

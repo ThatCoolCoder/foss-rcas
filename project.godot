@@ -29,6 +29,10 @@ window/size/height=720
 
 physics_debug_active=false
 
+[gui]
+
+theme/custom="res://Resources/Theme.tres"
+
 [input]
 
 reset={
