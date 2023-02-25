@@ -75,3 +75,19 @@ directional_shadow_split_3 = 0.229
 
 [node name="Camera" parent="." index="7"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 3.49814 )
+
+[node name="VSplitContainer" parent="CanvasLayer/HUD" index="0"]
+margin_right = 1270.0
+margin_bottom = 710.0
+
+[node name="TopBar" parent="CanvasLayer/HUD/VSplitContainer" index="0"]
+margin_right = 1260.0
+
+[node name="BottomBar" parent="CanvasLayer/HUD/VSplitContainer" index="1"]
+margin_top = 682.0
+margin_right = 1260.0
+margin_bottom = 700.0
+
+[node name="FpsIndicator" parent="CanvasLayer/HUD/VSplitContainer/BottomBar" index="0"]
+margin_left = 1226.0
+margin_right = 1260.0

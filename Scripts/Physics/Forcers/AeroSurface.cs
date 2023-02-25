@@ -51,9 +51,14 @@ namespace Physics.Forcers
             var localVelocity = basis.XformInv(relativeVelocity);
 
             // Regular lift (modelled as airfoil)
-            var regularLiftVector = CalculateLiftForce(basis, localVelocity.WithX(0), TotalLiftCoefficient, ParasiticDragCoefficient, density);
+            var regularLocalVelocity = localVelocity.WithX(0);
+            var regularAoa = WrapAoa(Mathf.Atan2(-regularLocalVelocity.y, -regularLocalVelocity.z));
+            var regularLiftVector = CalculateLiftForce(basis, regularLocalVelocity.LengthSquared(), regularAoa, TotalLiftCoefficient, ParasiticDragCoefficient, density);
+
             // Spanwise lift (modelled as a flat plate)
-            var spanwiseLiftVector = CalculateLiftForce(basis, localVelocity.WithZ(0), flatPlateLiftCoefficient, ParasiticDragCoefficient, density);
+            var spanwiseLocalVelocity = localVelocity.WithZ(0);
+            var spanwiseAoa = WrapAoa(Mathf.Atan2(-spanwiseLocalVelocity.y, spanwiseLocalVelocity.x));
+            var spanwiseLiftVector = CalculateLiftForce(basis, spanwiseLocalVelocity.LengthSquared(), spanwiseAoa, flatPlateLiftCoefficient, ParasiticDragCoefficient, density);
 
             var liftVector = regularLiftVector + spanwiseLiftVector;
 
@@ -61,19 +66,15 @@ namespace Physics.Forcers
 
             if (DebugModeActive)
             {
-                // DebugLineDrawer.RegisterLineStatic(this, GlobalTranslation, GlobalTranslation + liftVector, Colors.Blue, 1);
-                // DebugLineDrawer.RegisterLineStatic(this, GlobalTranslation, GlobalTranslation + dragVector, Colors.Red, 2);
+                DebugLineDrawer.RegisterLineStatic(this, GlobalTranslation, GlobalTranslation + liftVector, Colors.Blue, 1);
+                DebugLineDrawer.RegisterLineStatic(this, GlobalTranslation, GlobalTranslation + dragVector, Colors.Red, 2);
             }
 
             return liftVector + dragVector;
         }
 
-        private Vector3 CalculateLiftForce(Basis basis, Vector3 localVelocity, Curve totalLiftCurve, Curve parasiticDragCurve, float fluidDensity)
+        private Vector3 CalculateLiftForce(Basis basis, float localSpeedSquared, float aoa, Curve totalLiftCurve, Curve parasiticDragCurve, float fluidDensity)
         {
-            var localSpeedSquared = localVelocity.LengthSquared();
-
-            var aoa = CalculateAngleOfAttack(localVelocity);
-
             var liftCoefficient = InterpolateFromHalfAoaCurve(totalLiftCurve, aoa, flatPlateLiftCoefficient);
             var liftMag = CalculateAeroForceMagnitude(liftCoefficient, area, fluidDensity, localSpeedSquared);
             var liftVector = basis.y * liftMag * (HasPositiveAoa(aoa) ? 1 : -1);
@@ -93,10 +94,19 @@ namespace Physics.Forcers
 
         private float CalculateAngleOfAttack(Vector3 localVelocity)
         {
+            // Calculate AOA as if the surface is a round flat plate, working equally well in all directions.
+            // If that's not how your phenomenon works, then calculate AOA yourself.
+
             // Probably could do this better with quaternions but this works...
             var tr = new Transform().LookingAt(localVelocity, Vector3.Up);
             var euler = tr.basis.GetEuler();
-            return Utils.WrapNumber(-euler.x, 0, Mathf.Tau);
+            return WrapAoa(-euler.x);
+        }
+
+        private float WrapAoa(float rawAoa)
+        {
+            // Wrap a raw aoa value to range of 0 to Tau
+            return Utils.WrapNumber(rawAoa, 0, Mathf.Tau);
         }
 
         private float CalculateAeroForceMagnitude(float coefficient, float area, float density, float speedSquared)
