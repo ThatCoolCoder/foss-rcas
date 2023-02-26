@@ -13,9 +13,10 @@ A note on singletons+autoload in this project: there have been a few cases where
 ctrl+d to toggle debug mode, r to reset plane, space to launch plane, ctrl+shift+r to restart entire simulator.
 
 Todo:
-- improve wing physics: allow importing some better format of curves and fix AOA finding
+- improve wing physics: allow importing some better format of curves
+    - stall is mushy, not sharp
+    - planes feel too draggy, EG in real life the T28 carries a lot more energy and is difficult to get down, this one just mushes in
 - add body drag
-- make the WIP settings system only save on exit?
 - make location altitude actually change air pressure (not very useful, but why not?)
 - move the rest of the input to siminputmanager?
 - add support for controls mixing and trimming (on a per-aircraft basis)
@@ -32,10 +33,10 @@ Todo:
     - need to get it running on old hardware (target: Intel HD 3000)
     - make option to use impostors instead of trees
 - possibly rework physics system to support non-fluid effectors
-- Even though the CG is apparently already really far back, the models don't fly tailheavy. If I move the CG further back, they become suddenly very tailheavy" 
+- Even though the CG is apparently already really far back, the models don't fly tailheavy. If I move the CG further back, they become suddenly very tailheavy 
 - Should spatialfluidrepository become an autoload singleton?
 - Make mod system
-    - Scanning for aircraft files in other directories is not difficult
+    - Scanning for aircraft files in other directories is already done
     - But packaging the scene files in such a way that all paths is relative is difficult
     - Also it's likely to be difficult to load GLTF at runtime
 - It's likely that godot won't include the aircraft metadata .toml files in export, so tell it that they're assets
@@ -43,4 +44,4 @@ Todo:
 - Electrics simulation to optionally simulate battery drain.
     - apply this to other engine types too
 - make settings fileinput lineedit editable?
-- add a way to configure wind in-game (likely requires large reconfiguration of flightsettingsscreen - vertical tab menu with icons?)
+- add a way to configure wind in-game (likely requires large redesign of flightsettingsscreen - vertical tab menu with icons?)

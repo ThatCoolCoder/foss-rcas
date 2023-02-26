@@ -8,14 +8,19 @@ namespace Physics.Forcers
     {
         // Basically a wing, not restricted to operating in air though.
         // Uses a model supporting lift, induced drag, and parasitic drag.
-        // Wing is oriented along the x/z plane, and forward is in the direction of z-negative
+        // Wing is oriented along the x/z plane, and forward is in the direction of z-negative (indicated by green arrow)
         // Area/size is determined by the scale of the entity in the scene, although there is also an area multiplier.
         // The multiplier's main use is to allow you to scale this to match size of a non-square object but still have correct area. EG use 0.5 for a triangle.
 
         // Angle of attack ranges from 0 to tau, and should be normalised to the correct range by wrapping around.
 
         // Curves have values from 0 to 1, where 0 is -90° aoa and 1 is 90° aoa. Remaining values are interpolated by assuming the surface is a flat plate when run backwards.
-        [Export] public Curve TotalLiftCoefficient { get; set; } // Total lift points perpendicular to surface and causes both true lift and induced drag
+        // It's recommended to try editing the resource files for the curves manually, as you can't get very precise results using godot's built-in editor (we should get a custom curve format)
+        // The x-value for an aoa can be calculated like so: (aoa / 180 + 0.5)
+
+        // Total lift points perpendicular to surface and causes both true lift and induced drag.
+        // For regions where downwards lift is generated, the curve needs to have a sub-zero value
+        [Export] public Curve TotalLiftCoefficient { get; set; }
         [Export] public Curve ParasiticDragCoefficient { get; set; }
         [Export] public float AreaMultiplier { get; set; } = 1;
 
@@ -77,7 +82,7 @@ namespace Physics.Forcers
         {
             var liftCoefficient = InterpolateFromHalfAoaCurve(totalLiftCurve, aoa, flatPlateLiftCoefficient);
             var liftMag = CalculateAeroForceMagnitude(liftCoefficient, area, fluidDensity, localSpeedSquared);
-            var liftVector = basis.y * liftMag * (HasPositiveAoa(aoa) ? 1 : -1);
+            var liftVector = basis.y * liftMag;
 
             return liftVector;
         }
@@ -153,20 +158,9 @@ namespace Physics.Forcers
             return frontLipArea + bodyArea;
         }
 
-        private float AoaToCurveValue(float aoa)
-        {
-            return aoa / Mathf.Tau * 4;
-        }
-
-        private bool HasPositiveAoa(float aoa)
-        {
-            // Checks if the lift vector should point up or down depending on the AOA
-            return (aoa < Mathf.Pi / 2 || aoa > Mathf.Pi && aoa < Mathf.Pi * 1.5f);
-        }
-
         private void UpdateDebugBoxVisibility()
         {
-            GetNode<Spatial>("CSGBox").Visible = DebugModeActive;
+            GetNode<Spatial>("DebugBox").Visible = DebugModeActive;
         }
 
         public override void _ExitTree()
