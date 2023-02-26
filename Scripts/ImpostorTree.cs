@@ -6,7 +6,7 @@ public class ImpostorTree : Spatial
     // Very basic impostor/normal model switching intended for trees (currently a drastic last-ditch performance improvement)
     // Expects impostor to be a direct child called "Impostor" and real node to be a direct child called "RealNode"
 
-    [Export] public int UpdateInterval { get; set; } = 10;
+    [Export] public int UpdateInterval { get; set; } = 60;
     [Export] public bool UseGraphicsSettings { get; set; } = true; // Whether to use the graphics settings to override custom settings
     [Export] public bool Enabled { get; set; } = true;
     [Export] public float ImpostorDistance { get; set; } = 30;
@@ -40,18 +40,18 @@ public class ImpostorTree : Spatial
         if (trulyEnabled)
         {
             var trueDistance = UseGraphicsSettings ? SimSettings.Settings.Current.Graphics.ImpostorDistance : ImpostorDistance;
-            showImpostor = camera.GlobalTranslation.DistanceSquaredTo(GlobalTranslation) < trueDistance * trueDistance;
+            showImpostor = camera.GlobalTranslation.DistanceSquaredTo(GlobalTranslation) > trueDistance * trueDistance;
         }
 
-        if(showImpostor)
-        {
-            impostor.Visible = false;
-            realNode.Visible = true;
-        }
-        else
+        if (showImpostor)
         {
             impostor.Visible = true;
             realNode.Visible = false;
+        }
+        else
+        {
+            impostor.Visible = false;
+            realNode.Visible = true;
         }
     }
 }

@@ -1,5 +1,7 @@
 override.cfg
 Exports/
+*.blend1
+*.png~
 
 # Godot-specific ignores
 .import/
