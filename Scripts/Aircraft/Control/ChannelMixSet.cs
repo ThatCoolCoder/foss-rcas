@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-namespace Aircraft
+namespace Aircraft.Control
 {
     public class ChannelMixSet
     {

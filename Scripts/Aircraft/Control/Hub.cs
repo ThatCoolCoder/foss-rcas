@@ -5,14 +5,13 @@ using System.Collections.Generic;
 
 using Tomlet;
 
-namespace Aircraft
+namespace Aircraft.Control
 {
-    public class ControlHub : Spatial
+    public class Hub : Spatial
     {
         [Export(PropertyHint.File, "*.toml")] public string MixesFile { get; set; }
 
         private ChannelMixSet channelMixSet;
-        private Dictionary<string, ChannelMix> inputChannelNameToMix = new();
 
         public Dictionary<string, float> ChannelValues { get; set; } = new();
 
@@ -23,17 +22,22 @@ namespace Aircraft
             var content = gdFile.GetAsText();
             gdFile.Close();
             channelMixSet = TomletMain.To<ChannelMixSet>(content);
-
-            inputChannelNameToMix = channelMixSet.Mixes.ToDictionary(m => m.InputChannelName, m => m);
         }
 
         public override void _Process(float delta)
         {
+            var newChannelValues = new Dictionary<string, float>();
+
             foreach (var mix in channelMixSet.Mixes)
             {
+                float previousValue = 0;
+                newChannelValues.TryGetValue(mix.OutputChannelName, out previousValue);
+
                 var rawValue = SimInput.Manager.GetAxisValue(mix.InputChannelName);
-                ChannelValues[mix.OutputChannelName] = mix.Apply(rawValue);
+                newChannelValues[mix.OutputChannelName] = mix.Apply(rawValue, previousValue);
             }
+
+            ChannelValues = newChannelValues.ToDictionary(kvp => kvp.Key, kvp => Mathf.Clamp(kvp.Value, -1, 1));
         }
     }
 }

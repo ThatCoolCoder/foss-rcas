@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Scripts/Aircraft/ControlHub.cs" type="Script" id=1]
+[ext_resource path="res://Scripts/Aircraft/Control/Hub.cs" type="Script" id=1]
 
 [node name="ControlHub" type="Spatial"]
 script = ExtResource( 1 )

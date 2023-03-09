@@ -3,7 +3,7 @@ using System;
 
 namespace Aircraft
 {
-    public class ControlSurface : Spatial, IControllable
+    public class ControlSurface : Spatial, Control.IControllable
     {
         // Object that rotates around its X-axis
 
@@ -11,7 +11,7 @@ namespace Aircraft
         [Export] public bool Reversed { get; set; }
         [Export] public string ChannelName { get; set; } = "";
 
-        public ControlHub ControlHub { get; set; }
+        public Control.Hub ControlHub { get; set; }
 
         public override void _Process(float delta)
         {

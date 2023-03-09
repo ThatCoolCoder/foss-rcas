@@ -1,10 +1,10 @@
 using Godot;
 using System;
 
-namespace Aircraft
+namespace Aircraft.Control
 {
     public interface IControllable
     {
-        public ControlHub ControlHub { get; set; }
+        public Hub ControlHub { get; set; }
     }
 }

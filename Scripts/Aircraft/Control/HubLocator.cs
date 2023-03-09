@@ -1,9 +1,9 @@
 using Godot;
 using System;
 
-namespace Aircraft
+namespace Aircraft.Control
 {
-    public class ControlHubLocator : Spatial
+    public class HubLocator : Spatial
     {
         // Node that gets a control hub from a NodePath, then assigns it to the parent of this node. 
 
@@ -15,7 +15,7 @@ namespace Aircraft
             if (parent is IControllable controllable)
             {
                 var foundNode = GetNode(ControlHubPath);
-                if (foundNode is ControlHub controlHub)
+                if (foundNode is Hub controlHub)
                 {
                     controllable.ControlHub = controlHub;
                 }

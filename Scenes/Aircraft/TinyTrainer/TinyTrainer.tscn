@@ -61,7 +61,7 @@ shape = SubResource( 4 )
 [node name="ControlledMotor" parent="." instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0166561, -0.176402 )
 ForLiquid = false
-Radius = 0.06
+Radius = 0.008
 ExitSpeed = 27.778
 FreeWheelWhenOff = true
 ThrottleActionName = "throttle"

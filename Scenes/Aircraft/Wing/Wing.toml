@@ -7,7 +7,7 @@ A dead simple flying wing, inspired by the FliteTest Mini Arrow
 """
 
 [aircraft]
-wingspan = 0.700
+wingspan = 0.75
 length = 0.6
 weight = 0.3
 power_type = 0
