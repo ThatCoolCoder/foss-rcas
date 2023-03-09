@@ -38,7 +38,7 @@ _data = {
 transform = Transform( 1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, -58.4062, 0.283917, 52.9997 )
 
 [node name="AircraftLauncher" parent="." index="3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -71.8885, 0, 55.0733 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -56.8228, 0, 55.0733 )
 
 [node name="Camera" parent="." index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -58.2825, 1.7, 55.9567 )

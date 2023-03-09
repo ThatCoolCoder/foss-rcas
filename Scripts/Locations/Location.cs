@@ -30,7 +30,7 @@ public class Location : Spatial
 
         if (needsLauncher)
         {
-            launcher.Transform = GetNode<Spatial>("StartLocation").Transform;
+            launcher.GlobalTransform = GetNode<Spatial>("StartLocation").GlobalTransform;
             launcher.Settings = LauncherSettings;
             launcher.SetTarget(Aircraft);
         }
@@ -38,7 +38,7 @@ public class Location : Spatial
         {
             Aircraft.LinearVelocity = Vector3.Zero;
             Aircraft.AngularVelocity = Vector3.Zero;
-            Aircraft.Transform = GetNode<Spatial>("StartLocation").Transform;
+            Aircraft.GlobalTransform = GetNode<Spatial>("StartLocation").GlobalTransform;
         }
     }
 }

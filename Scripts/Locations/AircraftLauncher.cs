@@ -22,7 +22,7 @@ public class AircraftLauncher : Spatial
 
         target.LinearVelocity = Vector3.Zero;
         target.AngularVelocity = Vector3.Zero;
-        target.Translation = new Vector3(0, Settings.Height, 0);
+        target.GlobalTranslation = GlobalTranslation.WithY(GlobalTranslation.y + Settings.Height);
         target.Rotation = new Vector3(Settings.Angle, Rotation.y, 0);
     }
 
