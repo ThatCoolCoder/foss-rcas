@@ -10,22 +10,20 @@ namespace SimInput
         public string Name { get; set; }
         public int Axis { get; set; }
         public float Multiplier { get; set; }
-        public float Expo { get; set; } // from 0 to 1
         public bool Inverted { get; set; }
         public float DeadzoneEnd { get; set; }
         public float DeadzoneRest { get; set; }
 
         public AxisMapping()
         {
-            // toml needs empty constructor
+            // toml needs an empty constructor to exist
         }
 
-        public AxisMapping(string name, int axis, float multiplier = 1, float expo = 0, bool inverted = false, float deadzoneEnd = 0, float deadzoneRest = 0)
+        public AxisMapping(string name, int axis, float multiplier = 1, bool inverted = false, float deadzoneEnd = 0, float deadzoneRest = 0)
         {
             Name = name;
             Axis = axis;
             Multiplier = multiplier;
-            Expo = expo;
             Inverted = inverted;
             DeadzoneEnd = deadzoneEnd;
             DeadzoneRest = deadzoneRest;
@@ -43,9 +41,6 @@ namespace SimInput
             if (value < -1 + DeadzoneEnd) value = -1;
             if (value > 1 - DeadzoneEnd) value = 1;
             if (Mathf.Abs(value) < DeadzoneRest) value = 0;
-
-            // this should match the expo formula used by open/edge tx
-            value = Expo * (value * value * value) + (1 - Expo) * value;
 
             return value;
         }

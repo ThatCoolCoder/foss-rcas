@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Scripts/Physics/Fluids/SpatialFluidBeacon.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/Physics/Fluids/SpatialFluidRepository.cs" type="Script" id=2]
-[ext_resource path="res://Scenes/Forcers/ControlledMotor.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Aircraft/Common/ControlledMotor.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scripts/Physics/Fluids/Air.cs" type="Script" id=5]
 [ext_resource path="res://Art/Locations/LargeOval/Grass.material" type="Material" id=6]
 [ext_resource path="res://Scripts/Physics/SpatialFluidEffectable.cs" type="Script" id=7]

@@ -20,13 +20,8 @@ Todo:
 - large oval: launcher is in wrong spot
 - make location altitude actually change air pressure (not very useful, but why not?)
 - move the rest of the input to siminputmanager?
-- add support for controls mixing and trimming (on a per-aircraft basis)
-    - I suggest adding a ControlHub node that the controllables can then query.
-    - While users could configure this on their TXs, it seems nice to let them create a single generic sim model and have at least the mixing done automatically.
-    - Plus, some people might be using gamepads or other input methods anyway.
-    - Likely would be best to implement this through some text-based format (toml?)
-    - Add support for flight computers/gyros and program a couple of types so that we can have quadcopters
-    - Move expo to part of this mixing (since expo should be different on different planes)
+- Content manager tries to read `Mixes.toml` file and then gets annoyed because it is not a content file
+- Add support for flight computers/gyros extending from ControlHub and program a couple of types so that we can have quadcopters
 - audio
     - procedural
     - can link motor sound to an advanced motor simulation? (rpm, air disturbance factor)

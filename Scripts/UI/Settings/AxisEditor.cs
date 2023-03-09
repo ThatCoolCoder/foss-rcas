@@ -36,11 +36,6 @@ namespace UI.Settings
                 (s, v) => GetAxisMapping(s).Multiplier = v,
                 min: 0, max: 2, step: 0.01f);
 
-            GetNode<NumericSliderInput>("Expo").Config(null, "Expo",
-                s => GetAxisMapping(s).Expo,
-                (s, v) => GetAxisMapping(s).Expo = v,
-                min: 0, max: 1, step: 0.01f, toolTip: "Expo makes the controls softer near the center,\nmaking it easier to perform fine corrections without limiting the max throw");
-
             GetNode<NumericSliderInput>("DeadzoneRest").Config(null, "Deadzone (rest)",
                 s => GetAxisMapping(s).DeadzoneRest,
                 (s, v) => GetAxisMapping(s).DeadzoneRest = v,

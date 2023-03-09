@@ -1,18 +1,20 @@
 using Godot;
 using System;
 
-namespace Physics.Forcers
+namespace Aircraft
 {
-    public class ControlledMotor : Motor
+    public class ControlledMotor : Physics.Forcers.Motor, IControllable
     {
         // Motor controlled by the keyboard
 
         [Export] public string ThrottleActionName { get; set; }
         [Export] public bool Reversible { get; set; }
 
+        public ControlHub ControlHub { get; set; }
+
         public override void _Process(float delta)
         {
-            ThrustProportion = SimInput.Manager.GetAxisValue("throttle");
+            ThrustProportion = ControlHub.ChannelValues[ThrottleActionName];
             if (ThrustProportion == 0) ThrustProportion = -1; // hacky thing to make it not start at init
             if (!Reversible) ThrustProportion = ThrustProportion / 2 + 0.5f;
             base._Process(delta);
