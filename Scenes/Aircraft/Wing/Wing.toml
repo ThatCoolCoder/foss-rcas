@@ -1,0 +1,19 @@
+name = "Flying Wing"
+author = "ThatCoolCoder"
+version = "0.1.0"
+date_updated = 2023-03-09
+description = """
+A dead simple flying wing, inspired by the FliteTest Mini Arrow
+"""
+
+[aircraft]
+wingspan = 0.700
+length = 0.6
+weight = 0.3
+power_type = 0
+channels = 3
+
+[aircraft.launcher]
+speed = 10
+height = 1.5
+angle = 30

@@ -1,0 +1,9 @@
+Mixes = [
+	{ InputChannelName = "throttle", OutputChannelName = "throttle", Weight = 1.0, Expo = 0.0 },
+    
+	{ InputChannelName = "elevator", OutputChannelName = "leftElevon", Weight = 1.0, Expo = 0.3 },
+	{ InputChannelName = "aileron", OutputChannelName = "leftElevon", Weight = 1.0, Expo = 0.3 },
+
+	{ InputChannelName = "elevator", OutputChannelName = "rightElevon", Weight = 1.0, Expo = 0.3 },
+	{ InputChannelName = "aileron", OutputChannelName = "rightElevon", Weight = 1.0, Expo = 0.3 },
+]
