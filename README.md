@@ -17,6 +17,7 @@ Todo:
     - stall is mushy, not sharp
     - planes feel too draggy, EG in real life the T28 carries a lot more energy and is difficult to get down, this one just mushes in
 - add body drag
+- large oval: launcher is in wrong spot
 - make location altitude actually change air pressure (not very useful, but why not?)
 - move the rest of the input to siminputmanager?
 - add support for controls mixing and trimming (on a per-aircraft basis)
