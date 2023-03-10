@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/Impostor.png-02bc60983eedf119c0d6cfe1dc4dc352.s3tc.stex"
-path.etc="res://.import/Impostor.png-02bc60983eedf119c0d6cfe1dc4dc352.etc.stex"
+path.s3tc="res://.import/Impostor.png-fbc2133162c25b518ea08bc09989a399.s3tc.stex"
+path.etc="res://.import/Impostor.png-fbc2133162c25b518ea08bc09989a399.etc.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Art/Common/Trees/Impostor.png"
-dest_files=[ "res://.import/Impostor.png-02bc60983eedf119c0d6cfe1dc4dc352.s3tc.stex", "res://.import/Impostor.png-02bc60983eedf119c0d6cfe1dc4dc352.etc.stex" ]
+source_file="res://Art/Common/Trees/GumTree/Impostor.png"
+dest_files=[ "res://.import/Impostor.png-fbc2133162c25b518ea08bc09989a399.s3tc.stex", "res://.import/Impostor.png-fbc2133162c25b518ea08bc09989a399.etc.stex" ]
 
 [params]
 

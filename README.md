@@ -26,7 +26,8 @@ Todo:
     - can link motor sound to an advanced motor simulation? (rpm, air disturbance factor)
 - Graphics
     - need to get it running on old hardware (target: Intel HD 3000)
-    - make option to use impostors instead of trees
+        - problem: this graphics will not be supported if we upgrade to godot 4.
+    - add option for tree/grass multiplier, as even with impostors it can be intensive
 - possibly rework physics system to support non-fluid effectors
 - Even though the CG is apparently already really far back, the models don't fly tailheavy. If I move the CG further back, they become suddenly very tailheavy 
 - Should spatialfluidrepository become an autoload singleton?

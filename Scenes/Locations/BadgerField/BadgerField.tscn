@@ -1,0 +1,105 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Scenes/Locations/BaseLocation.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Art/Locations/BadgerField/BadgerField.glb" type="PackedScene" id=2]
+[ext_resource path="res://Art/approaching_storm_4k.exr" type="Texture" id=3]
+[ext_resource path="res://Scripts/UI/SpawnAlongPath.cs" type="Script" id=4]
+[ext_resource path="res://Scenes/Locations/BadgerField/ImpostorPine.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Locations/Common/TreeScatter.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Art/Common/Trees/PineTree/Impostor.png" type="Texture" id=7]
+
+[sub_resource type="PanoramaSky" id=1]
+panorama = ExtResource( 3 )
+
+[sub_resource type="Environment" id=2]
+background_mode = 2
+background_sky = SubResource( 1 )
+background_sky_orientation = Basis( -0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107 )
+background_energy = 1.02
+ambient_light_color = Color( 1, 1, 1, 1 )
+ambient_light_energy = 1.08
+ambient_light_sky_contribution = 0.67
+tonemap_mode = 2
+tonemap_exposure = 0.58
+tonemap_white = 16.0
+dof_blur_far_distance = 278.93
+dof_blur_far_transition = 30.72
+
+[sub_resource type="Curve3D" id=3]
+_data = {
+"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, -55.2812, 0, -26.6802, 0, 0, 0, 0, 0, 0, -16.7646, 0, -52.7066, 0, 0, 0, 0, 0, 0, -2.5449, 0, -49.3063, 0, 0, 0, 0, 0, 0, 24.5843, 0, -48.1075, 0, 0, 0, 0, 0, 0, 59.8907, 0, -45.9161, 0, 0, 0, 0, 0, 0, 78.8831, 0, -36.4199, 0, 0, 0, 0, 0, 0, 76.5104, 0, -11.0639, 0, 0, 0, 0, 0, 0, 81.0745, 0, 5.70428, 0, 0, 0, 0, 0, 0, 80.831, 0, 25.4271, 0, 0, 0, 0, 0, 0, 73.8088, 0, 39.4124, 0, 0, 0, 0, 0, 0, 58.6617, 0, 40.6489, 0, 0, 0, 0, 0, 0, 45.5247, 0, 33.2189, 0, 0, 0, 0, 0, 0, 22.8799, 0, 39.0627, 0, 0, 0, 0, 0, 0, 34.55, 0, 44.3584, 0, 0, 0, 0, 0, 0, 6.32242, 0, 56.1072, 0, 0, 0, 0, 0, 0, -17.0528, 0, 50.9938, 0, 0, 0, 0, 0, 0, 4.61796, 0, 33.9494, 0, 0, 0, 0, 0, 0, -14.6179, 0, 31.758, 0, 0, 0, 0, 0, 0, -33.3668, 0, 41.0107, 0, 0, 0, 0, 0, 0, -52.1158, 0, 45.3935, 0, 0, 0, 0, 0, 0, -49.4373, 0, 26.8881, 0, 0, 0, 0, 0, 0, -72.0821, 0, 30.0535, 0, 0, 0, 0, 0, 0, -74.88, 0, 42.1945, 0, 0, 0, 0, 0, 0, -86.6267, 0, 33.5391, 0, 0, 0, 0, 0, 0, -92.191, 0, 22.4106, 0, 0, 0, 0, 0, 0, -80.6044, 0, 9.11317, 0, 0, 0, 0, 0, 0, -98.8663, 0, -4.27891, 0, 0, 0, 0, 0, 0, -83.5263, 0, -15.723, 0, 0, 0, 0, 0, 0, -94.3548, 0, -33.2318, 0, 0, 0, 0, 0, 0, -81.3716, 0, -32.9227, 0, 0, 0, 0, 0, 0, -73.3344, 0, -41.8873, 0, 0, 0, 0, 0, 0, -49.2227, 0, -46.5242 ),
+"tilts": PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
+}
+
+[node name="BadgerField" instance=ExtResource( 1 )]
+
+[node name="BadgerField" parent="." index="0" instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.276415, 0 )
+
+[node name="StartLocation" parent="." index="3"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -39.7529, 0.680992, 0 )
+
+[node name="Camera" parent="." index="5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.91372, 17.4896 )
+
+[node name="VSplitContainer" parent="CanvasLayer/HUD" index="0"]
+margin_right = 1270.0
+margin_bottom = 710.0
+
+[node name="TopBar" parent="CanvasLayer/HUD/VSplitContainer" index="0"]
+margin_right = 1260.0
+
+[node name="BottomBar" parent="CanvasLayer/HUD/VSplitContainer" index="1"]
+margin_top = 682.0
+margin_right = 1260.0
+margin_bottom = 700.0
+
+[node name="FpsIndicator" parent="CanvasLayer/HUD/VSplitContainer/BottomBar" index="0"]
+margin_left = 1226.0
+margin_right = 1260.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="7"]
+environment = SubResource( 2 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="." index="8"]
+transform = Transform( 1, 0, 0, 0, 0.695474, 0.718551, 0, -0.718551, 0.695474, 0, 7.0798, 0 )
+light_color = Color( 0.898039, 0.913725, 0.784314, 1 )
+light_energy = 1.764
+shadow_enabled = true
+shadow_bias = -0.086
+
+[node name="Trees" type="Spatial" parent="." index="9"]
+
+[node name="NearbyTrees" type="Path" parent="Trees" index="0"]
+curve = SubResource( 3 )
+script = ExtResource( 4 )
+Scene = ExtResource( 5 )
+NumInstances = 200
+
+[node name="TreeScatter" parent="Trees" index="1" instance=ExtResource( 6 )]
+transform = Transform( -3.13294e-06, 0, -111.063, 0, 1, 0, 71.6732, 0, -4.85472e-06, -277.393, 0, 0 )
+Count = 200
+Texture = ExtResource( 7 )
+TreeSize = Vector2( 25, 25 )
+TreeSizeVariation = Vector2( 0.5, 0.5 )
+
+[node name="TreeScatter2" parent="Trees" index="2" instance=ExtResource( 6 )]
+transform = Transform( 207.922, 0, 0, 0, 1, 0, 0, 0, 71.6732, -106.225, 0, -127.446 )
+Count = 400
+Texture = ExtResource( 7 )
+TreeSize = Vector2( 25, 25 )
+TreeSizeVariation = Vector2( 0.5, 0.5 )
+
+[node name="TreeScatter3" parent="Trees" index="3" instance=ExtResource( 6 )]
+transform = Transform( 74.8281, 0, 0, 0, 1, 0, 0, 0, 188.599, 175.067, 0, -13.7845 )
+Count = 300
+Texture = ExtResource( 7 )
+TreeSize = Vector2( 25, 25 )
+TreeSizeVariation = Vector2( 0.5, 0.5 )
+
+[node name="TreeScatter4" parent="Trees" index="4" instance=ExtResource( 6 )]
+transform = Transform( 174.814, 0, 0, 0, 1, 0, 0, 0, 71.7301, -91.054, 0, 101.695 )
+Count = 400
+Texture = ExtResource( 7 )
+TreeSize = Vector2( 25, 25 )
+TreeSizeVariation = Vector2( 0.5, 0.5 )

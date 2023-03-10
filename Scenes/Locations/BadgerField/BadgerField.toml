@@ -1,0 +1,11 @@
+name = "Badgerfield Flying Club"
+author = "ThatCoolCoder"
+version = "0.1.0"
+date_updated = 2023-03-10
+description = """
+A rather small RC club located in the fictional area of Badgerfield. It is surrounded by tall pine trees on all sides, requiring steep approaches.
+"""
+
+[location]
+world_location = "Maine, USA"
+elevation = 50

@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Scripts/Locations/ImpostorTree.cs" type="Script" id=1]
-[ext_resource path="res://Art/Common/Trees/Tree.glb" type="PackedScene" id=2]
-[ext_resource path="res://Art/Common/Trees/Impostor.png" type="Texture" id=3]
+[ext_resource path="res://Art/Common/Trees/GumTree/Tree.glb" type="PackedScene" id=2]
+[ext_resource path="res://Art/Common/Trees/GumTree/Impostor.png" type="Texture" id=3]
 
 [node name="ImpostorTree" type="Spatial"]
 script = ExtResource( 1 )

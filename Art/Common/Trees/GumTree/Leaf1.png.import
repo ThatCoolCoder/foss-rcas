@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Leaf1.png-65e8d81941a7dec127b1f829e0ec4316.stex"
+path="res://.import/Leaf1.png-d37da762514d7b7289269df476221173.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Common/Trees/Leaf1.png"
-dest_files=[ "res://.import/Leaf1.png-65e8d81941a7dec127b1f829e0ec4316.stex" ]
+source_file="res://Art/Common/Trees/GumTree/Leaf1.png"
+dest_files=[ "res://.import/Leaf1.png-d37da762514d7b7289269df476221173.stex" ]
 
 [params]
 

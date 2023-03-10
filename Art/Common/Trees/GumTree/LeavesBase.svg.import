@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/LeavesBase.svg-e4967daacd6a48c679d4dad5157f104e.stex"
+path="res://.import/LeavesBase.svg-069e558b9ef22b719823f1cabd89a525.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Common/Trees/LeavesBase.svg"
-dest_files=[ "res://.import/LeavesBase.svg-e4967daacd6a48c679d4dad5157f104e.stex" ]
+source_file="res://Art/Common/Trees/GumTree/LeavesBase.svg"
+dest_files=[ "res://.import/LeavesBase.svg-069e558b9ef22b719823f1cabd89a525.stex" ]
 
 [params]
 

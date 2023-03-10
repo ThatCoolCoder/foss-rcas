@@ -6,12 +6,12 @@
 [ext_resource path="res://Scripts/UI/SpawnAlongPath.cs" type="Script" id=4]
 [ext_resource path="res://Art/Locations/LargeOval/ImpostorTree.tscn" type="PackedScene" id=5]
 
-[sub_resource type="PanoramaSky" id=1]
+[sub_resource type="PanoramaSky" id=5]
 panorama = ExtResource( 2 )
 
 [sub_resource type="Environment" id=2]
 background_mode = 2
-background_sky = SubResource( 1 )
+background_sky = SubResource( 5 )
 ambient_light_color = Color( 1, 1, 1, 1 )
 ambient_light_energy = 2.36
 tonemap_mode = 2

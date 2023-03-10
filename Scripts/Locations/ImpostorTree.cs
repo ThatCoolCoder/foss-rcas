@@ -16,13 +16,17 @@ public class ImpostorTree : Spatial
     private Spatial impostor;
     private Spatial realNode;
 
-    public override void _Ready()
+    public override void _EnterTree()
     {
-        camera = GetViewport().GetCamera();
         impostor = GetNode<Spatial>("Impostor");
         realNode = GetNode<Spatial>("RealNode");
 
-        UpdateVisibility();
+        realNode.Visible = false;
+    }
+
+    public override void _Ready()
+    {
+        camera = GetViewport().GetCamera();
     }
 
     public override void _Process(float delta)
