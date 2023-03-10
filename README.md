@@ -13,6 +13,7 @@ A note on singletons+autoload in this project: there have been a few cases where
 ctrl+d to toggle debug mode, r to reset plane, space to launch plane, ctrl+shift+r to restart entire simulator.
 
 Todo:
+- screenshot date is not human-readable, fix this please
 - improve wing physics: allow importing some better format of curves
     - stall is mushy, not sharp
     - planes feel too draggy, EG in real life the T28 carries a lot more energy and is difficult to get down, this one just mushes in
