@@ -1,44 +1,48 @@
 using Godot;
 using System;
 
-public class Location : Spatial
+namespace Locations
 {
-    public RigidBody Aircraft { get; set; }
-
-    public AircraftLauncher.LauncherSettings LauncherSettings { get; set; } = null;
-
-    private AircraftLauncher launcher;
-
-    public override void _Ready()
+    public class Location : Spatial
     {
-        var camera = GetNode<GroundCamera>("Camera");
-        camera.Target = Aircraft;
-        camera.CurrentZoomSettings = SimSettings.Settings.Current.GroundCameraZoom;
-        launcher = GetNode<AircraftLauncher>("AircraftLauncher");
-        Reset();
-    }
+        public RigidBody Aircraft { get; set; }
 
-    public override void _Process(float delta)
-    {
-        if (Input.IsActionJustPressed("reset")) Reset();
-        if (Input.IsActionJustPressed("launch")) launcher.Launch();
-    }
+        public AircraftLauncher.LauncherSettings LauncherSettings { get; set; } = null;
 
-    private void Reset()
-    {
-        var needsLauncher = LauncherSettings != null;
+        private AircraftLauncher launcher;
 
-        if (needsLauncher)
+        public override void _Ready()
         {
-            launcher.GlobalTransform = GetNode<Spatial>("StartLocation").GlobalTransform;
-            launcher.Settings = LauncherSettings;
-            launcher.SetTarget(Aircraft);
+            var camera = GetNode<GroundCamera>("Camera");
+            camera.Target = Aircraft;
+            camera.CurrentZoomSettings = SimSettings.Settings.Current.GroundCameraZoom;
+            launcher = GetNode<AircraftLauncher>("AircraftLauncher");
+            Reset();
         }
-        else
+
+        public override void _Process(float delta)
         {
-            Aircraft.LinearVelocity = Vector3.Zero;
-            Aircraft.AngularVelocity = Vector3.Zero;
-            Aircraft.GlobalTransform = GetNode<Spatial>("StartLocation").GlobalTransform;
+            if (Input.IsActionJustPressed("reset")) Reset();
+            if (Input.IsActionJustPressed("launch")) launcher.Launch();
+        }
+
+        private void Reset()
+        {
+            var needsLauncher = LauncherSettings != null;
+
+            if (needsLauncher)
+            {
+                launcher.GlobalTransform = GetNode<Spatial>("StartLocation").GlobalTransform;
+                launcher.Settings = LauncherSettings;
+                launcher.SetTarget(Aircraft);
+            }
+            else
+            {
+                Aircraft.LinearVelocity = Vector3.Zero;
+                Aircraft.AngularVelocity = Vector3.Zero;
+                Aircraft.GlobalTransform = GetNode<Spatial>("StartLocation").GlobalTransform;
+            }
         }
     }
+
 }

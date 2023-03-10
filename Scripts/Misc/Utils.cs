@@ -5,11 +5,18 @@ using System.Linq;
 
 public static class Utils
 {
+    private static Random random = new Random();
+
     public static void LogError(string message, Node node = null)
     {
         if (node == null) GD.PrintErr($"Error: {message}");
         else GD.PrintErr($"Error: {message} ({node.GetPath().ToString()})");
         GD.PrintStack();
+    }
+
+    public static T RandomItem<T>(List<T> items)
+    {
+        return items[random.Next(0, items.Count)];
     }
 
     public static float MapNumber(float num, float oldMin, float oldMax, float newMin, float newMax)

@@ -19,18 +19,36 @@ Todo:
     - planes feel too draggy, EG in real life the T28 carries a lot more energy and is difficult to get down, this one just mushes in
 - add body drag
 - make location altitude actually change air pressure (not very useful, but why not?)
-- move the rest of the input to siminputmanager?
+- Input
+    - move the rest of the input to siminputmanager?
+    - More advanced bindings on siminputmanager to allow stuff like gear and flaps
+        - plain axis input (what we have already) - works with TX axis and also TX switch
+        - toggle input on a keyboard press (perhaps also option to do on TX press)
+        - momentary input on a keyboard press
+        - 
+- Docs
+    - Rewrite aircraft creation
 - Content manager tries to read `Mixes.toml` file and then gets annoyed because it is not a content file
 - Add support for flight computers/gyros extending from ControlHub and program a couple of types so that we can have quadcopters
 - audio
     - procedural
     - can link motor sound to an advanced motor simulation? (rpm, air disturbance factor)
+- Content
+    - Create small 3d plane
+    - Create an EDF
+    - Badgerfield: add bushes around the edge, do some more aggressive grass optimisation
 - Graphics
-    - need to get it running on old hardware (target: Intel HD 3000)
+    - need to get it running on old hardware (target: Intel HD 3000 on low 720p)
         - problem: this IGPU will not be supported if we upgrade to godot 4.
     - add option for tree/grass multiplier, as even with impostors it can be intensive
+    - Settings for stuff like shadows, AA, AO
+    - Come up with a setup for rendering to an intermediate viewport so we can render at lower resolution and upsample
+        - Some people may not like this idea but I think it's great if you have a hi-res monitor but your GPU can't game like that.
+        - (it's much simpler than adjusting the monitor resolution or whatever)
+    - If FPS is terrible, have a pop up in the corner that tells you to change your graphics.
 - possibly rework physics system to support non-fluid effectors
-- Even though the CG is apparently already really far back, the models don't fly tailheavy. If I move the CG further back, they become suddenly very tailheavy 
+- Even though the CG is apparently already really far back, the models don't fly tailheavy. If I move the CG further back, they become suddenly very tailheavy
+    - Maybe their elevator is just stalling, the flying wing flies amazingly and the CG is probably a bit forward even.
 - Should spatialfluidrepository become an autoload singleton?
 - Make mod system
     - Scanning for aircraft files in other directories is already done

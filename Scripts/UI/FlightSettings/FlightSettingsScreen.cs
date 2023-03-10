@@ -55,7 +55,7 @@ namespace UI.FlightSettings
 
         public void _on_PlayButton_pressed()
         {
-            var location = ResourceLoader.Load<PackedScene>(locationSelector.SelectedItem.GetScenePath()).Instance<Location>();
+            var location = ResourceLoader.Load<PackedScene>(locationSelector.SelectedItem.GetScenePath()).Instance<Locations.Location>();
             if (aircraftSelector.SelectedItem.NeedsLauncher)
             {
                 location.LauncherSettings = new()

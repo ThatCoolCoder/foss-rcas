@@ -7,7 +7,7 @@ namespace SimSettings
     public class Settings
     {
         public SimInput.InputMap InputMap { get; set; } = new();
-        public GroundCamera.ZoomSettings GroundCameraZoom { get; set; } = new();
+        public Locations.GroundCamera.ZoomSettings GroundCameraZoom { get; set; } = new();
         public GraphicsSettings Graphics { get; set; } = new();
         public MiscSettings Misc { get; set; } = new();
 

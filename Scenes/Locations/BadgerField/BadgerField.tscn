@@ -85,33 +85,33 @@ NumInstances = 200
 transform = Transform( -3.13294e-06, 0, -111.063, 0, 1, 0, 71.6732, 0, -4.85472e-06, -277.393, 0, 0 )
 Count = 200
 Texture = ExtResource( 7 )
-TreeSize = Vector2( 25, 25 )
+TreeSize = Vector2( 15, 15 )
 TreeSizeVariation = Vector2( 0.5, 0.5 )
 
 [node name="TreeScatter2" parent="Trees" index="2" instance=ExtResource( 6 )]
 transform = Transform( 207.922, 0, 0, 0, 1, 0, 0, 0, 71.6732, -106.225, 0, -127.446 )
 Count = 400
 Texture = ExtResource( 7 )
-TreeSize = Vector2( 25, 25 )
+TreeSize = Vector2( 15, 15 )
 TreeSizeVariation = Vector2( 0.5, 0.5 )
 
 [node name="TreeScatter3" parent="Trees" index="3" instance=ExtResource( 6 )]
 transform = Transform( 74.8281, 0, 0, 0, 1, 0, 0, 0, 188.599, 175.067, 0, -13.7845 )
 Count = 300
 Texture = ExtResource( 7 )
-TreeSize = Vector2( 25, 25 )
+TreeSize = Vector2( 15, 15 )
 TreeSizeVariation = Vector2( 0.5, 0.5 )
 
 [node name="TreeScatter4" parent="Trees" index="4" instance=ExtResource( 6 )]
 transform = Transform( 174.814, 0, 0, 0, 1, 0, 0, 0, 71.7301, -91.054, 0, 101.695 )
 Count = 400
 Texture = ExtResource( 7 )
-TreeSize = Vector2( 25, 25 )
+TreeSize = Vector2( 15, 15 )
 TreeSizeVariation = Vector2( 0.5, 0.5 )
 
-[node name="Grass2" type="Spatial" parent="." index="10"]
+[node name="Grass" type="Spatial" parent="." index="10"]
 
-[node name="Grass" type="MultiMeshInstance" parent="Grass2" index="0"]
+[node name="Grass" type="MultiMeshInstance" parent="Grass" index="0"]
 transform = Transform( 106.674, 0, 0, 0, 1.02261, 0, 0, 0, 67.761, -9.4665, 0.297844, -5.88435 )
 script = ExtResource( 8 )
 InstanceCount = 50000
@@ -119,55 +119,50 @@ Mask = ExtResource( 11 )
 Texture = ExtResource( 9 )
 GrassSize = Vector2( 1, 0.1 )
 
-[node name="CSGBox" type="CSGBox" parent="Grass2/Grass" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+[node name="CSGBox" type="CSGBox" parent="Grass/Grass" index="0"]
 height = 1.09147
 material = ExtResource( 10 )
 
-[node name="ThickGrass" type="MultiMeshInstance" parent="Grass2" index="1"]
+[node name="ThickGrass" type="MultiMeshInstance" parent="Grass" index="1"]
 transform = Transform( 17.3633, 0, 0, 0, 1.02261, 0, 0, 0, 9.47828, -29.2296, 0.297844, 14.3291 )
 script = ExtResource( 8 )
 InstanceCount = 5000
 Texture = ExtResource( 9 )
 GrassSize = Vector2( 1, 0.1 )
 
-[node name="CSGBox" type="CSGBox" parent="Grass2/ThickGrass" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+[node name="CSGBox" type="CSGBox" parent="Grass/ThickGrass" index="0"]
 height = 0.120658
 material = ExtResource( 10 )
 
-[node name="ThickGrass2" type="MultiMeshInstance" parent="Grass2" index="2"]
+[node name="ThickGrass2" type="MultiMeshInstance" parent="Grass" index="2"]
 transform = Transform( 9.46297, 0, 0, 0, 1.02261, 0, 0, 0, 9.47828, -0.279251, 0.297844, 14.3291 )
 script = ExtResource( 8 )
 InstanceCount = 5000
 Texture = ExtResource( 9 )
 GrassSize = Vector2( 1, 0.1 )
 
-[node name="CSGBox" type="CSGBox" parent="Grass2/ThickGrass2" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+[node name="CSGBox" type="CSGBox" parent="Grass/ThickGrass2" index="0"]
 height = 0.002
 material = ExtResource( 10 )
 
-[node name="ThickGrass3" type="MultiMeshInstance" parent="Grass2" index="3"]
+[node name="ThickGrass3" type="MultiMeshInstance" parent="Grass" index="3"]
 transform = Transform( 1.07398, 0, 0, 0, 1.02261, 0, 0, 0, 5.61847, -10.9421, 0.297844, 18.1736 )
 script = ExtResource( 8 )
 InstanceCount = 5000
 Texture = ExtResource( 9 )
 GrassSize = Vector2( 1, 0.1 )
 
-[node name="CSGBox" type="CSGBox" parent="Grass2/ThickGrass3" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+[node name="CSGBox" type="CSGBox" parent="Grass/ThickGrass3" index="0"]
 height = 0.340934
 material = ExtResource( 10 )
 
-[node name="ExtraThickGrass" type="MultiMeshInstance" parent="Grass2" index="4"]
+[node name="ExtraThickGrass" type="MultiMeshInstance" parent="Grass" index="4"]
 transform = Transform( 7.82472, 0, 0, 0, 1.02261, 0, 0, 0, 5.96138, -19.9697, 0.297844, 17.9055 )
 script = ExtResource( 8 )
 InstanceCount = 2000
 Texture = ExtResource( 9 )
 GrassSize = Vector2( 1, 0.1 )
 
-[node name="CSGBox" type="CSGBox" parent="Grass2/ExtraThickGrass" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+[node name="CSGBox" type="CSGBox" parent="Grass/ExtraThickGrass" index="0"]
 height = 0.340934
 material = ExtResource( 10 )
