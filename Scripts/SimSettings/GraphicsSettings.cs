@@ -9,6 +9,7 @@ namespace SimSettings
         // Impostors as in impostor trees for better performance.
         public bool UseImpostors { get; set; } = true;
         public int ImpostorDistance { get; set; } = 50;
+        public float VegetationMultiplier { get; set; } = 0;
         public bool ShowFps { get; set; } = false;
     }
 }

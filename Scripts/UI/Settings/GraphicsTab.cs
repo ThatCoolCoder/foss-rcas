@@ -24,7 +24,7 @@ namespace UI.Settings
                 holder,
                 "Impostor distance",
                 s => s.Graphics.ImpostorDistance,
-                (s, v) => s.Graphics.ImpostorDistance = (int) v,
+                (s, v) => s.Graphics.ImpostorDistance = (int)v,
                 0, 1000, step: 1,
                 toolTip: "Distance at which to show impostors");
 
@@ -34,6 +34,14 @@ namespace UI.Settings
                 s => s.Graphics.ShowFps,
                 (s, v) => s.Graphics.ShowFps = v,
                 toolTip: "Whether to show the frames per second on screen");
+
+            NumericSliderInput.Scene.Instance<NumericSliderInput>().Config(
+                holder,
+                "Vegetation multiplier",
+                s => s.Graphics.VegetationMultiplier,
+                (s, v) => s.Graphics.VegetationMultiplier = (int)v,
+                0, 1, step: 0.1f,
+                toolTip: "Amount of vegetation (trees & grass)");
         }
 
     }

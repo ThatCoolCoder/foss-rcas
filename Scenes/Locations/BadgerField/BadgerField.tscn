@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Scenes/Locations/BaseLocation.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Art/Locations/BadgerField/BadgerField.glb" type="PackedScene" id=2]
@@ -7,6 +7,10 @@
 [ext_resource path="res://Scenes/Locations/BadgerField/ImpostorPine.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Locations/Common/TreeScatter.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Art/Common/Trees/PineTree/Impostor.png" type="Texture" id=7]
+[ext_resource path="res://Scripts/Locations/GrassScatter.cs" type="Script" id=8]
+[ext_resource path="res://Art/Common/Grass.png" type="Texture" id=9]
+[ext_resource path="res://Art/Common/EnvironmentPreviewMaterial.tres" type="Material" id=10]
+[ext_resource path="res://Art/Locations/BadgerField/GrassMask.png" type="Texture" id=11]
 
 [sub_resource type="PanoramaSky" id=1]
 panorama = ExtResource( 3 )
@@ -40,7 +44,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.276415, 0 )
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -39.7529, 0.680992, 0 )
 
 [node name="Camera" parent="." index="5"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.91372, 17.4896 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -19.9981, 1.91372, 20.2871 )
 
 [node name="VSplitContainer" parent="CanvasLayer/HUD" index="0"]
 margin_right = 1270.0
@@ -66,7 +70,8 @@ transform = Transform( 1, 0, 0, 0, 0.695474, 0.718551, 0, -0.718551, 0.695474, 0
 light_color = Color( 0.898039, 0.913725, 0.784314, 1 )
 light_energy = 1.764
 shadow_enabled = true
-shadow_bias = -0.086
+shadow_bias = -0.179
+shadow_contact = 0.033
 
 [node name="Trees" type="Spatial" parent="." index="9"]
 
@@ -103,3 +108,66 @@ Count = 400
 Texture = ExtResource( 7 )
 TreeSize = Vector2( 25, 25 )
 TreeSizeVariation = Vector2( 0.5, 0.5 )
+
+[node name="Grass2" type="Spatial" parent="." index="10"]
+
+[node name="Grass" type="MultiMeshInstance" parent="Grass2" index="0"]
+transform = Transform( 106.674, 0, 0, 0, 1.02261, 0, 0, 0, 67.761, -9.4665, 0.297844, -5.88435 )
+script = ExtResource( 8 )
+InstanceCount = 50000
+Mask = ExtResource( 11 )
+Texture = ExtResource( 9 )
+GrassSize = Vector2( 1, 0.1 )
+
+[node name="CSGBox" type="CSGBox" parent="Grass2/Grass" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+height = 1.09147
+material = ExtResource( 10 )
+
+[node name="ThickGrass" type="MultiMeshInstance" parent="Grass2" index="1"]
+transform = Transform( 17.3633, 0, 0, 0, 1.02261, 0, 0, 0, 9.47828, -29.2296, 0.297844, 14.3291 )
+script = ExtResource( 8 )
+InstanceCount = 5000
+Texture = ExtResource( 9 )
+GrassSize = Vector2( 1, 0.1 )
+
+[node name="CSGBox" type="CSGBox" parent="Grass2/ThickGrass" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+height = 0.120658
+material = ExtResource( 10 )
+
+[node name="ThickGrass2" type="MultiMeshInstance" parent="Grass2" index="2"]
+transform = Transform( 9.46297, 0, 0, 0, 1.02261, 0, 0, 0, 9.47828, -0.279251, 0.297844, 14.3291 )
+script = ExtResource( 8 )
+InstanceCount = 5000
+Texture = ExtResource( 9 )
+GrassSize = Vector2( 1, 0.1 )
+
+[node name="CSGBox" type="CSGBox" parent="Grass2/ThickGrass2" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+height = 0.002
+material = ExtResource( 10 )
+
+[node name="ThickGrass3" type="MultiMeshInstance" parent="Grass2" index="3"]
+transform = Transform( 1.07398, 0, 0, 0, 1.02261, 0, 0, 0, 5.61847, -10.9421, 0.297844, 18.1736 )
+script = ExtResource( 8 )
+InstanceCount = 5000
+Texture = ExtResource( 9 )
+GrassSize = Vector2( 1, 0.1 )
+
+[node name="CSGBox" type="CSGBox" parent="Grass2/ThickGrass3" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+height = 0.340934
+material = ExtResource( 10 )
+
+[node name="ExtraThickGrass" type="MultiMeshInstance" parent="Grass2" index="4"]
+transform = Transform( 7.82472, 0, 0, 0, 1.02261, 0, 0, 0, 5.96138, -19.9697, 0.297844, 17.9055 )
+script = ExtResource( 8 )
+InstanceCount = 2000
+Texture = ExtResource( 9 )
+GrassSize = Vector2( 1, 0.1 )
+
+[node name="CSGBox" type="CSGBox" parent="Grass2/ExtraThickGrass" index="0"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+height = 0.340934
+material = ExtResource( 10 )

@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Art/Aircraft/TinyTrainer/ForcerPreviewMaterial.tres" type="Material" id=1]
+[ext_resource path="res://Art/Common/EnvironmentPreviewMaterial.tres" type="Material" id=1]
 [ext_resource path="res://Scripts/Locations/ImpostorTreeField.cs" type="Script" id=2]
 
 [node name="TreeScatter" type="MultiMeshInstance"]
@@ -8,5 +8,6 @@ transform = Transform( 16.1327, 0, 0, 0, 1, 0, 0, 0, 16.1327, 0, 0, 0 )
 script = ExtResource( 2 )
 
 [node name="CSGBox" type="CSGBox" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 material_override = ExtResource( 1 )
 height = 1.26596

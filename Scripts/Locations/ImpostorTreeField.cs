@@ -33,11 +33,12 @@ public class ImpostorTreeField : MultiMeshInstance
         mesh.Material = material;
         material.ParamsCullMode = SpatialMaterial.CullMode.Disabled;
 
+        var trueCount = (int)(Count * SimSettings.Settings.Current.Graphics.VegetationMultiplier);
 
-        Multimesh.InstanceCount = Count;
+        Multimesh.InstanceCount = trueCount;
         var minPos = new Vector3(-size.x / 2, 0, -size.z / 2);
         var maxPos = new Vector3(size.x / 2, 0, size.z / 2);
-        for (int i = 0; i < Count; i++)
+        for (int i = 0; i < trueCount; i++)
         {
             var transform = Transform.Identity;
             transform = transform.Rotated(Vector3.Up, GD.Randf() * Mathf.Tau);
