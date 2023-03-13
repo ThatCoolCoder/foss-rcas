@@ -18,7 +18,7 @@ panorama = ExtResource( 3 )
 [sub_resource type="Environment" id=2]
 background_mode = 2
 background_sky = SubResource( 1 )
-background_sky_orientation = Basis( -0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, -0.707107 )
+background_sky_orientation = Basis( 0.976582, 0, -0.215144, 0, 1, 0, 0.215144, 0, 0.976582 )
 background_energy = 1.02
 ambient_light_color = Color( 1, 1, 1, 1 )
 ambient_light_energy = 1.08
@@ -44,7 +44,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.276415, 0 )
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -39.7529, 0.680992, 0 )
 
 [node name="Camera" parent="." index="5"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -19.9981, 1.91372, 20.2871 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17.0725, 1.91372, 20.2871 )
 
 [node name="VSplitContainer" parent="CanvasLayer/HUD" index="0"]
 margin_right = 1270.0
@@ -66,7 +66,7 @@ margin_right = 1260.0
 environment = SubResource( 2 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="." index="8"]
-transform = Transform( 1, 0, 0, 0, 0.695474, 0.718551, 0, -0.718551, 0.695474, 0, 7.0798, 0 )
+transform = Transform( 0.77203, 0.130246, -0.622098, 0.283013, 0.805944, 0.51996, 0.569099, -0.577487, 0.585351, 0.0770245, 7.0798, 0.136134 )
 light_color = Color( 0.898039, 0.913725, 0.784314, 1 )
 light_energy = 1.764
 shadow_enabled = true
@@ -114,10 +114,10 @@ TreeSizeVariation = Vector2( 0.5, 0.5 )
 [node name="Grass" type="MultiMeshInstance" parent="Grass" index="0"]
 transform = Transform( 106.674, 0, 0, 0, 1.02261, 0, 0, 0, 67.761, -9.4665, 0.297844, -5.88435 )
 script = ExtResource( 8 )
-InstanceCount = 50000
+InstanceCount = 25000
 Mask = ExtResource( 11 )
 Texture = ExtResource( 9 )
-GrassSize = Vector2( 1, 0.1 )
+GrassSize = Vector2( 1.5, 0.1 )
 
 [node name="CSGBox" type="CSGBox" parent="Grass/Grass" index="0"]
 height = 1.09147
@@ -128,40 +128,40 @@ transform = Transform( 17.3633, 0, 0, 0, 1.02261, 0, 0, 0, 9.47828, -29.2296, 0.
 script = ExtResource( 8 )
 InstanceCount = 5000
 Texture = ExtResource( 9 )
-GrassSize = Vector2( 1, 0.1 )
+GrassSize = Vector2( 1.5, 0.1 )
 
 [node name="CSGBox" type="CSGBox" parent="Grass/ThickGrass" index="0"]
 height = 0.120658
 material = ExtResource( 10 )
 
 [node name="ThickGrass2" type="MultiMeshInstance" parent="Grass" index="2"]
-transform = Transform( 9.46297, 0, 0, 0, 1.02261, 0, 0, 0, 9.47828, -0.279251, 0.297844, 14.3291 )
+transform = Transform( 9.83528, 0, 0, 0, 1.02261, 0, 0, 0, 10.8773, -0.184158, 0.297844, 15.5208 )
 script = ExtResource( 8 )
 InstanceCount = 5000
 Texture = ExtResource( 9 )
-GrassSize = Vector2( 1, 0.1 )
+GrassSize = Vector2( 1, 0.05 )
 
 [node name="CSGBox" type="CSGBox" parent="Grass/ThickGrass2" index="0"]
 height = 0.002
 material = ExtResource( 10 )
 
 [node name="ThickGrass3" type="MultiMeshInstance" parent="Grass" index="3"]
-transform = Transform( 1.07398, 0, 0, 0, 1.02261, 0, 0, 0, 5.61847, -10.9421, 0.297844, 18.1736 )
+transform = Transform( 16.002, 0, 0, 0, 1.02261, 0, 0, 0, 9.47828, 27.5038, 0.297844, 14.3291 )
 script = ExtResource( 8 )
 InstanceCount = 5000
 Texture = ExtResource( 9 )
-GrassSize = Vector2( 1, 0.1 )
+GrassSize = Vector2( 1, 0.05 )
 
 [node name="CSGBox" type="CSGBox" parent="Grass/ThickGrass3" index="0"]
-height = 0.340934
+height = 0.002
 material = ExtResource( 10 )
 
 [node name="ExtraThickGrass" type="MultiMeshInstance" parent="Grass" index="4"]
-transform = Transform( 7.82472, 0, 0, 0, 1.02261, 0, 0, 0, 5.96138, -19.9697, 0.297844, 17.9055 )
+transform = Transform( 9.81874, 0, -0.693939, 0, 1.023, 0, 0.974676, 0, 6.99064, -19.9697, 0.297844, 18.5534 )
 script = ExtResource( 8 )
-InstanceCount = 2000
+InstanceCount = 3000
 Texture = ExtResource( 9 )
-GrassSize = Vector2( 1, 0.1 )
+GrassSize = Vector2( 1, 0.05 )
 
 [node name="CSGBox" type="CSGBox" parent="Grass/ExtraThickGrass" index="0"]
 height = 0.340934
