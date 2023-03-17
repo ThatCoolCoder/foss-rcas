@@ -26,7 +26,9 @@ public class GlobalKeybinds : Node
         data.FlipY();
 
         var dir = OS.GetSystemDir(OS.SystemDir.Pictures);
-        var path = $"{dir}/FRC-Screenshot-{DateTime.Now.ToFileTime()}.png";
+        var formattedTime = DateTime.Now.ToString("yyyyMMdd-HHmmss");
+        var path = $"{dir}/FRC-Screenshot-{formattedTime}.png";
+        GD.Print(path);
         data.SavePng(path);
     }
 }
