@@ -109,8 +109,8 @@ Thickness = 0.005
 [node name="AileronL" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.154, 0.00418614, 0.044305 )
 script = ExtResource( 2 )
-MaxDeflectionDegrees = 12.0
-ChannelName = "aileron"
+MaxDeflectionDegrees = 20.0
+ChannelName = "leftAileron"
 
 [node name="AeroSurface" parent="AileronL" instance=ExtResource( 5 )]
 transform = Transform( 0.198269, -2.51107e-07, 0, 1.10107e-07, 1, 0, 0, 0, 0.0254438, 0, 0, 0.015 )
@@ -125,9 +125,8 @@ ControlHubPath = NodePath("../../ControlHub")
 [node name="AileronR" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.153949, 0.004, 0.0439772 )
 script = ExtResource( 2 )
-MaxDeflectionDegrees = 12.0
-Reversed = true
-ChannelName = "aileron"
+MaxDeflectionDegrees = 20.0
+ChannelName = "rightAileron"
 
 [node name="AeroSurface" parent="AileronR" instance=ExtResource( 5 )]
 transform = Transform( 0.198269, -2.51107e-07, 0, 1.10107e-07, 1, 0, 0, 0, 0.0254438, 0, 0, 0.015 )

@@ -39,7 +39,7 @@ namespace UI.Settings
                 holder,
                 "Vegetation multiplier",
                 s => s.Graphics.VegetationMultiplier,
-                (s, v) => s.Graphics.VegetationMultiplier = (int)v,
+                (s, v) => s.Graphics.VegetationMultiplier = v,
                 0, 1, step: 0.1f,
                 toolTip: "Amount of vegetation (trees & grass)");
         }

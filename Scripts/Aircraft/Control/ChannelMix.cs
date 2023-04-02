@@ -10,6 +10,7 @@ namespace Aircraft.Control
         public string OutputChannelName { get; set; }
         public float Weight { get; set; } = 1;
         public float Expo { get; set; } = 0;
+        public float Offset { get; set; } = 0;
         public ChannelMixMode Mode { get; set; } = ChannelMixMode.Add;
 
         public float Apply(float inputValue, float previousValue)
@@ -18,6 +19,7 @@ namespace Aircraft.Control
 
             // this should match the expo calculation used by open/edge tx
 
+            inputValue += Offset;
             inputValue = Expo * Mathf.Pow(inputValue, 3) + (1 - Expo) * inputValue;
             inputValue *= Weight;
 

@@ -20,12 +20,16 @@ Todo:
 - add body drag
 - make location altitude actually change air pressure (not very useful, but why not?)
 - Input
-    - move the rest of the input to siminputmanager?
-    - More advanced bindings on siminputmanager to allow stuff like gear and flaps
-        - plain axis input (what we have already) - works with TX axis and also TX switch
-        - toggle input on a keyboard press (perhaps also option to do on TX press)
-        - momentary input on a keyboard press
-        - 
+    - move the rest of the input to siminputmanager? (EG throw, reset)
+    - what type of key code do we use for the new input manager?
+        - want to be able to detect
+            - special keys (EG enter)
+            - numbers + symbols + letters, distinct whether shift is being pressed
+            - I think we can just keep track of KeyInputEvent.GetScancodeWithModifiers(). There's a function in OS to display this nicely to a user
+    - make UI for the new input system - complicated task
+        - potentially we want to use a non-flat array - a list of channels which each have their own mappings.
+            - That way we can just have a bunch of dropdowns for each channel, and multiple things can be put on it.
+            - if we make a Channel structure, incorporate into it the resting position. EG up for flaps, down for throttle, mid for ailerons
 - Docs
     - Rewrite aircraft creation
 - Content manager tries to read `Mixes.toml` file and then gets annoyed because it is not a content file
@@ -40,7 +44,6 @@ Todo:
 - Graphics
     - need to get it running on old hardware (target: Intel HD 3000 on low 720p)
         - problem: this IGPU will not be supported if we upgrade to godot 4.
-    - add option for tree/grass multiplier, as even with impostors it can be intensive
     - Settings for stuff like shadows, AA, AO
     - Come up with a setup for rendering to an intermediate viewport so we can render at lower resolution and upsample
         - Some people may not like this idea but I think it's great if you have a hi-res monitor but your GPU can't game like that.

@@ -4,7 +4,7 @@ This is a preliminary document and needs to be expanded on in the future.
 
 ## **This guide is currently incorrect**
 
-It fails to mention the new ControlHub system that has been created.
+It fails to mention the new ControlHub + mixing system that has been created.
 
 ## Prerequisites
 

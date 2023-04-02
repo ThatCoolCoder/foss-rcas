@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using System.Linq;
+using System.Collections.Generic;
 using Tomlet;
 
 namespace SimSettings
@@ -7,6 +9,13 @@ namespace SimSettings
     public class Settings
     {
         public SimInput.InputMap InputMap { get; set; } = new();
+        public List<SimInput.IControlMapping> ControlMappings { get; set; } = new()
+        {
+            new SimInput.AxisControlMapping() { ChannelName = "throttle", Axis = 0 },
+            new SimInput.AxisControlMapping() { ChannelName = "aileron", Axis = 2 },
+            new SimInput.AxisControlMapping() { ChannelName = "elevator", Axis = 3 },
+            new SimInput.AxisControlMapping() { ChannelName = "rudder", Axis = 1 },
+        };
         public Locations.GroundCamera.ZoomSettings GroundCameraZoom { get; set; } = new();
         public GraphicsSettings Graphics { get; set; } = new();
         public MiscSettings Misc { get; set; } = new();
@@ -17,13 +26,22 @@ namespace SimSettings
 
             Engine.IterationsPerSecond = Misc.PhysicsFps;
 
-            SimInput.Manager.ApplyAxisMappings();
+            // We currently don't have a UI for setting this so just copy them from the old ones set by UI for now
+            ControlMappings = InputMap.AxisMappings.Select(m => (SimInput.IControlMapping)new SimInput.AxisControlMapping()
+            {
+                ChannelName = m.Name,
+                Axis = m.Axis,
+                Inverted = m.Inverted,
+                DeadzoneRest = m.DeadzoneRest,
+                DeadzoneEnd = m.DeadzoneEnd,
+                Multiplier = m.Multiplier
+            }).ToList();
         }
 
         #region StaticSection
 
         public static readonly string SavePath = "user://settings.toml";
-        public static Settings Current { get; private set; } = null;
+        public static Settings Current { get; private set; } = new();
 
         public static void SetCurrent(Settings settings)
         {

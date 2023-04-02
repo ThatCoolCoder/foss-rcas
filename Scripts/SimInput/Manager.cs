@@ -13,26 +13,12 @@ namespace SimInput
 
         private static Manager Instance;
 
-        private static Dictionary<int, AxisMapping> axisLookup = new();
-
         // Map of axis name to axis value
         private static Dictionary<string, float> axisValues = new();
 
         public override void _EnterTree()
         {
             Instance = this;
-        }
-
-        public static void ApplyAxisMappings()
-        {
-            // Need to call this on game startup and after axis mappings are changed.
-
-            var axisMappings = SimSettings.Settings.Current?.InputMap?.AxisMappings;
-            if (axisMappings != null)
-            {
-                axisLookup = axisMappings.ToDictionary(x => x.Axis, x => x);
-                axisValues = axisMappings.ToDictionary(x => x.Name, x => 0f);
-            }
         }
 
         public override void _ExitTree()
@@ -42,20 +28,16 @@ namespace SimInput
 
         public override void _Input(InputEvent _event)
         {
-            if (_event is InputEventJoypadMotion motionEvent)
+            var controlMappings = SimSettings.Settings.Current?.ControlMappings;
+            if (controlMappings != null)
             {
-                try
+                foreach (var m in controlMappings)
                 {
-                    var value = motionEvent.AxisValue;
-                    var mapping = axisLookup[motionEvent.Axis];
-                    axisValues[mapping.Name] = mapping.Apply(value);
-                }
-                catch (KeyNotFoundException)
-                {
-                    // do nothing - this axis is clearly unimportant
+                    if (m.ProcessEvent(_event) is float val) axisValues[m.ChannelName] = val;
                 }
             }
         }
+
         public static float GetAxisValue(string actionName)
         {
             try
@@ -64,7 +46,7 @@ namespace SimInput
             }
             catch (KeyNotFoundException)
             {
-                Utils.LogError($"Unknown action: {actionName}");
+                // Utils.LogError($"Unknown action: {actionName}"); // todo: We don't put values in until there is an inputevent, so there will be lots of this error at first if it's not commented out
                 return 0;
             }
         }
