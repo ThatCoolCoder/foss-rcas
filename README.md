@@ -13,12 +13,12 @@ A note on singletons+autoload in this project: there have been a few cases where
 ctrl+d to toggle debug mode, r to reset plane, space to launch plane, ctrl+shift+r to restart entire simulator.
 
 Todo:
-- screenshot date is not human-readable, fix this please
 - improve wing physics: allow importing some better format of curves
     - stall is mushy, not sharp
     - planes feel too draggy, EG in real life the T28 carries a lot more energy and is difficult to get down, this one just mushes in
 - add body drag
 - make location altitude actually change air pressure (not very useful, but why not?)
+- add delay to mixes and control surfaces (need separate so we can have EG fast aileron but slow flaperon)
 - Input
     - move the rest of the input to siminputmanager? (EG throw, reset)
     - what type of key code do we use for the new input manager?
@@ -38,7 +38,6 @@ Todo:
     - procedural
     - can link motor sound to an advanced motor simulation? (rpm, air disturbance factor)
 - Content
-    - Create small 3d plane
     - Create an EDF
     - Badgerfield: add bushes around the edge, do some more aggressive grass optimisation
 - Graphics
