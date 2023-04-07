@@ -62,7 +62,7 @@ shape = SubResource( 4 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0166561, -0.176402 )
 ForLiquid = false
 Radius = 0.08
-ExitSpeed = 27.778
+ExitSpeed = 20.0
 FreeWheelWhenOff = true
 ThrottleActionName = "throttle"
 

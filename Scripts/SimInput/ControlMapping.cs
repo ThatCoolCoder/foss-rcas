@@ -8,8 +8,6 @@ namespace SimInput
 {
     public abstract class IControlMapping
     {
-        public string ChannelName { get; set; } = ""; // name of the channel that this goes into
-
         // Try to process event that is given. Return null if event isn't bound to the mapping 
         public abstract float? ProcessEvent(InputEvent _event);
 

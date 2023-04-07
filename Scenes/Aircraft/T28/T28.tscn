@@ -49,7 +49,7 @@ shape = SubResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.10138e-05, 0.00444955, -0.160434 )
 ForLiquid = false
 Radius = 0.06
-ExitSpeed = 50.0
+ExitSpeed = 40.0
 FreeWheelWhenOff = true
 ThrottleActionName = "throttle"
 
@@ -194,3 +194,8 @@ Thickness = 0.005
 
 [node name="ControlHubLocator" parent="RudderHolder/Rudder" instance=ExtResource( 13 )]
 ControlHubPath = NodePath("../../../ControlHub")
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.678683 )
+current = true
+far = 1319.3

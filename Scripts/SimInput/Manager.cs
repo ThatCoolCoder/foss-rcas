@@ -28,12 +28,19 @@ namespace SimInput
 
         public override void _Input(InputEvent _event)
         {
-            var controlMappings = SimSettings.Settings.Current?.ControlMappings;
-            if (controlMappings != null)
+            var channels = SimSettings.Settings.Current?.InputChannels;
+            if (channels != null)
             {
-                foreach (var m in controlMappings)
+                foreach (var channel in channels)
                 {
-                    if (m.ProcessEvent(_event) is float val) axisValues[m.ChannelName] = val;
+                    foreach (var mapping in channel.Mappings)
+                    {
+                        // Read value
+                        if (mapping.ProcessEvent(_event) is float val) axisValues[channel.Name] = val;
+
+                        // Init defaults
+                        else if (!axisValues.ContainsKey(channel.Name)) axisValues[channel.Name] = channel.DefaultValue;
+                    }
                 }
             }
         }

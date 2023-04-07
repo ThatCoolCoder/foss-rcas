@@ -9,12 +9,12 @@ namespace SimSettings
     public class Settings
     {
         public SimInput.InputMap InputMap { get; set; } = new();
-        public List<SimInput.IControlMapping> ControlMappings { get; set; } = new()
+        public List<SimInput.Channel> InputChannels { get; set; } = new()
         {
-            new SimInput.AxisControlMapping() { ChannelName = "throttle", Axis = 0 },
-            new SimInput.AxisControlMapping() { ChannelName = "aileron", Axis = 2 },
-            new SimInput.AxisControlMapping() { ChannelName = "elevator", Axis = 3 },
-            new SimInput.AxisControlMapping() { ChannelName = "rudder", Axis = 1 },
+            SimInput.Channel.FromSingleMapping("throttle", new SimInput.AxisControlMapping() { Axis = 0 }),
+            SimInput.Channel.FromSingleMapping("aileron", new SimInput.AxisControlMapping() { Axis = 2 }),
+            SimInput.Channel.FromSingleMapping("elevator", new SimInput.AxisControlMapping() { Axis = 3 }),
+            SimInput.Channel.FromSingleMapping("rudder", new SimInput.AxisControlMapping() { Axis = 1 }, defaultValue: -1),
         };
         public Locations.GroundCamera.ZoomSettings GroundCameraZoom { get; set; } = new();
         public GraphicsSettings Graphics { get; set; } = new();
@@ -27,22 +27,20 @@ namespace SimSettings
             Engine.IterationsPerSecond = Misc.PhysicsFps;
 
             // We currently don't have a UI for setting this so just copy them from the old ones set by UI for now
-            ControlMappings = InputMap.AxisMappings.Select(m => (SimInput.IControlMapping)new SimInput.AxisControlMapping()
+            InputChannels = InputMap.AxisMappings.Select(m => SimInput.Channel.FromSingleMapping(m.Name, new SimInput.AxisControlMapping()
             {
-                ChannelName = m.Name,
                 Axis = m.Axis,
                 Inverted = m.Inverted,
                 DeadzoneRest = m.DeadzoneRest,
                 DeadzoneEnd = m.DeadzoneEnd,
                 Multiplier = m.Multiplier
-            }).ToList();
-            ControlMappings.Add(new SimInput.ThreePosKeyboardControlMapping()
+            })).ToList();
+            InputChannels.Add(SimInput.Channel.FromSingleMapping("flaps", new SimInput.ThreePosKeyboardControlMapping()
             {
-                ChannelName = "flaps",
                 Key1Scancode = (uint)KeyList.A,
                 Key2Scancode = (uint)KeyList.S,
                 Key3Scancode = (uint)KeyList.D,
-            });
+            }, -1));
         }
 
         #region StaticSection
