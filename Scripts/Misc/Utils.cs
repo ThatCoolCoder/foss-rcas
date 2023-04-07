@@ -24,6 +24,14 @@ public static class Utils
         return newMin + (num - oldMin) * (newMax - newMin) / (oldMax - oldMin);
     }
 
+    public static float ConvergeValue(float value, float target, float increment)
+    {
+        var delta = value - target;
+        if (Mathf.Abs(delta) < increment) return target;
+        else return value + -Mathf.Sign(value - target) * increment;
+    }
+
+
     public static float MirrorNumber(float number, float mirrorValue)
     {
         if (number < mirrorValue) return number;

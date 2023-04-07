@@ -34,7 +34,7 @@ namespace Aircraft.Control
                 newChannelValues.TryGetValue(mix.OutputChannelName, out previousValue);
 
                 var rawValue = SimInput.Manager.GetAxisValue(mix.InputChannelName);
-                newChannelValues[mix.OutputChannelName] = mix.Apply(rawValue, previousValue);
+                newChannelValues[mix.OutputChannelName] = mix.Apply(rawValue, previousValue, delta);
             }
 
             ChannelValues = newChannelValues.ToDictionary(kvp => kvp.Key, kvp => Mathf.Clamp(kvp.Value, -1, 1));

@@ -36,6 +36,13 @@ namespace SimSettings
                 DeadzoneEnd = m.DeadzoneEnd,
                 Multiplier = m.Multiplier
             }).ToList();
+            ControlMappings.Add(new SimInput.ThreePosKeyboardControlMapping()
+            {
+                ChannelName = "flaps",
+                Key1Scancode = (uint)KeyList.A,
+                Key2Scancode = (uint)KeyList.S,
+                Key3Scancode = (uint)KeyList.D,
+            });
         }
 
         #region StaticSection

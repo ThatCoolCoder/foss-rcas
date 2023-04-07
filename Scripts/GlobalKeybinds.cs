@@ -28,7 +28,6 @@ public class GlobalKeybinds : Node
         var dir = OS.GetSystemDir(OS.SystemDir.Pictures);
         var formattedTime = DateTime.Now.ToString("yyyyMMdd-HHmmss");
         var path = $"{dir}/FRC-Screenshot-{formattedTime}.png";
-        GD.Print(path);
         data.SavePng(path);
     }
 }

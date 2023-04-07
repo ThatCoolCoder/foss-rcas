@@ -18,7 +18,6 @@ Todo:
     - planes feel too draggy, EG in real life the T28 carries a lot more energy and is difficult to get down, this one just mushes in
 - add body drag
 - make location altitude actually change air pressure (not very useful, but why not?)
-- add delay to mixes and control surfaces (need separate so we can have EG fast aileron but slow flaperon)
 - Input
     - move the rest of the input to siminputmanager? (EG throw, reset)
     - what type of key code do we use for the new input manager?
