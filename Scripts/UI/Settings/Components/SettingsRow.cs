@@ -33,7 +33,7 @@ namespace UI.Settings.Components
             return this;
         }
 
-        protected abstract void OnSettingsChanged();
+        public abstract void OnSettingsChanged();
 
         public override void _ExitTree()
         {

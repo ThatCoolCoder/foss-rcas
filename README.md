@@ -10,7 +10,7 @@ In accordance with Godot convention, -z is forward. In Blender +y is forward.
 
 A note on singletons+autoload in this project: there have been a few cases where autoload was desirable. Unfortunately, because this is C#, the automatic global variable feature is not available like in GDscript. So instead we use the singleton pattern, in which the instance is registered by the non-static autoloaded part of the class when it enters/exits tree.
 
-ctrl+d to toggle debug mode, r to reset plane, space to launch plane, ctrl+shift+r to restart entire simulator.
+ctrl+d to toggle debug mode, r to reset plane, space to launch plane, ctrl+shift+r to restart entire simulator, f1 for screenshot
 
 Todo:
 - improve wing physics: allow importing some better format of curves
@@ -19,6 +19,7 @@ Todo:
 - add body drag
 - make location altitude actually change air pressure (not very useful, but why not?)
 - Input
+    - make f2 toggle UI
     - move the rest of the input to siminputmanager? (EG throw, reset)
     - what type of key code do we use for the new input manager?
         - want to be able to detect

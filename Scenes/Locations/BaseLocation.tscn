@@ -58,12 +58,12 @@ custom_constants/margin_bottom = 10
 [node name="VSplitContainer" type="VSplitContainer" parent="CanvasLayer/HUD"]
 margin_left = 10.0
 margin_top = 10.0
-margin_right = 1014.0
-margin_bottom = 590.0
+margin_right = 1270.0
+margin_bottom = 710.0
 mouse_filter = 1
 
 [node name="TopBar" type="HBoxContainer" parent="CanvasLayer/HUD/VSplitContainer"]
-margin_right = 1004.0
+margin_right = 1260.0
 margin_bottom = 29.0
 
 [node name="BackButton" parent="CanvasLayer/HUD/VSplitContainer/TopBar" instance=ExtResource( 8 )]
@@ -74,14 +74,14 @@ margin_bottom = 29.0
 ScenePath = "res://Scenes/UI/FlightSettings/FlightSettingsScreen.tscn"
 
 [node name="BottomBar" type="HBoxContainer" parent="CanvasLayer/HUD/VSplitContainer"]
-margin_top = 562.0
-margin_right = 1004.0
-margin_bottom = 580.0
+margin_top = 682.0
+margin_right = 1260.0
+margin_bottom = 700.0
 size_flags_vertical = 8
 
 [node name="FpsIndicator" type="Label" parent="CanvasLayer/HUD/VSplitContainer/BottomBar"]
-margin_left = 970.0
-margin_right = 1004.0
+margin_left = 1226.0
+margin_right = 1260.0
 margin_bottom = 18.0
 size_flags_horizontal = 10
 size_flags_vertical = 0

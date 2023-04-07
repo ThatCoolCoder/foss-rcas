@@ -82,7 +82,7 @@ namespace UI.Settings.Components
             okButton.Visible = candidate != null;
         }
 
-        protected override void OnSettingsChanged()
+        public override void OnSettingsChanged()
         {
             currentValueLabel.Text = $"Axis {read(SettingsScreen.NewSettings)}";
         }

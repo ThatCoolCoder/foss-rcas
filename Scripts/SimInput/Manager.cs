@@ -28,7 +28,7 @@ namespace SimInput
 
         public override void _Input(InputEvent _event)
         {
-            var channels = SimSettings.Settings.Current?.InputChannels;
+            var channels = SimSettings.Settings.Current?.InputMap.Channels;
             if (channels != null)
             {
                 foreach (var channel in channels)

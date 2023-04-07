@@ -23,7 +23,7 @@ namespace UI.Settings.Components
             if (SettingsScreen.NewSettings != null) write(SettingsScreen.NewSettings, value);
         }
 
-        protected override void OnSettingsChanged()
+        public override void OnSettingsChanged()
         {
             checkBox.SetPressedNoSignal(read(SettingsScreen.NewSettings));
         }

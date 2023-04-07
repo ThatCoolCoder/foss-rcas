@@ -194,8 +194,3 @@ Thickness = 0.005
 
 [node name="ControlHubLocator" parent="RudderHolder/Rudder" instance=ExtResource( 13 )]
 ControlHubPath = NodePath("../../../ControlHub")
-
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.678683 )
-current = true
-far = 1319.3

@@ -37,7 +37,7 @@ namespace UI.Settings.Components
             valueLabel.Text = value.ToString();
         }
 
-        protected override void OnSettingsChanged()
+        public override void OnSettingsChanged()
         {
             slider.Value = read(SettingsScreen.NewSettings);
         }

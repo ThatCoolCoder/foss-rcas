@@ -8,10 +8,10 @@ namespace UI.Settings
         public override void _Ready()
         {
             var holder = GetNode<VBoxContainer>("VBoxContainer");
-            var mappings = SimSettings.Settings.Current.InputMap.AxisMappings;
+            var mappings = SimSettings.Settings.Current.InputMap.Channels;
             for (int i = 0; i < mappings.Count; i++)
             {
-                AxisEditor.Scene.Instance<AxisEditor>().Config(holder, mappings[i].Name.Capitalize(), i);
+                InputChannelEditor.Scene.Instance<InputChannelEditor>().Config(holder, mappings[i].Name.Capitalize(), i);
             }
         }
     }

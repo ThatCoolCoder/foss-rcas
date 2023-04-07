@@ -9,13 +9,6 @@ namespace SimSettings
     public class Settings
     {
         public SimInput.InputMap InputMap { get; set; } = new();
-        public List<SimInput.Channel> InputChannels { get; set; } = new()
-        {
-            SimInput.Channel.FromSingleMapping("throttle", new SimInput.AxisControlMapping() { Axis = 0 }),
-            SimInput.Channel.FromSingleMapping("aileron", new SimInput.AxisControlMapping() { Axis = 2 }),
-            SimInput.Channel.FromSingleMapping("elevator", new SimInput.AxisControlMapping() { Axis = 3 }),
-            SimInput.Channel.FromSingleMapping("rudder", new SimInput.AxisControlMapping() { Axis = 1 }, defaultValue: -1),
-        };
         public Locations.GroundCamera.ZoomSettings GroundCameraZoom { get; set; } = new();
         public GraphicsSettings Graphics { get; set; } = new();
         public MiscSettings Misc { get; set; } = new();
@@ -25,22 +18,6 @@ namespace SimSettings
             // Some settings need to run code in order to apply, so do it here
 
             Engine.IterationsPerSecond = Misc.PhysicsFps;
-
-            // We currently don't have a UI for setting this so just copy them from the old ones set by UI for now
-            InputChannels = InputMap.AxisMappings.Select(m => SimInput.Channel.FromSingleMapping(m.Name, new SimInput.AxisControlMapping()
-            {
-                Axis = m.Axis,
-                Inverted = m.Inverted,
-                DeadzoneRest = m.DeadzoneRest,
-                DeadzoneEnd = m.DeadzoneEnd,
-                Multiplier = m.Multiplier
-            })).ToList();
-            InputChannels.Add(SimInput.Channel.FromSingleMapping("flaps", new SimInput.ThreePosKeyboardControlMapping()
-            {
-                Key1Scancode = (uint)KeyList.A,
-                Key2Scancode = (uint)KeyList.S,
-                Key3Scancode = (uint)KeyList.D,
-            }, -1));
         }
 
         #region StaticSection
