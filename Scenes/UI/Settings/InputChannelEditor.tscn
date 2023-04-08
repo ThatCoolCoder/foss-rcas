@@ -4,9 +4,17 @@
 [ext_resource path="res://Scripts/UI/Settings/InputChannelEditor.cs" type="Script" id=2]
 
 [node name="InputChannelEditor" instance=ExtResource( 1 )]
+margin_right = 399.0
+margin_bottom = 32.0
+size_flags_horizontal = 3
 script = ExtResource( 2 )
 Title = ""
 
-[node name="Title" parent="Header/HBoxContainer" index="0"]
-margin_right = 65.0
-text = "Collapsible"
+[node name="Header" parent="." index="0"]
+margin_right = 399.0
+
+[node name="HBoxContainer" parent="Header" index="0"]
+margin_right = 399.0
+
+[node name="HSeparator" parent="Header" index="1"]
+margin_right = 399.0

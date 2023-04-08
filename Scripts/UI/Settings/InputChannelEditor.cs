@@ -10,6 +10,8 @@ namespace UI.Settings
 
         public static PackedScene Scene = ResourceLoader.Load<PackedScene>("res://Scenes/UI/Settings/InputChannelEditor.tscn");
 
+        // private VBoxContainer 
+
         public InputChannelEditor Config(Node parent, string name, int _channelIndex)
         {
             if (parent != null) parent.AddChild(this);
@@ -22,6 +24,11 @@ namespace UI.Settings
             return this;
         }
 
+        public override void _Ready()
+        {
+            base._Ready();
+        }
+
         private void OnSettingsChanged()
         {
             UpdateChildren();
@@ -31,11 +38,9 @@ namespace UI.Settings
         {
             var channel = SettingsScreen.NewSettings.InputMap.Channels[channelIndex];
 
-            foreach (var child in GetChildren())
+            foreach (var child in this.GetChildNodeList())
             {
-                var node = (Node)child;
-                if (node.GetIndex() == 0) continue;
-                node.Free();
+                if (child.GetIndex() != 0) child.QueueFree();
             }
 
             foreach (var mapping in channel.Mappings)

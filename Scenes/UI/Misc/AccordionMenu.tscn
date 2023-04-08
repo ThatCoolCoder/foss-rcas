@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/UI/Misc/AccordionMenu.cs" type="Script" id=1]
+
+[node name="AccordionMenu" type="VBoxContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 1 )
+
+[connection signal="child_entered_tree" from="." to="." method="_on_AccordionMenu_child_entered_tree"]
+[connection signal="child_exiting_tree" from="." to="." method="_on_AccordionMenu_child_exiting_tree"]

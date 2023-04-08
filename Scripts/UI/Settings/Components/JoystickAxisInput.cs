@@ -113,6 +113,7 @@ namespace UI.Settings.Components
             if (axis != null)
             {
                 write(SettingsScreen.NewSettings, (int)axis);
+                OnSettingsChanged(); // update view
             }
         }
     }

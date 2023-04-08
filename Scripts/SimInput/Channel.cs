@@ -11,6 +11,7 @@ namespace SimInput
         public float DefaultValue { get; set; } = 0; // change for things like throttle or flaps
         public List<IControlMapping> Mappings { get; set; } = new();
 
+        // Just a handy shortcut
         public static Channel FromSingleMapping(string name, IControlMapping mapping, float defaultValue = 0, string description = "")
         {
             return new Channel()

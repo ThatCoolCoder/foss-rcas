@@ -14,19 +14,19 @@ margin_bottom = 32.0
 [node name="HBoxContainer" type="HBoxContainer" parent="Header"]
 margin_right = 338.0
 margin_bottom = 24.0
-
-[node name="Title" type="Label" parent="Header/HBoxContainer"]
-margin_top = 3.0
-margin_right = 30.0
-margin_bottom = 21.0
-text = "TEST"
+custom_constants/separation = 10
 
 [node name="Button" type="Button" parent="Header/HBoxContainer"]
-margin_left = 320.0
-margin_right = 338.0
+margin_right = 18.0
 margin_bottom = 24.0
-size_flags_horizontal = 10
 text = "+"
+
+[node name="Title" type="Label" parent="Header/HBoxContainer"]
+margin_left = 28.0
+margin_top = 3.0
+margin_right = 93.0
+margin_bottom = 21.0
+text = "Collapsible"
 
 [node name="HSeparator" type="HSeparator" parent="Header"]
 margin_top = 28.0

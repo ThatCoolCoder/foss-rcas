@@ -7,7 +7,7 @@ namespace UI.Settings
     {
         public override void _Ready()
         {
-            var holder = GetNode<VBoxContainer>("VBoxContainer");
+            var holder = GetNode<VBoxContainer>("AccordionMenu");
             var mappings = SimSettings.Settings.Current.InputMap.Channels;
             for (int i = 0; i < mappings.Count; i++)
             {

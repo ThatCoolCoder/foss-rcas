@@ -7,6 +7,9 @@ namespace UI.Settings
 
     public class ControlMappingEditor : Control
     {
+        // It was decided to not make this a smart control using readers and writers, and simply regenerate them every time the settings change.
+        // The performance should still be fine and this makes it SO much easier to code.
+
         private SimInput.AxisControlMapping controlMapping;
 
         public static PackedScene Scene = ResourceLoader.Load<PackedScene>("res://Scenes/UI/Settings/ControlMappingEditor.tscn");

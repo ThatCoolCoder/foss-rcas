@@ -34,13 +34,13 @@ namespace UI.Misc
             set
             {
                 _isOpen = value;
-                if (titleLabel != null) UpdateLayout();
-                if (OnStateChange != null) OnStateChange(_isOpen);
+                UpdateLayout();
+                if (OnToggleOpen != null) OnToggleOpen(this, _isOpen);
             }
         }
         private bool _isOpen = false;
 
-        public event Action<bool> OnStateChange;
+        public event Action<CollapsibleMenu, bool> OnToggleOpen;
 
         public override void _Ready()
         {
@@ -62,6 +62,8 @@ namespace UI.Misc
 
         protected void UpdateLayout()
         {
+            if (toggleButton == null) return;
+
             toggleButton.Text = IsOpen ? "-" : "+";
             // Start at 1 so we never affect the header
             for (int i = 1; i < GetChildCount(); i++)
