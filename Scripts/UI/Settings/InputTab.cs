@@ -11,7 +11,10 @@ namespace UI.Settings
             var mappings = SimSettings.Settings.Current.InputMap.Channels;
             for (int i = 0; i < mappings.Count; i++)
             {
-                InputChannelEditor.Scene.Instance<InputChannelEditor>().Config(holder, mappings[i].Name.Capitalize(), i);
+                var mapping = mappings[i];
+                var name = mapping.Name.Capitalize();
+                if (mapping.Description != null && mapping.Description != "") name = $"{name} - {mapping.Description}";
+                InputChannelEditor.Scene.Instance<InputChannelEditor>().Config(holder, name, i);
             }
         }
     }

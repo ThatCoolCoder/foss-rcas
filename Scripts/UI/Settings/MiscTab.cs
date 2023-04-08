@@ -11,7 +11,7 @@ namespace UI.Settings
 
         public override void _Ready()
         {
-            var holder = GetNode<Control>("VBoxContainer");
+            var holder = GetNode<Control>("MaxSizeContainer/VBoxContainer");
 
             NumericInput.Scene.Instance<NumericInput>().Config(
                 holder,

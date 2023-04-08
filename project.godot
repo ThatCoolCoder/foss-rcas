@@ -25,6 +25,10 @@ DebugLineDrawer="*res://Scripts/Misc/DebugLineDrawer.cs"
 window/size/width=1280
 window/size/height=720
 
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/MaxSizeContainer/plugin.cfg" )
+
 [global]
 
 physics_debug_active=false

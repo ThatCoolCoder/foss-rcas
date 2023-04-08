@@ -8,7 +8,7 @@ namespace UI.Settings
     {
         private int channelIndex;
 
-        public static PackedScene Scene = ResourceLoader.Load<PackedScene>("res://Scenes/UI/Settings/InputChannelEditor.tscn");
+        public static PackedScene Scene = ResourceLoader.Load<PackedScene>("res://Scenes/UI/Settings/InputComponents/InputChannelEditor.tscn");
 
         // private VBoxContainer 
 
@@ -38,17 +38,13 @@ namespace UI.Settings
         {
             var channel = SettingsScreen.NewSettings.InputMap.Channels[channelIndex];
 
-            foreach (var child in this.GetChildNodeList())
-            {
-                if (child.GetIndex() != 0) child.QueueFree();
-            }
+            var holder = GetNode<Control>("MarginContainer/MaxSizeContainer/VBoxContainer/MappingList");
+
+            foreach (var child in holder.GetChildNodeList()) child.QueueFree();
 
             foreach (var mapping in channel.Mappings)
             {
-                if (mapping is SimInput.AxisControlMapping axisControlMapping)
-                {
-                    ControlMappingEditor.Scene.Instance<ControlMappingEditor>().Config(this, axisControlMapping);
-                }
+                ControlMappingPreview.Scene.Instance<ControlMappingPreview>().Config(holder, mapping, DeleteControlMapping);
             }
             UpdateLayout();
         }
@@ -56,6 +52,17 @@ namespace UI.Settings
         public override void _ExitTree()
         {
             SettingsScreen.OnSettingsChanged -= OnSettingsChanged;
+        }
+
+        private void _on_NewMappingButton_pressed()
+        {
+
+        }
+
+        private void DeleteControlMapping(SimInput.IControlMapping mapping)
+        {
+            SettingsScreen.NewSettings.InputMap.Channels[channelIndex].Mappings.Remove(mapping);
+            UpdateChildren();
         }
     }
 }

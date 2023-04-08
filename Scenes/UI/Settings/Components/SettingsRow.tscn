@@ -13,5 +13,5 @@ margin_top = 11.0
 margin_right = 80.0
 margin_bottom = 29.0
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.25
+size_flags_stretch_ratio = 0.5
 text = "Setting name"

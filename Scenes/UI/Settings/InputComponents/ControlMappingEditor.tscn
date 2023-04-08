@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Scenes/UI/Settings/Components/NumericSliderInput.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/UI/Settings/Components/BooleanInput.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scenes/UI/Settings/Components/JoystickAxisInput.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scripts/UI/Settings/InputComponents/ControlMappingEditor.cs" type="Script" id=4]
+
+[node name="ControlMappingEditor" type="VBoxContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 4 )
+
+[node name="JoystickAxisInput" parent="." instance=ExtResource( 3 )]
+margin_right = 327.0
+margin_bottom = 24.0
+
+[node name="InvertedInput" parent="." instance=ExtResource( 2 )]
+margin_top = 28.0
+margin_right = 327.0
+margin_bottom = 54.0
+
+[node name="Sensitivity" parent="." instance=ExtResource( 1 )]
+margin_top = 58.0
+margin_right = 327.0
+margin_bottom = 76.0
+
+[node name="DeadzoneRest" parent="." instance=ExtResource( 1 )]
+margin_top = 80.0
+margin_right = 327.0
+margin_bottom = 98.0
+
+[node name="DeadzoneEnd" parent="." instance=ExtResource( 1 )]
+margin_top = 102.0
+margin_right = 327.0
+margin_bottom = 120.0

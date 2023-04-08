@@ -12,7 +12,7 @@ namespace UI.Settings
 
         private SimInput.AxisControlMapping controlMapping;
 
-        public static PackedScene Scene = ResourceLoader.Load<PackedScene>("res://Scenes/UI/Settings/ControlMappingEditor.tscn");
+        public static PackedScene Scene = ResourceLoader.Load<PackedScene>("res://Scenes/UI/Settings/InputComponents/ControlMappingEditor.tscn");
 
         public ControlMappingEditor Config(Node parent, SimInput.AxisControlMapping _controlMapping)
         {

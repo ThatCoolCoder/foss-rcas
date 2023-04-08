@@ -6,4 +6,6 @@ Most of them directly inherit from SettingsRow. These link directly to a propert
 
 Some manually-coded scenes have also been created. You can tell the SettingsRow-derived classes apart from the rest as they all end in `Input`.
 
+There are also a bunch of similar classes within the UI directory that use this same principle without extending from SettingsRow.
+
 Yes, currently this is overkill. However, it makes it very easy to expand to a far greater number of settings in future, which is something I envisage happening.
