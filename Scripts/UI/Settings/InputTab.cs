@@ -3,6 +3,8 @@ using System;
 
 namespace UI.Settings
 {
+    using InputComponents;
+
     public class InputTab : Control
     {
         public override void _Ready()

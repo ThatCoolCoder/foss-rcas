@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 using SimInput;
 
-namespace UI.Settings
+namespace UI.Settings.InputComponents
 {
     using Components;
 
@@ -31,6 +31,8 @@ namespace UI.Settings
 
         private string CreateControlMappingText()
         {
+            // todo: perhaps there is a better way to do this than a bunch of ifs?
+            // Trouble with lambdas is we need a specific type in the lambda but a dict of lamdas would have unspecific type
             if (controlMapping == null)
             {
                 Utils.LogError("Control mapping is null", this);
@@ -47,8 +49,17 @@ namespace UI.Settings
             return "Unknown mapping type";
         }
 
+        private BaseControlMappingEditor CreateEditor()
+        {
+            if (controlMapping == null) Utils.LogError("Control mapping is null", this);
+            if (controlMapping is AxisControlMapping am) return AxisMappingEditor.Scene.Instance<AxisMappingEditor>().Config(this, am);
+            return null;
+        }
+
         private void _on_Edit_pressed()
         {
+            var editor = CreateEditor();
+            editor.PopupCentered();
             GD.Print("Sorry this doesn't do anything yet");
         }
 

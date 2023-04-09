@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-namespace UI.Settings
+namespace UI.Settings.InputComponents
 {
 
     public class InputChannelEditor : Misc.CollapsibleMenu
@@ -56,7 +56,7 @@ namespace UI.Settings
 
         private void _on_NewMappingButton_pressed()
         {
-
+            GD.Print("Sorry this doesn't do anything yet");
         }
 
         private void DeleteControlMapping(SimInput.IControlMapping mapping)

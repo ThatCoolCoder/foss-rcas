@@ -1,0 +1,95 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/UI/Settings/Components/SettingsRow.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scripts/UI/Settings/Components/BaseInputInput.cs" type="Script" id=2]
+
+[node name="BaseInputInput" instance=ExtResource( 1 )]
+margin_right = 413.0
+script = ExtResource( 2 )
+__meta__ = {
+"_editor_description_": "Base input for inputs (eg key presses)"
+}
+
+[node name="Label" parent="." index="0"]
+margin_right = 131.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." index="1"]
+margin_left = 143.0
+margin_right = 413.0
+margin_bottom = 40.0
+rect_pivot_offset = Vector2( -600, -109 )
+size_flags_horizontal = 3
+
+[node name="CurrentValue" type="Label" parent="HBoxContainer" index="0"]
+margin_top = 11.0
+margin_right = 46.0
+margin_bottom = 29.0
+text = "Axis 05"
+
+[node name="ChangeInput" type="Button" parent="HBoxContainer" index="1"]
+margin_left = 50.0
+margin_top = 8.0
+margin_right = 108.0
+margin_bottom = 32.0
+size_flags_horizontal = 0
+size_flags_vertical = 4
+text = "Change"
+
+[node name="WindowDialog" type="WindowDialog" parent="." index="2"]
+margin_right = 300.0
+margin_bottom = 100.0
+popup_exclusive = true
+window_title = "Select Input"
+
+[node name="MarginContainer" type="MarginContainer" parent="WindowDialog" index="1"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_constants/margin_right = 10
+custom_constants/margin_top = 10
+custom_constants/margin_left = 10
+custom_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="WindowDialog/MarginContainer" index="0"]
+margin_left = 10.0
+margin_top = 10.0
+margin_right = 290.0
+margin_bottom = 90.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="PopupText" type="Label" parent="WindowDialog/MarginContainer/VBoxContainer" index="0"]
+margin_left = 65.0
+margin_right = 215.0
+margin_bottom = 18.0
+size_flags_horizontal = 4
+text = "Move an axis to select it..."
+
+[node name="HBoxContainer" type="HBoxContainer" parent="WindowDialog/MarginContainer/VBoxContainer" index="1"]
+margin_top = 56.0
+margin_right = 280.0
+margin_bottom = 80.0
+size_flags_vertical = 10
+alignment = 1
+
+[node name="Cancel" type="Button" parent="WindowDialog/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
+margin_left = 25.0
+margin_right = 77.0
+margin_bottom = 24.0
+text = "Cancel"
+
+[node name="SelectAnotherInput" type="Button" parent="WindowDialog/MarginContainer/VBoxContainer/HBoxContainer" index="1"]
+margin_left = 81.0
+margin_right = 221.0
+margin_bottom = 24.0
+text = "Select a different input"
+
+[node name="Ok" type="Button" parent="WindowDialog/MarginContainer/VBoxContainer/HBoxContainer" index="2"]
+margin_left = 225.0
+margin_right = 254.0
+margin_bottom = 24.0
+text = "Ok"
+
+[connection signal="pressed" from="HBoxContainer/ChangeInput" to="." method="_on_ChangeInput_pressed"]
+[connection signal="pressed" from="WindowDialog/MarginContainer/VBoxContainer/HBoxContainer/Cancel" to="." method="_on_Cancel_pressed"]
+[connection signal="pressed" from="WindowDialog/MarginContainer/VBoxContainer/HBoxContainer/SelectAnotherInput" to="." method="_on_SelectAnotherInput_pressed"]
+[connection signal="pressed" from="WindowDialog/MarginContainer/VBoxContainer/HBoxContainer/Ok" to="." method="_on_Ok_pressed"]
