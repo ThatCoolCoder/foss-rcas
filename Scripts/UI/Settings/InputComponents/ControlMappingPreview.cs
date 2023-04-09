@@ -53,6 +53,12 @@ namespace UI.Settings.InputComponents
         {
             if (controlMapping == null) Utils.LogError("Control mapping is null", this);
             if (controlMapping is AxisControlMapping am) return AxisMappingEditor.Scene.Instance<AxisMappingEditor>().Config(this, am);
+            if (controlMapping is MomentaryKeyboardControlMapping mkm)
+                return MomentaryKeyboardMappingEditor.Scene.Instance<MomentaryKeyboardMappingEditor>().Config(this, mkm);
+            if (controlMapping is ToggleKeyboardControlMapping tkm)
+                return ToggleKeyboardMappingEditor.Scene.Instance<ToggleKeyboardMappingEditor>().Config(this, tkm);
+            if (controlMapping is ThreePosKeyboardControlMapping tpkm)
+                return ThreePosKeyboardMappingEditor.Scene.Instance<ThreePosKeyboardMappingEditor>().Config(this, tpkm);
             return null;
         }
 
@@ -60,7 +66,6 @@ namespace UI.Settings.InputComponents
         {
             var editor = CreateEditor();
             editor.PopupCentered();
-            GD.Print("Sorry this doesn't do anything yet");
         }
 
         private void _on_Delete_pressed()

@@ -21,15 +21,7 @@ Todo:
 - Input
     - make f2 toggle UI
     - move the rest of the input to siminputmanager? (EG throw, reset)
-    - what type of key code do we use for the new input manager?
-        - want to be able to detect
-            - special keys (EG enter)
-            - numbers + symbols + letters, distinct whether shift is being pressed
-            - I think we can just keep track of KeyInputEvent.GetScancodeWithModifiers(). There's a function in OS to display this nicely to a user
-    - make UI for the new input system - complicated task
-        - potentially we want to use a non-flat array - a list of channels which each have their own mappings.
-            - That way we can just have a bunch of dropdowns for each channel, and multiple things can be put on it.
-            - if we make a Channel structure, incorporate into it the resting position. EG up for flaps, down for throttle, mid for ailerons
+    - Can't select a key like enter or space in the key input editor, since they press the close button.
 - Docs
     - Rewrite aircraft creation
 - Content manager tries to read `Mixes.toml` file and then gets annoyed because it is not a content file
@@ -39,6 +31,7 @@ Todo:
     - can link motor sound to an advanced motor simulation? (rpm, air disturbance factor)
 - Content
     - Create an EDF
+    - Create a bushplane about 1.1-1.3kg size
     - Badgerfield: add bushes around the edge, do some more aggressive grass optimisation
 - Graphics
     - need to get it running on old hardware (target: Intel HD 3000 on low 720p)

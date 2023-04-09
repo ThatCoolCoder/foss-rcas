@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scenes/UI/Settings/Components/SettingsRow.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scripts/UI/Settings/Components/BaseInputInput.cs" type="Script" id=2]
+[ext_resource path="res://Scripts/UI/Settings/Components/BaseInputInputWithDummyGenerics.cs" type="Script" id=2]
 
 [node name="BaseInputInput" instance=ExtResource( 1 )]
 margin_right = 413.0
@@ -22,14 +22,14 @@ size_flags_horizontal = 3
 
 [node name="CurrentValue" type="Label" parent="HBoxContainer" index="0"]
 margin_top = 11.0
-margin_right = 46.0
+margin_right = 80.0
 margin_bottom = 29.0
-text = "Axis 05"
+text = "Current value"
 
 [node name="ChangeInput" type="Button" parent="HBoxContainer" index="1"]
-margin_left = 50.0
+margin_left = 84.0
 margin_top = 8.0
-margin_right = 108.0
+margin_right = 142.0
 margin_bottom = 32.0
 size_flags_horizontal = 0
 size_flags_vertical = 4
@@ -39,7 +39,7 @@ text = "Change"
 margin_right = 300.0
 margin_bottom = 100.0
 popup_exclusive = true
-window_title = "Select Input"
+window_title = "CHANGE TEXT WHEN EXTENDING"
 
 [node name="MarginContainer" type="MarginContainer" parent="WindowDialog" index="1"]
 anchor_right = 1.0
@@ -62,7 +62,7 @@ margin_left = 65.0
 margin_right = 215.0
 margin_bottom = 18.0
 size_flags_horizontal = 4
-text = "Move an axis to select it..."
+text = "CHANGE THIS WHEN EXTENDING"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="WindowDialog/MarginContainer/VBoxContainer" index="1"]
 margin_top = 56.0
@@ -81,7 +81,7 @@ text = "Cancel"
 margin_left = 81.0
 margin_right = 221.0
 margin_bottom = 24.0
-text = "Select a different input"
+text = "CHANGE TEXT WHEN EXTENDING"
 
 [node name="Ok" type="Button" parent="WindowDialog/MarginContainer/VBoxContainer/HBoxContainer" index="2"]
 margin_left = 225.0

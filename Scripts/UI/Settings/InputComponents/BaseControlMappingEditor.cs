@@ -12,6 +12,7 @@ namespace UI.Settings.InputComponents
 
         private void _on_Close_pressed()
         {
+            SettingsScreen.ChangeSettings();
             Hide();
         }
 

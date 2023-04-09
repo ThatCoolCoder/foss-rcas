@@ -54,7 +54,7 @@ namespace UI.Settings.Components
 
             popupText.Text = GetPopupText();
 
-            selectAgainButton.Visible = candidate != null;
+            selectAgainButton.Visible = candidate != null && ShouldShowSelectAgainButton();
             okButton.Visible = candidate != null;
         }
 
@@ -84,6 +84,12 @@ namespace UI.Settings.Components
         protected virtual void OnInputWhenOpen(InputEvent _event)
         {
             // feel free to override. It's just like _Input but it only fires when the popup is open
+        }
+
+        protected virtual bool ShouldShowSelectAgainButton()
+        {
+            // Some inputs may just want to automatically select again when the input is pressed, so this button should be suppressed
+            return true;
         }
     }
 }

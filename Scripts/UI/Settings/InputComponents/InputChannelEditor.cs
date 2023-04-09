@@ -1,8 +1,10 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 namespace UI.Settings.InputComponents
 {
+    using SimInput;
 
     public class InputChannelEditor : Misc.CollapsibleMenu
     {
@@ -10,7 +12,16 @@ namespace UI.Settings.InputComponents
 
         public static PackedScene Scene = ResourceLoader.Load<PackedScene>("res://Scenes/UI/Settings/InputComponents/InputChannelEditor.tscn");
 
-        // private VBoxContainer 
+
+        // yes an enum would be a cleaner solution. no, godot option buttons don't like enums and that is more effort anyway
+        private Dictionary<string, Type> mappingTypes = new()
+        {
+            {"Joystick axis", typeof(AxisControlMapping)},
+            {"Keyboard (momentary)", typeof(MomentaryKeyboardControlMapping)},
+            {"Keyboard (toggle)", typeof(ToggleKeyboardControlMapping)},
+            {"Keyboard (three position)", typeof(ThreePosKeyboardControlMapping)},
+        };
+        private OptionButton newMappingType;
 
         public InputChannelEditor Config(Node parent, string name, int _channelIndex)
         {
@@ -26,6 +37,11 @@ namespace UI.Settings.InputComponents
 
         public override void _Ready()
         {
+            newMappingType = GetNode<OptionButton>("MarginContainer/MaxSizeContainer/VBoxContainer/HBoxContainer/NewMappingType");
+
+            newMappingType.Items.Clear();
+            foreach (var mappingType in mappingTypes.Keys) newMappingType.AddItem(mappingType);
+
             base._Ready();
         }
 
@@ -56,7 +72,10 @@ namespace UI.Settings.InputComponents
 
         private void _on_NewMappingButton_pressed()
         {
-            GD.Print("Sorry this doesn't do anything yet");
+            var typeName = (string)newMappingType.GetSelectedItem();
+            var mapping = (IControlMapping)Activator.CreateInstance(mappingTypes[typeName]);
+            SettingsScreen.NewSettings.InputMap.Channels[channelIndex].Mappings.Add(mapping);
+            SettingsScreen.ChangeSettings();
         }
 
         private void DeleteControlMapping(SimInput.IControlMapping mapping)

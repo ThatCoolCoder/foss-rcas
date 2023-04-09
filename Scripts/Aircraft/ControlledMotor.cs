@@ -15,7 +15,6 @@ namespace Aircraft
         public override void _Process(float delta)
         {
             ThrustProportion = ControlHub.ChannelValues[ThrottleActionName];
-            if (ThrustProportion == 0) ThrustProportion = -1; // hacky thing to make it not start at init
             if (!Reversible) ThrustProportion = ThrustProportion / 2 + 0.5f;
             base._Process(delta);
         }
