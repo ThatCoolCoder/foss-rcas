@@ -128,18 +128,17 @@ namespace SimInput
         public uint Key2Scancode { get; set; }
         public uint Key3Scancode { get; set; }
 
-        private float value = 0;
 
         public override float? ProcessEvent(InputEvent _event)
         {
             if (_event is InputEventKey keyEvent && keyEvent.Pressed && !keyEvent.Echo)
             {
-                if (keyEvent.Scancode == Key1Scancode) value = -1;
-                if (keyEvent.Scancode == Key2Scancode) value = 0;
-                if (keyEvent.Scancode == Key3Scancode) value = 1;
+                if (keyEvent.Scancode == Key1Scancode) return -1;
+                if (keyEvent.Scancode == Key2Scancode) return 0;
+                if (keyEvent.Scancode == Key3Scancode) return 1;
             }
 
-            return value;
+            return null;
         }
     }
 }

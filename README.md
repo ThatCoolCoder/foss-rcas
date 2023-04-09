@@ -20,6 +20,7 @@ Todo:
 - make location altitude actually change air pressure (not very useful, but why not?)
 - Input
     - make f2 toggle UI
+    - Add a preview for all the inputs so we can check direction etc without flying (requires modifications to SimInput.Manager so it can run with a custom inputmap instead of that in SimSettings.Current)
     - move the rest of the input to siminputmanager? (EG throw, reset)
     - Can't select a key like enter or space in the key input editor, since they press the close button.
 - Docs
