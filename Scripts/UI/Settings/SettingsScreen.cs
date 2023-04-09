@@ -13,20 +13,16 @@ namespace UI.Settings
         public static Settings NewSettings { get; set; }
         public static event Action OnSettingsChanged;
 
-        private ConfirmationDialog confirmResetDialog;
-
         public override void _Ready()
         {
             NewSettings = Settings.CloneCurrent();
-
-            confirmResetDialog = GetNode<ConfirmationDialog>("ConfirmationDialog");
 
             OnSettingsChanged(); // update all inputs
         }
 
         private void _on_Reset_pressed()
         {
-            confirmResetDialog.Popup_();
+            GetNode<Misc.CustomConfirmationDialogue>("CustomConfirmationDialog").AskToConfirm();
         }
 
         private void _on_ConfirmationDialog_confirmed()
