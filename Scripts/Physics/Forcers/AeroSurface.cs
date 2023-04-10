@@ -100,7 +100,7 @@ namespace Physics.Forcers
         private float CalculateAngleOfAttack(Vector3 localVelocity)
         {
             // Calculate AOA as if the surface is a round flat plate, working equally well in all directions.
-            // If that's not how your phenomenon works, then calculate AOA yourself.
+            // If that assumption is not valid for some calculation, calculate AOA yourself.
 
             // Probably could do this better with quaternions but this works...
             var tr = new Transform().LookingAt(localVelocity, Vector3.Up);

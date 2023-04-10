@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Scripts/Physics/SpatialFluidEffectable.cs" type="Script" id=1]
 [ext_resource path="res://Art/Aircraft/TinyTrainer/TinyTrainer.glb" type="PackedScene" id=2]
@@ -13,6 +13,7 @@
 [ext_resource path="res://Scripts/Physics/Fluids/SpatialFluidBeacon.cs" type="Script" id=11]
 [ext_resource path="res://Scenes/Aircraft/Common/ControlHub.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Scenes/Aircraft/Common/ControlHubLocator.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Scenes/Forcers/AeroObject.tscn" type="PackedScene" id=14]
 
 [sub_resource type="PhysicsMaterial" id=5]
 friction = 0.33
@@ -173,3 +174,5 @@ Thickness = 0.005
 
 [node name="ControlHubLocator" parent="RudderHolder/Rudder" instance=ExtResource( 13 )]
 ControlHubPath = NodePath("../../../ControlHub")
+
+[node name="AeroObject" parent="." instance=ExtResource( 14 )]

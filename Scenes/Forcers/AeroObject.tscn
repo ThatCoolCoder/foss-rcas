@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Art/Common/ForcerPreviewMaterial.tres" type="Material" id=1]
+[ext_resource path="res://Scripts/Physics/Forcers/AeroObject.cs" type="Script" id=2]
+[ext_resource path="res://Scripts/Physics/Forcers/AeroCoefficientCube.cs" type="Script" id=3]
+
+[sub_resource type="Resource" id=2]
+script = ExtResource( 3 )
+Up = 1.0
+Down = 1.0
+Left = 1.0
+Right = 1.0
+Forward = 1.0
+Back = 1.0
+
+[sub_resource type="Resource" id=3]
+script = ExtResource( 3 )
+Up = 1.0
+Down = 1.0
+Left = 1.0
+Right = 1.0
+Forward = 1.0
+Back = 1.0
+
+[sub_resource type="SpatialMaterial" id=1]
+flags_transparent = true
+albedo_color = Color( 0.596078, 0.976471, 0, 0.513726 )
+
+[node name="AeroObject" type="Spatial"]
+script = ExtResource( 2 )
+TargetPath = NodePath("")
+LiftCube = SubResource( 2 )
+DragCube = SubResource( 3 )
+
+[node name="DebugBox" type="Spatial" parent="."]
+
+[node name="CSGBox" type="CSGBox" parent="DebugBox"]
+material_override = ExtResource( 1 )
+width = 1.0
+height = 1.0
+depth = 1.0
+
+[node name="CSGPolygon" type="CSGPolygon" parent="DebugBox"]
+transform = Transform( -6.9064e-09, 0.378, -2.18557e-08, 0, -1.65229e-08, -0.5, -0.158, -1.65229e-08, 9.55343e-16, -1.44123e-08, -0.000381635, -0.329333 )
+polygon = PoolVector2Array( 0, -0.25, 0, 0.25, 1, 0 )
+depth = 0.01
+material = SubResource( 1 )

@@ -7,10 +7,13 @@ namespace Physics.Forcers
 {
     public abstract class AbstractSpatialFluidForcer : Spatial
     {
+        // Base class for things that apply force because of fluids.
+        // Note that this is tool-safe: extending classes can be [Tools] without issues
+
         // Path to the target of this forcer. If parent is a SpatialFluidEffectable and path is null, then parent is used
         [Export] public NodePath TargetPath { get; set; }
         [Export] public bool Enabled { get; set; } = true;
-        [Export] public bool ForLiquid { get; set; } = true; // todo: get a proper system for setting the below list from the editor.
+        [Export] public bool ForLiquid { get; set; } = false; // todo: get a proper system for setting the below list from the editor.
         private List<Fluids.FluidType> fluidTypes = new();
         protected SpatialFluidEffectable target { get; private set; }
 
@@ -23,6 +26,8 @@ namespace Physics.Forcers
 
         public override void _Ready()
         {
+            if (Engine.EditorHint) return;
+
             if (GetParent() is SpatialFluidEffectable t && TargetPath == null) target = t;
             else target = GetNode<SpatialFluidEffectable>(TargetPath);
 
@@ -32,8 +37,6 @@ namespace Physics.Forcers
             else fluidTypes.Add(Fluids.FluidType.Gas);
 
             debugModeWasActive = DebugModeActive;
-
-            base._Ready();
         }
 
         // Should return a force in global coordinates
@@ -71,6 +74,8 @@ namespace Physics.Forcers
 
         public override void _ExitTree()
         {
+            if (Engine.EditorHint) return;
+
             target.UnregisterForcer(this);
             if (debugModeWasActive) DebugLineDrawer.ClearLinesStatic(this);
         }
