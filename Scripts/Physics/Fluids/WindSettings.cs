@@ -6,7 +6,7 @@ namespace Physics.Fluids
     public class WindSettings
     {
         public float Speed { get; set; } = 0;
-        public float GustSpeedDelta { get; set; } = 1.5f; // max gust speed = speed + gust speed delta
+        public float GustSpeedDelta { get; set; } = 0; // max gust speed = speed + gust speed delta
         public float GustFrequency { get; set; } = 20;
         public float DirectionDegrees
         {
@@ -33,5 +33,10 @@ namespace Physics.Fluids
         }
         public float DirectionVariability = 0.4f;
         public float DirectionChangeFrequency = 30;
+
+        public static WindSettings SlightGusts = new()
+        {
+            GustSpeedDelta = 2
+        };
     }
 }

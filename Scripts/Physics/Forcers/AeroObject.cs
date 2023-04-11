@@ -4,29 +4,21 @@ using System;
 
 namespace Physics.Forcers
 {
-    [Tool]
     public class AeroObject : AbstractSpatialFluidForcer
     {
         // Like an AeroSurface but for other aerodynamic entities - Body, landing gear, etc.
         // Stuff that generally produces more drag than lift
+        // Set cube paths to null to have no effect
 
-        [Export] public bool HasLift { get; set; } = true;
-        [Export] public AeroValueCube LiftCube { get; set; }
-        [Export] public bool HasDrag { get; set; } = true;
-        [Export] public AeroValueCube DragCube { get; set; }
+        [Export(PropertyHint.File, "*.tres")] public string LiftCubePath { get; set; } = null;
+        [Export(PropertyHint.File, "*.tres")] public string DragCubePath { get; set; } = null;
+        private AeroValueCube liftCube { get; set; }
+        private AeroValueCube dragCube { get; set; }
 
         public override void _Ready()
         {
-            {
-                // Setup defaults for the cubes since c# resources are a little janky
-
-                var defaultCube = ResourceLoader.Load<AeroValueCube>("res://Resources/DefaultAeroValueCube.tres");
-
-                if (LiftCube == null) LiftCube = defaultCube.Duplicate() as AeroValueCube;
-                if (DragCube == null) DragCube = defaultCube.Duplicate() as AeroValueCube;
-            }
-            if (Engine.EditorHint) return;
-
+            if (LiftCubePath != null) liftCube = ResourceLoader.Load<AeroValueCube>(LiftCubePath);
+            if (DragCubePath != null) dragCube = ResourceLoader.Load<AeroValueCube>(DragCubePath);
             UpdateDebugBoxVisibility();
             onDebugModeChanged += UpdateDebugBoxVisibility;
             base._Ready();
@@ -36,6 +28,7 @@ namespace Physics.Forcers
         {
             var totalForce = Vector3.Zero;
 
+            var density = fluid.DensityAtPoint(GlobalTranslation);
             var relativeVelocity = state.GetVelocityAtGlobalPosition(target, this) - fluid.VelocityAtPoint(GlobalTranslation);
 
             var basis = GlobalTransform.basis;
@@ -45,16 +38,21 @@ namespace Physics.Forcers
 
             var size = Scale;
 
-            if (HasLift)
+            if (liftCube != null)
             {
-                // totalForce += Calculate
+                // Do the 3 visible faces separately then add together.
+                // so for each axis, find area (from scale), and coefficient (from local velocity).
+                // Then use direction of surface + pos or neg to get local force. Then rotate back to global
+                // coefficient will be interpolated between CubeVal and 0. 
+                // totalForce += CalculateLift(x) + CalculateLift(y) + CalculateLift(z);
             }
-            if (HasDrag)
+            if (dragCube != null)
             {
-                var frontalArea = InterpolateValueFromCube(localVelocity, AeroValueCube.FromVector3(Size));
-                var coefficient = InterpolateValueFromCube(localVelocity, DragCube);
-                float dragMag = 0.5f * coefficient * frontalArea * localVelocity.LengthSquared();
-                totalForce += dragMag * localVelocity.Normalized() * -1;
+                var sideAreas = new Vector3(size.y * size.z, size.x * size.z, size.x * size.y);
+                var frontalArea = InterpolateValueFromCube(localVelocity, AeroValueCube.FromVector3(sideAreas));
+                var coefficient = InterpolateValueFromCube(localVelocity, dragCube);
+                float dragMag = 0.5f * coefficient * frontalArea * localVelocity.LengthSquared() * density;
+                totalForce += dragMag * relativeVelocity.Normalized() * -1;
             }
             return totalForce;
         }
@@ -65,7 +63,9 @@ namespace Physics.Forcers
 
             float InterpolatePositiveNegative(float speedProportion, float negativeCoefficient, float positiveCoefficient)
             {
-                return Mathf.Abs(speedProportion) * (speedProportion > 0 ? positiveCoefficient : negativeCoefficient);
+                // todo: this would be more accurate if we used trig interpolate
+                // Currently a parabolic approximation and that's good enough
+                return speedProportion * speedProportion * (speedProportion > 0 ? positiveCoefficient : negativeCoefficient);
             }
 
             var normalised = localVelocity.Normalized();

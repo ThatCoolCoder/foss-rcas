@@ -1,20 +1,10 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Scripts/Physics/Fluids/SpatialFluidBeacon.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/Physics/Fluids/SpatialFluidRepository.cs" type="Script" id=2]
-[ext_resource path="res://Scenes/Aircraft/Common/ControlledMotor.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scripts/Physics/Fluids/Air.cs" type="Script" id=5]
 [ext_resource path="res://Art/Locations/LargeOval/Grass.material" type="Material" id=6]
-[ext_resource path="res://Scripts/Physics/SpatialFluidEffectable.cs" type="Script" id=7]
 [ext_resource path="res://Testing/AeroTestScene.cs" type="Script" id=8]
-[ext_resource path="res://Scenes/Forcers/AeroSurface.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Resources/AeroCurves/WingDragCoefficient.tres" type="Curve" id=10]
-[ext_resource path="res://Resources/AeroCurves/WingLiftCoefficient.tres" type="Curve" id=11]
-
-[sub_resource type="PhysicsMaterial" id=1]
-friction = 0.0
-
-[sub_resource type="BoxShape" id=2]
 
 [node name="AeroTestScene" type="Spatial"]
 script = ExtResource( 8 )
@@ -44,35 +34,6 @@ script = ExtResource( 5 )
 
 [node name="SpatialFluidBeacon" type="Spatial" parent="Air"]
 script = ExtResource( 1 )
-
-[node name="RigidBody" type="RigidBody" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0298163, 0 )
-mass = 50.0
-physics_material_override = SubResource( 1 )
-script = ExtResource( 7 )
-
-[node name="CollisionShape" type="CollisionShape" parent="RigidBody"]
-shape = SubResource( 2 )
-
-[node name="CSGBox" type="CSGBox" parent="RigidBody"]
-
-[node name="ControlledMotor" parent="RigidBody" instance=ExtResource( 3 )]
-ForLiquid = false
-Radius = 0.25
-ExitSpeed = 100.0
-FreeWheelWhenOff = true
-ThrottleActionName = "throttle"
-
-[node name="AeroSurface" parent="RigidBody" instance=ExtResource( 9 )]
-transform = Transform( -4.37114e-08, 0, 1, 0.163291, 0.986577, 7.1377e-09, -0.986577, 0.163291, -4.31247e-08, 0, 1.35899, 0 )
-ForLiquid = false
-TotalLiftCoefficient = ExtResource( 11 )
-ParasiticDragCoefficient = ExtResource( 10 )
-
-[node name="Camera" type="Camera" parent="RigidBody"]
-transform = Transform( -4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 8.44573, 2.14374, 0.293468 )
-current = true
-far = 500.0
 
 [node name="VisualReferences" type="Spatial" parent="."]
 __meta__ = {
@@ -118,3 +79,6 @@ height = 3.61851
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -36.2756, 1.83641, 32.9856 )
 use_collision = true
 height = 3.61851
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 0.999996, 0, 0.00300197, 0, 1, 0, -0.00300197, 0, 0.999996, 0, 3.5204, 7.44868 )

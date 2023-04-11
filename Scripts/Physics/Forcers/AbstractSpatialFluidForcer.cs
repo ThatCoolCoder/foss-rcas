@@ -28,11 +28,6 @@ namespace Physics.Forcers
         {
             if (Engine.EditorHint) return;
 
-            if (Name == "AeroObject")
-            {
-                GD.Print(GetParent() is SpatialFluidEffectable);
-                GD.Print(TargetPath);
-            }
             if (GetParent() is SpatialFluidEffectable t && (TargetPath == null || TargetPath == "")) target = t;
             else target = GetNode<SpatialFluidEffectable>(TargetPath);
 

@@ -1,26 +1,7 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Art/Common/ForcerPreviewMaterial.tres" type="Material" id=1]
 [ext_resource path="res://Scripts/Physics/Forcers/AeroObject.cs" type="Script" id=2]
-[ext_resource path="res://Scripts/Physics/Forcers/AeroCoefficientCube.cs" type="Script" id=3]
-
-[sub_resource type="Resource" id=2]
-script = ExtResource( 3 )
-Up = 1.0
-Down = 1.0
-Left = 1.0
-Right = 1.0
-Forward = 1.0
-Back = 1.0
-
-[sub_resource type="Resource" id=3]
-script = ExtResource( 3 )
-Up = 1.0
-Down = 1.0
-Left = 1.0
-Right = 1.0
-Forward = 1.0
-Back = 1.0
 
 [sub_resource type="SpatialMaterial" id=1]
 flags_transparent = true
@@ -28,9 +9,6 @@ albedo_color = Color( 0.596078, 0.976471, 0, 0.513726 )
 
 [node name="AeroObject" type="Spatial"]
 script = ExtResource( 2 )
-TargetPath = NodePath("")
-LiftCube = SubResource( 2 )
-DragCube = SubResource( 3 )
 
 [node name="DebugBox" type="Spatial" parent="."]
 

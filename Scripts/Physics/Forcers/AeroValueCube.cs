@@ -30,7 +30,7 @@ namespace Physics.Forcers
                 Down = Mathf.Abs(value.y),
                 Forward = Mathf.Abs(value.z),
                 Back = Mathf.Abs(value.z),
-            }
+            };
         }
     }
 }
