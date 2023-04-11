@@ -14,6 +14,7 @@ ctrl+d to toggle debug mode, r to reset plane, space to launch plane, ctrl+shift
 
 Todo:
 - Physics
+    - Make common methods in AeroSurface for getting relative & local velocity, there is no point having code for this in every derived class
     - improve wing physics: allow importing some better format of curves
         - stall is mushy, not sharp
         - planes feel too draggy, EG in real life the T28 carries a lot more energy and is difficult to get down, this one just mushes in

@@ -11,17 +11,20 @@ namespace Physics.Forcers
         // Stuff that generally produces more drag than lift
 
         [Export] public bool HasLift { get; set; } = true;
-        [Export] public AeroCoefficientCube LiftCube { get; set; }
+        [Export] public AeroValueCube LiftCube { get; set; }
         [Export] public bool HasDrag { get; set; } = true;
-        [Export] public AeroCoefficientCube DragCube { get; set; }
+        [Export] public AeroValueCube DragCube { get; set; }
 
         public override void _Ready()
         {
-            var defaultCube = ResourceLoader.Load<AeroCoefficientCube>("res://Resources/DefaultAeroCoefficientCube.tres");
+            {
+                // Setup defaults for the cubes since c# resources are a little janky
 
-            if (LiftCube == null) LiftCube = defaultCube.Duplicate() as AeroCoefficientCube;
-            if (DragCube == null) DragCube = defaultCube.Duplicate() as AeroCoefficientCube;
+                var defaultCube = ResourceLoader.Load<AeroValueCube>("res://Resources/DefaultAeroValueCube.tres");
 
+                if (LiftCube == null) LiftCube = defaultCube.Duplicate() as AeroValueCube;
+                if (DragCube == null) DragCube = defaultCube.Duplicate() as AeroValueCube;
+            }
             if (Engine.EditorHint) return;
 
             UpdateDebugBoxVisibility();
@@ -31,10 +34,32 @@ namespace Physics.Forcers
 
         public override Vector3 CalculateForce(ISpatialFluid fluid, PhysicsDirectBodyState state)
         {
-            return Vector3.Zero;
+            var totalForce = Vector3.Zero;
+
+            var relativeVelocity = state.GetVelocityAtGlobalPosition(target, this) - fluid.VelocityAtPoint(GlobalTranslation);
+
+            var basis = GlobalTransform.basis;
+            basis.Scale = Vector3.One;
+            // Velocity relative to the rotation of self
+            var localVelocity = basis.XformInv(relativeVelocity);
+
+            var size = Scale;
+
+            if (HasLift)
+            {
+                // totalForce += Calculate
+            }
+            if (HasDrag)
+            {
+                var frontalArea = InterpolateValueFromCube(localVelocity, AeroValueCube.FromVector3(Size));
+                var coefficient = InterpolateValueFromCube(localVelocity, DragCube);
+                float dragMag = 0.5f * coefficient * frontalArea * localVelocity.LengthSquared();
+                totalForce += dragMag * localVelocity.Normalized() * -1;
+            }
+            return totalForce;
         }
 
-        private float InterpolateCoefficientFromCube(Vector3 localVelocity, AeroCoefficientCube aeroCoefficientCube)
+        private float InterpolateValueFromCube(Vector3 localVelocity, AeroValueCube aeroValueCube)
         {
             // Interpolate between the different directions within the cube
 
@@ -45,9 +70,9 @@ namespace Physics.Forcers
 
             var normalised = localVelocity.Normalized();
 
-            return InterpolatePositiveNegative(normalised.x, aeroCoefficientCube.Left, aeroCoefficientCube.Right) +
-                InterpolatePositiveNegative(normalised.y, aeroCoefficientCube.Down, aeroCoefficientCube.Up) +
-                InterpolatePositiveNegative(normalised.z, aeroCoefficientCube.Forward, aeroCoefficientCube.Back);
+            return InterpolatePositiveNegative(normalised.x, aeroValueCube.Left, aeroValueCube.Right) +
+                InterpolatePositiveNegative(normalised.y, aeroValueCube.Down, aeroValueCube.Up) +
+                InterpolatePositiveNegative(normalised.z, aeroValueCube.Forward, aeroValueCube.Back);
         }
 
         private void UpdateDebugBoxVisibility()
