@@ -31,7 +31,7 @@ enabled=PoolStringArray( "res://addons/MaxSizeContainer/plugin.cfg" )
 
 [global]
 
-physics_debug_active=true
+physics_debug_active=false
 
 [gui]
 

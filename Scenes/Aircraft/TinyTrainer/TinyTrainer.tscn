@@ -24,7 +24,7 @@ friction = 0.33
 extents = Vector3( 0.4762, 0.00401939, 0.0608913 )
 
 [sub_resource type="BoxShape" id=6]
-extents = Vector3( 0.0256219, 0.0238448, 0.296708 )
+extents = Vector3( 0.0256219, 0.0238448, 0.319271 )
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.00659916, 0.0569142, 0.0494842 )
@@ -51,7 +51,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0325681, 0.0507585 )
 shape = SubResource( 2 )
 
 [node name="BodyCollider" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0105186, 0.147349 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00115113, 0.11708 )
 shape = SubResource( 6 )
 
 [node name="TailCollider" type="CollisionShape" parent="."]
@@ -59,7 +59,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.062407, 0.386834 )
 shape = SubResource( 1 )
 
 [node name="LandingGearCollider" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0883859, -0.0299903 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0746566, -0.0866282 )
 shape = SubResource( 4 )
 
 [node name="ControlledMotor" parent="." instance=ExtResource( 3 )]
