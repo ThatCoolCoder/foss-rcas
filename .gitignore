@@ -9,5 +9,5 @@ export.cfg
 
 # Mono-specific ignores
 .mono/
-.mono_crash.*
+mono_crash.*
 data_*/
