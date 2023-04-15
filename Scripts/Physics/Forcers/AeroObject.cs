@@ -9,6 +9,7 @@ namespace Physics.Forcers
         // Like an AeroSurface but for other aerodynamic entities - Body, landing gear, etc.
         // Stuff that generally produces more drag than lift
         // Set cube paths to null to have no effect
+        // todo: this is an explorative implementation, could do with some refactoring
 
         [Export(PropertyHint.File, "*.tres")] public string LiftCubePath { get; set; } = null;
         [Export(PropertyHint.File, "*.tres")] public string DragCubePath { get; set; } = null;
@@ -37,24 +38,31 @@ namespace Physics.Forcers
             var localVelocity = basis.XformInv(relativeVelocity);
 
             var size = Scale;
+            var sideAreas = new Vector3(size.y * size.z, size.x * size.z, size.x * size.y);
 
             if (liftCube != null)
             {
-                // Do the 3 visible faces separately then add together.
-                // so for each axis, find area (from scale), and coefficient (from local velocity).
-                // Then use direction of surface + pos or neg to get local force. Then rotate back to global
-                // coefficient will be interpolated between CubeVal and 0. 
-                // totalForce += CalculateLift(x) + CalculateLift(y) + CalculateLift(z);
+                // Calculate force for the 3 axis separately then combine.
+
+                var localLift = new Vector3(GetLiftAlongAxis(localVelocity.x, liftCube.Left, liftCube.Right) * sideAreas.x,
+                    GetLiftAlongAxis(localVelocity.y, liftCube.Down, liftCube.Up) * sideAreas.y,
+                    GetLiftAlongAxis(localVelocity.z, liftCube.Forward, liftCube.Back) * sideAreas.z);
+                var relativeLift = basis.Xform(localLift);
+                totalForce += relativeLift;
             }
             if (dragCube != null)
             {
-                var sideAreas = new Vector3(size.y * size.z, size.x * size.z, size.x * size.y);
                 var frontalArea = InterpolateValueFromCube(localVelocity, AeroValueCube.FromVector3(sideAreas));
                 var coefficient = InterpolateValueFromCube(localVelocity, dragCube);
-                float dragMag = 0.5f * coefficient * frontalArea * localVelocity.LengthSquared() * density;
+                float dragMag = 0.5f * coefficient * frontalArea * localVelocity.LengthSquared();
                 totalForce += dragMag * relativeVelocity.Normalized() * -1;
             }
-            return totalForce;
+            return totalForce * density;
+        }
+
+        private float GetLiftAlongAxis(float velocity, float negativeCoefficient, float positiveCoefficient)
+        {
+            return velocity * velocity * (velocity > 0 ? positiveCoefficient : negativeCoefficient) * Mathf.Sign(velocity) * -1;
         }
 
         private float InterpolateValueFromCube(Vector3 localVelocity, AeroValueCube aeroValueCube)
@@ -63,7 +71,7 @@ namespace Physics.Forcers
 
             float InterpolatePositiveNegative(float speedProportion, float negativeCoefficient, float positiveCoefficient)
             {
-                // todo: this would be more accurate if we used trig interpolate
+                // todo: this would be more accurate if we used trig to interpolate
                 // Currently a parabolic approximation and that's good enough
                 return speedProportion * speedProportion * (speedProportion > 0 ? positiveCoefficient : negativeCoefficient);
             }

@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/Physics/Forcers/AeroValueCube.cs" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+Left = 1.5
+Right = 1.5
+Up = 1.5
+Down = 1.5
+Forward = 1.0
+Back = 1.0
