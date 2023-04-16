@@ -17,6 +17,7 @@ namespace Locations
         [Export] public int InstanceCount { get; set; } = 100;
         [Export] public Texture Mask { get; set; } // Only on white regions of this texture is grass spawned. If you leave it out then it's just everywhere
         [Export] public Texture Texture { get; set; }
+        [Export] public Texture NormalMap { get; set; }
         [Export] public Vector2 GrassSize { get; set; } = new Vector2(0.07f, 0.5f);
         [Export] public Vector2 GrassSizeVariation { get; set; } = Vector2.One * 0.3f; // varies by +- this amount
 
@@ -54,6 +55,12 @@ namespace Locations
             mesh.Material = material;
             material.ParamsCullMode = SpatialMaterial.CullMode.Disabled;
             material.FlagsUnshaded = true;
+            if (NormalMap == null) material.NormalEnabled = false;
+            else
+            {
+                material.NormalEnabled = true;
+                material.NormalTexture = NormalMap;
+            }
 
             int trueInstanceCount = (int)(InstanceCount * SimSettings.Settings.Current.Graphics.VegetationMultiplier);
 

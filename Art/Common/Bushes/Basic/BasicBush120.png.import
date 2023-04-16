@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/Impostor1.png-53e5baccb622b88ff55b3d773609a96b.s3tc.stex"
-path.etc="res://.import/Impostor1.png-53e5baccb622b88ff55b3d773609a96b.etc.stex"
+path.s3tc="res://.import/BasicBush120.png-9b6b2799e9d207355a30266916f86737.s3tc.stex"
+path.etc="res://.import/BasicBush120.png-9b6b2799e9d207355a30266916f86737.etc.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Art/Common/Trees/PineTree/Impostor1.png"
-dest_files=[ "res://.import/Impostor1.png-53e5baccb622b88ff55b3d773609a96b.s3tc.stex", "res://.import/Impostor1.png-53e5baccb622b88ff55b3d773609a96b.etc.stex" ]
+source_file="res://Art/Common/Bushes/Basic/BasicBush120.png"
+dest_files=[ "res://.import/BasicBush120.png-9b6b2799e9d207355a30266916f86737.s3tc.stex", "res://.import/BasicBush120.png-9b6b2799e9d207355a30266916f86737.etc.stex" ]
 
 [params]
 

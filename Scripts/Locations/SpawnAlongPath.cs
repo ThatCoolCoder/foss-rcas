@@ -5,6 +5,8 @@ public class SpawnAlongPath : Path
 {
     [Export] public PackedScene Scene { get; set; }
     [Export] public int NumInstances { get; set; } = 3;
+    [Export] public float InstanceScale { get; set; } = 1;
+    [Export] public float ScaleVariation { get; set; } = 0.5f;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -18,7 +20,7 @@ public class SpawnAlongPath : Path
             AddChild(child);
             child.GlobalTranslation = position;
             child.Rotation = child.Rotation.WithY(GD.Randf() * Mathf.Tau);
-            child.Scale = Vector3.One * (GD.Randf() * 1.5f + 1.5f);
+            child.Scale = Vector3.One * (GD.Randf() * ScaleVariation + 1) * InstanceScale;
         }
     }
 }
