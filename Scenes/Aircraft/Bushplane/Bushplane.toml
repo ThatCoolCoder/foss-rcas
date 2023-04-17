@@ -1,0 +1,16 @@
+name = "Bushplane"
+author = "ThatCoolCoder"
+version = "0.1.0"
+date_updated = 2023-04-17
+description = """
+A WIP bushplane based on one the author built with inspiration from some plans.
+In addition to basic 4-channel controls, it has separately controllable flaps (on aux1) and flaperons (on aux3).
+This current version has a moderate amount of power but it is planned to fit a more powerful motor in future.
+"""
+
+[aircraft]
+wingspan = 0.82
+length = 0.61
+weight = 0.49
+power_type = 0
+channels = 6

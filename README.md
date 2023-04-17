@@ -38,6 +38,7 @@ Todo:
         - Somehow add support for this in the mixer. I'd rather not have to 
 - Docs
     - Rewrite aircraft creation
+    - Write about content creation
 - Content manager tries to read `Mixes.toml` file and then gets annoyed because it is not a content file
 - Add support for flight computers/gyros extending from ControlHub and program a couple of types so that we can have quadcopters
 - audio
@@ -47,7 +48,6 @@ Todo:
     - Create an EDF
     - Create a bushplane about 1.1-1.3kg size
     - Mini 3d: increase control surface size in the model, make it fly more 3d
-    - Badgerfield: add bushes around the edge, do some more aggressive grass optimisation
 - Graphics
     - need to get it running on old hardware (target: Intel HD 3000 on low 720p)
         - problem: this IGPU will not be supported if we upgrade to godot 4.
@@ -56,6 +56,9 @@ Todo:
         - Some people may not like this idea but I think it's great if you have a hi-res monitor but your GPU can't game like that.
         - (it's much simpler than adjusting the monitor resolution or whatever)
     - If FPS is terrible, have a pop up in the corner that tells you to change your graphics.
+    - Update billboard exporter script + multimesh instancers + impostorsprite3d to have the option of normal maps on these (it looks a lot better)
+    - Create more impostor pine pics so it's not always just the same one
+        - Maybe even make some more trees so they're not all the same
 - possibly rework physics system to support non-fluid effectors
 - Even though the CG is apparently already really far back, the models don't fly tailheavy. If I move the CG further back, they become suddenly very tailheavy
     - Maybe their elevator is just stalling, the flying wing flies amazingly and the CG is probably a bit forward even.

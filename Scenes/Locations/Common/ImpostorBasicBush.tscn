@@ -1,16 +1,18 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Art/Common/Bushes/Basic/BasicBush0.png" type="Texture" id=1]
 [ext_resource path="res://Art/Common/Bushes/Basic/BasicBush240.png" type="Texture" id=2]
 [ext_resource path="res://Art/Common/Bushes/Basic/BasicBush120.png" type="Texture" id=3]
+[ext_resource path="res://Scripts/Locations/ImpostorSprite.cs" type="Script" id=4]
 
 [node name="ImpostorBasicBush" type="Spatial"]
 
 [node name="Impostor" type="Sprite3D" parent="."]
 transform = Transform( 0.386386, 0, 0, 0, 0.386386, 0, 0, 0, 0.386386, 0, 1.01663, 0 )
-visible = false
 billboard = 2
 texture = ExtResource( 1 )
+script = ExtResource( 4 )
+Textures = [ ExtResource( 1 ), ExtResource( 3 ), ExtResource( 2 ) ]
 
 [node name="RealNode" type="Spatial" parent="."]
 transform = Transform( 0.386386, 0, 0, 0, 0.386386, 0, 0, 0, 0.386386, 0, 0.0340972, 0 )

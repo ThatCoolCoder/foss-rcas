@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="4033"
+   height="4033"
+   viewBox="0 0 4033 4033"
+   version="1.1"
+   id="svg3800"
+   sodipodi:docname="WingPaint.svg"
+   inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   inkscape:export-filename="WingPaint.png"
+   inkscape:export-xdpi="24.374907"
+   inkscape:export-ydpi="24.374907"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs3804">
+    <linearGradient
+       id="linearGradient10766">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop10764" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient10760">
+      <stop
+         style="stop-color:#000000;stop-opacity:1;"
+         offset="0"
+         id="stop10758" />
+    </linearGradient>
+    <linearGradient
+       id="Main"
+       inkscape:swatch="solid">
+      <stop
+         style="stop-color:#cd4e29;stop-opacity:1;"
+         offset="0"
+         id="stop5323" />
+    </linearGradient>
+    <linearGradient
+       id="Bak"
+       inkscape:swatch="solid">
+      <stop
+         style="stop-color:#cd5729;stop-opacity:1;"
+         offset="0"
+         id="stop5317" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#Main"
+       id="linearGradient5321"
+       x1="95.827911"
+       y1="490.80548"
+       x2="1385.351"
+       y2="490.80548"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.0024892,0,0,2.0285724,-3.4484515,-120.01928)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#Main"
+       id="linearGradient10762"
+       x1="92.618027"
+       y1="652.95532"
+       x2="1385.351"
+       y2="652.95532"
+       gradientUnits="userSpaceOnUse" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#Main"
+       id="linearGradient10817"
+       gradientUnits="userSpaceOnUse"
+       x1="92.618057"
+       y1="1098.2749"
+       x2="1385.351"
+       y2="1098.2749" />
+  </defs>
+  <sodipodi:namedview
+     id="namedview3802"
+     pagecolor="#878787"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     showgrid="false"
+     inkscape:zoom="0.26054071"
+     inkscape:cx="-483.60964"
+     inkscape:cy="1930.6004"
+     inkscape:window-width="2560"
+     inkscape:window-height="1365"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg3800" />
+  <desc
+     id="desc3718">Bushplane.blend, (Blender 3.4.1)</desc>
+  <rect
+     style="fill:#f2f2f2;stroke-width:20;stroke-linecap:round;stroke-linejoin:bevel"
+     id="rect4040"
+     width="1292.733"
+     height="3849.1331"
+     x="92.617996"
+     y="91.932999" />
+  <path
+     style="fill:none;stroke:#1a1a1a;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="M 93.353043,2081.6086 H 502.68385"
+     id="path4042" />
+  <path
+     style="fill:none;stroke:#1a1a1a;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="M 89.574632,3573.493 H 498.90544"
+     id="path4042-3" />
+  <path
+     style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+     d="M 95.82791,310.55704 H 644.12062 V 64.372541"
+     id="path4108" />
+  <rect
+     style="fill:url(#linearGradient5321);fill-opacity:1.0;stroke:none;stroke-width:28.5211;stroke-linecap:round;stroke-linejoin:bevel"
+     id="rect4952"
+     width="1292.733"
+     height="302.9213"
+     x="92.617996"
+     y="724.15454" />
+  <rect
+     style="fill:url(#linearGradient10762);fill-opacity:1.0;stroke:none;stroke-width:11.5925;stroke-linecap:round;stroke-linejoin:bevel"
+     id="rect5349"
+     width="1292.7329"
+     height="50.044247"
+     x="92.618027"
+     y="627.93323" />
+  <rect
+     style="fill:url(#linearGradient10817);fill-opacity:1.0;stroke:none;stroke-width:11.5925;stroke-linecap:round;stroke-linejoin:bevel"
+     id="rect5353"
+     width="1292.7329"
+     height="50.044247"
+     x="92.618057"
+     y="1073.2528" />
+</svg>
