@@ -3,7 +3,7 @@ using System;
 
 namespace Locations
 {
-    public class GroundCamera : Camera
+    public class GroundCamera : FlightCamera
     {
         [Export] public bool Enabled { get; set; } = true;
         [Export] public NodePath TargetPath { get; set; }
@@ -13,6 +13,7 @@ namespace Locations
         public override void _Ready()
         {
             if (TargetPath != null) Target = GetNode<Spatial>(TargetPath);
+            base._Ready();
         }
 
         public override void _Process(float delta)
