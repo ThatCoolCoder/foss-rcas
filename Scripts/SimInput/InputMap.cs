@@ -9,7 +9,7 @@ namespace SimInput
         public List<Channel> Channels { get; set; } = new()
         {
             Channel.FromSingleMapping("throttle",
-                new SimInput.AxisControlMapping() { Axis = 0 }),
+                new SimInput.AxisControlMapping() { Axis = 0 }, defaultValue: -1),
             Channel.FromSingleMapping("aileron",
                 new SimInput.AxisControlMapping() { Axis = 2 }),
             Channel.FromSingleMapping("elevator",

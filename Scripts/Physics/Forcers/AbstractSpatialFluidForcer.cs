@@ -8,7 +8,7 @@ namespace Physics.Forcers
     public abstract class AbstractSpatialFluidForcer : Spatial
     {
         // Base class for things that apply force because of fluids.
-        // Note that this is tool-safe: extending classes can be [Tools] without issues
+        // Note that this is tool-safe: extending classes can be [Tool]s without issues
 
         // Path to the target of this forcer. If parent is a SpatialFluidEffectable and path is null, then parent is used
         [Export] public NodePath TargetPath { get; set; }

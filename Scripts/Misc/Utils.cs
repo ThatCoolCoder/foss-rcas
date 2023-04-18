@@ -14,6 +14,23 @@ public static class Utils
         GD.PrintStack();
     }
 
+    public static T GetNodeWithWarnings<T>(Node node, NodePath nodePath, string itemDescriptor, bool tryParentFirst = false) where T : class
+    {
+        // Try getting a node and give some descriptive errors if we don't find it
+        // if the path is null, checks if the parent is an applicable item
+        // todo: should rename this
+
+        T result = null;
+        if (nodePath == null || nodePath == "")
+        {
+            if (tryParentFirst && node.GetParent() is T _result) result = _result;
+            else Utils.LogError($"No {itemDescriptor} path provided", node);
+        }
+        else if (node.GetNode(nodePath) is T _result) result = _result;
+        else Utils.LogError($"{nodePath} is not a {itemDescriptor}", node);
+        return result;
+    }
+
     public static T RandomItem<T>(List<T> items)
     {
         return items[random.Next(0, items.Count)];

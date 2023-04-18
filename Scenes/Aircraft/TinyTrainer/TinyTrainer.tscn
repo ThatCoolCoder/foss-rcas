@@ -2,15 +2,15 @@
 
 [ext_resource path="res://Scripts/Physics/SpatialFluidEffectable.cs" type="Script" id=1]
 [ext_resource path="res://Art/Aircraft/TinyTrainer/TinyTrainer.glb" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/Aircraft/Common/ControlledMotor.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scenes/Aircraft/Common/Battery.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Resources/AeroCurves/WingDragCoefficient.tres" type="Curve" id=4]
 [ext_resource path="res://Scenes/Forcers/AeroSurface.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Resources/AeroCurves/WingLiftCoefficient.tres" type="Curve" id=6]
 [ext_resource path="res://Scripts/Aircraft/ControlSurface.cs" type="Script" id=7]
 [ext_resource path="res://Scenes/Aircraft/Common/Mirror.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Resources/AeroCurves/FlatPlateLiftCoefficient.tres" type="Curve" id=9]
-[ext_resource path="res://Scripts/Physics/Fluids/Propwash.cs" type="Script" id=10]
-[ext_resource path="res://Scripts/Physics/Fluids/SpatialFluidBeacon.cs" type="Script" id=11]
+[ext_resource path="res://Scenes/Aircraft/Common/PropellerWithModel.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scenes/Aircraft/Common/BrushlessMotor.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scenes/Aircraft/Common/ControlHub.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Scenes/Aircraft/Common/ControlHubLocator.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Scenes/Forcers/AeroObject.tscn" type="PackedScene" id=14]
@@ -62,21 +62,23 @@ shape = SubResource( 1 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0746566, -0.10092 )
 shape = SubResource( 4 )
 
-[node name="ControlledMotor" parent="." instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00767559, -0.170119 )
-Radius = 0.08
-ExitSpeed = 20.0
+[node name="Electrics" type="Spatial" parent="."]
+
+[node name="BrushlessMotor" parent="Electrics" instance=ExtResource( 11 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.008738, -0.226858 )
+BatteryPath = NodePath("../Battery")
+PropellerPath = NodePath("PropellerWithModel")
+KV = 1800.0
+
+[node name="PropellerWithModel" parent="Electrics/BrushlessMotor" instance=ExtResource( 10 )]
+TargetPath = NodePath("../../..")
 FreeWheelWhenOff = true
-ThrottleActionName = "throttle"
 
-[node name="Propwash" type="Spatial" parent="ControlledMotor"]
-script = ExtResource( 10 )
+[node name="ControlHubLocator" parent="Electrics/BrushlessMotor" instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0164136, 0.0567389 )
+ControlHubPath = NodePath("../../../ControlHub")
 
-[node name="SpatialFluidBeacon" type="Spatial" parent="ControlledMotor/Propwash"]
-script = ExtResource( 11 )
-
-[node name="ControlHubLocator" parent="ControlledMotor" instance=ExtResource( 13 )]
-ControlHubPath = NodePath("../../ControlHub")
+[node name="Battery" parent="Electrics" instance=ExtResource( 3 )]
 
 [node name="Wing" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0203834, -0.0246674 )
