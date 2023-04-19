@@ -71,3 +71,6 @@ Todo:
     - apply this to other engine types too
 - make settings fileinput lineedit editable?
 - add a way to configure wind in-game (likely requires large redesign of flightsettingsscreen - vertical tab menu with icons?)
+- come up with a neater way to add the default aircraft cameras (currently they're just stuck on by FlightSettingsScreen)
+    - it's tricky because we use the content loading metadata to get the plane size. Perhaps we need to decouple the aircraft info bit from the content bit
+        - or we could just give them the content bit.

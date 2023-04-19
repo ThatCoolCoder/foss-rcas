@@ -8,6 +8,7 @@ namespace Aircraft
         [Export] public float OrbitRadius { get; set; } = 1;
         [Export] public float Sensitivity { get; set; } = 1f;
         [Export] public string ViewName { get; set; } = "Orbit";
+        [Export] public bool RotateWithAircraft { get; set; } = false;
         private Vector2? clickStartPos = null;
         private float yRotation = 0;
         private float xRotation = 0;
@@ -19,6 +20,7 @@ namespace Aircraft
         {
             camera = GetNode<Camera>("Camera");
             camera.Translation = new Vector3(0, 0, OrbitRadius);
+            if (!RotateWithAircraft) yRotation = GetParent<Spatial>().GlobalRotation.y;
             Locations.CameraManager.instance.AddCamera(this);
             base._Ready();
         }
@@ -30,7 +32,9 @@ namespace Aircraft
 
         public override void _Process(float delta)
         {
-            base._Process(delta);
+            var angle = new Vector3(xRotation + currentXRotation, yRotation + currentYRotation, 0);
+            if (RotateWithAircraft) Rotation = angle;
+            else GlobalRotation = angle;
         }
 
         public override void _Input(InputEvent _event)
@@ -41,14 +45,14 @@ namespace Aircraft
             {
                 if (clickEvent.Pressed)
                 {
-                    currentXRotation = 0;
-                    currentYRotation = 0;
                     clickStartPos = clickEvent.Position;
                 }
                 else
                 {
                     yRotation += currentYRotation;
                     xRotation += currentXRotation;
+                    currentXRotation = 0;
+                    currentYRotation = 0;
                     clickStartPos = null;
                 }
             }
@@ -59,8 +63,6 @@ namespace Aircraft
                     var movement = motionEvent.Position - (Vector2)clickStartPos;
                     currentXRotation = -movement.y * Sensitivity * 0.001f;
                     currentYRotation = -movement.x * Sensitivity * 0.001f;
-
-                    Rotation = new Vector3(xRotation + currentXRotation, yRotation + currentYRotation, 0);
                 }
             }
         }
