@@ -30,6 +30,13 @@ namespace UI.Settings
 
             BooleanInput.Scene.Instance<BooleanInput>().Config(
                 holder,
+                "Impostor shadows enabled",
+                s => s.Graphics.ImpostorShadowsEnabled,
+                (s, v) => s.Graphics.ImpostorShadowsEnabled = v,
+                toolTip: "Whether to draw shadows for impostor trees");
+
+            BooleanInput.Scene.Instance<BooleanInput>().Config(
+                holder,
                 "FPS counter enabled",
                 s => s.Graphics.ShowFps,
                 (s, v) => s.Graphics.ShowFps = v,

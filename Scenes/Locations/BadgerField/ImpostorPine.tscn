@@ -19,7 +19,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.379182 )
 [node name="Sprite3D" type="Sprite3D" parent="Impostor"]
 transform = Transform( 0.692131, 0, 0, 0, 0.692131, 0, 0, 0, 0.692131, 0.0732747, 3.52543, -0.333741 )
 billboard = 2
-alpha_cut = 2
-texture = ExtResource( 6 )
+texture = ExtResource( 3 )
 script = ExtResource( 4 )
 Textures = [ ExtResource( 3 ), ExtResource( 5 ), ExtResource( 6 ) ]
