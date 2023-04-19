@@ -30,6 +30,7 @@ namespace Locations
             else
             {
                 cameras.Add(camera);
+                camera.Deactivate();
                 return cameras.Count - 1;
             }
         }

@@ -13,7 +13,7 @@ namespace Locations
 
         [Export] public bool FalloffAroundCamera { get; set; } = true; // Use the camera as a central point for falloff?
         [Export] public float FalloffMaxDistance { get; set; } = 100;
-        [Export] public float CameraMoveDistBeforeUpdate { get; set; } = 10; // Update grass falloff when 
+        [Export] public float CameraMoveDistBeforeUpdate { get; set; } = 20; // Update grass falloff when camera moves this far
         [Export] public int InstanceCount { get; set; } = 100;
         [Export] public Texture Mask { get; set; } // Only on white regions of this texture is grass spawned. If you leave it out then it's just everywhere
         [Export] public Texture Texture { get; set; }

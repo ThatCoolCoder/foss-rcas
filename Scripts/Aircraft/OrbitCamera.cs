@@ -17,10 +17,10 @@ namespace Aircraft
 
         public override void _Ready()
         {
-            base._Ready();
-            Locations.CameraManager.instance.AddCamera(this);
             camera = GetNode<Camera>("Camera");
             camera.Translation = new Vector3(0, 0, OrbitRadius);
+            Locations.CameraManager.instance.AddCamera(this);
+            base._Ready();
         }
 
         public override void _ExitTree()
