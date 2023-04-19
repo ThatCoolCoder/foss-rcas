@@ -72,7 +72,6 @@ KV = 1800.0
 
 [node name="PropellerWithModel" parent="Electrics/BrushlessMotor" instance=ExtResource( 10 )]
 TargetPath = NodePath("../../..")
-FreeWheelWhenOff = true
 
 [node name="ControlHubLocator" parent="Electrics/BrushlessMotor" instance=ExtResource( 13 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0164136, 0.0567389 )

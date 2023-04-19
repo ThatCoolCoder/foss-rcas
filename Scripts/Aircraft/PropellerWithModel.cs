@@ -15,7 +15,6 @@ namespace Aircraft
         private Spatial blurShape;
         private Spatial actualModel;
 
-        private float maxModelRpm = 3000; // max rpm at which the actual model displays
         private float minBlurRpm = 2000; // min rpm at which the blur model displays
 
         public override void _Ready()
@@ -37,14 +36,13 @@ namespace Aircraft
 
         private void UpdateModelSizes()
         {
-            blurShape.Scale = new Vector3(Radius, Radius, Pitch * PitchScaleMultiplier);
+            blurShape.Scale = new Vector3(Radius * (Clockwise ? 1 : -1), Radius, Pitch * PitchScaleMultiplier);
             actualModel.Scale = blurShape.Scale;
         }
 
         private void UpdateModelVisiblities()
         {
-            blurShape.Visible = rpm >= minBlurRpm;
-            actualModel.Visible = rpm <= maxModelRpm;
+            blurShape.Visible = Mathf.Abs(rpm) >= minBlurRpm;
         }
     }
 }

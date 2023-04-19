@@ -34,6 +34,10 @@ A note on singletons+autoload in this project: there have been a few cases where
     - Electrics simulation
         - calculate current draw and make battery go flat
         - Migrate all models to this
+    - Propeller simulation
+        - Have a torque + momentum based system.
+        - This should make it possible to have counter-torque on the motor too.
+        - Currently force is based only on area (diameter) and exit speed (pitch + rpm). It doesn't take into account num of blades. There needs to be some factor used for determining how to convert rpm + pitch into exit speed.
 - Input
     - make f2 toggle UI
     - Add a preview for all the inputs so we can check direction etc without flying (requires modifications to SimInput.Manager so it can run with a custom inputmap instead of that in SimSettings.Current)

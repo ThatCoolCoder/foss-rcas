@@ -13,6 +13,7 @@ namespace Aircraft
         [Export] public float KV { get; set; } = 1000;
         [Export] public string ThrottleActionName { get; set; }
         [Export] public bool Reversible { get; set; }
+        [Export] public bool Clockwise { get; set; } = true;
 
         public Control.Hub ControlHub { get; set; }
 
@@ -27,6 +28,7 @@ namespace Aircraft
             var thrustProportion = ControlHub.ChannelValues[ThrottleActionName];
             if (!Reversible) thrustProportion = thrustProportion / 2 + 0.5f;
             var noLoadRpm = KV * battery.CurrentVoltage * thrustProportion;
+            if (!Clockwise) noLoadRpm = -noLoadRpm;
             propeller.rpm = noLoadRpm * 0.8f; // multiplying by .8 is a decent approximation for loaded rpm, if the motor is propped well
 
             base._Process(delta);
