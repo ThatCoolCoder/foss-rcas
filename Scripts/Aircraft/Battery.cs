@@ -8,6 +8,8 @@ namespace Aircraft
         [Export] public int CellCount { get; set; } = 3;
         [Export] public float ChargedCellVoltage { get; set; } = 4.2f;
         [Export] public float FlatCellVoltage { get; set; } = 3.3f;
+        [Export] public float InternalResistance { get; set; } = 0.003f; // todo: calculate voltage sag based on current
+
         public float CurrentCellVoltage
         {
             get
