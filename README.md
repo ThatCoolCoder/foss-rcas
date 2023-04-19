@@ -22,6 +22,7 @@ Todo:
     - needs some way of toggling on and off AeorObjects so things like landing gear can stop being draggy when retracted
         - tie it to a control input? I'd rather be able to tie it to a servo
         - need some way of expressing conditions without creating a turing-complete language
+    - Potentially create a simulation of FPV inteference - we make a raycast from viewing position to camera, and degrade based on how many intersections.
 - Input
     - make f2 toggle UI
     - Add a preview for all the inputs so we can check direction etc without flying (requires modifications to SimInput.Manager so it can run with a custom inputmap instead of that in SimSettings.Current)
@@ -42,6 +43,8 @@ Todo:
     - Create an EDF
     - Create a bushplane about 1.1-1.3kg size
     - Mini 3d: increase control surface size in the model, make it fly more 3d
+    - Make large oval decent
+    - Make somewhere fun to fly FPV, like a racecourse
 - Graphics
     - Somehow make grass not jump around when camera moves, only appear/disappear.
         - Perhaps can use a system where we make a grid of points, wiggle them, then discard those which are outside of the radius.
