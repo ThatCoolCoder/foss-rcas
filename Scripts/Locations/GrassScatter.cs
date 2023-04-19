@@ -26,6 +26,7 @@ namespace Locations
         [Export] public int MaxMaskTries { get; set; } = 100;
 
         private Vector3 size;
+        private Thread generateGrassThread;
         private Vector3 lastUpdatePos; // position of camera upon last update if using 
 
         public override void _Ready()
@@ -37,17 +38,17 @@ namespace Locations
             GetNode<Spatial>("CSGBox").Scale = Scale;
             Scale = Vector3.One;
 
-            GenerateGrass();
+            // GenerateGrass();
         }
 
         private void GenerateGrass()
         {
             // todo: probably we could move some of this code to ready()
-            Multimesh = new();
-            Multimesh.TransformFormat = MultiMesh.TransformFormatEnum.Transform3d;
+            MultiMesh multimesh = new();
+            multimesh.TransformFormat = MultiMesh.TransformFormatEnum.Transform3d;
             var mesh = new QuadMesh();
             mesh.Size = GrassSize;
-            Multimesh.Mesh = mesh;
+            multimesh.Mesh = mesh;
 
             var material = new SpatialMaterial();
             material.AlbedoTexture = Texture;
@@ -64,7 +65,7 @@ namespace Locations
 
             int trueInstanceCount = (int)(InstanceCount * SimSettings.Settings.Current.Graphics.VegetationMultiplier);
 
-            Multimesh.InstanceCount = trueInstanceCount;
+            multimesh.InstanceCount = trueInstanceCount;
             var minPos = new Vector3(-size.x / 2, 0, -size.z / 2);
             var maxPos = new Vector3(size.x / 2, 0, size.z / 2);
 
@@ -106,10 +107,21 @@ namespace Locations
                         if (maskImage.GetPixel((int)x, (int)y).r < 0.5f) continue;
                     }
                     transform.origin = pos.WithY(transform.basis.Scale.y * GrassSize.y / 2);
-                    Multimesh.SetInstanceTransform(i, transform);
+                    multimesh.SetInstanceTransform(i, transform);
                     break;
                 }
             };
+
+            Multimesh = multimesh;
+        }
+
+        private void GenerateGrassOnThread()
+        {
+            if (generateGrassThread == null || !generateGrassThread.IsAlive())
+            {
+                generateGrassThread = new Thread();
+                generateGrassThread.Start(this, "GenerateGrass");
+            }
         }
 
         private Vector3 GetCameraPos()
@@ -123,8 +135,13 @@ namespace Locations
                 FalloffAroundCamera &&
                 GetCameraPos().DistanceSquaredTo(lastUpdatePos) > CameraMoveDistBeforeUpdate * CameraMoveDistBeforeUpdate)
             {
-                GenerateGrass();
+                GenerateGrassOnThread();
             }
+        }
+
+        public override void _ExitTree()
+        {
+            if (generateGrassThread != null) generateGrassThread.WaitToFinish();
         }
     }
 }

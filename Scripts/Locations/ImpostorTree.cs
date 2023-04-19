@@ -13,8 +13,6 @@ namespace Locations
         [Export] public bool Enabled { get; set; } = true;
         [Export] public float ImpostorDistance { get; set; } = 30;
 
-        private Camera camera;
-
         private Spatial impostor;
         private Spatial realNode;
 
@@ -24,11 +22,6 @@ namespace Locations
             realNode = GetNode<Spatial>("RealNode");
 
             realNode.Visible = false;
-        }
-
-        public override void _Ready()
-        {
-            camera = GetViewport().GetCamera();
         }
 
         public override void _Process(float delta)
@@ -46,7 +39,7 @@ namespace Locations
             if (trulyEnabled)
             {
                 var trueDistance = UseGraphicsSettings ? SimSettings.Settings.Current.Graphics.ImpostorDistance : ImpostorDistance;
-                showImpostor = camera.GlobalTranslation.DistanceSquaredTo(GlobalTranslation) > trueDistance * trueDistance;
+                showImpostor = GetViewport().GetCamera().GlobalTranslation.DistanceSquaredTo(GlobalTranslation) > trueDistance * trueDistance;
             }
 
             if (showImpostor)
