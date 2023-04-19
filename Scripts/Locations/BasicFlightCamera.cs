@@ -3,7 +3,7 @@ using System;
 
 namespace Locations
 {
-    public class FlightCamera : Camera
+    public class BasicFlightCamera : Camera, IFlightCamera
     {
         // Camera used for flying the plane - EG on the ground or FPV
 
@@ -17,6 +17,16 @@ namespace Locations
         public override void _ExitTree()
         {
             CameraManager.instance.RemoveCamera(this);
+        }
+
+        public void Activate()
+        {
+            Current = true;
+        }
+
+        public void Deactivate()
+        {
+            Current = false;
         }
     }
 }
