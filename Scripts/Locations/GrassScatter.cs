@@ -56,6 +56,12 @@ namespace Locations
             mesh.Material = material;
             material.ParamsCullMode = SpatialMaterial.CullMode.Disabled;
             material.FlagsUnshaded = true;
+            if (FalloffAroundCamera)
+            {
+                material.DistanceFadeMaxDistance = 0;
+                material.DistanceFadeMinDistance = FalloffMaxDistance;
+                material.DistanceFadeMode = SpatialMaterial.DistanceFadeModeEnum.PixelDither;
+            }
             if (NormalMap == null) material.NormalEnabled = false;
             else
             {
@@ -119,6 +125,7 @@ namespace Locations
         {
             if (generateGrassThread == null || !generateGrassThread.IsAlive())
             {
+                if (generateGrassThread != null) generateGrassThread.WaitToFinish();
                 generateGrassThread = new Thread();
                 generateGrassThread.Start(this, "GenerateGrass");
             }

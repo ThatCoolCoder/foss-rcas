@@ -50,10 +50,10 @@ _data = {
 [node name="BadgerField" parent="." index="0" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.276415, 0 )
 
-[node name="StartLocation" parent="." index="3"]
+[node name="StartLocation" parent="." index="4"]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -39.7529, 0.680992, 0 )
 
-[node name="Camera" parent="." index="5"]
+[node name="Camera" parent="." index="6"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17.0725, 1.91372, 20.2871 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="7"]
@@ -116,6 +116,7 @@ TreeSizeVariation = Vector2( 0.5, 0.5 )
 [node name="Grass" type="MultiMeshInstance" parent="Grass" index="0"]
 transform = Transform( 106.674, 0, 0, 0, 1.02261, 0, 0, 0, 67.761, -9.4665, 0.297844, -5.88435 )
 script = ExtResource( 8 )
+FalloffMaxDistance = 50.0
 InstanceCount = 15000
 Mask = ExtResource( 11 )
 Texture = ExtResource( 9 )

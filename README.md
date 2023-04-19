@@ -14,20 +14,14 @@ ctrl+d to toggle debug mode, r to reset plane, space to launch plane, ctrl+shift
 
 Todo:
 - Physics
-    - Make common methods in AeroSurface for getting relative & local velocity, there is no point having code for this in every derived class
+        - Make common methods in AbstractSpatialFluidEffector for getting relative & local velocity, there is no point having code for this in every derived class
     - improve wing physics: allow importing some better format of curves
         - stall is mushy, not sharp
         - planes feel too draggy, EG in real life the T28 carries a lot more energy and is difficult to get down, this one just mushes in
     - make location altitude actually change air pressure (not very useful, but why not?)
-    - Add body lift+drag using dragcube + liftcube
-        - area is interpolated from bounding box
-        - lift (including induced drag) is generated perpendicular to surface using a coefficient interpolated from liftcube 
-        - drag (frontal drag) is parallel to flow and uses another interpolated coefficient
-        - both cubes are optional
-        - can be extended
-        - needs some way of toggling on off so things like landing gear can stop being draggy
-            - tie it to a control input? I'd rather be able to tie it to a servo
-            - need some way of expressing conditions without creating a turing-complete language
+    - needs some way of toggling on and off AeorObjects so things like landing gear can stop being draggy when retracted
+        - tie it to a control input? I'd rather be able to tie it to a servo
+        - need some way of expressing conditions without creating a turing-complete language
 - Input
     - make f2 toggle UI
     - Add a preview for all the inputs so we can check direction etc without flying (requires modifications to SimInput.Manager so it can run with a custom inputmap instead of that in SimSettings.Current)
@@ -49,6 +43,10 @@ Todo:
     - Create a bushplane about 1.1-1.3kg size
     - Mini 3d: increase control surface size in the model, make it fly more 3d
 - Graphics
+    - Somehow make grass not jump around when camera moves, only appear/disappear.
+        - Perhaps can use a system where we make a grid of points, wiggle them, then discard those which are outside of the radius.
+        - Would probably be a bit slow on really large patches but in that case we could use a chunk system internally to completely ignore points a certain distance away from camera
+        - Perhaps just a check for each row + col to see if it will be within distance at any point.
     - need to get it running on old hardware (target: Intel HD 3000 on low 720p)
         - problem: this IGPU will not be supported if we upgrade to godot 4.
     - Settings for stuff like shadows, AA, AO
