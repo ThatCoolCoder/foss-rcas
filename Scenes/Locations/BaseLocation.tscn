@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scripts/Locations/GroundCamera.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/Physics/Fluids/SpatialFluidBeacon.cs" type="Script" id=2]
@@ -10,9 +10,13 @@
 [ext_resource path="res://Scenes/UI/Misc/BackButton.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scripts/UI/FpsIndicator.cs" type="Script" id=9]
 [ext_resource path="res://Scripts/Audio/WindNoise.cs" type="Script" id=10]
+[ext_resource path="res://Scripts/Locations/CameraManager.cs" type="Script" id=11]
 
 [node name="BaseLocation" type="Spatial"]
 script = ExtResource( 6 )
+
+[node name="CameraManager" type="Spatial" parent="."]
+script = ExtResource( 11 )
 
 [node name="SpatialFluidRepository" type="Spatial" parent="."]
 script = ExtResource( 5 )
@@ -37,6 +41,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.909096, 1.87904 )
 current = true
 far = 500.0
 script = ExtResource( 1 )
+ViewName = "Ground"
 
 [node name="WindNoise" type="AudioStreamPlayer3D" parent="Camera"]
 script = ExtResource( 10 )

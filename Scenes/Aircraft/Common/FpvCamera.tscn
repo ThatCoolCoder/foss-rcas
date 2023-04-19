@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Resources/FpvNoise.gdshader" type="Shader" id=1]
+[ext_resource path="res://Scripts/Locations/FlightCamera.cs" type="Script" id=2]
+
+[sub_resource type="OpenSimplexNoise" id=1]
+octaves = 4
+period = 0.1
+persistence = 0.747
+lacunarity = 4.0
+
+[sub_resource type="NoiseTexture" id=2]
+seamless = true
+as_normalmap = true
+noise = SubResource( 1 )
+
+[sub_resource type="ShaderMaterial" id=3]
+shader = ExtResource( 1 )
+shader_param/time_multiplier = 2.564
+shader_param/blur_size = 0.001
+shader_param/color_quantize_amount = 0.025
+shader_param/color_clip_max = 0.9
+shader_param/color_clip_min = 0.1
+shader_param/noise_add_multiplier = 0.1
+shader_param/noise = SubResource( 2 )
+
+[node name="FpvCamera" type="Camera"]
+fov = 55.0
+script = ExtResource( 2 )
+ViewName = "FPV"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource( 3 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2

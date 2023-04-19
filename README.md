@@ -40,8 +40,8 @@ A note on singletons+autoload in this project: there have been a few cases where
     - move the rest of the input to siminputmanager? (EG throw, reset)
     - Can't select a key like enter or space in the key input editor, since they press the close button.
     - Add support for dual/triple rates.
-        - Add
-        - Somehow add support for this in the mixer. I'd rather not have to 
+        - Somehow add support for this in the mixer. I'd rather not have to mix every channel separately on every plane, and I also don't want to add special-case channels.
+        - Potentially this can be implemented as part of a flight modes system.
 - Docs
     - Rewrite aircraft creation
     - Write about content creation
