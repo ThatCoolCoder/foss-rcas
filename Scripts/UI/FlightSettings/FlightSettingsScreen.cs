@@ -9,6 +9,7 @@ namespace UI.FlightSettings
     {
         private AircraftSelector aircraftSelector;
         private LocationSelector locationSelector;
+        private PackedScene orbitCameraScene = ResourceLoader.Load<PackedScene>("res://Scenes/Aircraft/Common/OrbitCamera.tscn");
 
         public override void _Ready()
         {
@@ -55,6 +56,8 @@ namespace UI.FlightSettings
 
         public void _on_PlayButton_pressed()
         {
+            RememberLastLoadedContent();
+
             var location = ResourceLoader.Load<PackedScene>(locationSelector.SelectedItem.GetScenePath()).Instance<Locations.Location>();
             if (aircraftSelector.SelectedItem.NeedsLauncher)
             {
@@ -78,7 +81,20 @@ namespace UI.FlightSettings
             tree.CurrentScene = location;
             QueueFree();
 
-            RememberLastLoadedContent();
+            // Add default onboard cameras (need to do it after putting the plane in the world, so that they can figure out their orientation)
+            {
+                var freeCamera = orbitCameraScene.Instance<Aircraft.OrbitCamera>();
+                freeCamera.Name = "Free";
+                freeCamera.OrbitRadius = aircraftSelector.SelectedItem.Length;
+                freeCamera.RotateWithAircraft = false;
+                aircraft.AddChild(freeCamera);
+
+                var lockedCamera = orbitCameraScene.Instance<Aircraft.OrbitCamera>();
+                lockedCamera.Name = "Locked";
+                lockedCamera.OrbitRadius = aircraftSelector.SelectedItem.Length;
+                lockedCamera.RotateWithAircraft = true;
+                aircraft.AddChild(lockedCamera);
+            }
         }
     }
 }

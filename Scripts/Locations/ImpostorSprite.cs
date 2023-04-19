@@ -18,6 +18,7 @@ namespace Locations
         public override void _Ready()
         {
             PickTexture();
+            AlphaCut = SimSettings.Settings.Current.Graphics.ImpostorShadowsEnabled ? AlphaCutMode.OpaquePrepass : AlphaCutMode.Disabled;
         }
 
         private void PickTexture()

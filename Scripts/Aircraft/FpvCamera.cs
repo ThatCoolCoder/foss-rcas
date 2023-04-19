@@ -3,7 +3,7 @@ using System;
 
 namespace Aircraft
 {
-    public class FpvCamera : Locations.FlightCamera
+    public class FpvCamera : Locations.BasicFlightCamera
     {
         private CanvasLayer overlay;
 

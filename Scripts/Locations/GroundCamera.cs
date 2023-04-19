@@ -3,7 +3,7 @@ using System;
 
 namespace Locations
 {
-    public class GroundCamera : FlightCamera
+    public class GroundCamera : BasicFlightCamera
     {
         [Export] public bool Enabled { get; set; } = true;
         [Export] public NodePath TargetPath { get; set; }

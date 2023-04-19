@@ -65,6 +65,10 @@ A note on singletons+autoload in this project: there have been a few cases where
     - Create a bushplane about 1.1-1.3kg size
     - Mini 3d: increase control surface size in the model, make it fly more 3d
 - Graphics
+    - Somehow make grass not jump around when camera moves, only appear/disappear.
+        - Perhaps can use a system where we make a grid of points, wiggle them, then discard those which are outside of the radius.
+        - Would probably be a bit slow on really large patches but in that case we could use a chunk system internally to completely ignore points a certain distance away from camera
+        - Perhaps just a check for each row + col to see if it will be within distance at any point.
     - need to get it running on old hardware (target: Intel HD 3000 on low 720p)
         - problem: this IGPU will not be supported if we upgrade to godot 4.
     - Settings for stuff like shadows, AA, AO
@@ -85,3 +89,6 @@ A note on singletons+autoload in this project: there have been a few cases where
 - It's likely that godot won't include the aircraft metadata .toml files in export, so tell it that they're assets
 - make settings fileinput lineedit editable?
 - add a way to configure wind in-game (likely requires large redesign of flightsettingsscreen - vertical tab menu with icons?)
+- come up with a neater way to add the default aircraft cameras (currently they're just stuck on by FlightSettingsScreen)
+    - it's tricky because we use the content loading metadata to get the plane size. Perhaps we need to decouple the aircraft info bit from the content bit
+        - or we could just give them the content bit.
