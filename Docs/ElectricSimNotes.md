@@ -55,14 +55,17 @@ torque  = (delta s / max rpm) * peak torque ?
 exit speed = pitch speed * some efficiency coefficient
 ```
 
+```
 t   = kt * i
     = (1/kv) * i
 
     (kv needs to be in SI)
+```
 
-t =~= i
-rpm =~= v
-how to calculate t or c?
+t =~= i =~= load
+rpm =~= vf
+vf = throttle * v
+how to calculate t or i?
 
 Possible chain of calculation:
 
@@ -72,6 +75,18 @@ y prop rpm, target rpm -> delta s
 m delta s, torque factor -> torque
 torque, prop mass, current prop rpm -> new prop rpm
 torque, torque constant -> current
+
+This seems far too risky, there are so many inaccuracies that will creep in. Models are not created by users, I think it's best to (at least for v1) just have measured or externally computed values, instead of complete simulation.
+
+So perhaps we add the following values to the brushless motor. They are related to the propeller-motor combo so there's no properly neat place.
+- amps drawn at full throttle on the ground
+- rpm reached at full throttle on the ground (can obtain from audio recording - `= dominant frequency / num prop blades * 60)`)
+
+Then it becomes:
+static current, torque constant -> torque
+power, maths -> prop resistance
+    `drag factor = power/v^2`
+prop resistance, prop mass, current prop rpm -> prop rpm
 
 ## Resources
 making propeller thrust calcs practical: https://www.electricrcaircraftguy.com/2014/04/propeller-static-dynamic-thrust-equation-background.html
