@@ -116,7 +116,8 @@ TreeSizeVariation = Vector2( 0.5, 0.5 )
 [node name="Grass" type="MultiMeshInstance" parent="Grass" index="0"]
 transform = Transform( 106.674, 0, 0, 0, 1.02261, 0, 0, 0, 67.761, -9.4665, 0.297844, -5.88435 )
 script = ExtResource( 8 )
-InstanceCount = 15000
+FalloffMaxDistance = 50.0
+InstanceCount = 20000
 Mask = ExtResource( 11 )
 Texture = ExtResource( 9 )
 GrassSize = Vector2( 1.5, 0.2 )

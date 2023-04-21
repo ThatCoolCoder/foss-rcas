@@ -44,11 +44,35 @@ namespace UI.Settings
 
             NumericSliderInput.Scene.Instance<NumericSliderInput>().Config(
                 holder,
-                "Vegetation multiplier",
-                s => s.Graphics.VegetationMultiplier,
-                (s, v) => s.Graphics.VegetationMultiplier = v,
-                0, 1, step: 0.1f,
-                toolTip: "Amount of vegetation (trees & grass)");
+                "Vegetation multiplier (near)",
+                s => s.Graphics.NearVegetationMultiplier,
+                (s, v) => s.Graphics.NearVegetationMultiplier = v,
+                0, 3, step: .05f,
+                toolTip: "Amount of nearby vegetation (trees & bushes)");
+
+            NumericSliderInput.Scene.Instance<NumericSliderInput>().Config(
+                holder,
+                "Vegetation multiplier (far)",
+                s => s.Graphics.FarVegetationMultiplier,
+                (s, v) => s.Graphics.FarVegetationMultiplier = v,
+                0, 3, step: .05f,
+                toolTip: "Amount of far away vegetation(trees & bushes)");
+
+            NumericSliderInput.Scene.Instance<NumericSliderInput>().Config(
+                holder,
+                "Grass multiplier",
+                s => s.Graphics.GrassMultiplier,
+                (s, v) => s.Graphics.GrassMultiplier = v,
+                0, 3, step: .05f,
+                toolTip: "Amount of grass");
+
+            NumericSliderInput.Scene.Instance<NumericSliderInput>().Config(
+                holder,
+                "Grass distance multiplier",
+                s => s.Graphics.GrassDistanceMultiplier,
+                (s, v) => s.Graphics.GrassDistanceMultiplier = v,
+                .1f, 3, step: .05f,
+                toolTip: "Max distance for spawning grass");
         }
 
     }
