@@ -1,10 +1,11 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scenes/Locations/BaseLocation.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Art/scythian_tombs_2_4k.exr" type="Texture" id=2]
 [ext_resource path="res://Art/Locations/LargeOval/LargeOval.glb" type="PackedScene" id=3]
-[ext_resource path="res://Scripts/UI/SpawnAlongPath.cs" type="Script" id=4]
-[ext_resource path="res://Art/Locations/LargeOval/ImpostorTree.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scripts/Locations/SpawnAlongPath.cs" type="Script" id=4]
+[ext_resource path="res://Scenes/Locations/Common/GrassScatter.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/Locations/LargeOval/ImpostorTree.tscn" type="PackedScene" id=6]
 
 [sub_resource type="PanoramaSky" id=5]
 panorama = ExtResource( 2 )
@@ -12,8 +13,9 @@ panorama = ExtResource( 2 )
 [sub_resource type="Environment" id=2]
 background_mode = 2
 background_sky = SubResource( 5 )
+background_energy = 1.37
 ambient_light_color = Color( 1, 1, 1, 1 )
-ambient_light_energy = 2.36
+ambient_light_energy = 1.11
 tonemap_mode = 2
 tonemap_exposure = 0.58
 tonemap_white = 16.0
@@ -34,38 +36,22 @@ _data = {
 
 [node name="LargeOval" instance=ExtResource( 1 )]
 
-[node name="StartLocation" parent="." index="2"]
+[node name="StartLocation" parent="." index="3"]
 transform = Transform( 1, 0, 1.06581e-14, 0, 1, 0, -1.06581e-14, 0, 1, -58.4062, 0.283917, 52.9997 )
 
-[node name="AircraftLauncher" parent="." index="3"]
+[node name="AircraftLauncher" parent="." index="4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -56.8228, 0, 55.0733 )
 
-[node name="Camera" parent="." index="4"]
+[node name="Camera" parent="." index="5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -58.2825, 1.7, 55.9567 )
-
-[node name="VSplitContainer" parent="CanvasLayer/HUD" index="0"]
-margin_right = 1270.0
-margin_bottom = 710.0
-
-[node name="TopBar" parent="CanvasLayer/HUD/VSplitContainer" index="0"]
-margin_right = 1260.0
-
-[node name="BottomBar" parent="CanvasLayer/HUD/VSplitContainer" index="1"]
-margin_top = 682.0
-margin_right = 1260.0
-margin_bottom = 700.0
-
-[node name="FpsIndicator" parent="CanvasLayer/HUD/VSplitContainer/BottomBar" index="0"]
-margin_left = 1226.0
-margin_right = 1260.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="6"]
 environment = SubResource( 2 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="." index="7"]
 transform = Transform( 1, 0, 0, 0, 0.695474, 0.718551, 0, -0.718551, 0.695474, 0, 7.0798, 0 )
-light_color = Color( 0.835294, 0.894118, 0.411765, 1 )
-light_energy = 0.573
+light_color = Color( 0.870588, 0.909804, 0.592157, 1 )
+light_energy = 1.416
 shadow_enabled = true
 
 [node name="LargeOval" parent="." index="8" instance=ExtResource( 3 )]
@@ -73,11 +59,17 @@ shadow_enabled = true
 [node name="TreePath" type="Path" parent="." index="9"]
 curve = SubResource( 3 )
 script = ExtResource( 4 )
-Scene = ExtResource( 5 )
+Scene = ExtResource( 6 )
 NumInstances = 100
 
 [node name="TreePatchPath" type="Path" parent="." index="10"]
 curve = SubResource( 4 )
 script = ExtResource( 4 )
-Scene = ExtResource( 5 )
-NumInstances = 6
+Scene = ExtResource( 6 )
+NumInstances = 10
+
+[node name="GrassScatter" parent="." index="12" instance=ExtResource( 5 )]
+transform = Transform( 138.238, 0, -10.7181, 0, 1.023, 0, 22.1445, 0, 66.908, -28.7455, 0.128579, 19.6911 )
+FalloffMaxDistance = 75.0
+InstanceCount = 40000
+GrassSize = Vector2( 1, 0.1 )

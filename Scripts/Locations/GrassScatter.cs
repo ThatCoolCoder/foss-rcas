@@ -47,6 +47,7 @@ namespace Locations
         private Vector3 size;
         private Thread generateGrassThread;
         private Vector3 lastUpdatePos;
+        private bool generatedInitialGrass = false;
 
         public override void _Ready()
         {
@@ -56,8 +57,6 @@ namespace Locations
             size = Scale * 2;
             GetNode<Spatial>("CSGBox").Scale = Scale;
             Scale = Vector3.One;
-
-            CallDeferred("GenerateGrassOnThread");
         }
 
         private void GenerateGrass()
@@ -78,7 +77,7 @@ namespace Locations
 
             material.DistanceFadeMaxDistance = 0;
             material.DistanceFadeMinDistance = trueFalloffMaxDistance;
-            material.DistanceFadeMode = SpatialMaterial.DistanceFadeModeEnum.PixelDither;
+            material.DistanceFadeMode = SpatialMaterial.DistanceFadeModeEnum.PixelAlpha;
 
             if (NormalMap == null) material.NormalEnabled = false;
             else
@@ -295,7 +294,12 @@ namespace Locations
 
         public override void _Process(float delta)
         {
-            if (Engine.GetFramesDrawn() % 30 == 0 &&
+            if (!generatedInitialGrass)
+            {
+                generatedInitialGrass = true;
+                GenerateGrassOnThread();
+            }
+            else if (Engine.GetFramesDrawn() % 30 == 0 &&
                 GetCameraPos().DistanceSquaredTo(lastUpdatePos) > CameraMoveDistBeforeUpdate * CameraMoveDistBeforeUpdate)
             {
                 GenerateGrassOnThread();

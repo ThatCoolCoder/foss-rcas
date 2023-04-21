@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://Scenes/Locations/BaseLocation.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Art/Locations/BadgerField/BadgerField.glb" type="PackedScene" id=2]
@@ -7,9 +7,7 @@
 [ext_resource path="res://Scenes/Locations/BadgerField/ImpostorPine.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Locations/Common/TreeScatter.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Art/Common/Trees/PineTree/Impostor1.png" type="Texture" id=7]
-[ext_resource path="res://Scripts/Locations/GrassScatter.cs" type="Script" id=8]
-[ext_resource path="res://Art/Common/GrassV2.png" type="Texture" id=9]
-[ext_resource path="res://Art/Common/EnvironmentPreviewMaterial.tres" type="Material" id=10]
+[ext_resource path="res://Scenes/Locations/Common/GrassScatter.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Art/Locations/BadgerField/GrassMask.png" type="Texture" id=11]
 [ext_resource path="res://Art/Common/Bushes/Basic/BasicBush0.png" type="Texture" id=12]
 [ext_resource path="res://Art/Common/Bushes/Basic/BasicBush240.png" type="Texture" id=13]
@@ -111,20 +109,8 @@ Texture = ExtResource( 7 )
 TreeSize = Vector2( 15, 15 )
 TreeSizeVariation = Vector2( 0.5, 0.5 )
 
-[node name="Grass" type="Spatial" parent="." index="10"]
-
-[node name="Grass" type="MultiMeshInstance" parent="Grass" index="0"]
-transform = Transform( 106.674, 0, 0, 0, 1.02261, 0, 0, 0, 67.761, -9.4665, 0.297844, -5.88435 )
-script = ExtResource( 8 )
-FalloffMaxDistance = 50.0
-InstanceCount = 20000
+[node name="GrassScatter" parent="." index="10" instance=ExtResource( 8 )]
 Mask = ExtResource( 11 )
-Texture = ExtResource( 9 )
-GrassSize = Vector2( 1.5, 0.2 )
-
-[node name="CSGBox" type="CSGBox" parent="Grass/Grass" index="0"]
-height = 1.09147
-material = ExtResource( 10 )
 
 [node name="Bushes" type="Spatial" parent="." index="11"]
 
