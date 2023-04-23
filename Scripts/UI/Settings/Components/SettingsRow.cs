@@ -7,7 +7,7 @@ namespace UI.Settings.Components
     {
         // Base class for settings row
 
-        // suggested usage: AddChild(DerivedScene.Instance<DerivedClass>().Config(this, "Awesome setting" s => s.a, (s, v) => s.a = v ));
+        // suggested usage: DerivedScene.Instance<DerivedClass>().Config(parentNode, "Awesome setting" s => s.a, (s, v) => s.a = v );
         // You can also provide null instead of a parent and manually add it to the scene
 
         protected private string name { get; private set; }
