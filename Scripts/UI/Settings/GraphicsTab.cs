@@ -13,6 +13,8 @@ namespace UI.Settings
         {
             var holder = GetNode<Control>("MaxSizeContainer/VBoxContainer");
 
+            CreatePresetButtons();
+
             BooleanInput.Scene.Instance<BooleanInput>().Config(
                 holder,
                 "Use impostors",
@@ -109,6 +111,25 @@ namespace UI.Settings
                 typeof(Viewport.MSAA),
                 customValueFormatter: (obj) => obj.ToString().Replace("Msaa", ""),
                 toolTip: "Amount of anti aliasing passes. Only applies if high quality anti aliasing is enabled");
+        }
+
+        private void CreatePresetButtons()
+        {
+            var presetButtonScene = ResourceLoader.Load<PackedScene>("res://Scenes/UI/Settings/GraphicsPresetButton.tscn");
+            var holder = GetNode<Control>("MaxSizeContainer/VBoxContainer/Presets");
+            foreach (var preset in GraphicsPreset.Presets)
+            {
+                var button = presetButtonScene.Instance<GraphicsPresetButton>();
+                button.GraphicsPreset = preset;
+                button.OnClicked += ApplyPreset;
+                holder.AddChild(button);
+            }
+        }
+
+        private void ApplyPreset(GraphicsPreset preset)
+        {
+            SettingsScreen.NewSettings.Graphics = GraphicsPreset.Clone(preset);
+            SettingsScreen.ChangeSettings();
         }
 
     }
