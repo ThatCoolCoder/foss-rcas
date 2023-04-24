@@ -62,6 +62,6 @@ namespace SimSettings
     {
         Disabled,
         Fast,
-        High
+        Quality
     }
 }

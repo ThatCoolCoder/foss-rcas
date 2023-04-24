@@ -97,7 +97,7 @@ namespace UI.Settings
                 ShadowAtlasSizeExponent = 10,
                 ShadowAtlasCubemapSizeExponent = 7,
 
-                AntiAliasingMode = SimSettings.AntiAliasingMode.High,
+                AntiAliasingMode = SimSettings.AntiAliasingMode.Quality,
                 Msaa = Viewport.MSAA.Msaa2x,
             },
             new()
@@ -118,7 +118,7 @@ namespace UI.Settings
                 ShadowAtlasSizeExponent = 12,
                 ShadowAtlasCubemapSizeExponent = 9,
 
-                AntiAliasingMode = SimSettings.AntiAliasingMode.High,
+                AntiAliasingMode = SimSettings.AntiAliasingMode.Quality,
                 Msaa = Viewport.MSAA.Msaa4x,
             },
             new()
@@ -138,7 +138,7 @@ namespace UI.Settings
                 ShadowAtlasSizeExponent = 14,
                 ShadowAtlasCubemapSizeExponent = 12,
 
-                AntiAliasingMode = SimSettings.AntiAliasingMode.High,
+                AntiAliasingMode = SimSettings.AntiAliasingMode.Quality,
                 Msaa = Viewport.MSAA.Msaa16x,
             },
         };

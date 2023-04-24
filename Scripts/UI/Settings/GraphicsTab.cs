@@ -20,7 +20,7 @@ namespace UI.Settings
                 "Use impostors",
                 s => s.Graphics.UseImpostors,
                 (s, v) => s.Graphics.UseImpostors = v,
-                toolTip: "Whether to use impostor trees beyond a certain distance for better performance");
+                toolTip: "Whether to use fake trees beyond a certain distance for better performance");
 
             NumericSliderInput.Scene.Instance<NumericSliderInput>().Config(
                 holder,
@@ -58,7 +58,7 @@ namespace UI.Settings
                 s => s.Graphics.FarVegetationMultiplier,
                 (s, v) => s.Graphics.FarVegetationMultiplier = v,
                 0, 3, step: .05f,
-                toolTip: "Amount of far away vegetation(trees & bushes)");
+                toolTip: "Amount of far away vegetation (trees & bushes)");
 
             NumericSliderInput.Scene.Instance<NumericSliderInput>().Config(
                 holder,
