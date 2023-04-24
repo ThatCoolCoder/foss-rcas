@@ -140,7 +140,7 @@ MaxDeflectionDegrees = 15.0
 ChannelName = "aileron"
 
 [node name="Model" parent="LeftAileronHolder/LeftAileron" instance=ExtResource( 3 )]
-transform = Transform( -1, 0, 0, 0, 0.999999, -0.00146608, 0, 0.00146608, 0.999999, 0.101, 0.031, -0.093 )
+transform = Transform( -1, 8.74228e-08, 0, -8.74227e-08, -0.999999, 0.00146608, 1.28168e-10, 0.00146608, 0.999999, 4.3489e-05, 0.00403398, 0.0132477 )
 
 [node name="ControlHubLocator" parent="LeftAileronHolder/LeftAileron" instance=ExtResource( 9 )]
 ControlHubPath = NodePath("../../../ControlHub")
@@ -164,7 +164,7 @@ Reversed = true
 ChannelName = "aileron"
 
 [node name="Model" parent="RightAileronHolder/RightAileron" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 0.999999, -0.00146608, 0, 0.00146608, 0.999999, -0.10093, 0.031024, -0.0925991 )
+transform = Transform( 1, 0, 0, 0, 0.999999, -0.00146608, 0, 0.00146608, 0.999999, 4.3489e-05, 0.00403398, 0.0132477 )
 
 [node name="ControlHubLocator" parent="RightAileronHolder/RightAileron" instance=ExtResource( 9 )]
 ControlHubPath = NodePath("../../../ControlHub")
