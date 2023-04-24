@@ -25,9 +25,13 @@ Todo:
     - Potentially create a simulation of FPV inteference - we make a raycast from viewing position to camera, and degrade based on how many intersections.
 - Input
     - make f2 toggle UI
+    - Because the input maps are completely stored in toml (even down to what channels exist), if we update the game the names of the channels will not update for people.
+    - Add an input debug UI thing
+    - combine toggle & momentary keyboard inputs into a single one with a boolean flag
     - Add a preview for all the inputs so we can check direction etc without flying (requires modifications to SimInput.Manager so it can run with a custom inputmap instead of that in SimSettings.Current)
     - move the rest of the input to siminputmanager? (EG throw, reset)
     - Can't select a key like enter or space in the key input editor, since they press the close button.
+        - This is also a problem with joystick button0
     - Add support for dual/triple rates.
         - Somehow add support for this in the mixer. I'd rather not have to mix every channel separately on every plane, and I also don't want to add special-case channels.
         - Potentially this can be implemented as part of a flight modes system.

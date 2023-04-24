@@ -39,6 +39,7 @@ namespace UI.Settings.InputComponents
                 return "Null";
             }
             if (controlMapping is AxisControlMapping am) return $"Joystick - axis {am.Axis}";
+            if (controlMapping is ButtonControlMapping bm) return $"Joystick - button {bm.ButtonIndex}";
             if (controlMapping is MomentaryKeyboardControlMapping mm) return $"Keyboard (momentary) - {OS.GetScancodeString(mm.KeyScancode)}";
             if (controlMapping is ToggleKeyboardControlMapping tm) return $"Keyboard (toggle) - {OS.GetScancodeString(tm.KeyScancode)}";
             if (controlMapping is ThreePosKeyboardControlMapping p3m)
@@ -53,6 +54,7 @@ namespace UI.Settings.InputComponents
         {
             if (controlMapping == null) Utils.LogError("Control mapping is null", this);
             if (controlMapping is AxisControlMapping am) return AxisMappingEditor.Scene.Instance<AxisMappingEditor>().Config(this, am);
+            if (controlMapping is ButtonControlMapping bm) return ButtonMappingEditor.Scene.Instance<ButtonMappingEditor>().Config(this, bm);
             if (controlMapping is MomentaryKeyboardControlMapping mkm)
                 return MomentaryKeyboardMappingEditor.Scene.Instance<MomentaryKeyboardMappingEditor>().Config(this, mkm);
             if (controlMapping is ToggleKeyboardControlMapping tkm)

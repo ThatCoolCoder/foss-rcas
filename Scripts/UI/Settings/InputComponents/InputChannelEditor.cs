@@ -17,6 +17,7 @@ namespace UI.Settings.InputComponents
         private Dictionary<string, Type> mappingTypes = new()
         {
             {"Joystick axis", typeof(AxisControlMapping)},
+            {"Joystick button", typeof(ButtonControlMapping)},
             {"Keyboard (momentary)", typeof(MomentaryKeyboardControlMapping)},
             {"Keyboard (toggle)", typeof(ToggleKeyboardControlMapping)},
             {"Keyboard (three position)", typeof(ThreePosKeyboardControlMapping)},

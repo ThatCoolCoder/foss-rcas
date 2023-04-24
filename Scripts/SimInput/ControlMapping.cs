@@ -59,6 +59,7 @@ namespace SimInput
         private static List<Type> allowableLoadedTypes = new()
         {
             typeof(AxisControlMapping),
+            typeof(ButtonControlMapping),
             typeof(MomentaryKeyboardControlMapping),
             typeof(ToggleKeyboardControlMapping),
             typeof(ThreePosKeyboardControlMapping),
@@ -95,6 +96,39 @@ namespace SimInput
         }
     }
 
+    public class ButtonControlMapping : IControlMapping
+    {
+        public int ButtonIndex { get; set; }
+        public bool Inverted { get; set; }
+        public bool Momentary { get; set; }
+        private float currentValue = -1;
+
+        public override float? ProcessEvent(InputEvent _event)
+        {
+            if (_event is InputEventJoypadButton buttonEvent && buttonEvent.ButtonIndex == ButtonIndex)
+            {
+                // Apply the mapping to the raw value
+                // Inputs and outputs are in the -1 to 1 range
+
+                if (Momentary)
+                {
+                    float value = buttonEvent.Pressed ? 1 : -1;
+                    if (Inverted) value = -value;
+                    return value;
+                }
+                else
+                {
+                    if (buttonEvent.Pressed)
+                    {
+                        currentValue = -currentValue;
+                        return currentValue;
+                    }
+                }
+            }
+            return null;
+        }
+    }
+
     public class MomentaryKeyboardControlMapping : IControlMapping
     {
         public uint KeyScancode { get; set; }
@@ -116,8 +150,12 @@ namespace SimInput
 
         public override float? ProcessEvent(InputEvent _event)
         {
-            if (_event is InputEventKey keyEvent && keyEvent.Pressed && !keyEvent.Echo && keyEvent.Scancode == KeyScancode) value *= -1;
-            return value;
+            if (_event is InputEventKey keyEvent && keyEvent.Pressed && !keyEvent.Echo && keyEvent.Scancode == KeyScancode)
+            {
+                value *= -1;
+                return value;
+            }
+            return null;
         }
     }
 
