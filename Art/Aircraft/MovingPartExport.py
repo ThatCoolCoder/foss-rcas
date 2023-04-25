@@ -3,7 +3,7 @@
 import bpy
 import os
 
-delta = bpy.context.active_object.location
+delta = bpy.context.active_object.location.copy()
 
 for obj in bpy.context.selected_objects:
     obj.location -= delta
