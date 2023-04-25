@@ -18,9 +18,6 @@ namespace SimInput
                 new SimInput.AxisControlMapping() { Axis = 1 },
                 defaultValue: -1),
 
-            Channel.FromSingleMapping("gear",
-                new SimInput.ToggleKeyboardControlMapping() { KeyScancode = (uint) KeyList.G },
-                defaultValue: -1),
             Channel.FromSingleMapping("aux1",
                 new SimInput.ThreePosKeyboardControlMapping()
                 {
@@ -40,6 +37,9 @@ namespace SimInput
                     Key3Scancode = (uint) KeyList.E,
                 },
                 defaultValue: -1, description: "used for things like spoilers/airbrakes"),
+            Channel.FromSingleMapping("aux4",
+                new SimInput.ToggleKeyboardControlMapping() { KeyScancode = (uint) KeyList.G },
+                defaultValue: -1, description: "normally landing gear"),
         };
     }
 }

@@ -14,6 +14,7 @@ namespace Locations
         public override void _Ready()
         {
             var camera = GetNode<GroundCamera>("Camera");
+            SimSettings.Settings.Current.ApplyToViewport(GetViewport());
             camera.Target = Aircraft;
             camera.CurrentZoomSettings = SimSettings.Settings.Current.GroundCameraZoom;
             launcher = GetNode<AircraftLauncher>("AircraftLauncher");
