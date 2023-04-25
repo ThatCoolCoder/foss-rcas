@@ -40,17 +40,23 @@ A note on singletons+autoload in this project: there have been a few cases where
         - Currently force is based only on area (diameter) and exit speed (pitch + rpm). It doesn't take into account num of blades. There needs to be some factor used for determining how to convert rpm + pitch into exit speed.
     - Internal combustion engine simulation
         - Create some sort of IMotor interface so that propellers don't care about what type of motor they're attached to
+        - need some way of expressing conditions without creating a turing-complete language
+    - Potentially create a simulation of FPV inteference - we make a raycast from viewing position to camera, and degrade based on how many intersections.
 - Input
     - make f2 toggle UI
+    - Because the input maps are completely stored in toml (even down to what channels exist), if we update the game the names of the channels will not update for people.
+    - Add an input debug UI thing
+    - combine toggle & momentary keyboard inputs into a single one with a boolean flag
     - Add a preview for all the inputs so we can check direction etc without flying (requires modifications to SimInput.Manager so it can run with a custom inputmap instead of that in SimSettings.Current)
     - move the rest of the input to siminputmanager? (EG throw, reset)
     - Can't select a key like enter or space in the key input editor, since they press the close button.
+        - This is also a problem with joystick button0
     - Add support for dual/triple rates.
         - Somehow add support for this in the mixer. I'd rather not have to mix every channel separately on every plane, and I also don't want to add special-case channels.
         - Potentially this can be implemented as part of a flight modes system.
 - Docs
     - Rewrite aircraft creation
-    - Write about content creation
+    - Write about content creation in general
 - Content manager tries to read `Mixes.toml` file and then gets annoyed because it is not a content file
 - General refactoring/organizing
     - Should spatialfluidrepository become an autoload singleton?
@@ -61,17 +67,19 @@ A note on singletons+autoload in this project: there have been a few cases where
     - procedural
     - can link motor sound to an advanced motor simulation? (rpm, air disturbance factor, air disturbance shape)
 - Content
-    - Create an EDF
+    - Create an EDF with retracts and flaps
     - Create a bushplane about 1.1-1.3kg size
     - Mini 3d: increase control surface size in the model, make it fly more 3d
+    - Make large oval decent (model some houses )
+    - Do a remaster of the T28
+    - New trees - experiment with whole-branch textures+normal maps for improved performance and better appearance.
+    - Make somewhere fun to fly FPV, like a racecourse
 - Graphics
     - Somehow make grass not jump around when camera moves, only appear/disappear.
         - Perhaps can use a system where we make a grid of points, wiggle them, then discard those which are outside of the radius.
         - Would probably be a bit slow on really large patches but in that case we could use a chunk system internally to completely ignore points a certain distance away from camera
         - Perhaps just a check for each row + col to see if it will be within distance at any point.
     - need to get it running on old hardware (target: Intel HD 3000 on low 720p)
-        - problem: this IGPU will not be supported if we upgrade to godot 4.
-    - Settings for stuff like shadows, AA, AO
     - Come up with a setup for rendering to an intermediate viewport so we can render at lower resolution and upsample
         - Some people may not like this idea but I think it's great if you have a hi-res monitor but your GPU can't game like that.
         - (it's much simpler than adjusting the monitor resolution or whatever)
@@ -83,6 +91,9 @@ A note on singletons+autoload in this project: there have been a few cases where
 - Even though the CG is apparently already really far back, the models don't fly tailheavy. If I move the CG further back, they become suddenly very tailheavy
     - Maybe their elevator is just stalling, the flying wing flies amazingly and the CG is probably a bit forward even.
 - Make mod system
+    - Experiment with loading additional PCK files at runtime
+        - Perhaps there is a tool in Godot to export a directory as PCK
+            - read this: https://www.reddit.com/r/godot/comments/hf5yko/godot_workflow_for_multiple_pck_files/
     - Scanning for aircraft files in other directories is already done
     - But packaging the scene files in such a way that all paths is relative is difficult
     - Also it's likely to be difficult to load GLTF at runtime. Might need to run a custom importer.

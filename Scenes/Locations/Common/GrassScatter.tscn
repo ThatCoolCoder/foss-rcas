@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Art/Common/GrassV2.png" type="Texture" id=1]
+[ext_resource path="res://Art/Common/EnvironmentPreviewMaterial.tres" type="Material" id=3]
+[ext_resource path="res://Scripts/Locations/GrassScatter.cs" type="Script" id=4]
+
+[node name="GrassScatter" type="MultiMeshInstance"]
+transform = Transform( 106.674, 0, 0, 0, 1.02261, 0, 0, 0, 67.761, -9.4665, 0.297844, -5.88435 )
+script = ExtResource( 4 )
+FalloffMaxDistance = 50.0
+InstanceCount = 20000
+Texture = ExtResource( 1 )
+GrassSize = Vector2( 1.5, 0.2 )
+
+[node name="CSGBox" type="CSGBox" parent="."]
+height = 1.09147
+material = ExtResource( 3 )

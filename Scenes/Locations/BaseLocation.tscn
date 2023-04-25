@@ -16,6 +16,7 @@
 script = ExtResource( 6 )
 
 [node name="CameraManager" type="Spatial" parent="."]
+pause_mode = 2
 script = ExtResource( 11 )
 
 [node name="SpatialFluidRepository" type="Spatial" parent="."]

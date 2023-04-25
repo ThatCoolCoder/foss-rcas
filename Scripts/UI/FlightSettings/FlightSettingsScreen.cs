@@ -83,15 +83,16 @@ namespace UI.FlightSettings
 
             // Add default onboard cameras (need to do it after putting the plane in the world, so that they can figure out their orientation)
             {
+                var size = Mathf.Max(aircraftSelector.SelectedItem.Length, aircraftSelector.SelectedItem.WingSpan);
                 var freeCamera = orbitCameraScene.Instance<Aircraft.OrbitCamera>();
                 freeCamera.Name = "Free";
-                freeCamera.OrbitRadius = aircraftSelector.SelectedItem.Length;
+                freeCamera.OrbitRadius = size;
                 freeCamera.RotateWithAircraft = false;
                 aircraft.AddChild(freeCamera);
 
                 var lockedCamera = orbitCameraScene.Instance<Aircraft.OrbitCamera>();
                 lockedCamera.Name = "Locked";
-                lockedCamera.OrbitRadius = aircraftSelector.SelectedItem.Length;
+                lockedCamera.OrbitRadius = size;
                 lockedCamera.RotateWithAircraft = true;
                 aircraft.AddChild(lockedCamera);
             }

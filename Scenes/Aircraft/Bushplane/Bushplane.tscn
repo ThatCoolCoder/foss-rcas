@@ -193,10 +193,10 @@ script = ExtResource( 11 )
 ChannelName = "flap"
 
 [node name="FlapModelL" parent="Flaps" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 0.995816, 0.09138, 0, -0.09138, 0.995816, 0, -0.0670439, -0.0399155 )
+transform = Transform( 1, 0, 0, 0, 0.993797, 0.111209, 0, -0.111209, 0.993797, -0.119233, -3.00184e-05, 0.0212931 )
 
-[node name="FlapModelR" parent="Flaps" instance=ExtResource( 6 )]
-transform = Transform( -1, 0, 0, 0, 0.995816, 0.0913799, 0, -0.0913799, 0.995816, 0, -0.0670439, -0.0399155 )
+[node name="FlapModelL2" parent="Flaps" instance=ExtResource( 6 )]
+transform = Transform( 1, 0, 0, 0, 0.993797, 0.111209, 0, -0.111209, 0.993797, 0.119, 0, 0.021 )
 
 [node name="AeroSurface" parent="Flaps" instance=ExtResource( 16 )]
 transform = Transform( 0.396768, 0, 0, 0, 1, 0, 0, 0, 0.0456588, 0, 0, 0.02 )
@@ -214,7 +214,7 @@ script = ExtResource( 11 )
 ChannelName = "aileronl"
 
 [node name="AileronModel" parent="LAileron" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 0.996111, 0.088112, 0, -0.088112, 0.996111, 0.304, -0.0667915, -0.0403286 )
+transform = Transform( 1, 0, 0, 0, 0.993276, 0.115769, 0, -0.115769, 0.993276, -0.0010891, -0.000733249, 0.0150639 )
 
 [node name="AeroSurface" parent="LAileron" instance=ExtResource( 16 )]
 transform = Transform( 0.210047, 0, 0, 0, 1, 0, 0, 0, 0.0456588, -0.00140372, 3.14862e-05, 0.0199355 )
@@ -230,9 +230,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.304, 0.0593573, 0.0400556 )
 script = ExtResource( 11 )
 ChannelName = "aileronr"
 
-[node name="AileronModel" parent="RAileron" instance=ExtResource( 3 )]
-transform = Transform( -1, 0, 0, 0, 0.996111, 0.088112, 0, -0.088112, 0.996111, -0.304, -0.067, -0.04 )
-
 [node name="AeroSurface" parent="RAileron" instance=ExtResource( 16 )]
 transform = Transform( 0.210047, 0, 0, 0, 1, 0, 0, 0, 0.0456588, -0.00140372, 3.14862e-05, 0.0199355 )
 TargetPath = NodePath("../..")
@@ -241,6 +238,9 @@ ParasiticDragCoefficient = ExtResource( 15 )
 
 [node name="ControlHubLocator" parent="RAileron" instance=ExtResource( 10 )]
 ControlHubPath = NodePath("../../ControlHub")
+
+[node name="AileronModel" parent="RAileron" instance=ExtResource( 3 )]
+transform = Transform( -1, 8.74228e-08, 0, -8.6835e-08, -0.993276, -0.115769, -1.01209e-08, -0.115769, 0.993276, -0.0010891, -0.000733249, 0.0150639 )
 
 [node name="BodyAero" parent="." instance=ExtResource( 19 )]
 transform = Transform( 0.0545607, 0, 0, 0, 0.0774784, 0, 0, 0, 0.560043, 0, 0.00374507, 0.101238 )

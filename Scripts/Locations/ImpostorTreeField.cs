@@ -11,6 +11,7 @@ namespace Locations
         // Configure the size by scaling it
 
         [Export] public int Count { get; set; } = 100;
+        [Export] public bool Near { get; set; } = true; // whether to use the near or far scaling for vegetation amount
         [Export] public Texture Texture { get; set; }
         [Export] public Vector2 TreeSize { get; set; } = Vector2.One * 5;
         [Export] public Vector2 TreeSizeVariation { get; set; } = Vector2.One * 0.3f; // varies by +- this amount
@@ -34,8 +35,10 @@ namespace Locations
             material.FlagsTransparent = true;
             mesh.Material = material;
             material.ParamsCullMode = SpatialMaterial.CullMode.Disabled;
+            material.ParamsDepthDrawMode = SpatialMaterial.DepthDrawMode.AlphaOpaquePrepass;
 
-            var trueCount = (int)(Count * SimSettings.Settings.Current.Graphics.VegetationMultiplier);
+            var g = SimSettings.Settings.Current.Graphics;
+            var trueCount = (int)(Count * (Near ? g.NearVegetationMultiplier : g.FarVegetationMultiplier));
 
             Multimesh.InstanceCount = trueCount;
             var minPos = new Vector3(-size.x / 2, 0, -size.z / 2);
