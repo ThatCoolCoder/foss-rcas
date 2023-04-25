@@ -34,15 +34,20 @@ namespace Aircraft
             }
         }
 
+        public override void _PhysicsProcess(float delta)
+        {
+            if (! Engine.EditorHint) base._PhysicsProcess(delta);
+        }
+
         private void UpdateModelSizes()
         {
-            blurShape.Scale = new Vector3(Radius * (Clockwise ? 1 : -1), Radius, Pitch * PitchScaleMultiplier);
+            blurShape.Scale = new Vector3(RadiusMetres * (Clockwise ? 1 : -1), RadiusMetres, PitchMetres * PitchScaleMultiplier);
             actualModel.Scale = blurShape.Scale;
         }
 
         private void UpdateModelVisiblities()
         {
-            blurShape.Visible = Mathf.Abs(rpm) >= minBlurRpm;
+            blurShape.Visible = Mathf.Abs(Rpm) >= minBlurRpm;
         }
     }
 }

@@ -10,7 +10,7 @@
 [ext_resource path="res://Scenes/Aircraft/Common/Mirror.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Resources/AeroCurves/FlatPlateLiftCoefficient.tres" type="Curve" id=9]
 [ext_resource path="res://Scenes/Aircraft/Common/PropellerWithModel.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Scenes/Aircraft/Common/BrushlessMotor.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/Aircraft/Common/ControlledBrushlessMotor.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scenes/Aircraft/Common/ControlHub.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Scenes/Aircraft/Common/ControlHubLocator.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Scenes/Forcers/AeroObject.tscn" type="PackedScene" id=14]
@@ -33,7 +33,7 @@ extents = Vector3( 0.00659916, 0.0569142, 0.0494842 )
 extents = Vector3( 0.0812936, 0.0379009, 0.0134837 )
 
 [node name="TinyTrainer" type="RigidBody"]
-mass = 0.45
+mass = 1000.0
 physics_material_override = SubResource( 5 )
 can_sleep = false
 angular_damp = 1.0
@@ -64,20 +64,29 @@ shape = SubResource( 4 )
 
 [node name="Electrics" type="Spatial" parent="."]
 
-[node name="BrushlessMotor" parent="Electrics" instance=ExtResource( 11 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.008738, -0.226858 )
+[node name="ControlledBrushlessMotor" parent="Electrics" instance=ExtResource( 11 )]
 BatteryPath = NodePath("../Battery")
 PropellerPath = NodePath("PropellerWithModel")
-KV = 1800.0
+KV = 1850.0
+PeakTorque = 0.074
+TorqueAdjustment = 1.5
+CurrentMultiplier = 1.8
 
-[node name="PropellerWithModel" parent="Electrics/BrushlessMotor" instance=ExtResource( 10 )]
+[node name="PropellerWithModel" parent="Electrics/ControlledBrushlessMotor" instance=ExtResource( 10 )]
 TargetPath = NodePath("../../..")
+DiameterInches = 6.0
+PitchInches = 4.0
+EfficiencyFactor = 0.55
+LiftToDrag = 4.5
+Mass = 0.005
 
-[node name="ControlHubLocator" parent="Electrics/BrushlessMotor" instance=ExtResource( 13 )]
+[node name="ControlHubLocator" parent="Electrics/ControlledBrushlessMotor" instance=ExtResource( 13 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0164136, 0.0567389 )
 ControlHubPath = NodePath("../../../ControlHub")
 
 [node name="Battery" parent="Electrics" instance=ExtResource( 3 )]
+ChargedCellVoltage = 3.4
+FlatCellVoltage = 3.4
 
 [node name="Wing" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0203834, -0.0246674 )

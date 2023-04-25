@@ -14,6 +14,8 @@ Much of the physics is based on the boat simulator in `godot-learning`, but it's
 
 All units are the base SI units unless explcitly stated so.
 
+Within the propeller/motor subsystem, positive rotations are clockwise
+
 In accordance with Godot convention, -z is forward. In Blender +y is forward.
 
 A note on singletons+autoload in this project: there have been a few cases where autoload was desirable. Unfortunately, because this is C#, the automatic global variable feature is not available like in GDscript. So instead we use the singleton pattern, in which the instance is registered by the non-static autoloaded part of the class when it enters/exits tree.
@@ -35,11 +37,9 @@ A note on singletons+autoload in this project: there have been a few cases where
         - calculate current draw and make battery go flat
         - Migrate all models to this
     - Propeller simulation
-        - Have a torque + momentum based system.
-        - This should make it possible to have a counter-torque on the motor too.
-        - Currently force is based only on area (diameter) and exit speed (pitch + rpm). It doesn't take into account num of blades. There needs to be some factor used for determining how to convert rpm + pitch into exit speed.
+        - Make sure everything is working right then we can add these motors to all the planes and then merge into main
     - Internal combustion engine simulation
-        - Create some sort of IMotor interface so that propellers don't care about what type of motor they're attached to
+
         - need some way of expressing conditions without creating a turing-complete language
     - Potentially create a simulation of FPV inteference - we make a raycast from viewing position to camera, and degrade based on how many intersections.
 - Input
@@ -62,6 +62,11 @@ A note on singletons+autoload in this project: there have been a few cases where
     - Should spatialfluidrepository become an autoload singleton?
     - Make all "modules" (EG Propeller, BrushlessMotor, Battery) instanceable scenes? (instead of just scripts)
     - Make more things (forcers, etc) use Utils.GetNodeWithWarnings, and give that method a better name
+    - Reorganize stuff, currently we have aircraft stuff strewn everywhere.
+        - Maybe make a simulation directory/namespace, then within have electrics, fluid dynamics
+        - But then where does all the control stuff go?
+        - And what about all the cameras?
+        - (Best to do all of this after finishing the electric sim and merging back into main, anyway)
 - Add support for flight computers/gyros extending from ControlHub and program a couple of types so that we can have quadcopters
 - audio
     - procedural

@@ -20,6 +20,7 @@ public static class Utils
         // Try getting a node and give some descriptive errors if we don't find it
         // if the path is null, checks if the parent is an applicable item
         // todo: should rename this
+        // todo: not sure if it gives a good error message if the node is not found
 
         T result = null;
         if (nodePath == null || nodePath == "")

@@ -40,9 +40,9 @@ namespace Aircraft
             RemainingCapacity = Mathf.Max(RemainingCapacity - ampHours, 0);
         }
 
-        public void Discharge(float amps, float time)
+        public void Discharge(float amps, float seconds)
         {
-            Discharge(amps * time);
+            Discharge(amps * seconds / 3600);
         }
     }
 }
