@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Scripts/Physics/SpatialFluidEffectable.cs" type="Script" id=1]
 [ext_resource path="res://Art/Aircraft/TinyTrainer/TinyTrainer.glb" type="PackedScene" id=2]
@@ -16,6 +16,8 @@
 [ext_resource path="res://Scenes/Forcers/AeroObject.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Art/Aircraft/TinyTrainer/Elevator.glb" type="PackedScene" id=15]
 [ext_resource path="res://Art/Aircraft/TinyTrainer/Rudder.glb" type="PackedScene" id=16]
+[ext_resource path="res://Art/Aircraft/Common/PropAudio/3S-2304-6x4E.mp3" type="AudioStream" id=17]
+[ext_resource path="res://Scripts/Audio/PrerecordedPropellerNoise.cs" type="Script" id=18]
 
 [sub_resource type="PhysicsMaterial" id=5]
 friction = 0.33
@@ -33,7 +35,7 @@ extents = Vector3( 0.00659916, 0.0569142, 0.0494842 )
 extents = Vector3( 0.0812936, 0.0379009, 0.0134837 )
 
 [node name="TinyTrainer" type="RigidBody"]
-mass = 1000.0
+mass = 0.45
 physics_material_override = SubResource( 5 )
 can_sleep = false
 angular_damp = 1.0
@@ -79,6 +81,15 @@ PitchInches = 4.0
 EfficiencyFactor = 0.55
 LiftToDrag = 4.5
 Mass = 0.005
+
+[node name="PrerecordedPropellerNoise" type="AudioStreamPlayer3D" parent="Electrics/ControlledBrushlessMotor/PropellerWithModel"]
+stream = ExtResource( 17 )
+unit_size = 5.0
+max_db = 6.0
+autoplay = true
+doppler_tracking = 1
+script = ExtResource( 18 )
+DominantFrequency = 460.0
 
 [node name="ControlHubLocator" parent="Electrics/ControlledBrushlessMotor" instance=ExtResource( 13 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0164136, 0.0567389 )

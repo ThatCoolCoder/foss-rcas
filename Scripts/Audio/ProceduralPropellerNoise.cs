@@ -3,7 +3,7 @@ using System;
 
 namespace Audio
 {
-    public class PropellerNoise : ProceduralSpatialAudio
+    public class ProceduralPropellerNoise : ProceduralSpatialAudio
     {
         // sorry this is very messy due to the process of experimentation - it's basically an auditory shader, what did you expect?
 
