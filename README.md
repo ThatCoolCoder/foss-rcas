@@ -41,8 +41,8 @@ A note on singletons+autoload in this project: there have been a few cases where
         - Add some sort of resistance from the motor when it's not powering, otherwise props spin forever
         - I think there is a problem with anticlockwise physics - an anticlockwise prop & motor gives a small backwards thrust
     - Internal combustion engine simulation
-
-        - need some way of expressing conditions without creating a turing-complete language
+        - Should be easier than electrics especially now that all the propeller stuff is done.
+        - Just have a rpm/torque curve, then throttle directly controls torque proportion and fuel consumption
     - Potentially create a simulation of FPV inteference - we make a raycast from viewing position to camera, and degrade based on how many intersections.
 - Input
     - make f2 toggle UI
@@ -71,7 +71,6 @@ A note on singletons+autoload in this project: there have been a few cases where
         - Maybe make a simulation directory/namespace, then within have electrics, fluid dynamics
         - But then where does all the control stuff go?
         - And what about all the cameras?
-        - (Best to do all of this after finishing the electric sim and merging back into main, anyway)
 - Add support for flight computers/gyros extending from ControlHub and program a couple of types so that we can have quadcopters
 - audio
     - procedural?
