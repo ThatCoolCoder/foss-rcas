@@ -65,6 +65,8 @@ namespace Locations
             cameras[newCameraIndex].Activate();
             if (newCameraIndex != activeCameraIndex && hasInitDefaultCamera) cameras[activeCameraIndex].Deactivate();
             activeCameraIndex = newCameraIndex;
+
+            UI.NotificationManager.StaticAddNotification(new UI.Notification(category: "camera", content: $"Camera: {cameras[newCameraIndex].ViewName}"));
         }
 
         public override void _Process(float delta)

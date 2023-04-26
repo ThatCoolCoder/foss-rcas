@@ -40,6 +40,8 @@ A note on singletons+autoload in this project: there have been a few cases where
         - tie it to a control input? I'd rather be able to tie it to a servo
         - need some way of expressing conditions without creating a turing-complete language?
     - PropellerWithModel needs a way of fading between the two models instead of simply hiding/showing (hard to do because import from gltf)
+    - Propeller should stop spinning when it hits something
+        - Easy to do with an area, but the trouble is propeller doesn't have a scene so it's hard to add this area
     - Electrics simulation
         - At low throttle settings, the prop feels more resistance than when it is at zero throttle
             - test scenario: fly at full throttle, cut the power, prop might briefly slow to below blur speed but then it speeds up again.
@@ -115,6 +117,7 @@ A note on singletons+autoload in this project: there have been a few cases where
     - But packaging the scene files in such a way that all paths is relative is difficult
     - Also it's likely to be difficult to load GLTF at runtime. Might need to run a custom importer.
 - It's likely that godot won't include the aircraft metadata .toml files in export, so tell it that they're assets
+    - this might already be done through the export presets
 - make settings fileinput lineedit editable?
 - add a way to configure wind in-game (likely requires large redesign of flightsettingsscreen - vertical tab menu with icons?)
 - come up with a neater way to add the default aircraft cameras (currently they're just stuck on by FlightSettingsScreen)

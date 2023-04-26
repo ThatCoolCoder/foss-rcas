@@ -85,13 +85,13 @@ namespace UI.FlightSettings
             {
                 var size = Mathf.Max(aircraftSelector.SelectedItem.Length, aircraftSelector.SelectedItem.WingSpan);
                 var freeCamera = orbitCameraScene.Instance<Aircraft.OrbitCamera>();
-                freeCamera.Name = "Free";
+                freeCamera.ViewName = "Free";
                 freeCamera.OrbitRadius = size;
                 freeCamera.RotateWithAircraft = false;
                 aircraft.AddChild(freeCamera);
 
                 var lockedCamera = orbitCameraScene.Instance<Aircraft.OrbitCamera>();
-                lockedCamera.Name = "Locked";
+                lockedCamera.ViewName = "Locked";
                 lockedCamera.OrbitRadius = size;
                 lockedCamera.RotateWithAircraft = true;
                 aircraft.AddChild(lockedCamera);
