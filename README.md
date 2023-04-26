@@ -34,7 +34,8 @@ A note on singletons+autoload in this project: there have been a few cases where
         - need some way of expressing conditions without creating a turing-complete language?
     - PropellerWithModel needs a way of fading between the two models instead of simply hiding/showing (hard to do because import from gltf)
     - Electrics simulation
-        - calculate current draw and make battery go flat
+        - At low throttle settings, the prop feels more resistance than when it is at zero throttle
+            - test scenario: fly at full throttle, cut the power, prop might briefly slow to below blur speed but then it speeds up again.
         - Migrate all models to this
     - Propeller simulation
         - Make sure everything is working right then we can add these motors to all the planes and then merge into main

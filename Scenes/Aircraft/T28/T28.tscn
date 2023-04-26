@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Scripts/Physics/SpatialFluidEffectable.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/Aircraft/ControlSurface.cs" type="Script" id=2]
@@ -6,11 +6,8 @@
 [ext_resource path="res://Resources/AeroCurves/FlatPlateLiftCoefficient.tres" type="Curve" id=4]
 [ext_resource path="res://Scenes/Forcers/AeroSurface.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Resources/AeroCurves/WingLiftCoefficient.tres" type="Curve" id=6]
-[ext_resource path="res://Scenes/Aircraft/Common/ControlledMotor.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/Aircraft/Common/Mirror.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Resources/AeroCurves/WingDragCoefficient.tres" type="Curve" id=9]
-[ext_resource path="res://Scripts/Physics/Fluids/Propwash.cs" type="Script" id=10]
-[ext_resource path="res://Scripts/Physics/Fluids/SpatialFluidBeacon.cs" type="Script" id=11]
 [ext_resource path="res://Scenes/Aircraft/Common/ControlHub.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Scenes/Aircraft/Common/ControlHubLocator.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Scenes/Forcers/AeroObject.tscn" type="PackedScene" id=14]
@@ -47,22 +44,6 @@ shape = SubResource( 2 )
 [node name="TailCollider" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.09748e-05, 0.054837, 0.28141 )
 shape = SubResource( 3 )
-
-[node name="ControlledMotor" parent="." instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.10138e-05, 0.00444955, -0.165091 )
-Radius = 0.06
-ExitSpeed = 40.0
-FreeWheelWhenOff = true
-ThrottleActionName = "throttle"
-
-[node name="Propwash" type="Spatial" parent="ControlledMotor"]
-script = ExtResource( 10 )
-
-[node name="SpatialFluidBeacon" type="Spatial" parent="ControlledMotor/Propwash"]
-script = ExtResource( 11 )
-
-[node name="ControlHubLocator" parent="ControlledMotor" instance=ExtResource( 13 )]
-ControlHubPath = NodePath("../../ControlHub")
 
 [node name="Wing" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000599407, 0.00544937, -0.0143507 )

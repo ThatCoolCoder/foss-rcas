@@ -22,17 +22,17 @@ namespace Physics.Fluids
         }
         private float spreadAngle = Mathf.Deg2Rad(20);
 
-        private Forcers.Motor motor;
+        private Forcers.Propeller propeller;
 
         public override void _Ready()
         {
             try
             {
-                motor = GetParent<Forcers.Motor>();
+                propeller = GetParent<Forcers.Propeller>();
             }
             catch (InvalidCastException)
             {
-                Utils.LogError($"The parent of {Name} was not a Motor", this);
+                Utils.LogError($"The parent of {Name} was not a Propeller", this);
             }
         }
 
@@ -49,11 +49,11 @@ namespace Physics.Fluids
 
         public Vector3 VelocityAtPoint(Vector3 point)
         {
-            var delta = point - motor.GlobalTranslation;
+            var delta = point - propeller.GlobalTranslation;
             var directionToPoint = delta.Normalized();
             var speedMultiplier = delta.LengthSquared() / MaxDistance;
-            var velocity = directionToPoint * speedMultiplier * Mathf.Max(motor.lastExitSpeed, 0); // don't let the wash go backwards
-            return velocity + motor.lastEntryVelocity;
+            var velocity = directionToPoint * speedMultiplier * Mathf.Max(propeller.LastExitSpeed, 0); // don't let the wash go backwards
+            return velocity + propeller.LastEntryVelocity;
         }
 
         public Vector3 NormalAtPoint(Vector3 _point)

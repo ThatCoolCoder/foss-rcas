@@ -9,8 +9,8 @@ namespace Audio
 
         [Export] public float VolumeMultiplier { get; set; } = 0.1f;
 
-        [Export] public NodePath motorPath;
-        private Physics.Forcers.Motor motor;
+        [Export] public NodePath propellerPath;
+        private Physics.Forcers.Propeller propeller;
 
 
         private OpenSimplexNoise pinkNoise = new();
@@ -26,7 +26,7 @@ namespace Audio
 
         public override void _Ready()
         {
-            motor = GetNode<Physics.Forcers.Motor>(motorPath);
+            propeller = GetNode<Physics.Forcers.Propeller>(propellerPath);
 
             base._Ready();
 
@@ -53,7 +53,7 @@ namespace Audio
 
         public override void _Process(float delta)
         {
-            bps = Mathf.Abs(motor.ThrustProportion) * maxRpm / 60.0f * blades;
+            bps = Mathf.Abs(propeller.AngularVelocity) / Mathf.Tau * 2;
             base._Process(delta);
         }
     }
