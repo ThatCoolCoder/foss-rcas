@@ -1,16 +1,22 @@
 # foss-rcas
 
-FOSS RC Aviation Simulator (prototype)
+FOSS RC Aviation Simulator (in early development)
 
 ## Controls
 
-ctrl+d to toggle debug mode, r to reset plane, space to launch plane if it doesn't have wheels, ctrl+shift+r to restart entire simulator, f1 for screenshot, p to pause.
+- space to launch plane if it doesn't have wheels
+- r to reset plane
+- f1 to take a screenshot
+- f2 to show/hide the UI when in flight
+- p to pause.
+- ctrl+d to toggle debug mode
+- ctrl+shift+r to restart entire program
 
 The main aircraft controls can be seen and configured through `Settings>Input Map`
 
 ## Misc info
 
-Much of the physics is based on the boat simulator in `godot-learning`, but it's sufficiently diverged to the point where any form of shared library would not be practical.
+Much of the physics is based on the boat simulator in my `godot-learning` repository, but it's sufficiently diverged to the point where any form of shared library would not be practical.
 
 All units are the base SI units unless explcitly stated so.
 
@@ -22,7 +28,7 @@ A note on singletons+autoload in this project: there have been a few cases where
 
 ## Todo:
 - Physics/simulations
-    - Make common methods in AeroSurface for getting relative & local velocity, there is no point having code for this in every derived class
+    - Make common methods in AbstractSpatialFluidForcer for getting relative & local velocity, there is no point having code for this in every derived class
     - improve wing physics: allow importing some better format of curves
         - stall is mushy, not sharp
         - planes feel too draggy, EG in real life the T28 carries a lot more energy and is difficult to get down, this one just mushes in
@@ -46,7 +52,6 @@ A note on singletons+autoload in this project: there have been a few cases where
         - Just have a rpm/torque curve, then throttle directly controls torque proportion and fuel consumption
     - Potentially create a simulation of FPV inteference - we make a raycast from viewing position to camera, and degrade based on how many intersections.
 - Input
-    - make f2 toggle UI
     - Because the input maps are completely stored in toml (even down to what channels exist), if we update the game the names of the channels will not update for people.
         - Same problem applies to the default values of the channels.
         - Can potentially code some sort of import process
@@ -64,7 +69,7 @@ A note on singletons+autoload in this project: there have been a few cases where
 - Misc bugs
     - Content manager tries to read `Mixes.toml` file and then gets annoyed because it is not a content file
     - if there is a non-permitted class found when loading the input map, the entire game crashes. Instead it should just skip that item
-        - problem: tomlet doesn't appreciate returning null from a converter function
+        - problem: tomlet doesn't appreciate returning null from a converter function, which is the place where we do the checks
 - General refactoring/organizing
     - Should spatialfluidrepository become an autoload singleton?
     - Make all "modules" (EG Propeller, BrushlessMotor, Battery) instanceable scenes? (instead of just scripts)
@@ -79,7 +84,6 @@ A note on singletons+autoload in this project: there have been a few cases where
     - can link motor sound to an advanced motor simulation? (rpm, air disturbance factor, air disturbance shape)
 - Content
     - Make a "showroom" map where you can take pictures of the planes for thumbnails (becuase rendering them in blender is difficult now that props are instanced scenes)
-        - requires the UI hiding binding
     - Create an EDF with retracts and flaps
     - Create a bushplane about 1.1-1.3kg size
     - Mini 3d: increase control surface size in the model, make it fly more 3d

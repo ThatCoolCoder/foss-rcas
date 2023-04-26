@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Scripts/Locations/GroundCamera.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/Physics/Fluids/SpatialFluidBeacon.cs" type="Script" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Scripts/UI/FpsIndicator.cs" type="Script" id=9]
 [ext_resource path="res://Scripts/Audio/WindNoise.cs" type="Script" id=10]
 [ext_resource path="res://Scripts/Locations/CameraManager.cs" type="Script" id=11]
+[ext_resource path="res://Scripts/UI/FlightUI.cs" type="Script" id=12]
 
 [node name="BaseLocation" type="Spatial"]
 script = ExtResource( 6 )
@@ -50,6 +51,7 @@ VolumeMultiplier = 0.02
 AirPath = NodePath("../../Air")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource( 12 )
 
 [node name="HUD" type="MarginContainer" parent="CanvasLayer"]
 anchor_right = 1.0
