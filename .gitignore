@@ -1,5 +1,6 @@
-override.cfg
-Exports/
+.vscode/
+
+Target/
 *.blend1
 *.png~
 
