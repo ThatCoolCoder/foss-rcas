@@ -18,8 +18,7 @@ namespace UI.Settings.InputComponents
         {
             {"Joystick axis", typeof(AxisControlMapping)},
             {"Joystick button", typeof(ButtonControlMapping)},
-            {"Keyboard (momentary)", typeof(MomentaryKeyboardControlMapping)},
-            {"Keyboard (toggle)", typeof(ToggleKeyboardControlMapping)},
+            {"Keyboard (single key)", typeof(SimpleKeyboardControlMapping)},
             {"Keyboard (three position)", typeof(ThreePosKeyboardControlMapping)},
         };
         private OptionButton newMappingType;

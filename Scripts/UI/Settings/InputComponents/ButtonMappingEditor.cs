@@ -34,7 +34,7 @@ namespace UI.Settings.InputComponents
             holder.GetNode<BooleanInput>("MomentaryInput").Config(null, "Momentary",
                 s => controlMapping.Momentary,
                 (s, v) => controlMapping.Momentary = v,
-                toolTip: "Determined whether the input is momentary or toggles")
+                toolTip: "Whether the input is momentary or toggles")
                 .OnSettingsChanged();
 
             holder.GetNode<BooleanInput>("InvertedInput").Config(null, "Inverted",

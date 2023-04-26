@@ -26,10 +26,10 @@ namespace SimInput
                             throw new Tomlet.Exceptions.TomlTypeMismatchException(typeof(Tomlet.Models.TomlTable), tomlValue.GetType(), typeof(IControlMapping));
 
                         var typeName = tomlTable.GetString("TypeName");
-                        if (typeName == null) throw new Exception("TypeName not given!");
+                        if (typeName == null) throw new Exception("Error loading control mapping: TypeName not given!");
 
                         var cls = allowableLoadedTypes.FirstOrDefault(cls => cls.Name == typeName);
-                        if (cls == null) throw new Exception($"Not allowed to parse a {typeName}");
+                        if (cls == null) throw new Exception($"Error loading control mapping: Not allowed to parse a {typeName}");
 
                         // Use reflection to call the generic method using the type we found before 
                         // Have fun when this inevitably breaks
@@ -60,8 +60,7 @@ namespace SimInput
         {
             typeof(AxisControlMapping),
             typeof(ButtonControlMapping),
-            typeof(MomentaryKeyboardControlMapping),
-            typeof(ToggleKeyboardControlMapping),
+            typeof(SimpleKeyboardControlMapping),
             typeof(ThreePosKeyboardControlMapping),
         };
     }
@@ -129,31 +128,25 @@ namespace SimInput
         }
     }
 
-    public class MomentaryKeyboardControlMapping : IControlMapping
+    public class SimpleKeyboardControlMapping : IControlMapping
     {
-        public uint KeyScancode { get; set; }
+        public uint KeyScancode { get; set; } = 65;
+        public bool Momentary { get; set; }
+        private float currentValue = -1;
+
         public override float? ProcessEvent(InputEvent _event)
         {
             if (_event is InputEventKey keyEvent && keyEvent.Scancode == KeyScancode && !keyEvent.Echo)
             {
-                return keyEvent.Pressed ? 1 : -1;
-            }
-            return null;
-        }
-    }
-
-    public class ToggleKeyboardControlMapping : IControlMapping
-    {
-        // Useful for gear. todo: add ability to have N steps
-        public uint KeyScancode { get; set; }
-        private float value = -1;
-
-        public override float? ProcessEvent(InputEvent _event)
-        {
-            if (_event is InputEventKey keyEvent && keyEvent.Pressed && !keyEvent.Echo && keyEvent.Scancode == KeyScancode)
-            {
-                value *= -1;
-                return value;
+                if (Momentary) return keyEvent.Pressed ? 1 : -1;
+                else
+                {
+                    if (keyEvent.Pressed)
+                    {
+                        currentValue = -currentValue;
+                        return currentValue;
+                    }
+                }
             }
             return null;
         }

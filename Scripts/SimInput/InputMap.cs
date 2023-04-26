@@ -27,7 +27,11 @@ namespace SimInput
                 },
                 defaultValue: -1, description: "normally flaps"),
             Channel.FromSingleMapping("aux2",
-                new SimInput.MomentaryKeyboardControlMapping() { KeyScancode = (uint) KeyList.B },
+                new SimInput.SimpleKeyboardControlMapping()
+                {
+                    KeyScancode = (uint) KeyList.B,
+                    Momentary = true
+                },
                 defaultValue: -1, description: "used for things like bomb drops"),
             Channel.FromSingleMapping("aux3",
                 new SimInput.ThreePosKeyboardControlMapping()
@@ -38,7 +42,11 @@ namespace SimInput
                 },
                 defaultValue: -1, description: "used for things like spoilers/airbrakes"),
             Channel.FromSingleMapping("aux4",
-                new SimInput.ToggleKeyboardControlMapping() { KeyScancode = (uint) KeyList.G },
+                new SimInput.SimpleKeyboardControlMapping()
+                {
+                    KeyScancode = (uint) KeyList.G,
+                    Momentary = false
+                },
                 defaultValue: -1, description: "normally landing gear"),
         };
     }

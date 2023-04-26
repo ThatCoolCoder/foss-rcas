@@ -40,6 +40,7 @@ A note on singletons+autoload in this project: there have been a few cases where
         - Motors might be recharging the battery or doing weird things when they freewheel
         - Add some sort of resistance from the motor when it's not powering, otherwise props spin forever
         - I think there is a problem with anticlockwise physics - an anticlockwise prop & motor gives a small backwards thrust
+        - Make an electrics debug UI thing, so people can see how much thrust/rpm/current their stuff makes and tweak parameters accordingly.
     - Internal combustion engine simulation
         - Should be easier than electrics especially now that all the propeller stuff is done.
         - Just have a rpm/torque curve, then throttle directly controls torque proportion and fuel consumption
@@ -50,8 +51,6 @@ A note on singletons+autoload in this project: there have been a few cases where
         - Same problem applies to the default values of the channels.
         - Can potentially code some sort of import process
     - Add an input debug UI thing
-    - Make an electrics debug UI thing, so people can see how much thrust/rpm/current their stuff makes and tweak parameters accordingly.
-    - combine toggle & momentary keyboard inputs into a single one with a boolean flag
     - Add a preview for all the inputs so we can check direction etc without flying (requires modifications to SimInput.Manager so it can run with a custom inputmap instead of that in SimSettings.Current)
     - move the rest of the input to siminputmanager? (EG throw, reset)
     - Can't select a key like enter or space in the key input editor, since they press the close button.
@@ -62,7 +61,10 @@ A note on singletons+autoload in this project: there have been a few cases where
 - Docs
     - Rewrite aircraft creation
     - Write about content creation in general
-- Content manager tries to read `Mixes.toml` file and then gets annoyed because it is not a content file
+- Misc bugs
+    - Content manager tries to read `Mixes.toml` file and then gets annoyed because it is not a content file
+    - if there is a non-permitted class found when loading the input map, the entire game crashes. Instead it should just skip that item
+        - problem: tomlet doesn't appreciate returning null from a converter function
 - General refactoring/organizing
     - Should spatialfluidrepository become an autoload singleton?
     - Make all "modules" (EG Propeller, BrushlessMotor, Battery) instanceable scenes? (instead of just scripts)
