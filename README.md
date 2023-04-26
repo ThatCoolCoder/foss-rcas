@@ -27,6 +27,7 @@ A note on singletons+autoload in this project: there have been a few cases where
         - stall is mushy, not sharp
         - planes feel too draggy, EG in real life the T28 carries a lot more energy and is difficult to get down, this one just mushes in
             - does it actually, though?
+            - this may have changed with the new propeller simulation.
     - make location altitude actually change air pressure (not very useful, but why not?)
     - AeroObject: needs some way of toggling on off so things like landing gear can stop being draggy
         - also would be nice to be able to do this with AeroSurfaces
@@ -37,8 +38,9 @@ A note on singletons+autoload in this project: there have been a few cases where
         - At low throttle settings, the prop feels more resistance than when it is at zero throttle
             - test scenario: fly at full throttle, cut the power, prop might briefly slow to below blur speed but then it speeds up again.
         - Migrate all models to this
-    - Propeller simulation
-        - Make sure everything is working right then we can add these motors to all the planes and then merge into main
+        - Motors might be recharging the battery or doing weird things when they freewheel
+        - Add some sort of resistance from the motor when it's not powering, otherwise props spin forever
+        - I think there is a problem with anticlockwise physics - an anticlockwise prop & motor gives a small backwards thrust
     - Internal combustion engine simulation
 
         - need some way of expressing conditions without creating a turing-complete language
@@ -70,9 +72,11 @@ A note on singletons+autoload in this project: there have been a few cases where
         - (Best to do all of this after finishing the electric sim and merging back into main, anyway)
 - Add support for flight computers/gyros extending from ControlHub and program a couple of types so that we can have quadcopters
 - audio
-    - procedural
+    - procedural?
     - can link motor sound to an advanced motor simulation? (rpm, air disturbance factor, air disturbance shape)
 - Content
+    - Make a "showroom" map where you can take pictures of the planes for thumbnails (becuase rendering them in blender is difficult now that props are instanced scenes)
+        - requires the UI hiding binding
     - Create an EDF with retracts and flaps
     - Create a bushplane about 1.1-1.3kg size
     - Mini 3d: increase control surface size in the model, make it fly more 3d

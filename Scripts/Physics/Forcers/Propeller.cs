@@ -60,9 +60,9 @@ namespace Physics.Forcers
             if (!Clockwise) force = -force;
             if (Rpm < 0) force = -force;
 
-
             // Propellers are roughly half as efficient when being used backwards.
             if (force < 0) force *= 0.5f;
+
 
             force *= EfficiencyFactor;
 

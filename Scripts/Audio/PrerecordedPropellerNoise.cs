@@ -21,8 +21,19 @@ namespace Audio
         public override void _Process(float delta)
         {
             var rpmInRecording = DominantFrequency / BladeCount * 60;
-            PitchScale = propeller.Rpm / rpmInRecording;
-            UnitDb = initialUnitDb - (1 - PitchScale) * DecibelsChange;
+
+            var targetPitchScale = Mathf.Abs(propeller.Rpm) / rpmInRecording;
+            if (targetPitchScale <= 0)
+            {
+                // Streams don't appreciate pitch scale being set to 0, so just pause them in that case
+                StreamPaused = true;
+            }
+            else
+            {
+                PitchScale = targetPitchScale;
+                StreamPaused = false;
+            }
+            UnitDb = initialUnitDb - (1 - targetPitchScale) * DecibelsChange;
         }
     }
 }

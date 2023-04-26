@@ -100,8 +100,6 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0164136, 0.0567389 )
 ControlHubPath = NodePath("../../../ControlHub")
 
 [node name="Battery" parent="Electrics" instance=ExtResource( 3 )]
-ChargedCellVoltage = 3.4
-FlatCellVoltage = 3.4
 
 [node name="Wing" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0203834, -0.0246674 )
