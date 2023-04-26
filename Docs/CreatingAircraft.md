@@ -90,7 +90,9 @@ To create control surfaces, just add an `AeroSurface` as a child of a `ControlSu
 
 #### Motors
 
-A basic propeller/edf motor can be created using a `Motor` . But this isn't controllable, so instead use a `ControlledMotor` node. The exit speed should be equivalent to the pitch speed of the motor/prop combination at full throttle. (ecalc is a useful tool to find such values)
+A basic propeller/edf motor can be created using a `Motor`. But this isn't controllable, so instead use a `ControlledMotor` node. The exit speed should be equivalent to the pitch speed of the motor/prop combination at full throttle. (ecalc is a useful tool to find such values)
+
+**This type of motor is in the process of being replaced by a more accurate simulation system**
 
 #### Propwash
 

@@ -2,31 +2,55 @@
 
 FOSS RC Aviation Simulator (prototype)
 
+## Controls
+
+ctrl+d to toggle debug mode, r to reset plane, space to launch plane if it doesn't have wheels, ctrl+shift+r to restart entire simulator, f1 for screenshot, p to pause.
+
+The main aircraft controls can be seen and configured through `Settings>Input Map`
+
+## Misc info
+
 Much of the physics is based on the boat simulator in `godot-learning`, but it's sufficiently diverged to the point where any form of shared library would not be practical.
 
 All units are the base SI units unless explcitly stated so.
+
+Within the propeller/motor subsystem, positive rotations are clockwise
 
 In accordance with Godot convention, -z is forward. In Blender +y is forward.
 
 A note on singletons+autoload in this project: there have been a few cases where autoload was desirable. Unfortunately, because this is C#, the automatic global variable feature is not available like in GDscript. So instead we use the singleton pattern, in which the instance is registered by the non-static autoloaded part of the class when it enters/exits tree.
 
-ctrl+d to toggle debug mode, r to reset plane, space to launch plane, ctrl+shift+r to restart entire simulator, f1 for screenshot
-
-Todo:
-- Physics
-        - Make common methods in AbstractSpatialFluidEffector for getting relative & local velocity, there is no point having code for this in every derived class
+## Todo:
+- Physics/simulations
+    - Make common methods in AeroSurface for getting relative & local velocity, there is no point having code for this in every derived class
     - improve wing physics: allow importing some better format of curves
         - stall is mushy, not sharp
         - planes feel too draggy, EG in real life the T28 carries a lot more energy and is difficult to get down, this one just mushes in
+            - does it actually, though?
+            - this may have changed with the new propeller simulation.
     - make location altitude actually change air pressure (not very useful, but why not?)
-    - needs some way of toggling on and off AeorObjects so things like landing gear can stop being draggy when retracted
+    - AeroObject: needs some way of toggling on off so things like landing gear can stop being draggy
+        - also would be nice to be able to do this with AeroSurfaces
         - tie it to a control input? I'd rather be able to tie it to a servo
+        - need some way of expressing conditions without creating a turing-complete language?
+    - PropellerWithModel needs a way of fading between the two models instead of simply hiding/showing (hard to do because import from gltf)
+    - Electrics simulation
+        - At low throttle settings, the prop feels more resistance than when it is at zero throttle
+            - test scenario: fly at full throttle, cut the power, prop might briefly slow to below blur speed but then it speeds up again.
+        - Motors might be recharging the battery or doing weird things when they freewheel
+        - Add some sort of resistance from the motor when it's not powering, otherwise props spin forever
+        - I think there is a problem with anticlockwise physics - an anticlockwise prop & motor gives a small backwards thrust
+    - Internal combustion engine simulation
+
         - need some way of expressing conditions without creating a turing-complete language
     - Potentially create a simulation of FPV inteference - we make a raycast from viewing position to camera, and degrade based on how many intersections.
 - Input
     - make f2 toggle UI
     - Because the input maps are completely stored in toml (even down to what channels exist), if we update the game the names of the channels will not update for people.
+        - Same problem applies to the default values of the channels.
+        - Can potentially code some sort of import process
     - Add an input debug UI thing
+    - Make an electrics debug UI thing, so people can see how much thrust/rpm/current their stuff makes and tweak parameters accordingly.
     - combine toggle & momentary keyboard inputs into a single one with a boolean flag
     - Add a preview for all the inputs so we can check direction etc without flying (requires modifications to SimInput.Manager so it can run with a custom inputmap instead of that in SimSettings.Current)
     - move the rest of the input to siminputmanager? (EG throw, reset)
@@ -39,11 +63,22 @@ Todo:
     - Rewrite aircraft creation
     - Write about content creation in general
 - Content manager tries to read `Mixes.toml` file and then gets annoyed because it is not a content file
+- General refactoring/organizing
+    - Should spatialfluidrepository become an autoload singleton?
+    - Make all "modules" (EG Propeller, BrushlessMotor, Battery) instanceable scenes? (instead of just scripts)
+    - Make more things (forcers, etc) use Utils.GetNodeWithWarnings, and give that method a better name
+    - Reorganize stuff, currently we have aircraft stuff strewn everywhere.
+        - Maybe make a simulation directory/namespace, then within have electrics, fluid dynamics
+        - But then where does all the control stuff go?
+        - And what about all the cameras?
+        - (Best to do all of this after finishing the electric sim and merging back into main, anyway)
 - Add support for flight computers/gyros extending from ControlHub and program a couple of types so that we can have quadcopters
 - audio
-    - procedural
+    - procedural?
     - can link motor sound to an advanced motor simulation? (rpm, air disturbance factor, air disturbance shape)
 - Content
+    - Make a "showroom" map where you can take pictures of the planes for thumbnails (becuase rendering them in blender is difficult now that props are instanced scenes)
+        - requires the UI hiding binding
     - Create an EDF with retracts and flaps
     - Create a bushplane about 1.1-1.3kg size
     - Mini 3d: increase control surface size in the model, make it fly more 3d
@@ -67,7 +102,6 @@ Todo:
 - possibly rework physics system to support non-fluid effectors
 - Even though the CG is apparently already really far back, the models don't fly tailheavy. If I move the CG further back, they become suddenly very tailheavy
     - Maybe their elevator is just stalling, the flying wing flies amazingly and the CG is probably a bit forward even.
-- Should spatialfluidrepository become an autoload singleton?
 - Make mod system
     - Experiment with loading additional PCK files at runtime
         - Perhaps there is a tool in Godot to export a directory as PCK
@@ -76,9 +110,6 @@ Todo:
     - But packaging the scene files in such a way that all paths is relative is difficult
     - Also it's likely to be difficult to load GLTF at runtime. Might need to run a custom importer.
 - It's likely that godot won't include the aircraft metadata .toml files in export, so tell it that they're assets
-- Make all "modules" instanceable scenes? (instead of just scripts)
-- Electrics simulation to optionally simulate battery drain.
-    - apply this to other engine types too
 - make settings fileinput lineedit editable?
 - add a way to configure wind in-game (likely requires large redesign of flightsettingsscreen - vertical tab menu with icons?)
 - come up with a neater way to add the default aircraft cameras (currently they're just stuck on by FlightSettingsScreen)

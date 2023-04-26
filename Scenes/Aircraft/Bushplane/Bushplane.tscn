@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Art/Aircraft/Bushplane/Rudder.glb" type="PackedScene" id=1]
 [ext_resource path="res://Art/Aircraft/Bushplane/MainBody.glb" type="PackedScene" id=2]
@@ -6,9 +6,9 @@
 [ext_resource path="res://Scripts/Physics/SpatialFluidEffectable.cs" type="Script" id=4]
 [ext_resource path="res://Art/Aircraft/Bushplane/Elevator.glb" type="PackedScene" id=5]
 [ext_resource path="res://Art/Aircraft/Bushplane/Flap.glb" type="PackedScene" id=6]
-[ext_resource path="res://Scripts/Physics/Fluids/SpatialFluidBeacon.cs" type="Script" id=7]
-[ext_resource path="res://Scenes/Aircraft/Common/ControlledMotor.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Scripts/Physics/Fluids/Propwash.cs" type="Script" id=9]
+[ext_resource path="res://Scenes/Aircraft/Common/Propwash.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/Aircraft/Common/ControlledBrushlessMotor.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scripts/Audio/PrerecordedPropellerNoise.cs" type="Script" id=9]
 [ext_resource path="res://Scenes/Aircraft/Common/ControlHubLocator.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scripts/Aircraft/ControlSurface.cs" type="Script" id=11]
 [ext_resource path="res://Resources/AeroCurves/WingLiftCoefficient.tres" type="Curve" id=12]
@@ -19,6 +19,9 @@
 [ext_resource path="res://Resources/AeroCurves/DeltaWingLiftCoefficient.tres" type="Curve" id=17]
 [ext_resource path="res://Scenes/Aircraft/Common/ControlHub.tscn" type="PackedScene" id=18]
 [ext_resource path="res://Scenes/Forcers/AeroObject.tscn" type="PackedScene" id=19]
+[ext_resource path="res://Art/Aircraft/Common/PropAudio/3S-2304-6x4E.mp3" type="AudioStream" id=20]
+[ext_resource path="res://Scenes/Aircraft/Common/Battery.tscn" type="PackedScene" id=21]
+[ext_resource path="res://Scenes/Aircraft/Common/PropellerWithModel.tscn" type="PackedScene" id=22]
 
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.3
@@ -70,21 +73,42 @@ shape = SubResource( 4 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0544111, 0.367896 )
 shape = SubResource( 5 )
 
-[node name="ControlledMotor" parent="." instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0093707, -0.186802 )
-Radius = 0.08
-ExitSpeed = 20.0
-FreeWheelWhenOff = true
-ThrottleActionName = "throttle"
+[node name="Electrics" type="Spatial" parent="."]
 
-[node name="Propwash" type="Spatial" parent="ControlledMotor"]
+[node name="ControlledBrushlessMotor" parent="Electrics" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00845719, -0.193971 )
+BatteryPath = NodePath("../Battery")
+PropellerPath = NodePath("PropellerWithModel")
+KV = 1850.0
+PeakTorque = 0.074
+TorqueAdjustment = 1.5
+CurrentMultiplier = 1.8
+
+[node name="PropellerWithModel" parent="Electrics/ControlledBrushlessMotor" instance=ExtResource( 22 )]
+TargetPath = NodePath("../../..")
+DiameterInches = 6.0
+PitchInches = 4.0
+EfficiencyFactor = 0.55
+LiftToDrag = 4.5
+Mass = 0.005
+
+[node name="PrerecordedPropellerNoise" type="AudioStreamPlayer3D" parent="Electrics/ControlledBrushlessMotor/PropellerWithModel"]
+stream = ExtResource( 20 )
+unit_size = 5.0
+max_db = 6.0
+autoplay = true
+doppler_tracking = 1
 script = ExtResource( 9 )
+DominantFrequency = 460.0
 
-[node name="SpatialFluidBeacon" type="Spatial" parent="ControlledMotor/Propwash"]
-script = ExtResource( 7 )
+[node name="Propwash" parent="Electrics/ControlledBrushlessMotor/PropellerWithModel" instance=ExtResource( 7 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.007337 )
 
-[node name="ControlHubLocator" parent="ControlledMotor" instance=ExtResource( 10 )]
-ControlHubPath = NodePath("../../ControlHub")
+[node name="ControlHubLocator" parent="Electrics/ControlledBrushlessMotor" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0164136, 0.0567389 )
+ControlHubPath = NodePath("../../../ControlHub")
+
+[node name="Battery" parent="Electrics" instance=ExtResource( 21 )]
 
 [node name="Wing" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0167407, -0.054771 )
@@ -195,7 +219,7 @@ ChannelName = "flap"
 [node name="FlapModelL" parent="Flaps" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 0.993797, 0.111209, 0, -0.111209, 0.993797, -0.119233, -3.00184e-05, 0.0212931 )
 
-[node name="FlapModelL2" parent="Flaps" instance=ExtResource( 6 )]
+[node name="FlapModelR" parent="Flaps" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 0.993797, 0.111209, 0, -0.111209, 0.993797, 0.119, 0, 0.021 )
 
 [node name="AeroSurface" parent="Flaps" instance=ExtResource( 16 )]
@@ -209,7 +233,7 @@ AreaMultiplier = 0.8
 ControlHubPath = NodePath("../../ControlHub")
 
 [node name="LAileron" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.303927, 0.0598263, 0.0399512 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.303927, 0.0598263, 0.0395102 )
 script = ExtResource( 11 )
 ChannelName = "aileronl"
 
@@ -226,7 +250,7 @@ ParasiticDragCoefficient = ExtResource( 15 )
 ControlHubPath = NodePath("../../ControlHub")
 
 [node name="RAileron" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.304, 0.0593573, 0.0400556 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.304, 0.0593573, 0.0396146 )
 script = ExtResource( 11 )
 ChannelName = "aileronr"
 

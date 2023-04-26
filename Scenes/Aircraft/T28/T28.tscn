@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Scripts/Physics/SpatialFluidEffectable.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/Aircraft/ControlSurface.cs" type="Script" id=2]
@@ -6,15 +6,18 @@
 [ext_resource path="res://Resources/AeroCurves/FlatPlateLiftCoefficient.tres" type="Curve" id=4]
 [ext_resource path="res://Scenes/Forcers/AeroSurface.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Resources/AeroCurves/WingLiftCoefficient.tres" type="Curve" id=6]
-[ext_resource path="res://Scenes/Aircraft/Common/ControlledMotor.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/Aircraft/Common/Propwash.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/Aircraft/Common/Mirror.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Resources/AeroCurves/WingDragCoefficient.tres" type="Curve" id=9]
-[ext_resource path="res://Scripts/Physics/Fluids/Propwash.cs" type="Script" id=10]
-[ext_resource path="res://Scripts/Physics/Fluids/SpatialFluidBeacon.cs" type="Script" id=11]
+[ext_resource path="res://Scenes/Aircraft/Common/PropellerWithModel.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scripts/Audio/PrerecordedPropellerNoise.cs" type="Script" id=11]
 [ext_resource path="res://Scenes/Aircraft/Common/ControlHub.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Scenes/Aircraft/Common/ControlHubLocator.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Scenes/Forcers/AeroObject.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Scenes/Aircraft/Common/FpvCamera.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Scenes/Aircraft/Common/ControlledBrushlessMotor.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Scenes/Aircraft/Common/Battery.tscn" type="PackedScene" id=17]
+[ext_resource path="res://Art/Aircraft/Common/PropAudio/3S-2304-6x4E.mp3" type="AudioStream" id=18]
 
 [sub_resource type="BoxShape" id=1]
 extents = Vector3( 0.302106, 0.00401939, 0.0608913 )
@@ -48,21 +51,40 @@ shape = SubResource( 2 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.09748e-05, 0.054837, 0.28141 )
 shape = SubResource( 3 )
 
-[node name="ControlledMotor" parent="." instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.10138e-05, 0.00444955, -0.165091 )
-Radius = 0.06
-ExitSpeed = 40.0
-FreeWheelWhenOff = true
-ThrottleActionName = "throttle"
+[node name="Electrics" type="Spatial" parent="."]
 
-[node name="Propwash" type="Spatial" parent="ControlledMotor"]
-script = ExtResource( 10 )
+[node name="ControlledBrushlessMotor" parent="Electrics" instance=ExtResource( 16 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.008738, -0.163718 )
+BatteryPath = NodePath("../Battery")
+PropellerPath = NodePath("PropellerWithModel")
+KV = 1950.0
+PeakTorque = 0.25
+TorqueAdjustment = 1.5
 
-[node name="SpatialFluidBeacon" type="Spatial" parent="ControlledMotor/Propwash"]
+[node name="PropellerWithModel" parent="Electrics/ControlledBrushlessMotor" instance=ExtResource( 10 )]
+TargetPath = NodePath("../../..")
+DiameterInches = 6.0
+PitchInches = 4.0
+EfficiencyFactor = 0.55
+LiftToDrag = 4.5
+Mass = 0.005
+
+[node name="PrerecordedPropellerNoise" type="AudioStreamPlayer3D" parent="Electrics/ControlledBrushlessMotor/PropellerWithModel"]
+stream = ExtResource( 18 )
+unit_size = 5.0
+max_db = 6.0
+autoplay = true
+doppler_tracking = 1
 script = ExtResource( 11 )
+DominantFrequency = 460.0
 
-[node name="ControlHubLocator" parent="ControlledMotor" instance=ExtResource( 13 )]
-ControlHubPath = NodePath("../../ControlHub")
+[node name="Propwash" parent="Electrics/ControlledBrushlessMotor/PropellerWithModel" instance=ExtResource( 7 )]
+
+[node name="ControlHubLocator" parent="Electrics/ControlledBrushlessMotor" instance=ExtResource( 13 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0164136, 0.0567389 )
+ControlHubPath = NodePath("../../../ControlHub")
+
+[node name="Battery" parent="Electrics" instance=ExtResource( 17 )]
 
 [node name="Wing" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000599407, 0.00544937, -0.0143507 )
@@ -188,9 +210,9 @@ Thickness = 0.005
 ControlHubPath = NodePath("../../../ControlHub")
 
 [node name="BodyAero" parent="." instance=ExtResource( 14 )]
-transform = Transform( 0.0810322, 0, 0, 0, 0.0710183, 0, 0, 0, 0.458425, 0, 0.00942594, 0.071843 )
+transform = Transform( 0.0495848, 0, 0, 0, 0.0469194, 0, 0, 0, 0.458425, 0, 0.00942594, 0.071843 )
 LiftCubePath = "res://Resources/BaseBodyLift.tres"
-DragCubePath = "res://Resources/BaseBodyDrag.tres"
+DragCubePath = "res://Scenes/Aircraft/T28/BodyDrag.tres"
 
 [node name="TailCamera" parent="." instance=ExtResource( 15 )]
 transform = Transform( 1, 0, 0, 0, 0.999597, 0.0283927, 0, -0.0283927, 0.999597, 0, 0.119, 0.292 )

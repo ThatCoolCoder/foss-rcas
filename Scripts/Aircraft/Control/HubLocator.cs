@@ -26,7 +26,7 @@ namespace Aircraft.Control
             }
             else
             {
-                Utils.LogError("ControlHubLocator needs to be the child of a ControlHub", this);
+                Utils.LogError("ControlHubLocator needs to be the child of an IControllable", this);
             }
         }
     }

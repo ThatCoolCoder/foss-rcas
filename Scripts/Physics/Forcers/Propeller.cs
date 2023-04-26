@@ -1,0 +1,104 @@
+using Godot;
+using Physics.Fluids;
+using System;
+
+namespace Physics.Forcers
+{
+    public class Propeller : AbstractSpatialFluidForcer
+    {
+        [Export] public float DiameterInches { get; set; } = 10; // Inches were used for diameter and pitch because that's what all the propeller manufacturers use.
+        public float RadiusMetres
+        {
+            get
+            {
+                return DiameterInches / 2 * 2.54f / 100;
+            }
+        }
+        [Export] public float PitchInches { get; set; } = 6;
+        public float PitchMetres
+        {
+            get
+            {
+                return PitchInches * 2.54f / 100;
+            }
+        }
+        [Export] public bool Clockwise { get; set; } = true;
+        [Export] public float EfficiencyFactor { get; set; } = 0.6f; // Set this such that the calculated static thrust matches what is measured in real life
+        [Export] public float LiftToDrag { get; set; } = 5; // Can tweak this to adjust current, torque and speed in various ways
+        [Export] public float Mass { get; set; } = 0.028f; // Used for moment of inertia calculations
+        public float AngularVelocity { get; set; } = 0; // (radians per second)
+        public float Rpm
+        {
+            get
+            {
+                return AngularVelocity / Mathf.Tau * 60;
+            }
+        }
+        public float LastExitSpeed { get; private set; } // last exit speed, relative to world
+        public Vector3 LastEntryVelocity { get; private set; } // hacky thing we need to make propwash work with wind
+        public float LastThrustMagnitude { get; private set; }
+        private float currentTorques;
+
+        public override Vector3 CalculateForce(ISpatialFluid fluid, PhysicsDirectBodyState state)
+        {
+            var rps = AngularVelocity / Mathf.Tau;
+            var exitSpeed = PitchMetres * rps;
+
+            var density = fluid.DensityAtPoint(GlobalTransform.origin);
+            LastEntryVelocity = fluid.VelocityAtPoint(GlobalTransform.origin);
+            var relativeVelocity = state.GetVelocityAtGlobalPosition(target, this) - LastEntryVelocity;
+            var localVelocity = GlobalTransform.basis.XformInv(relativeVelocity);
+            var entrySpeed = -localVelocity.z;
+            var deltaSpeed = exitSpeed - entrySpeed;
+
+            LastExitSpeed = deltaSpeed;
+
+            var area = Mathf.Pi * RadiusMetres * RadiusMetres;
+
+            var force = .5f * density * area * (exitSpeed * exitSpeed - entrySpeed * entrySpeed);
+
+            if (!Clockwise) force = -force;
+            if (Rpm < 0) force = -force;
+
+            // Propellers are roughly half as efficient when being used backwards.
+            if (force < 0) force *= 0.5f;
+
+
+            force *= EfficiencyFactor;
+
+            LastThrustMagnitude = force;
+
+            return -GlobalTransform.basis.z * force;
+        }
+
+        private float CalculateAirResistance()
+        {
+            // A rough approximation, todo: do this better later
+
+            var dragForce = -1 * LastThrustMagnitude / LiftToDrag;
+            if (!Clockwise) dragForce = -dragForce;
+            var torqueDistance = RadiusMetres * .5f;
+            return torqueDistance * dragForce;
+        }
+
+        public override void _PhysicsProcess(float delta)
+        {
+            AddTorque(CalculateAirResistance());
+            var momentOfInertia = Mass * RadiusMetres * RadiusMetres / 3;
+            AngularVelocity += currentTorques / momentOfInertia * delta;
+            currentTorques = 0;
+        }
+
+        public override void _Process(float delta)
+        {
+            base._Process(delta);
+
+            RotateZ(-AngularVelocity); // (In godot a negative rotation along -z is clockwise)
+        }
+
+        public void AddTorque(float torque)
+        {
+            currentTorques += torque;
+        }
+    }
+}

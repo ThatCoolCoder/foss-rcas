@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scripts/Aircraft/PropellerWithModel.cs" type="Script" id=1]
+[ext_resource path="res://Art/Aircraft/Common/Props/TwinBlade/SlowModel.glb" type="PackedScene" id=2]
+[ext_resource path="res://Art/Aircraft/Common/Props/TwinBlade/BlurShape.glb" type="PackedScene" id=3]
+
+[node name="PropellerWithModel" type="Spatial"]
+script = ExtResource( 1 )
+TargetPath = NodePath("")
+Radius = 0.075
+Pitch = 0.1
+PitchScaleMultiplier = 0.831
+
+[node name="BlurShape" parent="." instance=ExtResource( 3 )]
+transform = Transform( 0.075, 0, 0, 0, 0.075, 0, 0, 0, 0.0831, 0, 0, 0 )
+
+[node name="SlowModel" parent="." instance=ExtResource( 2 )]
+transform = Transform( 0.075, 0, 0, 0, 0.075, 0, 0, 0, 0.0831, 0, 0, 0 )
