@@ -25,8 +25,21 @@ namespace UI.FlightSettings
 
         private void UpdateAvailableContent()
         {
+            // todo: this is temp code for trying to load mods at runtime
+            // Utils.GetItemsInDirectory(
+            //     SimSettings.Settings.Current.Misc.AddOnRepositoryPath, recursive: true)
+            //     .ToList()
+            // .Where(x => Utils.SplitAtExtension(x).Item2.ToLower() == "pck")
+            // .ToList()
+            // .ForEach(x =>
+            // {
+            //     GD.Print($"loading {x}");
+            //     ProjectSettings.LoadResourcePack(x, replaceFiles: false);
+            // });
+
             var (availableAircraft, availableLocations) = ContentManagement.Loader.FindContent(SimSettings.Settings.Current.Misc.AddOnRepositoryPath);
             availableAircraft.AddRange(ContentManagement.Loader.FindContent(ContentManagement.Repositories.BaseAircraft).Item1);
+            // availableAircraft.AddRange(ContentManagement.Loader.FindContent("res://Testing/TestImport/").Item1);
             availableLocations.AddRange(ContentManagement.Loader.FindContent(ContentManagement.Repositories.BaseLocations).Item2);
 
             aircraftSelector.AvailableItems = availableAircraft;

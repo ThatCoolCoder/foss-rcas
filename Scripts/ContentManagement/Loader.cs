@@ -14,6 +14,7 @@ namespace ContentManagement
             var aircraftList = new List<Aircraft>();
             var locationList = new List<Location>();
 
+            Utils.GetItemsInDirectory(path, recursive: true).ForEach(x => GD.Print(x));
             var files = Utils.GetItemsInDirectory(path, recursive: true)
                 .Where(x => Utils.SplitAtExtension(x).Item2.ToLower() == "toml");
 
