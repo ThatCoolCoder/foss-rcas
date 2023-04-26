@@ -37,7 +37,6 @@ A note on singletons+autoload in this project: there have been a few cases where
     - Electrics simulation
         - At low throttle settings, the prop feels more resistance than when it is at zero throttle
             - test scenario: fly at full throttle, cut the power, prop might briefly slow to below blur speed but then it speeds up again.
-        - Migrate all models to this
         - Motors might be recharging the battery or doing weird things when they freewheel
         - Add some sort of resistance from the motor when it's not powering, otherwise props spin forever
         - I think there is a problem with anticlockwise physics - an anticlockwise prop & motor gives a small backwards thrust
@@ -48,7 +47,10 @@ A note on singletons+autoload in this project: there have been a few cases where
 - Input
     - make f2 toggle UI
     - Because the input maps are completely stored in toml (even down to what channels exist), if we update the game the names of the channels will not update for people.
+        - Same problem applies to the default values of the channels.
+        - Can potentially code some sort of import process
     - Add an input debug UI thing
+    - Make an electrics debug UI thing, so people can see how much thrust/rpm/current their stuff makes and tweak parameters accordingly.
     - combine toggle & momentary keyboard inputs into a single one with a boolean flag
     - Add a preview for all the inputs so we can check direction etc without flying (requires modifications to SimInput.Manager so it can run with a custom inputmap instead of that in SimSettings.Current)
     - move the rest of the input to siminputmanager? (EG throw, reset)
