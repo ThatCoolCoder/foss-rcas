@@ -14,7 +14,6 @@ namespace ContentManagement
             var aircraftList = new List<Aircraft>();
             var locationList = new List<Location>();
 
-            Utils.GetItemsInDirectory(path, recursive: true).ForEach(x => GD.Print(x));
             var files = Utils.GetItemsInDirectory(path, recursive: true)
                 .Where(x => Utils.SplitAtExtension(x).Item2.ToLower() == "toml");
 
@@ -29,13 +28,12 @@ namespace ContentManagement
             });
 
 
-            var parser = new TomlParser();
             foreach (var pair in fileMap)
             {
                 var filePath = pair.Key;
                 var tomlString = pair.Value;
 
-                var document = parser.Parse(tomlString);
+                var document = new TomlParser().Parse(tomlString);
                 if (document.ContainsKey("aircraft"))
                 {
                     var aircraft = TomletMain.To<Aircraft>(tomlString);
@@ -59,6 +57,20 @@ namespace ContentManagement
             locationList = locationList.OrderBy(x => x.Name).ToList();
 
             return (aircraftList, locationList);
+        }
+
+        public static void SearchForAddOns(string path)
+        {
+            Utils.GetItemsInDirectory(
+                path, recursive: true)
+                .ToList()
+                .Where(x => Utils.SplitAtExtension(x).Item2.ToLower() == "pck")
+                .ToList()
+                .ForEach(x =>
+                {
+                    GD.Print($"Loading addon pack {x}");
+                    ProjectSettings.LoadResourcePack(x, replaceFiles: true);
+                });
         }
     }
 }

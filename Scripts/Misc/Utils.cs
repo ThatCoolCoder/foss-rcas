@@ -86,7 +86,7 @@ public static class Utils
                 var entry = dir.GetNext();
                 if (entry == "") break;
 
-                var entryPath = dir.GetCurrentDir() + entry;
+                var entryPath = dir.GetCurrentDir() + '/' + entry;
 
                 if (dir.CurrentIsDir())
                 {
