@@ -110,12 +110,18 @@ A note on singletons+autoload in this project: there have been a few cases where
 - Even though the CG is apparently already really far back, the models don't fly tailheavy. If I move the CG further back, they become suddenly very tailheavy
     - Maybe their elevator is just stalling, the flying wing flies amazingly and the CG is probably a bit forward even.
 - Make mod system
-    - Experiment with loading additional PCK files at runtime
-        - Perhaps there is a tool in Godot to export a directory as PCK
-            - read this: https://www.reddit.com/r/godot/comments/hf5yko/godot_workflow_for_multiple_pck_files/
-    - Scanning for aircraft files in other directories is already done
-    - But packaging the scene files in such a way that all paths is relative is difficult
-    - Also it's likely to be difficult to load GLTF at runtime. Might need to run a custom importer.
+    - There is support for loading mods as pck files at runtime, but it is a bit of a pain to make these pck files.
+    - Current process for making mods:
+        1. Create the plane as normal, as if it were an official plane (including in the correct directory!)
+        2. Export as a zip the resources in your directory using Godot editor. Do it twice because the first time it will be broken.
+        3. Unzip the zip somewhere
+        4. Delete everything that's not relevant from inside the zip
+            - Common models, scenes and art
+            - All the scripts
+            - The .mono directory
+            - The stuff in the .import directory that belonged to the common models.
+        5. Configure your shell to make * match files starting with a dot
+        6. Repack it with `godotpcktool clean.pck -a a * --set-godot-version 3.5.0` **from within the dir that you unzipped it to**
 - It's likely that godot won't include the aircraft metadata .toml files in export, so tell it that they're assets
     - this might already be done through the export presets
 - make settings fileinput lineedit editable?
