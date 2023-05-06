@@ -52,6 +52,9 @@ A note on singletons+autoload in this project: there have been a few cases where
         - Add some sort of resistance from the motor when it's not powering, otherwise props spin forever
         - I think there is a problem with anticlockwise physics - an anticlockwise prop & motor gives a small backwards thrust
         - Make an electrics debug UI thing, so people can see how much thrust/rpm/current their stuff makes and tweak parameters accordingly.
+        - Make prop drag based on raw force, not efficiency factor force. This makes it way easier to tune to have the right rpm, current and thrust.
+            - Will require retuning all the planes
+        - make motors have torque
     - Internal combustion engine simulation
         - Should be easier than electrics especially now that all the propeller stuff is done.
         - Just have a rpm/torque curve, then throttle directly controls torque proportion and fuel consumption
@@ -64,7 +67,7 @@ A note on singletons+autoload in this project: there have been a few cases where
     - Add a preview for all the inputs so we can check direction etc without flying (requires modifications to SimInput.Manager so it can run with a custom inputmap instead of that in SimSettings.Current)
     - move the rest of the input to siminputmanager? (EG throw, reset)
     - Can't select a key like enter or space in the key input editor, since they press the close button.
-        - This is also a problem with joystick button0
+        - The same problem applies to joystick button0
     - Add support for dual/triple rates.
         - Somehow add support for this in the mixer. I'd rather not have to mix every channel separately on every plane, and I also don't want to add special-case channels.
         - Potentially this can be implemented as part of a flight modes system.
