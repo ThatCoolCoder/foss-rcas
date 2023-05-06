@@ -42,6 +42,9 @@ A note on singletons+autoload in this project: there have been a few cases where
     - PropellerWithModel needs a way of fading between the two models instead of simply hiding/showing (hard to do because import from gltf)
     - Propeller should stop spinning when it hits something
         - Easy to do with an area, but the trouble is propeller doesn't have a scene so it's hard to add this area
+    - Make a SimpleThruster which has a max thrust value and a max speed value
+        - this will be used to make it easier for beginners to create planes
+        - thrust decays from max at a standstill to 0 at the max speed
     - Electrics simulation
         - At low throttle settings, the prop feels more resistance than when it is at zero throttle
             - test scenario: fly at full throttle, cut the power, prop might briefly slow to below blur speed but then it speeds up again.
@@ -68,11 +71,15 @@ A note on singletons+autoload in this project: there have been a few cases where
 - Docs
     - Rewrite aircraft creation
     - Write about content creation in general
+    - Make content creation docs more friendly to non-programmers
+    - If we make exotic stuff like quadcopters, create documentation on that
 - Misc bugs
     - Content manager tries to read `Mixes.toml` file and then gets annoyed because it is not a content file
     - if there is a non-permitted class found when loading the input map, the entire game crashes. Instead it should just skip that item
         - problem: tomlet doesn't appreciate returning null from a converter function, which is the place where we do the checks
 - General refactoring/organizing
+    - rename `ControlSurface` to `Servo` (because that's what it is)
+    - move `Art/Common` -> `Art/Locations/Common`
     - Should spatialfluidrepository become an autoload singleton?
     - Make all "modules" (EG Propeller, BrushlessMotor, Battery) instanceable scenes? (instead of just scripts)
     - Make more things (forcers, etc) use Utils.GetNodeWithWarnings, and give that method a better name
@@ -109,19 +116,13 @@ A note on singletons+autoload in this project: there have been a few cases where
 - possibly rework physics system to support non-fluid effectors
 - Even though the CG is apparently already really far back, the models don't fly tailheavy. If I move the CG further back, they become suddenly very tailheavy
     - Maybe their elevator is just stalling, the flying wing flies amazingly and the CG is probably a bit forward even.
-- Make mod system
+- Mod/content system
+    - Make addon content go in `AddonContent/`
+    - Make it show a placeholder picture if the right one isn't found
     - There is support for loading mods as pck files at runtime, but it is a bit of a pain to make these pck files.
-    - Current process for making mods:
-        1. Create the plane as normal, as if it were an official plane (including in the correct directory!)
-        2. Export as a zip the resources in your directory using Godot editor. Do it twice because the first time it will be broken.
-        3. Unzip the zip somewhere
-        4. Delete everything that's not relevant from inside the zip
-            - Common models, scenes and art
-            - All the scripts
-            - The .mono directory
-            - The stuff in the .import directory that belonged to the common models.
-        5. Configure your shell to make * match files starting with a dot
-        6. Repack it with `godotpcktool clean.pck -a a * --set-godot-version 3.5.0` **from within the dir that you unzipped it to**
+    - Create a content version value that lets the game know if a mod is compatible.
+        - Perhaps have a semantic versioning system with with the ability to use wildcards (similar to how npm dependencies are specified).
+        - Requires the game knowing its version
 - It's likely that godot won't include the aircraft metadata .toml files in export, so tell it that they're assets
     - this might already be done through the export presets
 - make settings fileinput lineedit editable?

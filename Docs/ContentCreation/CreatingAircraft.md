@@ -6,6 +6,10 @@ This is a preliminary document and needs to be expanded on in the future.
 
 It fails to mention the new ControlHub + mixing system that has been created.
 
+It is in the process of being replaced.
+
+todo: don't forget about deleting this doc eventally
+
 ## Prerequisites
 
 While it might be technically possible to create models without installing the Godot engine, the easiest way to make models is to install the Godot engine (make sure to get the Mono version) and download this project from GitHub.
