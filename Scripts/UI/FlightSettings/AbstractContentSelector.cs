@@ -15,6 +15,9 @@ namespace UI.FlightSettings
             }
         }
 
+        private static Vector2 expectedTextureSize = new Vector2(1280, 720);
+        private static Texture noThumbnailTexture = ResourceLoader.Load<Texture>("res://Art/NoThumbnail.png");
+
         private OptionButton selector;
         private TextureRect thumbnail;
         private RichTextLabel mainText;
@@ -42,7 +45,7 @@ namespace UI.FlightSettings
         }
         public void _on_OptionButton_item_selected(int index)
         {
-            thumbnail.Texture = ResourceLoader.Load<Texture>(SelectedItem.GetThumbnailPath());
+            thumbnail.Texture = LoadThumbnail();
 
             var customInfo = FormatCustomInfo();
 
@@ -60,6 +63,21 @@ namespace UI.FlightSettings
 
             mainText.BbcodeText = String.Join("\n\n", sections.Select(x => x.Trim()).Where(x => x != ""));
 
+        }
+
+        private Texture LoadThumbnail()
+        {
+            // todo: very weird bug: in v3.6 installed from aur, the failed loading thumbnail line is not displayed more than once,
+            // unless a print is put before the following line
+            var texture = ResourceLoader.Load<Texture>(SelectedItem.GetThumbnailPath());
+            if (texture == null)
+            {
+                Utils.LogError($"Failed loading thumbnail from {SelectedItem.GetThumbnailPath()}", this);
+                texture = noThumbnailTexture;
+            }
+            else if (texture.GetSize() != expectedTextureSize)
+                Utils.LogError($"Thumbnail {SelectedItem.GetThumbnailPath()} was of size {texture.GetSize()} instead of {expectedTextureSize}", this);
+            return texture;
         }
 
         public void SelectItem(int index)

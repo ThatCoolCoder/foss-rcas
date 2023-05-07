@@ -82,6 +82,7 @@ A note on singletons+autoload in this project: there have been a few cases where
     - if there is a non-permitted class found when loading the input map, the entire game crashes. Instead it should just skip that item
         - problem: tomlet doesn't appreciate returning null from a converter function, which is the place where we do the checks
 - General refactoring/organizing
+    - standardize: `Addon` vs `AddOn`
     - rename `ControlSurface` to `Servo` (because that's what it is)
     - move `Art/Common` -> `Art/Locations/Common`
     - Should spatialfluidrepository become an autoload singleton?
@@ -97,6 +98,7 @@ A note on singletons+autoload in this project: there have been a few cases where
     - can link motor sound to an advanced motor simulation? (rpm, air disturbance factor, air disturbance shape)
 - Content
     - Make a "showroom" map where you can take pictures of the planes for thumbnails (becuase rendering them in blender is difficult now that props are instanced scenes)
+        - use this to make thumbnails for all the scenes, at the correct resolution
     - Create an EDF with retracts and flaps
     - Create a bushplane about 1.1-1.3kg size
     - Mini 3d: increase control surface size in the model, make it fly more 3d
@@ -122,7 +124,6 @@ A note on singletons+autoload in this project: there have been a few cases where
     - Maybe their elevator is just stalling, the flying wing flies amazingly and the CG is probably a bit forward even.
 - Mod/content system
     - Make addon content go in `AddonContent/`
-    - Make it show a placeholder picture if the right one isn't found
     - There is support for loading mods as pck files at runtime, but it is a bit of a pain to make these pck files.
     - Create a content version value that lets the game know if a mod is compatible.
         - Perhaps have a semantic versioning system with with the ability to use wildcards (similar to how npm dependencies are specified).
