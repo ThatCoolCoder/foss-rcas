@@ -70,6 +70,7 @@ shape = SubResource( 4 )
 [node name="ControlledBrushlessMotor" parent="Electrics" instance=ExtResource( 11 )]
 BatteryPath = NodePath("../Battery")
 PropellerPath = NodePath("PropellerWithModel")
+TorqueRigidBodyPath = NodePath("../..")
 KV = 1850.0
 PeakTorque = 0.074
 TorqueAdjustment = 1.5

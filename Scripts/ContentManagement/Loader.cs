@@ -61,6 +61,11 @@ namespace ContentManagement
 
         public static void SearchForAddOns(string path)
         {
+            // Prevent loading addons when in editor.
+            // That is because loading resource packs from editor causes the res:// tree to become deleted or something
+            var isInEditor = !OS.HasFeature("standalone");
+
+
             Utils.GetItemsInDirectory(
                 path, recursive: true)
                 .ToList()
@@ -68,8 +73,12 @@ namespace ContentManagement
                 .ToList()
                 .ForEach(x =>
                 {
-                    GD.Print($"Loading addon pack {x}");
-                    ProjectSettings.LoadResourcePack(x, replaceFiles: true);
+                    if (isInEditor) GD.Print($"Skipping addon pack {x} as this is an editor build");
+                    else
+                    {
+                        GD.Print($"Loading addon pack {x}");
+                        ProjectSettings.LoadResourcePack(x, replaceFiles: true);
+                    }
                 });
         }
     }

@@ -50,11 +50,12 @@ A note on singletons+autoload in this project: there have been a few cases where
             - test scenario: fly at full throttle, cut the power, prop might briefly slow to below blur speed but then it speeds up again.
         - Motors might be recharging the battery or doing weird things when they freewheel
         - Add some sort of resistance from the motor when it's not powering, otherwise props spin forever
-        - I think there is a problem with anticlockwise physics - an anticlockwise prop & motor gives a small backwards thrust
+        - Check anticlockwise physics is working as intended
+        - Consider moment of inertia of motor, as prop should spin up and down differently.
+            - currently it has too much aero force to weight ratio
         - Make an electrics debug UI thing, so people can see how much thrust/rpm/current their stuff makes and tweak parameters accordingly.
         - Make prop drag based on raw force, not efficiency factor force. This makes it way easier to tune to have the right rpm, current and thrust.
             - Will require retuning all the planes
-        - make motors have torque
     - Internal combustion engine simulation
         - Should be easier than electrics especially now that all the propeller stuff is done.
         - Just have a rpm/torque curve, then throttle directly controls torque proportion and fuel consumption

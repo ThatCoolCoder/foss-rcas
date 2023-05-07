@@ -57,6 +57,7 @@ shape = SubResource( 3 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.008738, -0.163718 )
 BatteryPath = NodePath("../Battery")
 PropellerPath = NodePath("PropellerWithModel")
+TorqueRigidBodyPath = NodePath("../..")
 KV = 1950.0
 PeakTorque = 0.25
 TorqueAdjustment = 1.5
