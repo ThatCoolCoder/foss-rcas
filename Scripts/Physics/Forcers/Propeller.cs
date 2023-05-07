@@ -100,5 +100,11 @@ namespace Physics.Forcers
         {
             currentTorques += torque;
         }
+
+        public void HitObject()
+        {
+            // Scenes with a propeller should have an area3d that triggers this when the prop hits stuff.
+            AngularVelocity = 0;
+        }
     }
 }

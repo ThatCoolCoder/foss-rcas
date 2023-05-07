@@ -1,18 +1,30 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Scripts/Aircraft/PropellerWithModel.cs" type="Script" id=1]
 [ext_resource path="res://Art/Aircraft/Common/Props/TwinBlade/SlowModel.glb" type="PackedScene" id=2]
 [ext_resource path="res://Art/Aircraft/Common/Props/TwinBlade/BlurShape.glb" type="PackedScene" id=3]
 
+[sub_resource type="CylinderShape" id=1]
+height = 0.009144
+radius = 0.0762
+
 [node name="PropellerWithModel" type="Spatial"]
 script = ExtResource( 1 )
 TargetPath = NodePath("")
-Radius = 0.075
-Pitch = 0.1
-PitchScaleMultiplier = 0.831
+ModelHeightMultiplier = 1.019
+ColliderHeightMultiplier = 0.09
 
 [node name="BlurShape" parent="." instance=ExtResource( 3 )]
-transform = Transform( 0.075, 0, 0, 0, 0.075, 0, 0, 0, 0.0831, 0, 0, 0 )
+transform = Transform( 0.127, 0, 0, 0, 0.127, 0, 0, 0, 0.155296, 0, 0, 0 )
 
 [node name="SlowModel" parent="." instance=ExtResource( 2 )]
-transform = Transform( 0.075, 0, 0, 0, 0.075, 0, 0, 0, 0.0831, 0, 0, 0 )
+transform = Transform( 0.127, 0, 0, 0, 0.127, 0, 0, 0, 0.155296, 0, 0, 0 )
+
+[node name="Area" type="Area" parent="."]
+
+[node name="CollisionShape" type="CollisionShape" parent="Area"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
+shape = SubResource( 1 )
+
+[connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]
+[connection signal="body_exited" from="Area" to="." method="_on_Area_body_exited"]
