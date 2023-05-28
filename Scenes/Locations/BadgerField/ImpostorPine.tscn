@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/Locations/ImpostorTree.cs" type="Script" id=1]
-[ext_resource path="res://Art/Common/Trees/PineTree/PineTree.glb" type="PackedScene" id=2]
+[ext_resource path="res://Art/Common/Trees/PineV2/Pine.glb" type="PackedScene" id=2]
 [ext_resource path="res://Art/Common/Trees/PineTree/Impostor1.png" type="Texture" id=3]
 [ext_resource path="res://Scripts/Locations/ImpostorSprite.cs" type="Script" id=4]
 [ext_resource path="res://Art/Common/Trees/PineTree/Impostor2.png" type="Texture" id=5]
@@ -10,9 +10,6 @@
 
 [node name="ImpostorPine" type="Spatial"]
 script = ExtResource( 1 )
-
-[node name="RealNode" parent="." instance=ExtResource( 2 )]
-transform = Transform( 0.761767, 0, 0, 0, 0.761767, 0, 0, 0, 0.761767, 0, 0, 0 )
 
 [node name="Impostor" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.379182 )
@@ -24,3 +21,6 @@ alpha_cut = 2
 texture = ExtResource( 3 )
 script = ExtResource( 4 )
 Textures = [ ExtResource( 3 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ]
+
+[node name="RealNode" parent="." instance=ExtResource( 2 )]
+transform = Transform( 0.497548, 0, 0, 0, 0.497548, 0, 0, 0, 0.497548, 0, 0, 0 )

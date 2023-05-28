@@ -121,7 +121,7 @@ __meta__ = {
 transform = Transform( 0.117, -3.7343e-07, 0, 4.36913e-08, 1, 0, 0, 0, 0.13, 0.00729886, 1.56462e-07, 0 )
 
 [node name="Section1" parent="Wing" instance=ExtResource( 16 )]
-transform = Transform( 0.097944, -3.12609e-07, 0, 4.36913e-08, 1, 0, 0, 0, 0.0982189, -0.0619779, 0.0420306, 0.0179331 )
+transform = Transform( 0.0969216, 0.144114, 0, -0.0141151, 0.989561, 0, 0, 0, 0.0982189, -0.0619779, 0.0420306, 0.0179331 )
 TargetPath = NodePath("../..")
 TotalLiftCoefficient = ExtResource( 12 )
 ParasiticDragCoefficient = ExtResource( 15 )

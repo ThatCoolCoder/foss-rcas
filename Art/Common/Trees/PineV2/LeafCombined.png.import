@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Basic240.png-ab2f9b188e3988f50cd4d5e523275772.stex"
+path="res://.import/LeafCombined.png-d7ca75d1ca49088d993b2ad5e21e26ab.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Common/Bushes/Basic240.png"
-dest_files=[ "res://.import/Basic240.png-ab2f9b188e3988f50cd4d5e523275772.stex" ]
+source_file="res://Art/Common/Trees/PineV2/LeafCombined.png"
+dest_files=[ "res://.import/LeafCombined.png-d7ca75d1ca49088d993b2ad5e21e26ab.stex" ]
 
 [params]
 
