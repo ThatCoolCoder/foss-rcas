@@ -6,7 +6,7 @@
 [ext_resource path="res://Scripts/Locations/SpawnAlongPath.cs" type="Script" id=4]
 [ext_resource path="res://Scenes/Locations/BadgerField/ImpostorPine.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Locations/Common/TreeScatter.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Art/Common/Trees/PineTree/Impostor1.png" type="Texture" id=7]
+[ext_resource path="res://Art/Common/Trees/PineV2/Pine0.png" type="Texture" id=7]
 [ext_resource path="res://Scenes/Locations/Common/GrassScatter.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Art/Locations/BadgerField/GrassMask.png" type="Texture" id=11]
 [ext_resource path="res://Art/Common/Bushes/Basic/BasicBush0.png" type="Texture" id=12]
@@ -22,9 +22,9 @@ background_mode = 2
 background_sky = SubResource( 1 )
 background_sky_orientation = Basis( 0.976582, 0, -0.215144, 0, 1, 0, 0.215144, 0, 0.976582 )
 background_energy = 1.02
-ambient_light_color = Color( 1, 1, 1, 1 )
-ambient_light_energy = 1.08
-ambient_light_sky_contribution = 0.67
+ambient_light_color = Color( 0.823529, 0.815686, 0.635294, 1 )
+ambient_light_energy = 1.62
+ambient_light_sky_contribution = 0.73
 tonemap_mode = 2
 tonemap_exposure = 0.58
 tonemap_white = 16.0
@@ -57,15 +57,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17.0725, 1.91372, 20.2871 )
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="7"]
 environment = SubResource( 2 )
 
-[node name="DirectionalLight" type="DirectionalLight" parent="." index="8"]
-transform = Transform( 0.77203, 0.130246, -0.622098, 0.283013, 0.805944, 0.51996, 0.569099, -0.577487, 0.585351, 0.0770245, 7.0798, 0.136134 )
-light_color = Color( 0.862745, 0.858824, 0.607843, 1 )
-light_energy = 2.104
-shadow_enabled = true
-shadow_bias = -0.179
-shadow_contact = 0.033
-
-[node name="Trees" type="Spatial" parent="." index="9"]
+[node name="Trees" type="Spatial" parent="." index="8"]
 
 [node name="NearbyTrees" type="Path" parent="Trees" index="0"]
 curve = SubResource( 3 )
@@ -73,10 +65,12 @@ script = ExtResource( 4 )
 Scene = ExtResource( 5 )
 NumInstances = 200
 InstanceScale = 2.0
+ScaleVariation = 0.7
 
 [node name="TreeScatter" parent="Trees" index="1" instance=ExtResource( 6 )]
 transform = Transform( -3.13294e-06, 0, -111.063, 0, 1, 0, 71.6732, 0, -4.85472e-06, -239.991, 0, 0 )
 Count = 200
+UseNearScaling = false
 Texture = ExtResource( 7 )
 TreeSize = Vector2( 15, 15 )
 TreeSizeVariation = Vector2( 0.5, 0.5 )
@@ -84,6 +78,7 @@ TreeSizeVariation = Vector2( 0.5, 0.5 )
 [node name="TreeScatter2" parent="Trees" index="2" instance=ExtResource( 6 )]
 transform = Transform( 207.241, 0, -5.79425, 0, 1, 0, 16.809, 0, 71.4386, -114.463, 0, -132.898 )
 Count = 400
+UseNearScaling = false
 Texture = ExtResource( 7 )
 TreeSize = Vector2( 15, 15 )
 TreeSizeVariation = Vector2( 0.5, 0.5 )
@@ -91,6 +86,7 @@ TreeSizeVariation = Vector2( 0.5, 0.5 )
 [node name="TreeScatter3" parent="Trees" index="3" instance=ExtResource( 6 )]
 transform = Transform( 74.8281, 0, 0, 0, 1, 0, 0, 0, 85.4115, 174.562, 0, 63.5686 )
 Count = 150
+UseNearScaling = false
 Texture = ExtResource( 7 )
 TreeSize = Vector2( 15, 15 )
 TreeSizeVariation = Vector2( 0.5, 0.5 )
@@ -98,21 +94,23 @@ TreeSizeVariation = Vector2( 0.5, 0.5 )
 [node name="TreeScatter5" parent="Trees" index="4" instance=ExtResource( 6 )]
 transform = Transform( 73.7037, 0, -14.7508, 0, 1, 0, 12.923, 0, 84.1281, 188.172, 0, -97.1618 )
 Count = 150
+UseNearScaling = false
 Texture = ExtResource( 7 )
 TreeSize = Vector2( 15, 15 )
 TreeSizeVariation = Vector2( 0.5, 0.5 )
 
 [node name="TreeScatter4" parent="Trees" index="5" instance=ExtResource( 6 )]
-transform = Transform( 174.338, 0, -5.28834, 0, 1, 0, 12.8883, 0, 71.5349, -93.8949, 0, 101.695 )
+transform = Transform( 174.338, 0, -5.28834, 0, 1, 0, 12.8883, 0, 71.5349, -93.8949, 0, 112.936 )
 Count = 400
+UseNearScaling = false
 Texture = ExtResource( 7 )
 TreeSize = Vector2( 15, 15 )
 TreeSizeVariation = Vector2( 0.5, 0.5 )
 
-[node name="GrassScatter" parent="." index="10" instance=ExtResource( 8 )]
+[node name="GrassScatter" parent="." index="9" instance=ExtResource( 8 )]
 Mask = ExtResource( 11 )
 
-[node name="Bushes" type="Spatial" parent="." index="11"]
+[node name="Bushes" type="Spatial" parent="." index="10"]
 
 [node name="ByTheRoad" type="Spatial" parent="Bushes" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 77.5994, 0.379002, 0 )
