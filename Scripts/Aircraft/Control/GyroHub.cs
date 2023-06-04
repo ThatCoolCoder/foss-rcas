@@ -7,21 +7,41 @@ using Tomlet;
 
 namespace Aircraft.Control
 {
-    public class Hub : Spatial
+    public class PidTuning
     {
-        [Export(PropertyHint.File, "*.toml")] public string MixesFile { get; set; }
+        public float P = 1;
+        public float I = 1;
+        public float D = 1;
+    }
 
-        protected ChannelMixSet channelMixSet;
+    public class GyroSettings
+    {
+        public PidTuning PitchTuning = new();
+        public PidTuning YawTuning = new();
+        public PidTuning RollTuning = new();
+    }
 
-        public Dictionary<string, float> ChannelValues { get; set; } = new();
+    public class GyroHub : Hub
+    {
+        [Export(PropertyHint.File, "*.toml")] public string GyroSettingsFile { get; set; }
+        private GyroSettings gyroSettings;
+
+        [Export] public NodePath RigidBodyPath { get; set; }
+        private RigidBody rigidBody;
+
 
         public override void _Ready()
         {
+            base._Ready();
+
+            rigidBody = Utils.GetNodeWithWarnings<RigidBody>(this, RigidBodyPath, "rigidbody", true);
+
             var gdFile = new File();
             gdFile.Open(MixesFile, File.ModeFlags.Read);
             var content = gdFile.GetAsText();
             gdFile.Close();
-            channelMixSet = TomletMain.To<ChannelMixSet>(content);
+            gyroSettings = TomletMain.To<GyroSettings>(content);
+
         }
 
         public override void _Process(float delta)
