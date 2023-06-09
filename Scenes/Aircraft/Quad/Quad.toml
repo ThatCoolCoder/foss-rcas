@@ -1,0 +1,14 @@
+name = "Quad"
+author = "ThatCoolCoder"
+version = "0.1.0"
+date_updated = 2023-06-04
+description = """
+Test quadcopter
+"""
+
+[aircraft]
+wingspan = 0.4
+length = 0.4
+weight = 0.5
+power_type = 0
+channels = 4

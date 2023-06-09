@@ -1,0 +1,21 @@
+Mixes = [
+	{ InputChannelName = "throttle", OutputChannelName = "fl", Weight = 1.0, Expo = 0.0, Offset = 0.05 },
+	{ InputChannelName = "throttle", OutputChannelName = "fr", Weight = 1.0, Expo = 0.0, Offset = 0.05 },
+	{ InputChannelName = "throttle", OutputChannelName = "bl", Weight = 1.0, Expo = 0.0, Offset = 0.05 },
+	{ InputChannelName = "throttle", OutputChannelName = "br", Weight = 1.0, Expo = 0.0, Offset = 0.05 },
+
+	{ InputChannelName = "elevator", OutputChannelName = "fl", Weight = -1.0, Expo = 0.0 },
+	{ InputChannelName = "elevator", OutputChannelName = "fr", Weight = -1.0, Expo = 0.0 },
+	{ InputChannelName = "elevator", OutputChannelName = "bl", Weight = 1.0, Expo = 0.0 },
+	{ InputChannelName = "elevator", OutputChannelName = "br", Weight = 1.0, Expo = 0.0 },
+
+	# { InputChannelName = "aileron", OutputChannelName = "fl", Weight = 1.0, Expo = 0.0 },
+	# { InputChannelName = "aileron", OutputChannelName = "fr", Weight = -1.0, Expo = 0.0 },
+	# { InputChannelName = "aileron", OutputChannelName = "bl", Weight = 1.0, Expo = 0.0 },
+	# { InputChannelName = "aileron", OutputChannelName = "br", Weight = -1.0, Expo = 0.0 },
+
+	# { InputChannelName = "rudder", OutputChannelName = "fl", Weight = -1.0, Expo = 0.0 },
+	# { InputChannelName = "rudder", OutputChannelName = "fr", Weight = 1.0, Expo = 0.0 },
+	# { InputChannelName = "rudder", OutputChannelName = "bl", Weight = 1.0, Expo = 0.0 },
+	# { InputChannelName = "rudder", OutputChannelName = "br", Weight = -1.0, Expo = 0.0 },
+]

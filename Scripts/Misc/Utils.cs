@@ -33,6 +33,13 @@ public static class Utils
         return result;
     }
 
+    public static void DPrint(params object[] items)
+    {
+        // Like GD.Print but adds a space between items
+
+        GD.Print(items.Intersperse(" ").ToArray());
+    }
+
     public static T RandomItem<T>(List<T> items)
     {
         return items[random.Next(0, items.Count)];
