@@ -73,7 +73,6 @@ namespace Locations
             material.FlagsTransparent = true;
             mesh.Material = material;
             material.ParamsCullMode = SpatialMaterial.CullMode.Disabled;
-            material.FlagsUnshaded = true;
 
             material.DistanceFadeMaxDistance = 0;
             material.DistanceFadeMinDistance = trueFalloffMaxDistance;

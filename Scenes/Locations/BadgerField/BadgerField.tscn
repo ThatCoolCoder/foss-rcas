@@ -2,11 +2,11 @@
 
 [ext_resource path="res://Scenes/Locations/BaseLocation.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Art/Locations/BadgerField/BadgerField.glb" type="PackedScene" id=2]
-[ext_resource path="res://Art/approaching_storm_4k.exr" type="Texture" id=3]
+[ext_resource path="res://Art/SkyOnlyHDRI048_4K-TONEMAPPED.jpg" type="Texture" id=3]
 [ext_resource path="res://Scripts/Locations/SpawnAlongPath.cs" type="Script" id=4]
 [ext_resource path="res://Scenes/Locations/BadgerField/ImpostorPine.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Locations/Common/TreeScatter.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Art/Common/Trees/PineV2/Pine0.png" type="Texture" id=7]
+[ext_resource path="res://Art/Common/Trees/PineV2/Render/Pine0.png" type="Texture" id=7]
 [ext_resource path="res://Scenes/Locations/Common/GrassScatter.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Art/Locations/BadgerField/GrassMask.png" type="Texture" id=11]
 [ext_resource path="res://Art/Common/Bushes/Basic/BasicBush0.png" type="Texture" id=12]
@@ -21,15 +21,17 @@ panorama = ExtResource( 3 )
 background_mode = 2
 background_sky = SubResource( 1 )
 background_sky_orientation = Basis( 0.976582, 0, -0.215144, 0, 1, 0, 0.215144, 0, 0.976582 )
-background_energy = 1.02
-ambient_light_color = Color( 0.823529, 0.815686, 0.635294, 1 )
-ambient_light_energy = 1.62
-ambient_light_sky_contribution = 0.73
+background_energy = 1.62
+ambient_light_color = Color( 0.862745, 0.858824, 0.784314, 1 )
+ambient_light_energy = 1.92
+ambient_light_sky_contribution = 0.39
 tonemap_mode = 2
-tonemap_exposure = 0.58
+tonemap_exposure = 0.7
 tonemap_white = 16.0
 dof_blur_far_distance = 278.93
 dof_blur_far_transition = 30.72
+adjustment_enabled = true
+adjustment_saturation = 0.91
 
 [sub_resource type="Curve3D" id=3]
 _data = {
@@ -56,6 +58,12 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -17.0725, 1.91372, 20.2871 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="7"]
 environment = SubResource( 2 )
+
+[node name="DirectionalLight" type="DirectionalLight" parent="WorldEnvironment" index="0"]
+transform = Transform( 0.921829, 0.34015, -0.185818, -0.128866, 0.721107, 0.680734, 0.365547, -0.603575, 0.708571, 5.01703, 3.81502, -6.93806 )
+light_energy = 1.254
+light_specular = 0.496
+shadow_enabled = true
 
 [node name="Trees" type="Spatial" parent="." index="8"]
 
@@ -108,6 +116,7 @@ TreeSize = Vector2( 15, 15 )
 TreeSizeVariation = Vector2( 0.5, 0.5 )
 
 [node name="GrassScatter" parent="." index="9" instance=ExtResource( 8 )]
+InstanceCount = 50000
 Mask = ExtResource( 11 )
 
 [node name="Bushes" type="Spatial" parent="." index="10"]

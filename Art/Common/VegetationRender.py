@@ -3,7 +3,7 @@ import time
 import bpy
 import os
 
-# Render the item at a bunch of angles (configurable) and save it, also saves normals
+# Render the item at a bunch of angles (configurable) and save it, also saves normals (except it doesn't because apparently it can't be easy to get camera-space normals in blender)
 # Usage: Parent your camera to an object called CameraHolder that is located in the center of your vegetation.
 # Auto-sets up compositor, etc
 # Is somewhat inefficient in that we have to render twice to get diffuse and normal
@@ -70,11 +70,11 @@ for i in range(num_steps):
     bpy.context.scene.render.filepath = os.path.join(directory, f'Render/{name}{angle_int}.png')
     bpy.ops.render.render(write_still=True)
 
-    bpy.context.scene.render.engine = 'CYCLES'
-    bpy.context.scene.view_layers["ViewLayer"].material_override = bpy.data.materials["Normal"]
-    bpy.context.scene.render.filepath = os.path.join(directory, f'Render/{name}{angle_int}Norm.png')
-    bpy.ops.render.render(write_still=True)
-    bpy.context.scene.render.engine = default_engine
+    # bpy.context.scene.render.engine = 'CYCLES'
+    # bpy.context.scene.view_layers["ViewLayer"].material_override = bpy.data.materials["Normal"]
+    # bpy.context.scene.render.filepath = os.path.join(directory, f'Render/{name}{angle_int}Norm.png')
+    # bpy.ops.render.render(write_still=True)
+    # bpy.context.scene.render.engine = default_engine
 
 
 

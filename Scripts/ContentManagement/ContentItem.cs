@@ -16,7 +16,7 @@ namespace ContentManagement
 
         [TomlProperty("description")] public string Description { get; set; } = "";
 
-        [TomlProperty("credits")] public Dictionary<string, string> Credits { get; set; } = new();
+        [TomlProperty("credits")] public string Credits { get; set; } = "";
 
         public string LoadedFrom { get; set; } = "";
 

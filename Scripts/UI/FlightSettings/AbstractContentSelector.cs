@@ -49,7 +49,7 @@ namespace UI.FlightSettings
 
             var customInfo = FormatCustomInfo();
 
-            var formattedCredits = String.Join("\n", SelectedItem.Credits.Select(p => $"  {p.Key}: {p.Value}"));
+            var formattedCredits = SelectedItem.Credits.Trim();
             if (formattedCredits != "") formattedCredits = "Credits:\n" + formattedCredits;
 
             var formattedDate = SelectedItem.DateUpdated.ToString("dd MMMM yyyy");

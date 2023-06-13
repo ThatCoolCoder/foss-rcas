@@ -2,10 +2,10 @@
 
 [ext_resource path="res://Scripts/Locations/ImpostorTree.cs" type="Script" id=1]
 [ext_resource path="res://Art/Common/Trees/PineV2/Pine.glb" type="PackedScene" id=2]
-[ext_resource path="res://Art/Common/Trees/PineV2/Pine240.png" type="Texture" id=3]
+[ext_resource path="res://Art/Common/Trees/PineV2/Render/Pine240.png" type="Texture" id=3]
 [ext_resource path="res://Scripts/Locations/ImpostorSprite.cs" type="Script" id=4]
-[ext_resource path="res://Art/Common/Trees/PineV2/Pine120.png" type="Texture" id=6]
-[ext_resource path="res://Art/Common/Trees/PineV2/Pine0.png" type="Texture" id=7]
+[ext_resource path="res://Art/Common/Trees/PineV2/Render/Pine120.png" type="Texture" id=6]
+[ext_resource path="res://Art/Common/Trees/PineV2/Render/Pine0.png" type="Texture" id=7]
 
 [node name="ImpostorPine" type="Spatial"]
 script = ExtResource( 1 )
@@ -17,8 +17,9 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.379182 )
 transform = Transform( 0.692131, 0, 0, 0, 0.692131, 0, 0, 0, 0.692131, 0.0732747, 3.52543, -0.333741 )
 modulate = Color( 1.5, 1.2, 1.5, 1 )
 billboard = 2
+shaded = true
 alpha_cut = 2
-texture = ExtResource( 6 )
+texture = ExtResource( 3 )
 script = ExtResource( 4 )
 Textures = [ ExtResource( 7 ), ExtResource( 6 ), ExtResource( 3 ) ]
 
