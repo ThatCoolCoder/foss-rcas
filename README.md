@@ -67,8 +67,12 @@ A note on singletons+autoload in this project: there have been a few cases where
     - Add an input debug UI thing
     - Add a preview for all the inputs so we can check direction etc without flying (requires modifications to SimInput.Manager so it can run with a custom inputmap instead of that in SimSettings.Current)
     - move the rest of the input to siminputmanager? (EG throw, reset)
+    - Decide which direction the inputs should go in and switch those that go in counterintuitive directions (big breaking change if we don't do it now)
+    - set the default channel mappings to work on a ps/xbox controller without configuration
     - Can't select a key like enter or space in the key input editor, since they press the close button.
         - The same problem applies to joystick button0
+    - Um add a thing that checks the name of the controller so you can have different bindings for different controllers
+        - hide bindings from controllers that are not present then, but have an option to show them so you can delete the unneeded ones
     - Add support for dual/triple rates.
         - Somehow add support for this in the mixer. I'd rather not have to mix every channel separately on every plane, and I also don't want to add special-case channels.
         - Potentially this can be implemented as part of a flight modes system.
@@ -81,6 +85,7 @@ A note on singletons+autoload in this project: there have been a few cases where
     - Content manager tries to read `Mixes.toml` file and then gets annoyed because it is not a content file
     - if there is a non-permitted class found when loading the input map, the entire game crashes. Instead it should just skip that item
         - problem: tomlet doesn't appreciate returning null from a converter function, which is the place where we do the checks
+            - hacky solution: create an InvalidMappingType
 - General refactoring/organizing
     - standardize: `Addon` vs `AddOn`
     - rename `ControlSurface` to `Servo` (because that's what it is)
@@ -99,19 +104,20 @@ A note on singletons+autoload in this project: there have been a few cases where
 - Content
     - Make a "showroom" map where you can take pictures of the planes for thumbnails (becuase rendering them in blender is difficult now that props are instanced scenes)
         - use this to make thumbnails for all the scenes, at the correct resolution
+        - perhaps this is not actually needed, we could just make a free camera and move plane tool so people can do it in whatever map they want
     - Create an EDF with retracts and flaps
     - Create a bushplane about 1.1-1.3kg size
     - Mini 3d: increase control surface size in the model, make it fly more 3d
-    - Make large oval decent (model some houses )
+    - Make large oval decent (model some low-poly houses, put them or impostors of them all around, put more rows so it actually loooks like a place)
     - Do a remaster of the T28
-    - New trees - experiment with whole-branch textures+normal maps for improved performance and better appearance.
     - Make somewhere fun to fly FPV, like a racecourse
+    - Make a content repository and download system (that doesn't sound like a nightmare at all)
 - Graphics
     - Somehow make grass not jump around when camera moves, only appear/disappear.
         - Perhaps can use a system where we make a grid of points, wiggle them, then discard those which are outside of the radius.
         - Would probably be a bit slow on really large patches but in that case we could use a chunk system internally to completely ignore points a certain distance away from camera
         - Perhaps just a check for each row + col to see if it will be within distance at any point.
-    - need to get it running on old hardware (target: Intel HD 3000 on low 720p)
+    - need to get it running on old hardware (target: Intel HD 3000 on minimum 720p)
     - Come up with a setup for rendering to an intermediate viewport so we can render at lower resolution and upsample
         - Some people may not like this idea but I think it's great if you have a hi-res monitor but your GPU can't game like that.
         - (it's much simpler than adjusting the monitor resolution or whatever)

@@ -131,7 +131,7 @@ namespace SimInput
     public class SimpleKeyboardControlMapping : IControlMapping
     {
         public uint KeyScancode { get; set; } = 65;
-        public bool Momentary { get; set; }
+        public bool Momentary { get; set; } = true;
         private float currentValue = -1;
 
         public override float? ProcessEvent(InputEvent _event)

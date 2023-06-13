@@ -70,18 +70,18 @@ namespace Aircraft.Control
 
         public override void _Process(float delta)
         {
-            // var elevatorValue = gyroSettings.PitchTuning.CalculateOutput(SimInput.Manager.GetAxisValue("elevator") * gyroSettings.PitchRateDegrees,
+            // var elevatorValue = gyroSettings.PitchTuning.CalculateOutput(SimInput.Manager.GetActionValue("aircraft/elevator") * gyroSettings.PitchRateDegrees,
             //     Mathf.Rad2Deg(rigidBody.AngularVelocity.x),
             //     delta);
             var elevatorValue = gyroSettings.PitchTuning.CalculateOutput(10,
                 Mathf.Rad2Deg(rigidBody.AngularVelocity.x),
                 delta);
 
-            var aileronValue = gyroSettings.PitchTuning.CalculateOutput(SimInput.Manager.GetAxisValue("aileron") * gyroSettings.PitchRateDegrees,
+            var aileronValue = gyroSettings.PitchTuning.CalculateOutput(SimInput.Manager.GetActionValue("aircraft/aileron") * gyroSettings.PitchRateDegrees,
                 Mathf.Rad2Deg(rigidBody.AngularVelocity.z),
                 delta);
 
-            var rudderValue = gyroSettings.PitchTuning.CalculateOutput(SimInput.Manager.GetAxisValue("rudder") * gyroSettings.PitchRateDegrees,
+            var rudderValue = gyroSettings.PitchTuning.CalculateOutput(SimInput.Manager.GetActionValue("aircraft/rudder") * gyroSettings.PitchRateDegrees,
                 Mathf.Rad2Deg(rigidBody.AngularVelocity.y),
                 delta);
 
@@ -91,7 +91,7 @@ namespace Aircraft.Control
                 float previousValue = 0;
                 newChannelValues.TryGetValue(mix.OutputChannelName, out previousValue);
 
-                var rawValue = SimInput.Manager.GetAxisValue(mix.InputChannelName);
+                var rawValue = SimInput.Manager.GetActionValue("aicraft/" + mix.InputChannelName);
                 if (GetNode<Timer>("Timer").TimeLeft == 0)
                 {
                     if (mix.InputChannelName == "elevator") rawValue = elevatorValue;

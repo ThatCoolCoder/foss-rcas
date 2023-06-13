@@ -33,7 +33,7 @@ namespace Aircraft.Control
                 float previousValue = 0;
                 newChannelValues.TryGetValue(mix.OutputChannelName, out previousValue);
 
-                var rawValue = SimInput.Manager.GetAxisValue(mix.InputChannelName);
+                var rawValue = SimInput.Manager.GetActionValue("aircraft/" + mix.InputChannelName);
                 newChannelValues[mix.OutputChannelName] = mix.Apply(rawValue, previousValue, delta);
             }
 
