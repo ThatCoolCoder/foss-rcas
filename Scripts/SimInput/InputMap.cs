@@ -69,8 +69,7 @@ namespace SimInput
                         Momentary = true
                     },
                     defaultValue: -1, displayName: "move backward", mapTo: new () {
-                        {"camera/move_backward_forward", extraMapperNegativeHalf
-}
+                        {"camera/move_backward_forward", extraMapperNegativeHalf}
                     }),
                 InputAction.FromSingleMapping("move_forward",
                     new SimInput.SimpleKeyboardControlMapping()
@@ -141,6 +140,13 @@ namespace SimInput
                     defaultValue: -1, displayName: "turn down", mapTo: new() {
                         {"camera_tilt_combined", extraMapperPositiveHalf}
                     }),
+                InputAction.FromSingleMapping("reset",
+                    new SimInput.SimpleKeyboardControlMapping()
+                    {
+                        KeyScancode = (uint)KeyList.Z,
+                        Momentary = true
+                    },
+                    defaultValue: -1, displayName: "reset", description: "- resets the camera angle"),
             }),
             new("gameplay", "gameplay", new() {
                 InputAction.FromSingleMapping("launch",
