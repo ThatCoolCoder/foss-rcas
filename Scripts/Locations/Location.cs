@@ -15,6 +15,7 @@ namespace Locations
         {
             var camera = GetNode<GroundCamera>("Camera");
             SimSettings.Settings.Current.ApplyToViewport(GetViewport());
+            SimInput.Manager.Instance.LoadInputMap(SimSettings.Settings.Current.InputMap);
             camera.Target = Aircraft;
             camera.CurrentZoomSettings = SimSettings.Settings.Current.GroundCameraZoom;
             launcher = GetNode<AircraftLauncher>("AircraftLauncher");
@@ -23,8 +24,8 @@ namespace Locations
 
         public override void _Process(float delta)
         {
-            if (Input.IsActionJustPressed("reset")) Reset();
-            if (Input.IsActionJustPressed("launch")) launcher.Launch();
+            if (SimInput.Manager.IsActionJustPressed("gameplay/reset")) Reset();
+            if (SimInput.Manager.IsActionJustPressed("gameplay/launch")) launcher.Launch();
         }
 
         private void Reset()

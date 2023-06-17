@@ -25,11 +25,11 @@ namespace UI.Settings.InputComponents
 
         public override void _Ready()
         {
-            GetNode<Label>("Label").Text = (action.DisplayName == "" ? action.Name : action.DisplayName).Capitalize();
+            var name = (action.DisplayName == "" ? action.Name : action.DisplayName).Capitalize();
+            if (action.Description is not null or "") name += action.Description;
+            GetNode<Label>("Label").Text = name;
             mappingHolder = GetNode<HBoxContainer>("HBoxContainer/MappingHolder");
             newMappingDialog = GetNode<NewMappingDialog>("NewMappingDialog");
-
-            HintTooltip = action.Description;
 
             UpdateMappings();
 

@@ -3,7 +3,7 @@ using System;
 
 public class GlobalKeybinds : Node
 {
-    // Class handling global (as in throughout the entire game) keybinds
+    // Class handling global (as in throughout the entire game) keybinds. At this point it just handles stuff that siminput can't do yet.
 
     public override void _Ready()
     {
@@ -16,8 +16,8 @@ public class GlobalKeybinds : Node
         if (Input.IsActionJustPressed("toggle_physics_debug")) Physics.Forcers.AbstractSpatialFluidForcer.SetDebugModeActive(!Physics.Forcers.AbstractSpatialFluidForcer.DebugModeActive);
 
         if (Input.IsActionJustPressed("complete_reset")) GetTree().ChangeScene("res://Scenes/UI/StartScreen.tscn");
-        if (Input.IsActionJustPressed("pause")) GetTree().Paused = !GetTree().Paused;
         if (Input.IsActionJustPressed("screenshot")) SaveScreenshot();
+        if (Input.IsActionJustPressed("pause")) GetTree().Paused = !GetTree().Paused;
     }
 
     private void SaveScreenshot()

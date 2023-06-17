@@ -27,9 +27,9 @@ namespace SimInput
                 InputAction.FromSingleMapping("aux1",
                     new SimInput.ThreePosKeyboardControlMapping()
                     {
-                        Key1Scancode = (uint) KeyList.Key8,
-                        Key2Scancode = (uint) KeyList.Key9,
-                        Key3Scancode = (uint) KeyList.Key0,
+                        Key1Scancode = (uint) KeyList.Key5,
+                        Key2Scancode = (uint) KeyList.Key6,
+                        Key3Scancode = (uint) KeyList.Key7,
                     },
                     defaultValue: -1,
                     displayName: "aux 1", description: " - used for things like flaps"),
@@ -44,9 +44,9 @@ namespace SimInput
                 InputAction.FromSingleMapping("aux3",
                     new SimInput.ThreePosKeyboardControlMapping()
                     {
-                        Key1Scancode = (uint) KeyList.I,
-                        Key2Scancode = (uint) KeyList.O,
-                        Key3Scancode = (uint) KeyList.P,
+                        Key1Scancode = (uint) KeyList.Key8,
+                        Key2Scancode = (uint) KeyList.Key9,
+                        Key3Scancode = (uint) KeyList.Key0,
                     },
                     defaultValue: -1,
                     displayName: "aux 3", " - used for things like spoilers/airbrakes"),

@@ -38,6 +38,7 @@ namespace UI.Settings.InputComponents
 
         private void _on_Cancel_pressed()
         {
+            SelectedMappingType = null;
             Hide();
         }
 

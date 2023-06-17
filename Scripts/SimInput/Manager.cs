@@ -7,7 +7,7 @@ namespace SimInput
 {
     public class Manager : Node
     {
-        private static Manager Instance;
+        public static Manager Instance { get; private set; }
 
         // Map of action path to action value
         private Dictionary<string, float> actionValues = new();
@@ -47,7 +47,7 @@ namespace SimInput
 
                 if (newCategory == null) continue;
 
-                foreach (var action in newCategory.Actions)
+                foreach (var action in category.Actions)
                 {
                     if (action.Name.Contains('/'))
                     {
@@ -55,7 +55,6 @@ namespace SimInput
                         continue;
                     }
 
-                    category.Actions.Clear();
                     // Actually migrate it across
                     var newAction = newCategory.Actions.FirstOrDefault(a => a.Name == action.Name);
                     if (newAction != null) action.Mappings = newAction.Mappings.ToList();
@@ -65,6 +64,7 @@ namespace SimInput
 
                     // Set defaults
                     actionValues[actionPath] = action.DefaultValue;
+                    Utils.DPrint(action.Name, action.DefaultValue);
                     previousActionValues[actionPath] = action.DefaultValue;
                 }
             }
@@ -116,7 +116,7 @@ namespace SimInput
             }
         }
 
-        public bool ActionIsPressedI(string actionPath)
+        public bool IsActionPressedI(string actionPath)
         {
             try
             {
@@ -128,7 +128,7 @@ namespace SimInput
                 return false;
             }
         }
-        public bool ActionIsJustPressedI(string actionPath)
+        public bool IsActionJustPressedI(string actionPath)
         {
             try
             {
@@ -140,7 +140,7 @@ namespace SimInput
                 return false;
             }
         }
-        public bool ActionIsJustReleasedI(string actionPath)
+        public bool IsActionJustReleasedI(string actionPath)
         {
             try
             {
@@ -158,19 +158,19 @@ namespace SimInput
             return Instance.GetActionValueI(actionPath);
         }
 
-        public static bool ActionIsPressed(string actionPath)
+        public static bool IsActionPressed(string actionPath)
         {
-            return Instance.ActionIsPressedI(actionPath);
+            return Instance.IsActionPressedI(actionPath);
         }
 
-        public static bool ActionIsJustPressed(string actionPath)
+        public static bool IsActionJustPressed(string actionPath)
         {
-            return Instance.ActionIsJustPressedI(actionPath);
+            return Instance.IsActionJustPressedI(actionPath);
         }
 
-        public static bool ActionIsJustReleased(string actionPath)
+        public static bool IsActionJustReleased(string actionPath)
         {
-            return Instance.ActionIsJustReleasedI(actionPath);
+            return Instance.IsActionJustReleasedI(actionPath);
         }
 
     }
