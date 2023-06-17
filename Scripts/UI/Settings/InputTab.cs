@@ -10,13 +10,14 @@ namespace UI.Settings
         public override void _Ready()
         {
             var holder = GetNode<VBoxContainer>("VBoxContainer/AccordionMenu");
-            var mappings = SimSettings.Settings.Current.InputMap.Channels;
-            for (int i = 0; i < mappings.Count; i++)
+
+            var categories = SimSettings.Settings.Current.InputMap.ActionCategories;
+
+            for (int i = 0; i < categories.Count; i++)
             {
-                var mapping = mappings[i];
-                var name = mapping.Name.Capitalize();
-                if (mapping.Description != null && mapping.Description != "") name = $"{name} - {mapping.Description}";
-                InputChannelEditor.Scene.Instance<InputChannelEditor>().Config(holder, name, i);
+                var category = categories[i];
+                var name = category.Name.Capitalize();
+                ActionCategoryEditor.Scene.Instance<ActionCategoryEditor>().Config(holder, name, i);
             }
         }
 

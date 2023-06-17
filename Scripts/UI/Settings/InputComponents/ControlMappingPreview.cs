@@ -8,7 +8,7 @@ namespace UI.Settings.InputComponents
 {
     using Components;
 
-    public class ControlMappingPreview : Control
+    public class ControlMappingPreview : Button
     {
         public static PackedScene Scene = ResourceLoader.Load<PackedScene>("res://Scenes/UI/Settings/InputComponents/ControlMappingPreview.tscn");
 
@@ -33,20 +33,22 @@ namespace UI.Settings.InputComponents
         {
             // todo: perhaps there is a better way to do this than a bunch of ifs?
             // Trouble with lambdas is we need a specific type in the lambda but a dict of lamdas would have unspecific type
+
+            // todo: use icons for this instead of words
             if (controlMapping == null)
             {
                 Utils.LogError("Control mapping is null", this);
                 return "Null";
             }
-            if (controlMapping is AxisControlMapping am) return $"Joystick - axis {am.Axis}";
-            if (controlMapping is ButtonControlMapping bm) return $"Joystick - button {bm.ButtonIndex}";
+            if (controlMapping is AxisControlMapping am) return $"Axis {am.Axis}";
+            if (controlMapping is ButtonControlMapping bm) return $"But {bm.ButtonIndex}";
             if (controlMapping is SimpleKeyboardControlMapping skm)
             {
-                if (skm.Momentary) return $"Keyboard (momentary) - {OS.GetScancodeString(skm.KeyScancode)}";
-                else return $"Keyboard (toggle) - {OS.GetScancodeString(skm.KeyScancode)}";
+                if (skm.Momentary) return $"Key - {OS.GetScancodeString(skm.KeyScancode)}";
+                else return $"Key - {OS.GetScancodeString(skm.KeyScancode)}";
             }
             if (controlMapping is ThreePosKeyboardControlMapping tpkm)
-                return $"Keyboard (3 position) - " +
+                return $"Key - " +
                 $"{OS.GetScancodeString(tpkm.Key1Scancode)}, {OS.GetScancodeString(tpkm.Key2Scancode)}, {OS.GetScancodeString(tpkm.Key3Scancode)}";
 
             Utils.LogError($"Unknown control type: {controlMapping.GetType().FullName}", this);
@@ -65,15 +67,10 @@ namespace UI.Settings.InputComponents
             return null;
         }
 
-        private void _on_Edit_pressed()
+        private void _on_ControlMappingPreview_pressed()
         {
             var editor = CreateEditor();
             editor.PopupCentered();
-        }
-
-        private void _on_Delete_pressed()
-        {
-            deleteFunc(controlMapping);
         }
     }
 }

@@ -10,10 +10,10 @@ namespace SimInput
         private static Func<float, float> extraMapperNegativeHalf = x => -(x / 2 + .5f);
         private static Func<float, float> extraMapperPositiveHalf = x => x / 2 + .5f;
 
-        public Dictionary<string, List<InputAction>> ActionCategories { get; set; } = new()
+        // This defines the channels that are available in the sim, and also the default mappings
+        public List<InputActionCategory> ActionCategories { get; set; } = new()
         {
-            // This defines the channels that are available in the sim, and also the default mappings
-            { "aircraft", new() {
+            new("aircraft", "aircraft", new() {
                 InputAction.FromSingleMapping("throttle",
                     new SimInput.AxisControlMapping() { Axis = 0 }, defaultValue: -1),
                 InputAction.FromSingleMapping("aileron",
@@ -58,8 +58,8 @@ namespace SimInput
                     },
                     defaultValue: -1,
                     displayName: "aux 4", description: " - normally landing gear"),
-            }},
-            { "camera", new() {
+            }),
+            new("camera", "camera", new () {
                 InputAction.FromNoMapping("move_backward_forward", displayName: "move forward/backward (combined)",
                     description: " (in some camera modes this zooms instead)"),
                 InputAction.FromSingleMapping("move_backward",
@@ -68,13 +68,14 @@ namespace SimInput
                         KeyScancode = (uint) KeyList.S,
                         Momentary = true
                     },
-                    defaultValue: -1, displayName: "move backward", mapTo: new() {
-                        {"camera/move_backward_forward", extraMapperNegativeHalf}
+                    defaultValue: -1, displayName: "move backward", mapTo: new () {
+                        {"camera/move_backward_forward", extraMapperNegativeHalf
+}
                     }),
                 InputAction.FromSingleMapping("move_forward",
                     new SimInput.SimpleKeyboardControlMapping()
                     {
-                        KeyScancode = (uint) KeyList.W,
+                        KeyScancode = (uint)KeyList.W,
                         Momentary = true
                     },
                     defaultValue: -1, displayName: "move forward", mapTo: new() {
@@ -85,7 +86,7 @@ namespace SimInput
                 InputAction.FromSingleMapping("move_left",
                     new SimInput.SimpleKeyboardControlMapping()
                     {
-                        KeyScancode = (uint) KeyList.A,
+                        KeyScancode = (uint)KeyList.A,
                         Momentary = true
                     },
                     defaultValue: -1, displayName: "move left", mapTo: new() {
@@ -94,7 +95,7 @@ namespace SimInput
                 InputAction.FromSingleMapping("move_right",
                     new SimInput.SimpleKeyboardControlMapping()
                     {
-                        KeyScancode = (uint) KeyList.D,
+                        KeyScancode = (uint)KeyList.D,
                         Momentary = true
                     },
                     defaultValue: -1, displayName: "move right", mapTo: new() {
@@ -105,7 +106,7 @@ namespace SimInput
                 InputAction.FromSingleMapping("move_down",
                     new SimInput.SimpleKeyboardControlMapping()
                     {
-                        KeyScancode = (uint) KeyList.Z,
+                        KeyScancode = (uint)KeyList.Z,
                         Momentary = true
                     },
                     defaultValue: -1, displayName: "move down", mapTo: new() {
@@ -114,7 +115,7 @@ namespace SimInput
                 InputAction.FromSingleMapping("move_up",
                     new SimInput.SimpleKeyboardControlMapping()
                     {
-                        KeyScancode = (uint) KeyList.Q,
+                        KeyScancode = (uint)KeyList.Q,
                         Momentary = true
                     },
                     defaultValue: -1, displayName: "move up", mapTo: new() {
@@ -140,8 +141,8 @@ namespace SimInput
                     defaultValue: -1, displayName: "turn down", mapTo: new() {
                         {"camera_tilt_combined", extraMapperPositiveHalf}
                     }),
-            }},
-            { "gameplay", new() {
+            }),
+            new("gameplay", "gameplay", new() {
                 InputAction.FromSingleMapping("launch",
                     new SimInput.SimpleKeyboardControlMapping()
                     {
@@ -163,7 +164,7 @@ namespace SimInput
                         Momentary = true
                     },
                     defaultValue: -1),
-            }}
+            })
         };
     }
 }

@@ -37,31 +37,30 @@ namespace SimInput
 
             foreach (var category in inputMap.ActionCategories)
             {
-                var categoryName = category.Key;
-
-                if (categoryName.Contains('/'))
+                if (category.Name.Contains('/'))
                 {
-                    Utils.LogError($"Category name \"{categoryName}\" is invalid - slashes are not permitted");
+                    Utils.LogError($"Category name \"{category.Name}\" is invalid - slashes are not permitted");
                     continue;
                 }
 
-                var newCategory = new List<InputAction>();
-                newInputMap.ActionCategories.TryGetValue(categoryName, out newCategory);
+                var newCategory = newInputMap.ActionCategories.First(x => x.Name == category.Name);
 
-                foreach (var action in category.Value)
+                if (newCategory == null) continue;
+
+                foreach (var action in newCategory.Actions)
                 {
                     if (action.Name.Contains('/'))
                     {
-                        Utils.LogError($"Channel name \"{categoryName}\" is invalid - slashes are not permitted");
+                        Utils.LogError($"Channel name \"{category.Name}\" is invalid - slashes are not permitted");
                         continue;
                     }
 
+                    category.Actions.Clear();
                     // Actually migrate it across
-                    category.Value.Clear();
-                    var newAction = newCategory.FirstOrDefault(a => a.Name == action.Name);
+                    var newAction = newCategory.Actions.FirstOrDefault(a => a.Name == action.Name);
                     if (newAction != null) action.Mappings = newAction.Mappings.ToList();
 
-                    var actionPath = GenerateActionPath(categoryName, action.Name);
+                    var actionPath = GenerateActionPath(category.Name, action.Name);
                     actionLookup[actionPath] = action;
 
                     // Set defaults
