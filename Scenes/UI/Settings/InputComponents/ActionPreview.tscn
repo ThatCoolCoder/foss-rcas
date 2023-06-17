@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Scripts/UI/Settings/InputComponents/ActionPreview.cs" type="Script" id=1]
+[ext_resource path="res://Scenes/UI/Settings/InputComponents/NewMappingDialog.tscn" type="PackedScene" id=2]
 
 [node name="ActionPreview" type="HBoxContainer"]
 margin_right = 529.0
@@ -9,12 +10,30 @@ script = ExtResource( 1 )
 
 [node name="Label" type="Label" parent="."]
 margin_top = 4.0
-margin_right = 525.0
+margin_right = 503.0
 margin_bottom = 22.0
 size_flags_horizontal = 3
 text = "Action"
 
-[node name="MappingHolder" type="HBoxContainer" parent="."]
-margin_left = 529.0
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+margin_left = 507.0
 margin_right = 529.0
 margin_bottom = 27.0
+
+[node name="MappingHolder" type="HBoxContainer" parent="HBoxContainer"]
+margin_bottom = 27.0
+
+[node name="NewMappingButton" type="Button" parent="HBoxContainer"]
+margin_left = 4.0
+margin_right = 22.0
+margin_bottom = 27.0
+hint_tooltip = "Create new mapping"
+text = "+"
+__meta__ = {
+"_editor_description_": "todo: add proper icon to this"
+}
+
+[node name="NewMappingDialog" parent="." instance=ExtResource( 2 )]
+
+[connection signal="pressed" from="HBoxContainer/NewMappingButton" to="." method="_on_NewMappingButton_pressed"]
+[connection signal="popup_hide" from="NewMappingDialog" to="." method="_on_NewMappingDialog_popup_hide"]

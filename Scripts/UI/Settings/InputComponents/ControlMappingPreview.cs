@@ -26,7 +26,7 @@ namespace UI.Settings.InputComponents
 
         public override void _Ready()
         {
-            GetNode<Label>("Label").Text = CreateControlMappingText();
+            Text = CreateControlMappingText();
         }
 
         private string CreateControlMappingText()
@@ -70,6 +70,7 @@ namespace UI.Settings.InputComponents
         private void _on_ControlMappingPreview_pressed()
         {
             var editor = CreateEditor();
+            editor.DeleteFunc = () => deleteFunc(controlMapping);
             editor.PopupCentered();
         }
     }

@@ -36,3 +36,7 @@ margin_bottom = 98.0
 margin_top = 102.0
 margin_right = 361.0
 margin_bottom = 120.0
+
+[node name="Close" parent="MarginContainer/VBoxContainer" index="5"]
+margin_top = 190.0
+margin_bottom = 214.0

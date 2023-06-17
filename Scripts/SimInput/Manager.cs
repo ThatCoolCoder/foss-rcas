@@ -89,7 +89,7 @@ namespace SimInput
                         actionValues[actionPath] = val;
 
                         // apply extra mappings
-                        foreach (var extraMapping in action.MapTo) actionValues[extraMapping.Key] = extraMapping.Value(val);
+                        // foreach (var extraMapping in action.MapTo) actionValues[extraMapping.Key] = extraMapping.Value(val);
                     }
                 }
             }
@@ -98,8 +98,8 @@ namespace SimInput
         public override void _Process(float delta)
         {
             // save the previous action values at the end of each frame
-            // todo: let's see if this actually works
-            SetDeferred("previousActionValues", actionValues.ToList());
+            // todo: let's see if this actually works. spoiler: it doesn't
+            // SetDeferred("previousActionValues", actionValues.ToList());
         }
 
         // (we can't have static methods and instance methods with the same name so instance ones are suffixed with I)

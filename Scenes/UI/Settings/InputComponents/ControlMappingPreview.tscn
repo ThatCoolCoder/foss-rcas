@@ -5,6 +5,7 @@
 [node name="ControlMappingPreview" type="Button"]
 margin_right = 75.0
 margin_bottom = 24.0
+hint_tooltip = "Click to edit"
 script = ExtResource( 1 )
 
 [connection signal="pressed" from="." to="." method="_on_ControlMappingPreview_pressed"]

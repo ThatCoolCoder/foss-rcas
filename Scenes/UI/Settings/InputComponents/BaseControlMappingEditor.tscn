@@ -3,6 +3,7 @@
 [ext_resource path="res://Scripts/UI/Settings/InputComponents/BaseControlMappingEditor.cs" type="Script" id=1]
 
 [node name="BaseControlMappingEditor" type="WindowDialog"]
+visible = true
 margin_right = 381.0
 margin_bottom = 147.0
 window_title = "Edit Control Mapping"
@@ -23,13 +24,24 @@ margin_right = 371.0
 margin_bottom = 137.0
 size_flags_horizontal = 3
 
-[node name="Close" type="Button" parent="MarginContainer/VBoxContainer"]
-margin_left = 158.0
-margin_top = 103.0
-margin_right = 203.0
-margin_bottom = 127.0
+[node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer/VBoxContainer"]
+margin_left = 99.0
+margin_right = 262.0
+margin_bottom = 24.0
+size_flags_horizontal = 4
+
+[node name="Delete" type="Button" parent="MarginContainer/VBoxContainer/HSplitContainer"]
+margin_right = 51.0
+margin_bottom = 24.0
+text = "Delete"
+
+[node name="Save" type="Button" parent="MarginContainer/VBoxContainer/HSplitContainer"]
+margin_left = 63.0
+margin_right = 163.0
+margin_bottom = 24.0
 size_flags_horizontal = 4
 size_flags_vertical = 10
-text = "Close"
+text = "Save and close"
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/Close" to="." method="_on_Close_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HSplitContainer/Delete" to="." method="_on_Delete_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HSplitContainer/Save" to="." method="_on_Save_pressed"]

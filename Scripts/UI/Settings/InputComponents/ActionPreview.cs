@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using SimInput;
 
@@ -12,6 +13,7 @@ namespace UI.Settings.InputComponents
 
         private SimInput.InputAction action;
         private HBoxContainer mappingHolder;
+        private NewMappingDialog newMappingDialog;
 
         public ActionPreview Config(Node parent, SimInput.InputAction _action)
         {
@@ -23,9 +25,13 @@ namespace UI.Settings.InputComponents
 
         public override void _Ready()
         {
-            GetNode<Label>("Label").Text = action.DisplayName;
-            mappingHolder = GetNode<HBoxContainer>("MappingHolder");
+            GetNode<Label>("Label").Text = (action.DisplayName == "" ? action.Name : action.DisplayName).Capitalize();
+            mappingHolder = GetNode<HBoxContainer>("HBoxContainer/MappingHolder");
+            newMappingDialog = GetNode<NewMappingDialog>("NewMappingDialog");
+
             HintTooltip = action.Description;
+
+            UpdateMappings();
 
             SettingsScreen.OnSettingsChanged += OnSettingsChanged;
         }
@@ -54,6 +60,23 @@ namespace UI.Settings.InputComponents
         {
             action.Mappings.Remove(mapping);
             UpdateMappings();
+        }
+
+        private void _on_NewMappingButton_pressed()
+        {
+            newMappingDialog.PopupCentered();
+        }
+
+        private void _on_NewMappingDialog_popup_hide()
+        {
+            if (newMappingDialog.SelectedMappingType == null) return;
+
+            var mapping = (IControlMapping)Activator.CreateInstance(newMappingDialog.SelectedMappingType);
+            action.Mappings.Add(mapping);
+            UpdateMappings();
+
+
+            mappingHolder.GetChildNodeList().Last().EmitSignal("pressed");
         }
     }
 }

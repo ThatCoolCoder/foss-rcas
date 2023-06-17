@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using Tomlet.Attributes;
 using System.Collections.Generic;
 
 namespace SimInput
@@ -8,15 +9,14 @@ namespace SimInput
 
     public class InputAction
     {
-        public string Name { get; set; }
-        [field: NonSerialized]
-        public string DisplayName { get; set; } // optional. Should not be capitalised, should be brief
-        [field: NonSerialized]
-        public string Description { get; set; } // information to be put after displayname if there is extra space
-        [field: NonSerialized]
+        public string Name { get; set; } = "";
+        // todo: disp name and description shouldn't be serialized but we read this off the settings when doing UI so we need it
+        public string DisplayName { get; set; } = ""; // optional. Should not be capitalised, should be brief
+        public string Description { get; set; } = ""; // information to be put after displayname if there is extra space
+        [TomlNonSerialized]
         public float DefaultValue { get; set; } = 0; // change for things like throttle or flaps
         public List<IControlMapping> Mappings { get; set; } = new();
-        [field: NonSerialized]
+        [TomlNonSerialized]
         public MapperFuncList MapTo { get; set; } = new(); // allows mapping one action to another action - EG separated move forward and backward maps onto combined move. Should be a complete action path.
 
         // Just some handy shortcuts
