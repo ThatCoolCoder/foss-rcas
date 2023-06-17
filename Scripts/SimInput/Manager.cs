@@ -76,17 +76,22 @@ namespace SimInput
             return category + "/" + actionName;
         }
 
-
         public override void _Input(InputEvent _event)
         {
-            foreach (var actionName in actionLookup.Keys)
+            foreach (var actionPath in actionLookup.Keys)
             {
-                var action = actionLookup[actionName];
+                var action = actionLookup[actionPath];
 
                 foreach (var mapping in action.Mappings)
                 {
                     // Read value
-                    if (mapping.ProcessEvent(_event) is float val) actionValues[action.Name] = val;
+                    if (mapping.ProcessEvent(_event) is float val)
+                    {
+                        actionValues[actionPath] = val;
+
+                        // apply extra mappings
+                        foreach (var extraMapping in action.MapTo) actionValues[extraMapping.Key] = extraMapping.Value(val);
+                    }
                 }
             }
         }

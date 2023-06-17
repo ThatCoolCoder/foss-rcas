@@ -6,9 +6,13 @@ namespace SimInput
 {
     public class InputMap
     {
+        // Predefined mappers for InputAction.mapTo
+        private static Func<float, float> extraMapperNegativeHalf = x => -(x / 2 + .5f);
+        private static Func<float, float> extraMapperPositiveHalf = x => x / 2 + .5f;
+
         public Dictionary<string, List<InputAction>> ActionCategories { get; set; } = new()
         {
-            // This defines the channels that are available in the sim, in addition to the default mappings
+            // This defines the channels that are available in the sim, and also the default mappings
             { "aircraft", new() {
                 InputAction.FromSingleMapping("throttle",
                     new SimInput.AxisControlMapping() { Axis = 0 }, defaultValue: -1),
@@ -56,71 +60,86 @@ namespace SimInput
                     displayName: "aux 4", description: " - normally landing gear"),
             }},
             { "camera", new() {
-                InputAction.FromNoMapping("move_forward_backward",
-                    defaultValue: 0, displayName: "move forward/backward (combined)",
+                InputAction.FromNoMapping("move_backward_forward", displayName: "move forward/backward (combined)",
                     description: " (in some camera modes this zooms instead)"),
-                InputAction.FromSingleMapping("move_forward",
-                    new SimInput.SimpleKeyboardControlMapping()
-                    {
-                        KeyScancode = (uint) KeyList.W,
-                        Momentary = true
-                    },
-                    defaultValue: -1, displayName: "move forward"),
                 InputAction.FromSingleMapping("move_backward",
                     new SimInput.SimpleKeyboardControlMapping()
                     {
                         KeyScancode = (uint) KeyList.S,
                         Momentary = true
                     },
-                    defaultValue: -1, displayName: "move backward"),
+                    defaultValue: -1, displayName: "move backward", mapTo: new() {
+                        {"camera/move_backward_forward", extraMapperNegativeHalf}
+                    }),
+                InputAction.FromSingleMapping("move_forward",
+                    new SimInput.SimpleKeyboardControlMapping()
+                    {
+                        KeyScancode = (uint) KeyList.W,
+                        Momentary = true
+                    },
+                    defaultValue: -1, displayName: "move forward", mapTo: new() {
+                        {"camera/move_backward_forward", extraMapperPositiveHalf}
+                    }),
 
-                InputAction.FromNoMapping("move_left_right",
-                    defaultValue: 0, displayName: "move left/right (combined)"),
+                InputAction.FromNoMapping("move_left_right", displayName: "move left/right (combined)"),
                 InputAction.FromSingleMapping("move_left",
                     new SimInput.SimpleKeyboardControlMapping()
                     {
                         KeyScancode = (uint) KeyList.A,
                         Momentary = true
                     },
-                    defaultValue: -1, displayName: "move left"),
+                    defaultValue: -1, displayName: "move left", mapTo: new() {
+                        {"camera/move_left_right", extraMapperNegativeHalf}
+                    }),
                 InputAction.FromSingleMapping("move_right",
                     new SimInput.SimpleKeyboardControlMapping()
                     {
                         KeyScancode = (uint) KeyList.D,
                         Momentary = true
                     },
-                    defaultValue: -1, displayName: "move right"),
+                    defaultValue: -1, displayName: "move right", mapTo: new() {
+                        {"camera/move_left_right", extraMapperPositiveHalf}
+                    }),
 
-                InputAction.FromNoMapping("move_up_down",
-                    defaultValue: 0, displayName: "move up/down (combined)"),
-                InputAction.FromSingleMapping("move_up",
-                    new SimInput.SimpleKeyboardControlMapping()
-                    {
-                        KeyScancode = (uint) KeyList.Q,
-                        Momentary = true
-                    },
-                    defaultValue: -1, displayName: "move up"),
+                InputAction.FromNoMapping("move_down_up", displayName: "move up/down (combined)"),
                 InputAction.FromSingleMapping("move_down",
                     new SimInput.SimpleKeyboardControlMapping()
                     {
                         KeyScancode = (uint) KeyList.Z,
                         Momentary = true
                     },
-                    defaultValue: -1, displayName: "move down"),
+                    defaultValue: -1, displayName: "move down", mapTo: new() {
+                        {"camera/move_down_up", extraMapperNegativeHalf}
+                    }),
+                InputAction.FromSingleMapping("move_up",
+                    new SimInput.SimpleKeyboardControlMapping()
+                    {
+                        KeyScancode = (uint) KeyList.Q,
+                        Momentary = true
+                    },
+                    defaultValue: -1, displayName: "move up", mapTo: new() {
+                        {"camera/move_down_up", extraMapperPositiveHalf}
+                    }),
 
-                InputAction.FromNoMapping("pan_combined",
-                    defaultValue: 0, displayName: "turn left/right (combined)"),
+                InputAction.FromNoMapping("pan_combined", displayName: "turn left/right (combined)"),
                 InputAction.FromNoMapping("pan_left",
-                    defaultValue: -1, displayName: "turn left"),
+                    defaultValue: -1, displayName: "turn left", mapTo: new() {
+                        {"camera_pan_combined", extraMapperNegativeHalf}
+                    }),
                 InputAction.FromNoMapping("pan_right",
-                    defaultValue: -1, displayName: "turn right"),
+                    defaultValue: -1, displayName: "turn right", mapTo: new() {
+                        {"camera_pan_combined", extraMapperPositiveHalf}
+                    }),
 
-                InputAction.FromNoMapping("tilt_combined",
-                    defaultValue: 0, displayName: "turn up/down (combined)"),
+                InputAction.FromNoMapping("tilt_combined", displayName: "turn up/down (combined)"),
                 InputAction.FromNoMapping("tilt_up",
-                    defaultValue: -1, displayName: "turn up"),
+                    defaultValue: -1, displayName: "turn up", mapTo: new() {
+                        {"camera_tilt_combined", extraMapperNegativeHalf}
+                    }),
                 InputAction.FromNoMapping("tilt_down",
-                    defaultValue: -1, displayName: "turn down"),
+                    defaultValue: -1, displayName: "turn down", mapTo: new() {
+                        {"camera_tilt_combined", extraMapperPositiveHalf}
+                    }),
             }},
             { "gameplay", new() {
                 InputAction.FromSingleMapping("launch",
