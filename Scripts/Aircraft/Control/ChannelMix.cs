@@ -29,8 +29,7 @@ namespace Aircraft.Control
             targetValue *= Weight;
 
             var speed = currentValue > targetValue ? SpeedDown : SpeedUp;
-            // currentValue = speed == 0 ? targetValue : Utils.ConvergeValue(currentValue, targetValue, speed * delta);
-            currentValue = targetValue;
+            currentValue = speed == 0 ? targetValue : Utils.ConvergeValue(currentValue, targetValue, speed * delta);
 
             if (Mode == ChannelMixMode.Add) channelValue += currentValue;
             else if (Mode == ChannelMixMode.Multiply) channelValue *= currentValue;

@@ -13,7 +13,7 @@ namespace Locations
 
         public override void _Ready()
         {
-            var camera = GetNode<WalkingGroundCamera>("Camera");
+            var camera = GetNode<GroundCamera>("Camera");
             SimSettings.Settings.Current.ApplyToViewport(GetViewport());
             SimInput.Manager.Instance.LoadInputMap(SimSettings.Settings.Current.InputMap);
             camera.Target = Aircraft;

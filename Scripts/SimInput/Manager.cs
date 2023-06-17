@@ -64,7 +64,6 @@ namespace SimInput
 
                     // Set defaults
                     actionValues[actionPath] = action.DefaultValue;
-                    Utils.DPrint(action.Name, action.DefaultValue);
                     previousActionValues[actionPath] = action.DefaultValue;
                 }
             }

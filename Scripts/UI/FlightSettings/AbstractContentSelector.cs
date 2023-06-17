@@ -52,10 +52,11 @@ namespace UI.FlightSettings
             var formattedCredits = SelectedItem.Credits.Trim();
             if (formattedCredits != "") formattedCredits = "Credits:\n" + formattedCredits;
 
-            var formattedDate = SelectedItem.DateUpdated.ToString("dd MMMM yyyy");
+            var formattedDateCreated = SelectedItem.DateCreated.ToString("dd MMMM yyyy");
+            var formattedDateUpdated = SelectedItem.DateUpdated.ToString("dd MMMM yyyy");
             var sections = new List<string>()
             {
-                $" By {SelectedItem.Author}\tVersion {SelectedItem.Version}\tUpdated {formattedDate}",
+                $" By {SelectedItem.Author}\tVersion {SelectedItem.Version}\tCreated {formattedDateCreated}\tUpdated {formattedDateUpdated}",
                 SelectedItem.Description,
                 customInfo,
                 formattedCredits
