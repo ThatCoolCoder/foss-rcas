@@ -28,6 +28,8 @@ A note on singletons+autoload in this project: there have been a few cases where
 
 ## Todo:
 - Physics/simulations
+    - Make wheels:
+        - see https://www.gtplanet.net/forum/threads/gdsim-v0-4a-autocross-and-custom-setups.396400/
     - Make common methods in AbstractSpatialFluidForcer for getting relative & local velocity, there is no point having code for this in every derived class
     - improve wing physics: allow importing some better format of curves
         - stall is mushy, not sharp
