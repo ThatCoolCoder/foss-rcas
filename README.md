@@ -28,7 +28,8 @@ A note on singletons+autoload in this project: there have been a few cases where
 
 ## Todo:
 - Physics/simulations
-    - Make brakes work for wheels, make wheels less buggy
+    - Wheels
+        - Make brakes and traction work, wheels spin constantly for no reason.
     - Make common methods in AbstractSpatialFluidForcer for getting relative & local velocity, there is no point having code for this in every derived class
     - improve wing physics: allow importing some better format of curves
         - stall is mushy, not sharp

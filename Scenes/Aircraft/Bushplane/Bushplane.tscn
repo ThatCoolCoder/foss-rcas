@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Art/Aircraft/Bushplane/Rudder.glb" type="PackedScene" id=1]
 [ext_resource path="res://Art/Aircraft/Bushplane/MainBody.glb" type="PackedScene" id=2]
@@ -23,6 +23,7 @@
 [ext_resource path="res://Scenes/Aircraft/Common/Battery.tscn" type="PackedScene" id=21]
 [ext_resource path="res://Scenes/Aircraft/Common/PropellerWithModel.tscn" type="PackedScene" id=22]
 [ext_resource path="res://Scenes/Forcers/ControlledWheelForcer.tscn" type="PackedScene" id=23]
+[ext_resource path="res://Art/Aircraft/Bushplane/Wheel.glb" type="PackedScene" id=24]
 
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.3
@@ -108,6 +109,7 @@ ControlHubPath = NodePath("../../../ControlHub")
 [node name="LeftWheel" parent="." instance=ExtResource( 23 )]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.0714547, -0.0601215, -0.0715475 )
 TargetPath = NodePath("..")
+DisplayObjectPath = NodePath("Wheel")
 SuspensionTravel = 0.03
 SuspensionStrength = 10.0
 SuspensionDamping = 1.0
@@ -119,9 +121,13 @@ WheelBrakeTorque = 0.0
 [node name="ControlHubLocator" parent="LeftWheel" instance=ExtResource( 10 )]
 ControlHubPath = NodePath("../../ControlHub")
 
+[node name="Wheel" parent="LeftWheel" instance=ExtResource( 24 )]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.146639, 8.5108e-05, 0.00143338 )
+
 [node name="RightWheel" parent="." instance=ExtResource( 23 )]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.0746751, -0.0601215, -0.0715475 )
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.0751043, -0.0596044, -0.0709881 )
 TargetPath = NodePath("..")
+DisplayObjectPath = NodePath("Wheel")
 SuspensionTravel = 0.03
 SuspensionStrength = 10.0
 SuspensionDamping = 1.0
@@ -133,8 +139,11 @@ WheelBrakeTorque = 0.0
 [node name="ControlHubLocator" parent="RightWheel" instance=ExtResource( 10 )]
 ControlHubPath = NodePath("../../ControlHub")
 
+[node name="Wheel" parent="RightWheel" instance=ExtResource( 24 )]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.146488, 8.5108e-05, 0.00143338 )
+
 [node name="WheelBackupCollider" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0668141, -0.0695753 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0536563, -0.0695753 )
 shape = SubResource( 5 )
 
 [node name="Wing" type="Spatial" parent="."]
@@ -171,7 +180,7 @@ AreaMultiplier = 0.6
 Thickness = 0.005
 
 [node name="Section4" parent="Wing" instance=ExtResource( 16 )]
-transform = Transform( 0.097944, -3.12609e-07, 0, 4.36913e-08, 1, 0, 0, 0, 0.0982189, -0.359408, 0.0420306, 0.0179331 )
+transform = Transform( 0.097944, -3.12609e-07, 0, 4.36504e-08, 0.999063, 0.00425, -1.89055e-09, -0.0432707, 0.0981269, -0.359408, 0.0420306, 0.0179331 )
 TargetPath = NodePath("../..")
 TotalLiftCoefficient = ExtResource( 12 )
 ParasiticDragCoefficient = ExtResource( 15 )
