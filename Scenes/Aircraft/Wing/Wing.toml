@@ -1,7 +1,8 @@
 name = "Flying Wing"
 author = "ThatCoolCoder"
 version = "0.1.0"
-date_updated = 2023-03-09
+date_created = 2023-03-09
+date_updated = 2023-05-07
 description = """
 A dead simple flying wing, inspired by the FliteTest Mini Arrow
 """

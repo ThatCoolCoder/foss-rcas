@@ -1,7 +1,8 @@
 name = "Bushplane"
 author = "ThatCoolCoder"
 version = "0.1.0"
-date_updated = 2023-04-17
+date_created = 2023-04-17
+date_updated = 2023-05-28
 description = """
 A WIP bushplane based on one the author built with inspiration from some plans.
 In addition to basic 4-channel controls, it has separately controllable flaps (on aux1) and flaperons (on aux3).

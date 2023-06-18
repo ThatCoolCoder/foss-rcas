@@ -1,7 +1,8 @@
 name = "Mini 3D"
 author = "ThatCoolCoder"
 version = "0.1.0"
-date_updated = 2023-03-14
+date_created = 2023-03-14
+date_updated = 2023-05-07
 description = """
 A small sub-250 monoplane hopefully capable of performing 3d aerobatics.
 

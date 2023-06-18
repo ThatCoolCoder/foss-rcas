@@ -61,7 +61,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13.3328, 1.91372, 17.6838 )
 environment = SubResource( 2 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="WorldEnvironment" index="0"]
-transform = Transform( 0.921829, 0.34015, -0.185818, -0.128866, 0.721107, 0.680734, 0.365547, -0.603575, 0.708571, 5.01703, 3.81502, -6.93806 )
+transform = Transform( 0.921829, 0.340151, -0.185818, -0.128866, 0.721107, 0.680734, 0.365547, -0.603575, 0.708571, 5.01703, 3.81502, -6.93806 )
 light_energy = 1.254
 light_specular = 0.496
 shadow_enabled = true
@@ -117,9 +117,10 @@ TreeSize = Vector2( 15, 15 )
 TreeSizeVariation = Vector2( 0.5, 0.5 )
 
 [node name="GrassScatter" parent="." index="9" instance=ExtResource( 8 )]
-InstanceCount = 30000
+InstanceCount = 15000
 Mask = ExtResource( 11 )
 NormalMap = ExtResource( 9 )
+NormalStrength = 2.0
 
 [node name="Bushes" type="Spatial" parent="." index="10"]
 
