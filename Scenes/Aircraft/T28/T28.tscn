@@ -23,7 +23,7 @@
 extents = Vector3( 0.302106, 0.00401939, 0.0608913 )
 
 [sub_resource type="BoxShape" id=2]
-extents = Vector3( 0.0390047, 0.0417708, 0.245132 )
+extents = Vector3( 0.0390047, 0.0417708, 0.236533 )
 
 [sub_resource type="BoxShape" id=3]
 extents = Vector3( 0.00659916, 0.0569142, 0.0438869 )
