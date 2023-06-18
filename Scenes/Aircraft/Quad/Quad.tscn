@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Scripts/Physics/SpatialFluidEffectable.cs" type="Script" id=1]
+[ext_resource path="res://Scripts/Physics/SpatialForceable.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/Aircraft/Control/GyroHub.cs" type="Script" id=2]
 [ext_resource path="res://Scenes/Aircraft/Common/ControlledBrushlessMotor.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Aircraft/Common/ControlHubLocator.tscn" type="PackedScene" id=4]

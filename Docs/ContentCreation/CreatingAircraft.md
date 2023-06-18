@@ -62,7 +62,7 @@ Scenes
 Here is an example node setup:
 ![There should be an image here](./ExampleNodeTree.png)
 
-The base node of the aircraft needs to be a RigidBody with the `SpatialFluidEffectable` script attached. From there, you can tweak the RigidBody settings and add child nodes to achieve the desired flight characteristics.
+The base node of the aircraft needs to be a RigidBody with the `SpatialForceable` script attached. From there, you can tweak the RigidBody settings and add child nodes to achieve the desired flight characteristics.
 
 The model should be constructed so that z-negative is forward, since this is the convention within Godot.
 

@@ -5,7 +5,7 @@
 [ext_resource path="res://Scenes/Forcers/AeroObject.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scripts/Physics/Fluids/Air.cs" type="Script" id=5]
 [ext_resource path="res://Art/Locations/LargeOval/Grass.material" type="Material" id=6]
-[ext_resource path="res://Scripts/Physics/SpatialFluidEffectable.cs" type="Script" id=7]
+[ext_resource path="res://Scripts/Physics/SpatialForceable.cs" type="Script" id=7]
 [ext_resource path="res://Testing/AeroTestScene.cs" type="Script" id=8]
 
 [sub_resource type="BoxShape" id=1]

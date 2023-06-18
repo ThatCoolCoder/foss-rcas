@@ -50,6 +50,7 @@ A note on singletons+autoload in this project: there have been a few cases where
     - Electrics simulation
         - At low throttle settings, the prop feels more resistance than when it is at zero throttle
             - test scenario: fly at full throttle, cut the power, prop might briefly slow to below blur speed but then it speeds up again.
+            - cause: faulty torque calculation, resistance would theroretically be infinity in this case in BrushlessMotor.
         - Motors might be recharging the battery or doing weird things when they freewheel
         - Add some sort of resistance from the motor when it's not powering, otherwise props spin forever
         - Check anticlockwise physics is working as intended
@@ -127,9 +128,7 @@ A note on singletons+autoload in this project: there have been a few cases where
         - (it's much simpler than adjusting the monitor resolution or whatever)
     - If FPS is terrible, have a pop up in the corner that tells you to change your graphics.
     - Update billboard exporter script + multimesh instancers + impostorsprite3d to have the option of normal maps on these (it looks a lot better)
-    - Create more impostor pine pics so it's not always just the same one
-        - Maybe even make some more trees so they're not all the same
-- possibly rework physics system to support non-fluid effectors
+    - Maybe make some more trees so they're not all the same
 - Even though the CG is apparently already really far back, the models don't fly tailheavy. If I move the CG further back, they become suddenly very tailheavy
     - Maybe their elevator is just stalling, the flying wing flies amazingly and the CG is probably a bit forward even.
 - Mod/content system

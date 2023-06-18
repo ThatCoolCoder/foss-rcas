@@ -5,36 +5,33 @@ using System.Collections.Generic;
 
 namespace Physics.Forcers
 {
-    public abstract class AbstractSpatialFluidForcer : Spatial
+    public abstract class AbstractSpatialFluidForcer : AbstractSpatialForcer
     {
         // Base class for things that apply force because of fluids.
         // Note that this is tool-safe: extending classes can be [Tool]s without issues
 
-        // Path to the target of this forcer. If parent is a SpatialFluidEffectable and path is null, then parent is used
-        [Export] public NodePath TargetPath { get; set; }
-        [Export] public bool Enabled { get; set; } = true;
         [Export] public bool ForLiquid { get; set; } = false; // todo: get a proper system for setting the below list from the editor.
         private List<Fluids.FluidType> fluidTypes = new();
-        protected SpatialFluidEffectable target { get; private set; }
 
         // If this is true, does not run CalculateForce on fluids that it's not within. Set this to false if you care about the edges of fluids (eg floating)
         protected bool autoCheckInsideFluid { get; set; } = true;
+        private List<Fluids.ISpatialFluid> fluids;
 
         public static bool DebugModeActive { get; private set; } = (bool)ProjectSettings.GetSetting("global/physics_debug_active");
         protected static event Action onDebugModeChanged;
         private bool debugModeWasActive = false;
 
+
         public override void _Ready()
         {
             if (Engine.EditorHint) return;
 
-            if (GetParent() is SpatialFluidEffectable t && (TargetPath == null || TargetPath == "")) target = t;
-            else target = GetNode<SpatialFluidEffectable>(TargetPath);
-
-            target.RegisterForcer(this);
+            base._Ready();
 
             if (ForLiquid) fluidTypes.Add(Fluids.FluidType.Liquid);
             else fluidTypes.Add(Fluids.FluidType.Gas);
+
+            fluids = Fluids.SpatialFluidRepository.FindSpatialFluidRepository(GetTree()).Fluids;
 
             debugModeWasActive = DebugModeActive;
         }
@@ -42,11 +39,11 @@ namespace Physics.Forcers
         // Should return a force in global coordinates
         public abstract Vector3 CalculateForce(Fluids.ISpatialFluid fluid, PhysicsDirectBodyState state);
 
-        public void Apply(PhysicsDirectBodyState state)
+        public override void Apply(PhysicsDirectBodyState state)
         {
             if (!Enabled) return;
 
-            var candidateFluids = target.Fluids.Where(f => fluidTypes.Contains(f.Type));
+            var candidateFluids = fluids.Where(f => fluidTypes.Contains(f.Type));
             if (autoCheckInsideFluid)
             {
                 candidateFluids = candidateFluids.Where(f => f.ContainsPoint(GlobalTranslation));
