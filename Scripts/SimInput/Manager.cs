@@ -88,7 +88,7 @@ namespace SimInput
                         actionValues[actionPath] = val;
 
                         // apply extra mappings
-                        // foreach (var extraMapping in action.MapTo) actionValues[extraMapping.Key] = extraMapping.Value(val);
+                        foreach (var extraMapping in action.MapTo) actionValues[extraMapping.Key] = extraMapping.Value(val);
                     }
                 }
             }

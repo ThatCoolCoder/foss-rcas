@@ -124,26 +124,26 @@ namespace SimInput
                 InputAction.FromNoMapping("pan_combined", displayName: "turn left/right (combined)"),
                 InputAction.FromNoMapping("pan_left",
                     defaultValue: -1, displayName: "turn left", mapTo: new() {
-                        {"camera_pan_combined", extraMapperNegativeHalf}
+                        {"camera/pan_combined", extraMapperNegativeHalf}
                     }),
                 InputAction.FromNoMapping("pan_right",
                     defaultValue: -1, displayName: "turn right", mapTo: new() {
-                        {"camera_pan_combined", extraMapperPositiveHalf}
+                        {"camera/pan_combined", extraMapperPositiveHalf}
                     }),
 
                 InputAction.FromNoMapping("tilt_combined", displayName: "turn up/down (combined)"),
                 InputAction.FromNoMapping("tilt_up",
                     defaultValue: -1, displayName: "turn up", mapTo: new() {
-                        {"camera_tilt_combined", extraMapperNegativeHalf}
+                        {"camera/tilt_combined", extraMapperNegativeHalf}
                     }),
                 InputAction.FromNoMapping("tilt_down",
                     defaultValue: -1, displayName: "turn down", mapTo: new() {
-                        {"camera_tilt_combined", extraMapperPositiveHalf}
+                        {"camera/tilt_combined", extraMapperPositiveHalf}
                     }),
                 InputAction.FromSingleMapping("reset",
                     new SimInput.SimpleKeyboardControlMapping()
                     {
-                        KeyScancode = (uint)KeyList.Z,
+                        KeyScancode = (uint)KeyList.C,
                         Momentary = true
                     },
                     defaultValue: -1, displayName: "reset", description: "- resets the camera angle"),

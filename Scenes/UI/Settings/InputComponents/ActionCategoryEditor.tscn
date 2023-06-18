@@ -37,7 +37,7 @@ custom_constants/margin_left = 10
 [node name="MaxSizeContainer" type="MarginContainer" parent="MarginContainer" index="0"]
 margin_left = 10.0
 margin_right = 1270.0
-custom_constants/margin_right = 0
+custom_constants/margin_right = 760
 custom_constants/margin_top = 0
 custom_constants/margin_left = 0
 custom_constants/margin_bottom = 0
