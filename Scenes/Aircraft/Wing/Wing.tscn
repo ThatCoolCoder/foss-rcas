@@ -43,7 +43,7 @@ polygon = PoolVector2Array( 0, -0.177, 0.378034, 0.101741, 0.377215, 0.235189, 0
 [node name="Electrics" type="Spatial" parent="."]
 
 [node name="ControlledBrushlessMotor" parent="Electrics" instance=ExtResource( 17 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00845719, 0.00719526 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00238618, 0.0100633 )
 BatteryPath = NodePath("../Battery")
 PropellerPath = NodePath("PropellerWithModel")
 TorqueRigidBodyPath = NodePath("../..")

@@ -13,8 +13,10 @@ namespace Locations
         [Export] public int Count { get; set; } = 100;
         [Export] public bool UseNearScaling { get; set; } = true; // whether to use the near or far scaling for vegetation amount
         [Export] public Texture Texture { get; set; }
+        [Export] public float AlphaScissorThreshold { get; set; } = 0.2f;
         [Export] public Vector2 TreeSize { get; set; } = Vector2.One * 5;
-        [Export] public Vector2 TreeSizeVariation { get; set; } = Vector2.One * 0.3f; // varies by +- this amount
+        [Export] public float HeightVariation { get; set; } = 0.3f; // varies by +- this amount
+        [Export] public float WidthRatioVariation { get; set; } = 0.25f;
 
         public override void _Ready()
         {
@@ -35,7 +37,8 @@ namespace Locations
             material.FlagsTransparent = true;
             mesh.Material = material;
             material.ParamsCullMode = SpatialMaterial.CullMode.Disabled;
-            material.ParamsDepthDrawMode = SpatialMaterial.DepthDrawMode.AlphaOpaquePrepass;
+            material.ParamsUseAlphaScissor = true;
+            material.ParamsAlphaScissorThreshold = AlphaScissorThreshold;
 
             var g = SimSettings.Settings.Current.Graphics;
             var trueCount = (int)(Count * (UseNearScaling ? g.NearVegetationMultiplier : g.FarVegetationMultiplier));
@@ -47,11 +50,11 @@ namespace Locations
             {
                 var transform = Transform.Identity;
                 transform = transform.Rotated(Vector3.Up, GD.Randf() * Mathf.Tau);
-                transform.basis.Scale = (new Vector3(
-                    ((float)GD.RandRange(-TreeSizeVariation.x, TreeSizeVariation.x) + 1),
-                    (float)GD.RandRange(-TreeSizeVariation.y, TreeSizeVariation.y) + 1,
-                    (float)GD.RandRange(-TreeSizeVariation.x, TreeSizeVariation.x) + 1
-                ));
+
+                var heightScale = (float)GD.RandRange(-HeightVariation, HeightVariation) + 1;
+                var widthScale = heightScale * (float)GD.RandRange(1 - WidthRatioVariation, 1 + WidthRatioVariation);
+
+                transform.basis.Scale = new Vector3(widthScale, heightScale, widthScale);
                 transform.origin = VectorExtensions.Random(minPos, maxPos).WithY(transform.basis.Scale.y * TreeSize.y / 2);
                 Multimesh.SetInstanceTransform(i, transform);
             };

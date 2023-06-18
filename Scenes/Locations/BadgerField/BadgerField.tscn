@@ -78,43 +78,43 @@ ScaleVariation = 0.7
 
 [node name="TreeScatter" parent="Trees" index="1" instance=ExtResource( 6 )]
 transform = Transform( -3.13294e-06, 0, -111.063, 0, 1, 0, 71.6732, 0, -4.85472e-06, -239.991, 0, 0 )
-Count = 200
+Count = 300
 UseNearScaling = false
 Texture = ExtResource( 7 )
-TreeSize = Vector2( 15, 15 )
-TreeSizeVariation = Vector2( 0.5, 0.5 )
+TreeSize = Vector2( 10, 15 )
+WidthRatioVariation = 0.2
 
 [node name="TreeScatter2" parent="Trees" index="2" instance=ExtResource( 6 )]
 transform = Transform( 207.241, 0, -5.79425, 0, 1, 0, 16.809, 0, 71.4386, -114.463, 0, -132.898 )
-Count = 400
+Count = 600
 UseNearScaling = false
 Texture = ExtResource( 7 )
-TreeSize = Vector2( 15, 15 )
-TreeSizeVariation = Vector2( 0.5, 0.5 )
+TreeSize = Vector2( 10, 15 )
+WidthRatioVariation = 0.2
 
 [node name="TreeScatter3" parent="Trees" index="3" instance=ExtResource( 6 )]
 transform = Transform( 74.8281, 0, 0, 0, 1, 0, 0, 0, 85.4115, 174.562, 0, 63.5686 )
-Count = 150
+Count = 240
 UseNearScaling = false
 Texture = ExtResource( 7 )
-TreeSize = Vector2( 15, 15 )
-TreeSizeVariation = Vector2( 0.5, 0.5 )
+TreeSize = Vector2( 10, 15 )
+WidthRatioVariation = 0.2
 
-[node name="TreeScatter5" parent="Trees" index="4" instance=ExtResource( 6 )]
-transform = Transform( 73.7037, 0, -14.7508, 0, 1, 0, 12.923, 0, 84.1281, 188.172, 0, -97.1618 )
-Count = 150
-UseNearScaling = false
-Texture = ExtResource( 7 )
-TreeSize = Vector2( 15, 15 )
-TreeSizeVariation = Vector2( 0.5, 0.5 )
-
-[node name="TreeScatter4" parent="Trees" index="5" instance=ExtResource( 6 )]
+[node name="TreeScatter4" parent="Trees" index="4" instance=ExtResource( 6 )]
 transform = Transform( 174.338, 0, -5.28834, 0, 1, 0, 12.8883, 0, 71.5349, -93.8949, 0, 112.936 )
-Count = 400
+Count = 600
 UseNearScaling = false
 Texture = ExtResource( 7 )
-TreeSize = Vector2( 15, 15 )
-TreeSizeVariation = Vector2( 0.5, 0.5 )
+TreeSize = Vector2( 10, 15 )
+WidthRatioVariation = 0.2
+
+[node name="TreeScatter5" parent="Trees" index="5" instance=ExtResource( 6 )]
+transform = Transform( 73.7037, 0, -14.7508, 0, 1, 0, 12.923, 0, 84.1281, 188.172, 0, -97.1618 )
+Count = 240
+UseNearScaling = false
+Texture = ExtResource( 7 )
+TreeSize = Vector2( 10, 15 )
+WidthRatioVariation = 0.2
 
 [node name="GrassScatter" parent="." index="9" instance=ExtResource( 8 )]
 InstanceCount = 15000
