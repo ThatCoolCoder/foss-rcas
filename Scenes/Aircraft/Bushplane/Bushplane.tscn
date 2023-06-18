@@ -22,6 +22,7 @@
 [ext_resource path="res://Art/Aircraft/Common/PropAudio/3S-2304-6x4E.mp3" type="AudioStream" id=20]
 [ext_resource path="res://Scenes/Aircraft/Common/Battery.tscn" type="PackedScene" id=21]
 [ext_resource path="res://Scenes/Aircraft/Common/PropellerWithModel.tscn" type="PackedScene" id=22]
+[ext_resource path="res://Scenes/Forcers/ControlledWheelForcer.tscn" type="PackedScene" id=23]
 
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.3
@@ -32,14 +33,11 @@ extents = Vector3( 0.0304559, 0.0253591, 0.27949 )
 [sub_resource type="BoxShape" id=2]
 extents = Vector3( 0.0304948, 0.045441, 0.100615 )
 
-[sub_resource type="BoxShape" id=3]
-extents = Vector3( 0.0832796, 0.0329096, 0.0190209 )
-
 [sub_resource type="BoxShape" id=4]
 extents = Vector3( 0.408803, 0.0082743, 0.0683337 )
 
 [sub_resource type="BoxShape" id=5]
-extents = Vector3( 0.00424062, 0.0603496, 0.0537547 )
+extents = Vector3( 0.0413718, 0.030287, 0.00831722 )
 
 [node name="Bushplane" type="RigidBody"]
 mass = 0.49
@@ -60,10 +58,6 @@ shape = SubResource( 1 )
 [node name="BodyCollider2" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00364304, 0.0387503 )
 shape = SubResource( 2 )
-
-[node name="WheelCollider" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0805221, -0.0714009 )
-shape = SubResource( 3 )
 
 [node name="WingCollider" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.059002, 0.0142283 )
@@ -110,6 +104,38 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0164136, 0.0567389 )
 ControlHubPath = NodePath("../../../ControlHub")
 
 [node name="Battery" parent="Electrics" instance=ExtResource( 21 )]
+
+[node name="LeftWheel" parent="." instance=ExtResource( 23 )]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.0714547, -0.0601215, -0.0715475 )
+TargetPath = NodePath("..")
+SuspensionTravel = 0.03
+SuspensionStrength = 10.0
+SuspensionDamping = 1.0
+WheelRadius = 0.03
+WheelFrictionTorque = 0.0
+WheelDriveTorque = 20.0
+WheelBrakeTorque = 0.0
+
+[node name="ControlHubLocator" parent="LeftWheel" instance=ExtResource( 10 )]
+ControlHubPath = NodePath("../../ControlHub")
+
+[node name="RightWheel" parent="." instance=ExtResource( 23 )]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.0746751, -0.0601215, -0.0715475 )
+TargetPath = NodePath("..")
+SuspensionTravel = 0.03
+SuspensionStrength = 10.0
+SuspensionDamping = 1.0
+WheelRadius = 0.03
+WheelFrictionTorque = 0.0
+WheelDriveTorque = 20.0
+WheelBrakeTorque = 0.0
+
+[node name="ControlHubLocator" parent="RightWheel" instance=ExtResource( 10 )]
+ControlHubPath = NodePath("../../ControlHub")
+
+[node name="WheelBackupCollider" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0668141, -0.0695753 )
+shape = SubResource( 5 )
 
 [node name="Wing" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0167407, -0.054771 )

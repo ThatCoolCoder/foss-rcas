@@ -41,8 +41,6 @@ namespace Physics.Forcers
 
         public override void Apply(PhysicsDirectBodyState state)
         {
-            if (!Enabled) return;
-
             var candidateFluids = fluids.Where(f => fluidTypes.Contains(f.Type));
             if (autoCheckInsideFluid)
             {

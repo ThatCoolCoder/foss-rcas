@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scripts/Aircraft/ControlledWheelForcer.cs" type="Script" id=1]
+[ext_resource path="res://Scenes/Forcers/WheelForcer.tscn" type="PackedScene" id=2]
+
+[node name="ControlledWheelForcer" instance=ExtResource( 2 )]
+script = ExtResource( 1 )
+DriveActionName = null
+BrakeActionName = null
+ReversibleDrive = false
+Backwards = false

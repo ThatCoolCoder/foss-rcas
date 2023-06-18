@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/Physics/Forcers/WheelForcer.cs" type="Script" id=1]
+
+[node name="WheelForcer" type="Spatial"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
+script = ExtResource( 1 )
+LateralPacejkaPath = "res://Resources/LateralPacejka.tres"
+LongitudinalPacejkaPath = "res://Resources/LongitudinalPacejka.tres"
+
+[node name="SpringArm" type="SpringArm" parent="."]
+
+[node name="RayCast" type="RayCast" parent="SpringArm"]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
+enabled = true
+cast_to = Vector3( 0, -0.121, 0 )
+
+[node name="CSGBox" type="CSGBox" parent="SpringArm"]
+transform = Transform( 0.0151189, 0, 0, 0, 0.0151189, 0, 0, 0, 0.0151189, 0, 0, 0 )
