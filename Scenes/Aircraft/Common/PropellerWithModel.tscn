@@ -18,7 +18,7 @@ ColliderHeightMultiplier = 0.09
 transform = Transform( 0.127, 0, 0, 0, 0.127, 0, 0, 0, 0.155296, 0, 0, 0 )
 
 [node name="SlowModel" parent="." instance=ExtResource( 2 )]
-transform = Transform( -0.127, 0, -1.35764e-08, 0, 0.127, 0, 1.11027e-08, 0, -0.155296, 0, 0, 0 )
+transform = Transform( -0.127, 0, -2.3449e-08, 0, 0.127, 0, 1.91765e-08, 0, -0.155296, 0, 0, 0 )
 
 [node name="Area" type="Area" parent="."]
 
