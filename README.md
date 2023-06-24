@@ -47,9 +47,6 @@ A note on singletons+autoload in this project: there have been a few cases where
         - tie it to a control input? I'd rather be able to tie it to a servo
         - need some way of expressing conditions without creating a turing-complete language?
     - PropellerWithModel needs a way of fading between the two models instead of simply hiding/showing (hard to do because import from gltf)
-    - Make a SimpleThruster which has a max thrust value and a max speed value
-        - this will be used to make it easier for beginners to create planes
-        - thrust decays from max at a standstill to 0 at the max speed
     - Electrics simulation
         - At low throttle settings, the prop feels more resistance than when it is at zero throttle
             - test scenario: fly at full throttle, cut the power, prop might briefly slow to below blur speed but then it speeds up again.
