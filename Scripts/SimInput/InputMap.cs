@@ -105,7 +105,7 @@ namespace SimInput
                 InputAction.FromSingleMapping("move_down",
                     new SimInput.SimpleKeyboardControlMapping()
                     {
-                        KeyScancode = (uint)KeyList.Z,
+                        KeyScancode = (uint)KeyList.Q,
                         Momentary = true
                     },
                     defaultValue: -1, displayName: "move down", mapTo: new() {
@@ -114,7 +114,7 @@ namespace SimInput
                 InputAction.FromSingleMapping("move_up",
                     new SimInput.SimpleKeyboardControlMapping()
                     {
-                        KeyScancode = (uint)KeyList.Q,
+                        KeyScancode = (uint)KeyList.E,
                         Momentary = true
                     },
                     defaultValue: -1, displayName: "move up", mapTo: new() {
