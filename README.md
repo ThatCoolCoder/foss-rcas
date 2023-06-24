@@ -16,9 +16,9 @@ The main aircraft controls can be seen and configured through `Settings>Input Ma
 
 ## Misc info
 
-Much of the physics is based on the boat simulator in my `godot-learning` repository, but it's sufficiently diverged to the point where any form of shared library would not be practical.
+The aerodynamics physics is derived from that in the boat simulator in my `godot-learning` repository, but it's sufficiently diverged to the point where any form of shared library would not be practical.
 
-All units are the base SI units unless explcitly stated so.
+All units are the base SI units unless explcitly stated so. Radians are default.
 
 Within the propeller/motor subsystem, positive rotations are clockwise
 
@@ -31,8 +31,13 @@ A note on singletons+autoload in this project: there have been a few cases where
     - Wheels
         - Make brakes and traction work, wheels spin constantly for no reason.
     - Make common methods in AbstractSpatialFluidForcer for getting relative & local velocity, there is no point having code for this in every derived class
-    - improve wing physics: allow importing some better format of curves
+    - improve wing/body aero physics
+        - allow importing some better format of curves
+            - xflr import?
+        - rudders are ineffective
+        - dihedral too
         - stall is mushy, not sharp
+            is it?
         - planes feel too draggy, EG in real life the T28 carries a lot more energy and is difficult to get down, this one just mushes in
             - does it actually, though?
             - this may have changed with the new propeller simulation.
@@ -42,8 +47,6 @@ A note on singletons+autoload in this project: there have been a few cases where
         - tie it to a control input? I'd rather be able to tie it to a servo
         - need some way of expressing conditions without creating a turing-complete language?
     - PropellerWithModel needs a way of fading between the two models instead of simply hiding/showing (hard to do because import from gltf)
-    - Propeller should stop spinning when it hits something
-        - Easy to do with an area, but the trouble is propeller doesn't have a scene so it's hard to add this area
     - Make a SimpleThruster which has a max thrust value and a max speed value
         - this will be used to make it easier for beginners to create planes
         - thrust decays from max at a standstill to 0 at the max speed
@@ -56,6 +59,7 @@ A note on singletons+autoload in this project: there have been a few cases where
         - Check anticlockwise physics is working as intended
         - Consider moment of inertia of motor, as prop should spin up and down differently.
             - currently it has too much aero force to weight ratio
+        - Have a constant stopping force from the motor, otherwise it never stops.
         - Make an electrics debug UI thing, so people can see how much thrust/rpm/current their stuff makes and tweak parameters accordingly.
         - Make prop drag based on raw force, not efficiency factor force. This makes it way easier to tune to have the right rpm, current and thrust.
             - Will require retuning all the planes
@@ -64,13 +68,11 @@ A note on singletons+autoload in this project: there have been a few cases where
         - Just have a rpm/torque curve, then throttle directly controls torque proportion and fuel consumption
     - Potentially create a simulation of FPV inteference - we make a raycast from viewing position to camera, and degrade based on how many intersections.
 - Input
-    - Because the input maps are completely stored in toml (even down to what channels exist), if we update the game the names of the channels will not update for people.
-        - Same problem applies to the default values of the channels.
-        - Can potentially code some sort of import process
+    - Make it properly import channels from toml.
     - Add an input debug UI thing
-    - Add a preview for all the inputs so we can check direction etc without flying (requires modifications to SimInput.Manager so it can run with a custom inputmap instead of that in SimSettings.Current)
+    - Add a preview for all the inputs so we can check direction etc without flying (requires poking SimInput.Manager to give it a custom inputmap)
     - move the rest of the input to siminputmanager? (EG throw, reset)
-    - Decide which direction the inputs should go in and switch those that go in counterintuitive directions (big breaking change if we don't do it now)
+    - Decide which direction the inputs should go in and switch those that go in counterintuitive directions (big breaking change if we don't do it soon)
     - set the default channel mappings to work on a ps/xbox controller without configuration
     - Can't select a key like enter or space in the key input editor, since they press the close button.
         - The same problem applies to joystick button0
@@ -85,6 +87,7 @@ A note on singletons+autoload in this project: there have been a few cases where
     - Make content creation docs more friendly to non-programmers
     - If we make exotic stuff like quadcopters, create documentation on that
 - Misc bugs/problems
+    - Make propellerwithmodel properly stop spinning when it hits things
     - New input system UI still does not recognise added channels that aren't in the toml.
     - Content manager tries to read `Mixes.toml` file and then gets annoyed because it is not a content file
     - thing has a heart attack if there is any issue at all in loading settings.
@@ -92,7 +95,7 @@ A note on singletons+autoload in this project: there have been a few cases where
         - problem: tomlet doesn't appreciate returning null from a converter function, which is the place where we do the checks
             - hacky solution: create an InvalidMappingType
 - General refactoring/organizing
-    - standardize: `Addon` vs `AddOn`
+    - standardize: `Addon` vs `AddOn` (`Addon` is better I think)
     - rename `ControlSurface` to `Servo` (because that's what it is)
     - move `Art/Common` -> `Art/Locations/Common`
     - Should spatialfluidrepository become an autoload singleton?
@@ -107,28 +110,32 @@ A note on singletons+autoload in this project: there have been a few cases where
     - procedural?
     - can link motor sound to an advanced motor simulation? (rpm, air disturbance factor, air disturbance shape)
 - Content
-    - Make a "showroom" map where you can take pictures of the planes for thumbnails (becuase rendering them in blender is difficult now that props are instanced scenes)
-        - use this to make thumbnails for all the scenes, at the correct resolution
-        - perhaps this is not actually needed, we could just make a free camera and move plane tool so people can do it in whatever map they want
+    - Stabilise various formats, create compatibility fields
+        - Thing saying what version of content file is used?
+        - Thing saying what game versions are supported?
+    - make thumbnails for all the scenes, at the correct resolution
     - Create an EDF with retracts and flaps
     - Create a bushplane about 1.1-1.3kg size
     - Mini 3d: increase control surface size in the model, make it fly more 3d
     - Make large oval decent (model some low-poly houses, put them or impostors of them all around, put more rows so it actually loooks like a place)
     - Do a remaster of the T28
-    - Make somewhere fun to fly FPV, like a racecourse
+    - Make Ace's Track (not that large)
+    - Make a converted golf course location (quite large)
     - Make a content repository and download system (that doesn't sound like a nightmare at all)
 - Graphics
-    - Somehow make grass not jump around when camera moves, only appear/disappear.
-        - Perhaps can use a system where we make a grid of points, wiggle them, then discard those which are outside of the radius.
-        - Would probably be a bit slow on really large patches but in that case we could use a chunk system internally to completely ignore points a certain distance away from camera
-        - Perhaps just a check for each row + col to see if it will be within distance at any point.
-    - need to get it running on old hardware (target: Intel HD 3000 on minimum 720p)
+    - Grass overhaul again
+        - Somehow make grass not jump around when camera moves, only appear/disappear.
+            - Perhaps can use a system where we make a grid of points, wiggle them, then discard those which are outside of the radius.
+            - Would probably be a bit slow on really large patches but in that case we could use a chunk system internally to completely ignore points a certain distance away from camera
+            - Perhaps just a check for each row + col to see if it will be within distance at any point.
+
+    - need to get it running on old hardware, and keep it there (target: Intel HD 3000 on minimum 720p)
     - Come up with a setup for rendering to an intermediate viewport so we can render at lower resolution and upsample
         - Some people may not like this idea but I think it's great if you have a hi-res monitor but your GPU can't game like that.
         - (it's much simpler than adjusting the monitor resolution or whatever)
     - If FPS is terrible, have a pop up in the corner that tells you to change your graphics.
     - Update billboard exporter script + multimesh instancers + impostorsprite3d to have the option of normal maps on these (it looks a lot better)
-    - Maybe make some more trees so they're not all the same
+    - Maybe make some more pine trees so they're not all the same
 - Even though the CG is apparently already really far back, the models don't fly tailheavy. If I move the CG further back, they become suddenly very tailheavy
     - Maybe their elevator is just stalling, the flying wing flies amazingly and the CG is probably a bit forward even.
 - Mod/content system
@@ -144,3 +151,5 @@ A note on singletons+autoload in this project: there have been a few cases where
 - come up with a neater way to add the default aircraft cameras (currently they're just stuck on by FlightSettingsScreen)
     - it's tricky because we use the content loading metadata to get the plane size. Perhaps we need to decouple the aircraft info bit from the content bit
         - or we could just give them the content bit.
+- update to godot 4?
+    - wait until it has opengl support or whatever important thing it was missing

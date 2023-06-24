@@ -5,8 +5,8 @@
 [ext_resource path="res://Art/Aircraft/Common/Props/TwinBlade/BlurShape.glb" type="PackedScene" id=3]
 
 [sub_resource type="CylinderShape" id=1]
-height = 0.009144
-radius = 0.0762
+height = 0.013716
+radius = 0.127
 
 [node name="PropellerWithModel" type="Spatial"]
 script = ExtResource( 1 )
@@ -18,7 +18,7 @@ ColliderHeightMultiplier = 0.09
 transform = Transform( 0.127, 0, 0, 0, 0.127, 0, 0, 0, 0.155296, 0, 0, 0 )
 
 [node name="SlowModel" parent="." instance=ExtResource( 2 )]
-transform = Transform( 0.127, 0, 0, 0, 0.127, 0, 0, 0, 0.155296, 0, 0, 0 )
+transform = Transform( -0.127, 0, -1.35764e-08, 0, 0.127, 0, 1.11027e-08, 0, -0.155296, 0, 0, 0 )
 
 [node name="Area" type="Area" parent="."]
 
