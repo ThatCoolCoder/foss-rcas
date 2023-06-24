@@ -3,10 +3,9 @@ using System;
 
 namespace UI
 {
-    public class NotificationBox : Control
+    public class MessageBox : Control
     {
-        // Todo: we should call notifications something else since they clash with an existing godot thing
-        public new Notification Notification { get; private set; }
+        public Message Message { get; private set; }
         private Timer deleteTimer;
         private Label label;
         private AnimationPlayer animationPlayer;
@@ -18,11 +17,11 @@ namespace UI
             animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
         }
 
-        public void SetNotification(Notification _notification)
+        public void SetMessage(Message _message)
         {
-            Notification = _notification;
-            label.Text = Notification.Content;
-            deleteTimer.Start(Notification.TimeDisplayed);
+            Message = _message;
+            label.Text = Message.Content;
+            deleteTimer.Start(Message.TimeDisplayed);
         }
 
         private void _on_DeleteTimer_timeout()

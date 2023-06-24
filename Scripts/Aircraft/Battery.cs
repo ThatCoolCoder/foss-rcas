@@ -65,7 +65,7 @@ namespace Aircraft
             RemainingCapacity = Mathf.Max(RemainingCapacity - ampHours, 0);
             currentUsageAccumulator += ampHours;
             if (RemainingCapacity == 0 && previousRemainingCapacity > 0)
-                UI.NotificationManager.StaticAddNotification(new UI.Notification(category: "battery", content: $"Battery flat"));
+                UI.MessageManager.StaticAddMessage(new UI.Message(category: "battery", content: $"Battery flat"));
         }
 
         public void Discharge(float amps, float seconds)
