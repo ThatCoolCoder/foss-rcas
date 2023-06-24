@@ -28,12 +28,22 @@ namespace Physics.Motors
         public override void _PhysicsProcess(float delta)
         {
 
-            var noLoadRpm = KV * battery.CurrentVoltage * ThrustProportion;
+            var noLoadRpm = KV * battery.CurrentVoltage;
             if (!Clockwise) noLoadRpm = -noLoadRpm;
 
-            float torqueProportion = 0;
-            if (noLoadRpm != 0) torqueProportion = (noLoadRpm - propeller.Rpm) / noLoadRpm;
-            var torque = torqueProportion * PeakTorque * TorqueAdjustment * Mathf.Sign(noLoadRpm);
+            float torque = 0;
+            if (ThrustProportion != 0)
+            {
+                noLoadRpm *= ThrustProportion;
+                var torqueProportion = (noLoadRpm - propeller.Rpm) / noLoadRpm;
+                torque = torqueProportion * PeakTorque * TorqueAdjustment * Mathf.Sign(noLoadRpm);
+            }
+            else
+            {
+                var torqueProportion = (noLoadRpm - propeller.Rpm) / noLoadRpm;
+                torque = torqueProportion * PeakTorque * TorqueAdjustment * Mathf.Sign(noLoadRpm) * ThrustProportion;
+            }
+            torque = Mathf.Clamp(torque, -PeakTorque, PeakTorque);
             propeller.AddTorque(torque);
 
             var torqueConstant = 1 / (KV / 60 * Mathf.Tau);

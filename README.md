@@ -48,9 +48,6 @@ A note on singletons+autoload in this project: there have been a few cases where
         - need some way of expressing conditions without creating a turing-complete language?
     - PropellerWithModel needs a way of fading between the two models instead of simply hiding/showing (hard to do because import from gltf)
     - Electrics simulation
-        - At low throttle settings, the prop feels more resistance than when it is at zero throttle
-            - test scenario: fly at full throttle, cut the power, prop might briefly slow to below blur speed but then it speeds up again.
-            - cause: faulty torque calculation, resistance would theroretically be infinity in this case in BrushlessMotor.
         - Motors might be recharging the battery or doing weird things when they freewheel
         - Add some sort of resistance from the motor when it's not powering, otherwise props spin forever
         - Check anticlockwise physics is working as intended
@@ -95,6 +92,7 @@ A note on singletons+autoload in this project: there have been a few cases where
     - standardize: `Addon` vs `AddOn` (`Addon` is better I think)
     - rename `ControlSurface` to `Servo` (because that's what it is)
     - move `Art/Common` -> `Art/Locations/Common`
+    - get rid of ControlHubLocator? it's literally one line of code per class that it's saving
     - Should spatialfluidrepository become an autoload singleton?
     - Make all "modules" (EG Propeller, BrushlessMotor, Battery) instanceable scenes? (instead of just scripts)
     - Make more things (forcers, etc) use Utils.GetNodeWithWarnings, and give that method a better name
