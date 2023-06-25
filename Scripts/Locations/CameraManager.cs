@@ -77,8 +77,8 @@ namespace Locations
                 ActivateCamera(0);
             }
 
-            if (Input.IsActionJustPressed("prev_camera")) PreviousCamera();
-            else if (Input.IsActionJustPressed("next_camera")) NextCamera();
+            if (SimInput.Manager.IsActionJustPressed("camera/previous")) PreviousCamera();
+            else if (SimInput.Manager.IsActionJustPressed("camera/next")) NextCamera();
         }
     }
 }

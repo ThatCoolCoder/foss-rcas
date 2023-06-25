@@ -113,6 +113,8 @@ A note on singletons+autoload in this project: there have been a few cases where
     - Make Ace's Track (not that large)
     - Make a converted golf course location (quite large)
     - Make a content repository and download system (that doesn't sound like a nightmare at all)
+- Settings for what cameras are active and what order they switch through
+    - requires addition of a camera ID property so that we can remember them
 - Graphics
     - Grass overhaul again
         - Somehow make grass not jump around when camera moves, only appear/disappear.
@@ -135,8 +137,6 @@ A note on singletons+autoload in this project: there have been a few cases where
     - Create a content version value that lets the game know if a mod is compatible.
         - Perhaps have a semantic versioning system with with the ability to use wildcards (similar to how npm dependencies are specified).
         - Requires the game knowing its version
-- It's likely that godot won't include the aircraft metadata .toml files in export, so tell it that they're assets
-    - this might already be done through the export presets
 - make settings fileinput lineedit editable?
 - add a way to configure wind in-game (likely requires large redesign of flightsettingsscreen - vertical tab menu with icons?)
 - come up with a neater way to add the default aircraft cameras (currently they're just stuck on by FlightSettingsScreen)

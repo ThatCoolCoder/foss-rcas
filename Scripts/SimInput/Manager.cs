@@ -11,6 +11,7 @@ namespace SimInput
 
         // Map of action path to action value
         private Dictionary<string, float> actionValues = new();
+        private Dictionary<string, float> intermediateTimeActionValues = new(); // for when they're not previous yet but also not new
         private Dictionary<string, float> previousActionValues = new();
 
         private Dictionary<string, InputAction> actionLookup = new(); // thing for efficiency
@@ -97,8 +98,14 @@ namespace SimInput
         public override void _Process(float delta)
         {
             // save the previous action values at the end of each frame
-            // todo: let's see if this actually works. spoiler: it doesn't
-            // SetDeferred("previousActionValues", actionValues.ToList());
+            intermediateTimeActionValues = new(actionValues);
+            // CallDeferred("SetPreviousActionValues");
+            SetPreviousActionValues();
+        }
+
+        private void SetPreviousActionValues()
+        {
+            previousActionValues = new(intermediateTimeActionValues);
         }
 
         // (we can't have static methods and instance methods with the same name so instance ones are suffixed with I)
