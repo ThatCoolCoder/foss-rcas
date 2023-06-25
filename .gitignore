@@ -1,6 +1,6 @@
 .vscode/
 Testing/TestImport/
-AddonContent/
+AddonContent/*
 Target/
 *.blend1
 *.png~
