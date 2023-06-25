@@ -12,7 +12,7 @@ namespace SimSettings
         public GraphicsSettings Graphics { get; set; } = new();
         public MiscSettings Misc { get; set; } = new();
         // At the end so that manual editing of the settings file isn't cluttered by this
-        public SimInput.InputMap InputMap { get; set; } = new();
+        public SimInput.InputMap InputMap { get; set; } = SimInput.InputMap.DefaultMap;
 
         public void Apply()
         {
