@@ -119,7 +119,7 @@ A note on singletons+autoload in this project: there have been a few cases where
             - Perhaps can use a system where we make a grid of points, wiggle them, then discard those which are outside of the radius.
             - Would probably be a bit slow on really large patches but in that case we could use a chunk system internally to completely ignore points a certain distance away from camera
             - Perhaps just a check for each row + col to see if it will be within distance at any point.
-
+        - support for grass scatter on mesh
     - need to get it running on old hardware, and keep it there (target: Intel HD 3000 on minimum 720p)
     - Come up with a setup for rendering to an intermediate viewport so we can render at lower resolution and upsample
         - Some people may not like this idea but I think it's great if you have a hi-res monitor but your GPU can't game like that.

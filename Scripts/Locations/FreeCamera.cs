@@ -92,5 +92,14 @@ namespace Locations
                 }
             }
         }
+
+        public override void BeforeActivated()
+        {
+            var camera = GetViewport().GetCamera();
+            GlobalTranslation = camera.GlobalTranslation;
+
+            crntRotation.x = camera.GlobalRotation.x;
+            crntRotation.y = camera.GlobalRotation.y;
+        }
     }
 }

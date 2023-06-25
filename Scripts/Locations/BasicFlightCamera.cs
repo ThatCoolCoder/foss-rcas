@@ -21,12 +21,21 @@ namespace Locations
 
         public void Activate()
         {
+            BeforeActivated();
             Current = true;
+            OnActivated();
         }
+        public virtual void BeforeActivated() { }
+        public virtual void OnActivated() { }
+
 
         public void Deactivate()
         {
+            BeforeDeactivated();
             Current = false;
+            OnDeactivated();
         }
+        public virtual void BeforeDeactivated() { }
+        public virtual void OnDeactivated() { }
     }
 }
