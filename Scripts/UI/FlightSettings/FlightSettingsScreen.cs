@@ -25,8 +25,8 @@ namespace UI.FlightSettings
 
         private void UpdateAvailableContent()
         {
-            ContentManagement.Loader.SearchForAddOns(SimSettings.Settings.Current.Misc.AddOnRepositoryPath);
-            var (availableAircraft, availableLocations) = ContentManagement.Loader.FindContent(SimSettings.Settings.Current.Misc.AddOnRepositoryPath);
+            ContentManagement.Loader.SearchForAddons(SimSettings.Settings.Current.Misc.AddonRepositoryPath);
+            var (availableAircraft, availableLocations) = ContentManagement.Loader.FindContent(SimSettings.Settings.Current.Misc.AddonRepositoryPath);
             availableAircraft.AddRange(ContentManagement.Loader.FindContent(ContentManagement.Repositories.BaseAircraft).Item1);
             availableLocations.AddRange(ContentManagement.Loader.FindContent(ContentManagement.Repositories.BaseLocations).Item2);
 

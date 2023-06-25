@@ -49,7 +49,7 @@ namespace ContentManagement
                 }
                 else
                 {
-                    // Utils.LogError($"Failed parsing {filePath}: no aircraft or location section was present");
+                    // Utils.LogError($"Failed parsing {filePath}: no aircraft or location section was present"); todo: commented because it fills up console with trying to read mixes
                 }
             }
 
@@ -59,12 +59,11 @@ namespace ContentManagement
             return (aircraftList, locationList);
         }
 
-        public static void SearchForAddOns(string path)
+        public static void SearchForAddons(string path)
         {
             // Prevent loading addons when in editor.
-            // That is because loading resource packs from editor causes the res:// tree to become deleted or something
+            // That is because loading resource packs from editor causes the res:// tree to become deleted or something (it's weird)
             var isInEditor = !OS.HasFeature("standalone");
-
 
             Utils.GetItemsInDirectory(
                 path, recursive: true)

@@ -24,8 +24,8 @@ namespace UI.Settings
             FileInput.Scene.Instance<FileInput>().Config(
                 holder,
                 "Add on directory",
-                s => s.Misc.AddOnRepositoryPath,
-                (s, v) => s.Misc.AddOnRepositoryPath = v,
+                s => s.Misc.AddonRepositoryPath,
+                (s, v) => s.Misc.AddonRepositoryPath = v,
                 _mode: FileDialog.ModeEnum.OpenDir,
                 toolTip: "(doesn't do anything yet)");
         }
