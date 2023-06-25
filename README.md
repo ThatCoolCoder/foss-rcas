@@ -87,7 +87,6 @@ A note on singletons+autoload in this project: there have been a few cases where
         - problem: tomlet doesn't appreciate returning null from a converter function, which is the place where we do the checks
             - hacky solution: create an InvalidMappingType
 - General refactoring/organizing
-    - rename `ControlSurface` to `Servo` (because that's what it is)
     - move `Art/Common` -> `Art/Locations/Common`
     - get rid of ControlHubLocator? it's literally one line of code per class that it's saving
     - Should spatialfluidrepository become an autoload singleton?

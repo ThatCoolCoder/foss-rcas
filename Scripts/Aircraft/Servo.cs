@@ -3,7 +3,7 @@ using System;
 
 namespace Aircraft
 {
-    public class ControlSurface : Spatial, Control.IControllable
+    public class Servo : Spatial, Control.IControllable
     {
         // Object that rotates around its X-axis
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Scripts/Physics/SpatialForceable.cs" type="Script" id=1]
-[ext_resource path="res://Scripts/Aircraft/ControlSurface.cs" type="Script" id=2]
+[ext_resource path="res://Scripts/Aircraft/Servo.cs" type="Script" id=2]
 [ext_resource path="res://Art/Aircraft/T28/T28.glb" type="PackedScene" id=3]
 [ext_resource path="res://Resources/AeroCurves/FlatPlateLiftCoefficient.tres" type="Curve" id=4]
 [ext_resource path="res://Scenes/Forcers/AeroSurface.tscn" type="PackedScene" id=5]
