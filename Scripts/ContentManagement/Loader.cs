@@ -9,13 +9,15 @@ namespace ContentManagement
 {
     public static class Loader
     {
+        public static readonly string AddonContentDirectory = "res://AddonContent/";
+
         public static (List<Aircraft>, List<Location>) FindContent(string path)
         {
             var aircraftList = new List<Aircraft>();
             var locationList = new List<Location>();
 
             var files = Utils.GetItemsInDirectory(path, recursive: true)
-                .Where(x => Utils.SplitAtExtension(x).Item2.ToLower() == "toml");
+                .Where(x => Utils.HasExtension(x, "content.toml"));
 
             var gdFile = new File();
 
@@ -37,24 +39,21 @@ namespace ContentManagement
                 if (document.ContainsKey("aircraft"))
                 {
                     var aircraft = TomletMain.To<Aircraft>(tomlString);
-                    aircraft.LoadedFrom = filePath;
+                    aircraft.LoadedFromWithoutExtension = filePath.ReplaceLast(".content.toml", "");
                     aircraft.NeedsLauncher = document.ContainsKey("aircraft.launcher");
                     aircraftList.Add(aircraft);
                 }
                 else if (document.ContainsKey("location"))
                 {
                     var location = TomletMain.To<Location>(tomlString);
-                    location.LoadedFrom = filePath;
+                    location.LoadedFromWithoutExtension = filePath.ReplaceLast(".content.toml", "");
                     locationList.Add(location);
                 }
                 else
                 {
-                    // Utils.LogError($"Failed parsing {filePath}: no aircraft or location section was present"); todo: commented because it fills up console with trying to read mixes
+                    Utils.LogError($"Failed parsing {filePath}: no aircraft or location section was present");
                 }
             }
-
-            aircraftList = aircraftList.OrderBy(x => x.Name).ToList();
-            locationList = locationList.OrderBy(x => x.Name).ToList();
 
             return (aircraftList, locationList);
         }
@@ -68,7 +67,7 @@ namespace ContentManagement
             Utils.GetItemsInDirectory(
                 path, recursive: true)
                 .ToList()
-                .Where(x => Utils.SplitAtExtension(x).Item2.ToLower() == "pck")
+                .Where(x => Utils.HasExtension(x, "pck"))
                 .ToList()
                 .ForEach(x =>
                 {

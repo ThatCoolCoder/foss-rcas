@@ -79,9 +79,9 @@ A note on singletons+autoload in this project: there have been a few cases where
     - Make content creation docs more friendly to non-programmers
     - If we make exotic stuff like quadcopters, create documentation on that
 - Misc bugs/problems
+    - thing has a heart attack if there is no aircraft or no locations
     - Make propellerwithmodel properly stop spinning when it hits things
     - New input system UI still does not recognise added channels that aren't in the toml.
-    - Content manager tries to read `Mixes.toml` file and then gets annoyed because it is not a content file
     - thing has a heart attack if there is any issue at all in loading settings.
     - if there is a non-permitted class found when loading the input map, the entire game crashes. Instead it should just skip that item
         - problem: tomlet doesn't appreciate returning null from a converter function, which is the place where we do the checks

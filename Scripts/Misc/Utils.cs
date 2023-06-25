@@ -108,11 +108,19 @@ public static class Utils
         return files;
     }
 
-    public static (string, string) SplitAtExtension(string fileName)
+    public static bool HasExtension(string fileName, string extension, bool caseSensitive = false)
     {
+        // Whether the filename ends in the extension. If the extension contains multiple dots then searches for multiple dots
+        // Extension should not have a leading dot
+
         var sections = fileName.Split(".").ToList();
-        var extension = sections.Last();
-        sections.RemoveAt(sections.Count - 1);
-        return (String.Join(".", sections), extension);
+        var dotCount = extension.Count(".");
+        var extensionSectionsCount = dotCount + 1;
+
+        if (extensionSectionsCount > sections.Count) return false;
+
+        var lastSections = sections.GetRange(sections.Count - extensionSectionsCount, extensionSectionsCount);
+        var mode = caseSensitive ? StringComparison.CurrentCulture : StringComparison.CurrentCultureIgnoreCase;
+        return String.Join(".", lastSections).Equals(extension, mode);
     }
 }

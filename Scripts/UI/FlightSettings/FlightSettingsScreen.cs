@@ -26,18 +26,19 @@ namespace UI.FlightSettings
         private void UpdateAvailableContent()
         {
             ContentManagement.Loader.SearchForAddons(SimSettings.Settings.Current.Misc.AddonRepositoryPath);
-            var (availableAircraft, availableLocations) = ContentManagement.Loader.FindContent(SimSettings.Settings.Current.Misc.AddonRepositoryPath);
+
+            var (availableAircraft, availableLocations) = ContentManagement.Loader.FindContent(ContentManagement.Loader.AddonContentDirectory);
             availableAircraft.AddRange(ContentManagement.Loader.FindContent(ContentManagement.Repositories.BaseAircraft).Item1);
             availableLocations.AddRange(ContentManagement.Loader.FindContent(ContentManagement.Repositories.BaseLocations).Item2);
 
-            aircraftSelector.AvailableItems = availableAircraft;
-            locationSelector.AvailableItems = availableLocations;
+            aircraftSelector.AvailableItems = availableAircraft.OrderBy(x => x.Name).ToList();
+            locationSelector.AvailableItems = availableLocations.OrderBy(x => x.Name).ToList();
         }
 
         private void RememberLastLoadedContent()
         {
-            SimSettings.Settings.Current.Misc.LastLoadedAircraft = aircraftSelector.SelectedItem.LoadedFrom;
-            SimSettings.Settings.Current.Misc.LastLoadedLocation = locationSelector.SelectedItem.LoadedFrom;
+            SimSettings.Settings.Current.Misc.LastLoadedAircraft = aircraftSelector.SelectedItem.LoadedFromWithoutExtension;
+            SimSettings.Settings.Current.Misc.LastLoadedLocation = locationSelector.SelectedItem.LoadedFromWithoutExtension;
             SimSettings.Settings.SaveCurrent();
         }
 
@@ -45,7 +46,7 @@ namespace UI.FlightSettings
         {
             // Try selecting the item that was loaded from a specific path
 
-            var index = selector.AvailableItems.FindIndex(x => x.LoadedFrom == lastLoadedPath);
+            var index = selector.AvailableItems.FindIndex(x => x.LoadedFromWithoutExtension == lastLoadedPath);
             if (index > 0) selector.SelectItem(index);
         }
 

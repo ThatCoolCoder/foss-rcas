@@ -19,16 +19,17 @@ namespace ContentManagement
 
         [TomlProperty("credits")] public string Credits { get; set; } = "";
 
-        public string LoadedFrom { get; set; } = "";
+        // file it was loaded from, without extension
+        [TomlNonSerialized] public string LoadedFromWithoutExtension { get; set; } = "";
 
         public string GetThumbnailPath()
         {
-            return Utils.SplitAtExtension(LoadedFrom).Item1 + ".png";
+            return LoadedFromWithoutExtension + ".png";
         }
 
         public string GetScenePath()
         {
-            return Utils.SplitAtExtension(LoadedFrom).Item1 + ".tscn";
+            return LoadedFromWithoutExtension + ".tscn";
         }
     }
 }
