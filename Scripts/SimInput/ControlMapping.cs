@@ -136,7 +136,7 @@ namespace SimInput
 
         public override float? ProcessEvent(InputEvent _event)
         {
-            if (_event is InputEventKey keyEvent && keyEvent.Scancode == KeyScancode && !keyEvent.Echo)
+            if (_event is InputEventKey keyEvent && keyEvent.GetScancodeWithModifiers() == KeyScancode && !keyEvent.Echo)
             {
                 if (Momentary) return keyEvent.Pressed ? 1 : -1;
                 else
@@ -164,9 +164,10 @@ namespace SimInput
         {
             if (_event is InputEventKey keyEvent && keyEvent.Pressed && !keyEvent.Echo)
             {
-                if (keyEvent.Scancode == Key1Scancode) return -1;
-                if (keyEvent.Scancode == Key2Scancode) return 0;
-                if (keyEvent.Scancode == Key3Scancode) return 1;
+                var scancode = keyEvent.GetScancodeWithModifiers();
+                if (scancode == Key1Scancode) return -1;
+                if (scancode == Key2Scancode) return 0;
+                if (scancode == Key3Scancode) return 1;
             }
 
             return null;

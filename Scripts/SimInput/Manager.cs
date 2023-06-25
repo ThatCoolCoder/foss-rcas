@@ -99,8 +99,8 @@ namespace SimInput
         {
             // save the previous action values at the end of each frame
             intermediateTimeActionValues = new(actionValues);
-            // CallDeferred("SetPreviousActionValues");
-            SetPreviousActionValues();
+            CallDeferred("SetPreviousActionValues");
+            // SetPreviousActionValues();
         }
 
         private void SetPreviousActionValues()

@@ -100,6 +100,11 @@ A note on singletons+autoload in this project: there have been a few cases where
 - audio
     - procedural?
     - can link motor sound to an advanced motor simulation? (rpm, air disturbance factor, air disturbance shape)
+- UI Apps system
+    - Somewhat complex, we need:
+        - app code itself
+        - ui for creating apps, moving apps around, deciding where they dock do, deleting apps
+        - code & format for saving + loading apps, and associated error checking
 - Content
     - Stabilise various formats, create compatibility fields
         - Thing saying what version of content file is used?
@@ -122,7 +127,7 @@ A note on singletons+autoload in this project: there have been a few cases where
             - Would probably be a bit slow on really large patches but in that case we could use a chunk system internally to completely ignore points a certain distance away from camera
             - Perhaps just a check for each row + col to see if it will be within distance at any point.
         - support for grass scatter on mesh
-    - need to get it running on old hardware, and keep it there (target: Intel HD 3000 on minimum 720p)
+    - need to get it running on old hardware, and keep it running (target: Intel HD 3000 on minimum 720p)
     - Come up with a setup for rendering to an intermediate viewport so we can render at lower resolution and upsample
         - Some people may not like this idea but I think it's great if you have a hi-res monitor but your GPU can't game like that.
         - (it's much simpler than adjusting the monitor resolution or whatever)

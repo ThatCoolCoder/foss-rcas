@@ -144,7 +144,7 @@ namespace SimInput
                 InputAction.FromSingleMapping("reset",
                     new SimInput.SimpleKeyboardControlMapping()
                     {
-                        KeyScancode = (uint)KeyList.C,
+                        KeyScancode = (uint) KeyList.C | (uint) KeyModifierMask.MaskCmd,
                         Momentary = true
                     },
                     defaultValue: -1, displayName: "reset", description: "- resets the camera angle"),
@@ -152,14 +152,14 @@ namespace SimInput
                 InputAction.FromSingleMapping("previous",
                     new SimInput.SimpleKeyboardControlMapping()
                     {
-                        KeyScancode = (uint)KeyList.C | (uint)KeyList.Shift,
+                        KeyScancode = (uint)KeyList.C | (uint) KeyModifierMask.MaskShift,
                         Momentary = true
                     },
                     defaultValue: -1, displayName: "previous", description: "- switch to the previous camera"),
                 InputAction.FromSingleMapping("next",
                     new SimInput.SimpleKeyboardControlMapping()
                     {
-                        KeyScancode = (uint)KeyList.C | (uint)KeyList.Control,
+                        KeyScancode = (uint)KeyList.C,
                         Momentary = true
                     },
                     defaultValue: -1, displayName: "next", description: "- switch to the next camera"),
