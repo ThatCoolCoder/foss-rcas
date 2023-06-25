@@ -33,6 +33,7 @@ namespace UI.Settings.Components
         private void _on_ChangeInput_pressed()
         {
             dialog.PopupCentered();
+            dialog.GrabFocus();
             ClearCandidateValue();
             UpdatePopup();
         }

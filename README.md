@@ -68,8 +68,6 @@ A note on singletons+autoload in this project: there have been a few cases where
     - move the rest of the input to siminputmanager? (EG throw, reset)
     - Decide which direction the inputs should go in and switch those that go in counterintuitive directions (big breaking change if we don't do it soon)
     - set the default channel mappings to work on a ps/xbox controller without configuration
-    - Can't select a key like enter or space in the key input editor, since they press the close button.
-        - The same problem applies to joystick button0
     - Um add a thing that checks the name of the controller so you can have different bindings for different controllers
         - hide bindings from controllers that are not present then, but have an option to show them so you can delete the unneeded ones
     - Add support for dual/triple rates.
