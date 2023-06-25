@@ -22,11 +22,13 @@ namespace Aircraft.Control
             // Apply this mix to the existing channel value.
             // Note that there is some state stored within the ChannelMix so don't go creating new ones too often
 
-            var targetValue = inputValue + Offset;
+            var targetValue = inputValue;
 
             // this should match the expo calculation used by open/edge tx
             targetValue = Expo * Mathf.Pow(targetValue, 3) + (1 - Expo) * targetValue;
             targetValue *= Weight;
+
+            targetValue += Offset;
 
             var speed = currentValue > targetValue ? SpeedDown : SpeedUp;
             currentValue = speed == 0 ? targetValue : Utils.ConvergeValue(currentValue, targetValue, speed * delta);
