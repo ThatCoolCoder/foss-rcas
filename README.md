@@ -137,7 +137,6 @@ A note on singletons+autoload in this project: there have been a few cases where
 - Even though the CG is apparently already really far back, the models don't fly tailheavy. If I move the CG further back, they become suddenly very tailheavy
     - Maybe their elevator is just stalling, the flying wing flies amazingly and the CG is probably a bit forward even.
 - Mod/content system
-    - Make addon content go in `AddonContent/`
     - There is support for loading mods as pck files at runtime, but it is a bit of a pain to make these pck files.
     - Create a content version value that lets the game know if a mod is compatible.
         - Perhaps have a semantic versioning system with with the ability to use wildcards (similar to how npm dependencies are specified).
