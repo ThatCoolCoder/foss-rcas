@@ -1,6 +1,7 @@
 .vscode/
 Testing/TestImport/
 AddonContent/*
+!AddonContent/.gitkeep 
 Target/
 *.blend1
 *.png~
