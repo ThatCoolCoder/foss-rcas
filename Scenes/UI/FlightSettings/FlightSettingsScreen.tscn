@@ -47,6 +47,7 @@ margin_bottom = 617.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 split_offset = 1
+dragger_visibility = 1
 
 [node name="LocationSelector" parent="MarginContainer/VBoxContainer/HSplitContainer" instance=ExtResource( 5 )]
 margin_right = 615.0

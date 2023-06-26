@@ -7,6 +7,7 @@
 [ext_resource path="res://Scripts/UI/Settings/InputComponents/AxisMappingEditor.cs" type="Script" id=5]
 
 [node name="AxisMappingEditor" instance=ExtResource( 1 )]
+visible = false
 margin_bottom = 234.0
 script = ExtResource( 5 )
 
@@ -36,7 +37,3 @@ margin_bottom = 98.0
 margin_top = 102.0
 margin_right = 361.0
 margin_bottom = 120.0
-
-[node name="Close" parent="MarginContainer/VBoxContainer" index="5"]
-margin_top = 190.0
-margin_bottom = 214.0

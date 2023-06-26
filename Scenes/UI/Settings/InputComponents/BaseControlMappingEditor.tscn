@@ -3,7 +3,6 @@
 [ext_resource path="res://Scripts/UI/Settings/InputComponents/BaseControlMappingEditor.cs" type="Script" id=1]
 
 [node name="BaseControlMappingEditor" type="WindowDialog"]
-visible = true
 margin_right = 381.0
 margin_bottom = 147.0
 window_title = "Edit Control Mapping"
@@ -29,6 +28,7 @@ margin_left = 99.0
 margin_right = 262.0
 margin_bottom = 24.0
 size_flags_horizontal = 4
+dragger_visibility = 1
 
 [node name="Delete" type="Button" parent="MarginContainer/VBoxContainer/HSplitContainer"]
 margin_right = 51.0
