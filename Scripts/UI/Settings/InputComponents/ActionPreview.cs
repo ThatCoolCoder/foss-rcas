@@ -12,12 +12,14 @@ namespace UI.Settings.InputComponents
         public static PackedScene Scene = ResourceLoader.Load<PackedScene>("res://Scenes/UI/Settings/InputComponents/ActionPreview.tscn");
 
         private SimInput.InputAction action;
+        private string actionPath;
         private HBoxContainer mappingHolder;
         private NewMappingDialog newMappingDialog;
 
-        public ActionPreview Config(Node parent, SimInput.InputAction _action)
+        public ActionPreview Config(Node parent, SimInput.InputAction _action, string _actionPath)
         {
             action = _action;
+            actionPath = _actionPath;
             if (parent != null) parent.AddChild(this);
 
             return this;
@@ -45,10 +47,11 @@ namespace UI.Settings.InputComponents
         {
             foreach (var child in mappingHolder.GetChildNodeList()) child.QueueFree();
 
-            foreach (var mapping in action.Mappings)
+            foreach (var mapping in SettingsScreen.NewSettings.InputMap.GetMappingsForAction(actionPath))
             {
                 ControlMappingPreview.Scene.Instance<ControlMappingPreview>().Config(mappingHolder, mapping, DeleteControlMapping);
             }
+
         }
 
         public override void _ExitTree()
@@ -58,7 +61,7 @@ namespace UI.Settings.InputComponents
 
         private void DeleteControlMapping(SimInput.IControlMapping mapping)
         {
-            action.Mappings.Remove(mapping);
+            SettingsScreen.NewSettings.InputMap.GetMappingsForAction(actionPath).Remove(mapping);
             UpdateMappings();
         }
 
@@ -72,7 +75,7 @@ namespace UI.Settings.InputComponents
             if (newMappingDialog.SelectedMappingType == null) return;
 
             var mapping = (IControlMapping)Activator.CreateInstance(newMappingDialog.SelectedMappingType);
-            action.Mappings.Add(mapping);
+            SettingsScreen.NewSettings.InputMap.GetMappingsForAction(actionPath).Add(mapping);
             UpdateMappings();
 
 

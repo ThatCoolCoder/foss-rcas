@@ -11,6 +11,14 @@ namespace SimInput
         // Map of action path to list of mappings
         public Dictionary<string, List<IControlMapping>> Mappings { get; set; } = new();
 
+        public List<IControlMapping> GetMappingsForAction(string actionPath)
+        {
+            // returns non-copied list of mappings, so changing the value will change the mappings
+
+            if (Mappings.TryGetValue(actionPath, out var mappings)) return mappings;
+            else return new List<IControlMapping>();
+        }
+
         public static readonly InputMap DefaultMap = new()
         {
             Mappings =

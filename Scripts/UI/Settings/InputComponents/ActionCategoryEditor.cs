@@ -10,15 +10,15 @@ namespace UI.Settings.InputComponents
     {
         public static PackedScene Scene = ResourceLoader.Load<PackedScene>("res://Scenes/UI/Settings/InputComponents/ActionCategoryEditor.tscn");
 
-        private int categoryIndex;
+        private InputActionCategory category;
 
-        public ActionCategoryEditor Config(Node parent, string name, int _categoryIndex)
+        public ActionCategoryEditor Config(Node parent, string name, InputActionCategory _category)
         {
             if (parent != null) parent.AddChild(this);
 
             Title = name;
 
-            categoryIndex = _categoryIndex;
+            category = _category;
 
             SettingsScreen.OnSettingsChanged += OnSettingsChanged;
 
@@ -32,15 +32,13 @@ namespace UI.Settings.InputComponents
 
         private void UpdateChildren()
         {
-            var category = SettingsScreen.NewSettings.InputMap.ActionCategories[categoryIndex];
-
             var holder = GetNode<Control>("MarginContainer/MaxSizeContainer/VBoxContainer/ActionList");
 
             foreach (var child in holder.GetChildNodeList()) child.QueueFree();
 
             foreach (var action in category.Actions)
             {
-                ActionPreview.Scene.Instance<ActionPreview>().Config(holder, action);
+                ActionPreview.Scene.Instance<ActionPreview>().Config(holder, action, category.Name + "/" + action.Name);
             }
             UpdateLayout();
         }

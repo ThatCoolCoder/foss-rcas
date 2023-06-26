@@ -11,13 +11,10 @@ namespace UI.Settings
         {
             var holder = GetNode<VBoxContainer>("VBoxContainer/AccordionMenu");
 
-            var categories = SimSettings.Settings.Current.InputMap.ActionCategories;
-
-            for (int i = 0; i < categories.Count; i++)
+            foreach (var category in SimInput.AvailableInputActions.Categories)
             {
-                var category = categories[i];
                 var name = category.Name.Capitalize();
-                ActionCategoryEditor.Scene.Instance<ActionCategoryEditor>().Config(holder, name, i);
+                ActionCategoryEditor.Scene.Instance<ActionCategoryEditor>().Config(holder, name, category);
             }
         }
 
