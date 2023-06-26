@@ -42,28 +42,40 @@ namespace UI.FlightSettings
             selector = GetNode<OptionButton>("VBoxContainer/OptionButton");
             thumbnail = GetNode<TextureRect>("VBoxContainer/Image");
             mainText = GetNode<RichTextLabel>("VBoxContainer/RichTextLabel");
+            _on_OptionButton_item_selected(0);
         }
         public void _on_OptionButton_item_selected(int index)
         {
-            thumbnail.Texture = LoadThumbnail();
-
-            var customInfo = FormatCustomInfo();
-
-            var formattedCredits = SelectedItem.Credits.Trim();
-            if (formattedCredits != "") formattedCredits = "Credits:\n" + formattedCredits;
-
-            var formattedDateCreated = SelectedItem.DateCreated.ToString("dd MMMM yyyy");
-            var formattedDateUpdated = SelectedItem.DateUpdated.ToString("dd MMMM yyyy");
-            var sections = new List<string>()
+            if (0 <= index && index < AvailableItems.Count)
             {
-                $" By {SelectedItem.Author}\tVersion {SelectedItem.Version}\tCreated {formattedDateCreated}\tUpdated {formattedDateUpdated}",
-                SelectedItem.Description,
-                customInfo,
-                formattedCredits
-            };
+                thumbnail.Texture = LoadThumbnail();
+                var customInfo = FormatCustomInfo();
 
-            mainText.BbcodeText = String.Join("\n\n", sections.Select(x => x.Trim()).Where(x => x != ""));
+                var formattedCredits = SelectedItem.Credits.Trim();
+                if (formattedCredits != "") formattedCredits = "Credits:\n" + formattedCredits;
 
+                var formattedDateCreated = SelectedItem.DateCreated.ToString("dd MMMM yyyy");
+                var formattedDateUpdated = SelectedItem.DateUpdated.ToString("dd MMMM yyyy");
+                var sections = new List<string>()
+                {
+                    $" By {SelectedItem.Author}\tVersion {SelectedItem.Version}\tCreated {formattedDateCreated}\tUpdated {formattedDateUpdated}",
+                    SelectedItem.Description,
+                    customInfo,
+                    formattedCredits
+                };
+
+                mainText.BbcodeText = String.Join("\n\n", sections.Select(x => x.Trim()).Where(x => x != ""));
+            }
+            else
+            {
+                thumbnail.Texture = null;
+                mainText.BbcodeText = "";
+                if (AvailableItems.Count == 0)
+                {
+                    selector.Disabled = true;
+                    selector.Text = "No items found, the game is likely corrupted";
+                }
+            }
         }
 
         private Texture LoadThumbnail()

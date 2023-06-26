@@ -80,7 +80,6 @@ A note on singletons+autoload in this project: there have been a few cases where
     - If we make exotic stuff like quadcopters, create documentation on that
 - Misc bugs/problems
     - settings toml file is technically incorrect with slashes in keys, should hopefully be a tomlet update to fix this soon.
-    - thing has a heart attack if there is no aircraft or no locations
     - Make propellerwithmodel properly stop spinning when it hits things
     - New input system UI still does not recognise added channels that aren't in the toml.
     - thing has a heart attack if there is any issue at all in loading settings.
