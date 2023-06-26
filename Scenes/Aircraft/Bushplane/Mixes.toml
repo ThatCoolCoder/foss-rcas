@@ -6,9 +6,9 @@ Mixes = [
 	{ InputChannelName = "aileron", OutputChannelName = "aileronr", Weight = -1.0, Expo = 0.5 },
 	{ InputChannelName = "rudder", OutputChannelName = "rudder", Weight = 1.0, Expo = 0.3 },
 
-	{ InputChannelName = "aux1", OutputChannelName = "flap", Weight = 0.5, Offset = 1, SpeedUp = 0.5, SpeedDown = 0.5 },
+	{ InputChannelName = "aux1", OutputChannelName = "flap", Weight = 0.5, Offset = 0.5, SpeedUp = 0.5, SpeedDown = 0.5 },
 
 	# Flaperons/spoilerons
-	{ InputChannelName = "aux3", OutputChannelName = "aileronl", Weight = 0.5, Offset = 1, SpeedUp = 0.5, SpeedDown = 0.5 },
-	{ InputChannelName = "aux3", OutputChannelName = "aileronr", Weight = 0.5, Offset = 1, SpeedUp = 0.5, SpeedDown = 0.5 },
+	{ InputChannelName = "aux3", OutputChannelName = "aileronl", Weight = 0.5, Offset = 0.5, SpeedUp = 0.5, SpeedDown = 0.5 },
+	{ InputChannelName = "aux3", OutputChannelName = "aileronr", Weight = 0.5, Offset = 0.5, SpeedUp = 0.5, SpeedDown = 0.5 },
 ]

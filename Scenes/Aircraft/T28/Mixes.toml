@@ -5,6 +5,6 @@ Mixes = [
 	{ InputChannelName = "elevator", OutputChannelName = "elevator", Expo = 0.3 },
 	{ InputChannelName = "rudder", OutputChannelName = "rudder", Expo = 0.3 },
 
-	{ InputChannelName = "aux1", OutputChannelName = "leftAileron", Weight = 0.35, Offset = 1, SpeedUp = 0.5, SpeedDown = 0.5 },
-	{ InputChannelName = "aux1", OutputChannelName = "rightAileron", Weight = 0.35,  Offset = 1, SpeedUp = 0.5, SpeedDown = 0.5 },
+	{ InputChannelName = "aux1", OutputChannelName = "leftAileron", Weight = 0.35, Offset = 0.35, SpeedUp = 0.5, SpeedDown = 0.5 },
+	{ InputChannelName = "aux1", OutputChannelName = "rightAileron", Weight = 0.35,  Offset = 0.35, SpeedUp = 0.5, SpeedDown = 0.5 },
 ]

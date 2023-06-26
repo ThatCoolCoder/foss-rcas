@@ -79,8 +79,10 @@ A note on singletons+autoload in this project: there have been a few cases where
     - Make content creation docs more friendly to non-programmers
     - If we make exotic stuff like quadcopters, create documentation on that
 - Misc bugs/problems
-    - you can drag the divider in flightsettingsscreen
-        - wontfix because we need to redo that screen soon anyway?
+    - settings toml file is technically incorrect with slashes in keys, should hopefully be a tomlet update to fix this soon.
+    - you can drag the divider in some screens
+        - eg between the buttons of the popups in input menu
+        - flightsettingscreen: wontfix because we need to redo that screen soon anyway?
     - thing has a heart attack if there is no aircraft or no locations
     - Make propellerwithmodel properly stop spinning when it hits things
     - New input system UI still does not recognise added channels that aren't in the toml.

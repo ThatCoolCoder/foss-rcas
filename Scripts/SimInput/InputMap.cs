@@ -135,7 +135,7 @@ namespace SimInput
             {"camera/next", new() {
                 new SimInput.SimpleKeyboardControlMapping()
                 {
-                    KeyScancode = (uint) KeyList.C | (uint) KeyModifierMask.MaskCmd,
+                    KeyScancode = (uint) KeyList.C,
                     Momentary = true
                 },
             }},

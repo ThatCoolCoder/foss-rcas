@@ -62,9 +62,10 @@ namespace SimInput
                     actionLookup[actionPath] = action;
 
                     // Actually migrate it across
-                    var newMappings = new List<IControlMapping>();
-                    newInputMap.Mappings.TryGetValue(actionPath, out newMappings);
-                    inputMap.Mappings[actionPath] = newMappings.ToList();
+                    if (newInputMap.Mappings.TryGetValue(actionPath, out var newMappings))
+                    {
+                        inputMap.Mappings[actionPath] = newMappings.ToList();
+                    }
                 }
             }
         }
