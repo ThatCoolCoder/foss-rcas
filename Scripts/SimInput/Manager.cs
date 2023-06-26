@@ -14,6 +14,7 @@ namespace SimInput
         private Dictionary<string, float> intermediateTimeActionValues = new(); // for when they're not previous yet but also not new
         private Dictionary<string, float> previousActionValues = new();
 
+        private Dictionary<string, List<IControlMapping>> mappings = new();
         private Dictionary<string, InputAction> actionLookup = new(); // thing for efficiency
         private InputMap inputMap = new();
 
@@ -31,22 +32,18 @@ namespace SimInput
         {
             // Migrate data from the input map into self and prepare for input getting
 
-            inputMap = new InputMap();
-            actionLookup = new();
             actionValues = new();
             previousActionValues = new();
+            actionLookup = new();
+            inputMap = new();
 
-            foreach (var category in inputMap.ActionCategories)
+            foreach (var category in AvailableInputActions.Categories)
             {
                 if (category.Name.Contains('/'))
                 {
                     Utils.LogError($"Category name \"{category.Name}\" is invalid - slashes are not permitted");
                     continue;
                 }
-
-                var newCategory = newInputMap.ActionCategories.First(x => x.Name == category.Name);
-
-                if (newCategory == null) continue;
 
                 foreach (var action in category.Actions)
                 {
@@ -56,16 +53,18 @@ namespace SimInput
                         continue;
                     }
 
-                    // Actually migrate it across
-                    var newAction = newCategory.Actions.FirstOrDefault(a => a.Name == action.Name);
-                    if (newAction != null) action.Mappings = newAction.Mappings.ToList();
-
                     var actionPath = GenerateActionPath(category.Name, action.Name);
-                    actionLookup[actionPath] = action;
 
                     // Set defaults
                     actionValues[actionPath] = action.DefaultValue;
                     previousActionValues[actionPath] = action.DefaultValue;
+
+                    actionLookup[actionPath] = action;
+
+                    // Actually migrate it across
+                    var newMappings = new List<IControlMapping>();
+                    newInputMap.Mappings.TryGetValue(actionPath, out newMappings);
+                    inputMap.Mappings[actionPath] = newMappings.ToList();
                 }
             }
         }
@@ -77,11 +76,12 @@ namespace SimInput
 
         public override void _Input(InputEvent _event)
         {
-            foreach (var actionPath in actionLookup.Keys)
+            foreach (var actionPath in inputMap.Mappings.Keys)
             {
+                var mappings = inputMap.Mappings[actionPath];
                 var action = actionLookup[actionPath];
 
-                foreach (var mapping in action.Mappings)
+                foreach (var mapping in mappings)
                 {
                     // Read value
                     if (mapping.ProcessEvent(_event) is float val)
