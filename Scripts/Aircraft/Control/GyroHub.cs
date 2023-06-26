@@ -70,16 +70,18 @@ namespace Aircraft.Control
 
         public override void _Process(float delta)
         {
+            var angularVelocity = rigidBody.AngularVelocity;
+            angularVelocity = GlobalTransform.basis.Inverse().Xform(angularVelocity);
             var elevatorValue = gyroSettings.PitchTuning.CalculateOutput(SimInput.Manager.GetActionValue("aircraft/elevator") * gyroSettings.PitchRateDegrees,
-                Mathf.Rad2Deg(rigidBody.AngularVelocity.z),
+                Mathf.Rad2Deg(angularVelocity.x),
                 delta);
 
-            var aileronValue = gyroSettings.PitchTuning.CalculateOutput(SimInput.Manager.GetActionValue("aircraft/aileron") * gyroSettings.PitchRateDegrees,
-                Mathf.Rad2Deg(rigidBody.AngularVelocity.y),
+            var aileronValue = gyroSettings.RollTuning.CalculateOutput(SimInput.Manager.GetActionValue("aircraft/aileron") * gyroSettings.RollRateDegrees,
+                Mathf.Rad2Deg(angularVelocity.z),
                 delta);
 
-            var rudderValue = gyroSettings.PitchTuning.CalculateOutput(SimInput.Manager.GetActionValue("aircraft/rudder") * gyroSettings.PitchRateDegrees,
-                Mathf.Rad2Deg(rigidBody.AngularVelocity.y),
+            var rudderValue = gyroSettings.YawTuning.CalculateOutput(SimInput.Manager.GetActionValue("aircraft/rudder") * gyroSettings.YawRateDegrees,
+                Mathf.Rad2Deg(angularVelocity.y),
                 delta);
 
             var newChannelValues = new Dictionary<string, float>();
@@ -93,7 +95,7 @@ namespace Aircraft.Control
                 {
                     if (mix.InputChannelName == "elevator") rawValue = elevatorValue;
                     if (mix.InputChannelName == "aileron") rawValue = aileronValue;
-                    // if (mix.InputChannelName == "rudder") rawValue = rudderValue;
+                    if (mix.InputChannelName == "rudder") rawValue = rudderValue;
                 }
                 newChannelValues[mix.OutputChannelName] = mix.Apply(rawValue, previousValue, delta);
             }

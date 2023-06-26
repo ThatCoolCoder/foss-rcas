@@ -14,8 +14,8 @@ Mixes = [
 	{ InputChannelName = "aileron", OutputChannelName = "bl", Weight = 0.1, Expo = 0.0 },
 	{ InputChannelName = "aileron", OutputChannelName = "br", Weight = -0.1, Expo = 0.0 },
 
-	# { InputChannelName = "rudder", OutputChannelName = "fl", Weight = -1.0, Expo = 0.0 },
-	# { InputChannelName = "rudder", OutputChannelName = "fr", Weight = 1.0, Expo = 0.0 },
-	# { InputChannelName = "rudder", OutputChannelName = "bl", Weight = 1.0, Expo = 0.0 },
-	# { InputChannelName = "rudder", OutputChannelName = "br", Weight = -1.0, Expo = 0.0 },
+	{ InputChannelName = "rudder", OutputChannelName = "fl", Weight = -0.3, Expo = 0.0 },
+	{ InputChannelName = "rudder", OutputChannelName = "fr", Weight = 0.3, Expo = 0.0 },
+	{ InputChannelName = "rudder", OutputChannelName = "bl", Weight = 0.3, Expo = 0.0 },
+	{ InputChannelName = "rudder", OutputChannelName = "br", Weight = -0.3, Expo = 0.0 },
 ]

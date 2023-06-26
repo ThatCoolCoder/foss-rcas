@@ -62,7 +62,6 @@ A note on singletons+autoload in this project: there have been a few cases where
         - Just have a rpm/torque curve, then throttle directly controls torque proportion and fuel consumption
     - Potentially create a simulation of FPV inteference - we make a raycast from viewing position to camera, and degrade based on how many intersections.
 - Input
-    - Make it properly import channels from toml.
     - Add an input debug UI thing
     - Add a preview for all the inputs so we can check direction etc without flying (requires poking SimInput.Manager to give it a custom inputmap)
     - move the rest of the input to siminputmanager? (EG throw, reset)
@@ -81,7 +80,6 @@ A note on singletons+autoload in this project: there have been a few cases where
 - Misc bugs/problems
     - settings toml file is technically incorrect with slashes in keys, should hopefully be a tomlet update to fix this soon.
     - Make propellerwithmodel properly stop spinning when it hits things
-    - New input system UI still does not recognise added channels that aren't in the toml.
     - thing has a heart attack if there is any issue at all in loading settings.
     - if there is a non-permitted class found when loading the input map, the entire game crashes. Instead it should just skip that item
         - problem: tomlet doesn't appreciate returning null from a converter function, which is the place where we do the checks

@@ -48,6 +48,8 @@ namespace UI.FlightSettings
         {
             if (0 <= index && index < AvailableItems.Count)
             {
+                selector.Disabled = false;
+
                 thumbnail.Texture = LoadThumbnail();
                 var customInfo = FormatCustomInfo();
 
