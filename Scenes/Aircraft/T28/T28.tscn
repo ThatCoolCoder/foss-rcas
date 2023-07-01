@@ -197,7 +197,6 @@ transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -5.0969
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0117185, -5.12955e-10, 0.000664622 )
 script = ExtResource( 2 )
 MaxDeflectionDegrees = 20.0
-Reversed = true
 ChannelName = "rudder"
 
 [node name="AeroSurface" parent="RudderHolder/Rudder" instance=ExtResource( 5 )]

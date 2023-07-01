@@ -26,6 +26,12 @@ In accordance with Godot convention, -z is forward. In Blender +y is forward.
 
 A note on singletons+autoload in this project: there have been a few cases where autoload was desirable. Unfortunately, because this is C#, the automatic global variable feature is not available like in GDscript. So instead we use the singleton pattern, in which the instance is registered by the non-static autoloaded part of the class when it enters/exits tree.
 
+Channel directions:
+- throttle: engine off is low
+- aileron: stick left is low
+- elevator: stick back is low
+- rudder: stick left is low.
+
 ## Todo:
 - Physics/simulations
     - Wheels
@@ -64,9 +70,7 @@ A note on singletons+autoload in this project: there have been a few cases where
 - Input
     - Add an input debug UI thing
     - Add a preview for all the inputs so we can check direction etc without flying (requires poking SimInput.Manager to give it a custom inputmap)
-    - move the rest of the input to siminputmanager? (EG throw, reset)
-    - Decide which direction the inputs should go in and switch those that go in counterintuitive directions (big breaking change if we don't do it soon)
-    - set the default channel mappings to work on a ps/xbox controller without configuration
+    - set the default controls to work on a ps/xbox controller without configuration
     - Um add a thing that checks the name of the controller so you can have different bindings for different controllers
         - hide bindings from controllers that are not present then, but have an option to show them so you can delete the unneeded ones
     - Add support for dual/triple rates.
@@ -78,6 +82,9 @@ A note on singletons+autoload in this project: there have been a few cases where
     - Make content creation docs more friendly to non-programmers
     - If we make exotic stuff like quadcopters, create documentation on that
 - Misc bugs/problems
+    - UI for joystick axis deadzones is unusable.
+    - Input tab is too wide in settings screen.
+    - Anticlockwise propeller has bad shading due to the scaling by -1
     - settings toml file is technically incorrect with slashes in keys, should hopefully be a tomlet update to fix this soon.
     - Make propellerwithmodel properly stop spinning when it hits things
     - thing has a heart attack if there is any issue at all in loading settings.
@@ -110,8 +117,8 @@ A note on singletons+autoload in this project: there have been a few cases where
     - make thumbnails for all the scenes, at the correct resolution
     - Create an EDF with retracts and flaps
     - Create a bushplane about 1.1-1.3kg size
-    - Mini 3d: increase control surface size in the model, make it fly more 3d
-    - Make large oval decent (model some low-poly houses, put them or impostors of them all around, put more rows so it actually loooks like a place)
+    - Mini 3d: increase control surface size in the model, make it fly more 3d, make it fly less trash
+    - Make large oval decent (model some low-poly houses, put them or impostors of them all around, put more rows so it actually looks like a place)
     - Do a remaster of the T28
     - Make Ace's Track (not that large)
     - Make a converted golf course location (quite large)

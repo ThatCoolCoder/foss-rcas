@@ -74,6 +74,7 @@ public static class Utils
 
     public static float RoundNumber(float number, float roundTo)
     {
+        // Round number to a multiple of RoundTo
         return Mathf.Round(number / roundTo) * roundTo;
     }
 
