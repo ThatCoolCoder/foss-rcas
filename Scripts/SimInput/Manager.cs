@@ -20,6 +20,7 @@ namespace SimInput
 
         public override void _EnterTree()
         {
+            PauseMode = PauseModeEnum.Process;
             Instance = this;
         }
 

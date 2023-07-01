@@ -42,6 +42,7 @@ __meta__ = {
 script = ExtResource( 7 )
 
 [node name="Camera" type="Camera" parent="."]
+pause_mode = 2
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.909096, 1.87904 )
 current = true
 far = 500.0
@@ -54,7 +55,8 @@ VolumeMultiplier = 0.02
 AirPath = NodePath("../../Air")
 
 [node name="FreeCamera" type="Camera" parent="."]
-far = 500.0
+pause_mode = 2
+far = 50000.0
 script = ExtResource( 15 )
 ViewName = "Free"
 
