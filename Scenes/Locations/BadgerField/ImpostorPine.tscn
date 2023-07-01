@@ -14,14 +14,12 @@ script = ExtResource( 1 )
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.379182 )
 
 [node name="Sprite3D" type="Sprite3D" parent="Impostor"]
-transform = Transform( 0.692131, 0, 0, 0, 0.692131, 0, 0, 0, 0.692131, 0.0732747, 3.52543, -0.333741 )
+transform = Transform( 1.384, 0, 0, 0, 1.384, 0, 0, 0, 1.384, 0.0732747, 6.97738, -0.333741 )
 billboard = 2
 shaded = true
 alpha_cut = 2
-texture = ExtResource( 7 )
+texture = ExtResource( 6 )
 script = ExtResource( 4 )
 Textures = [ ExtResource( 7 ), ExtResource( 6 ), ExtResource( 3 ) ]
 
 [node name="RealNode" parent="." instance=ExtResource( 2 )]
-transform = Transform( 0.497548, 0, 0, 0, 0.497548, 0, 0, 0, 0.497548, 0, 0, 0 )
-visible = false

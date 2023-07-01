@@ -17,7 +17,7 @@
 
 [sub_resource type="Curve3D" id=3]
 _data = {
-"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, 86.7809, -1.27759, 37.3279, 0, 0, 0, 0, 0, 0, 73.8088, 0, 39.4124, 0, 0, 0, 0, 0, 0, 58.6617, 0, 40.6489, 0, 0, 0, 0, 0, 0, 45.5247, 0, 33.2189, 0, 0, 0, 0, 0, 0, 22.8799, 0, 39.0627, 0, 0, 0, 0, 0, 0, 34.55, 0, 44.3584, 0, 0, 0, 0, 0, 0, 6.32242, 0, 56.1072, 0, 0, 0, 0, 0, 0, -11.9142, -0.306053, 53.6623, 0, 0, 0, 0, 0, 0, 4.01106, -1.34686, 45.1453, 0, 0, 0, 0, 0, 0, -20.7676, -0.115314, 32.5716, 0, 0, 0, 0, 0, 0, -32.3409, -0.563816, 31.5478, 0, 0, 0, 0, 0, 0, -41.512, -0.321304, 38.6243, 0, 0, 0, 0, 0, 0, -55.087, -0.584396, 31.6188, 0, 0, 0, 0, 0, 0, -72.0821, 0, 30.0535, 0, 0, 0, 0, 0, 0, -74.88, 0, 42.1945, 0, 0, 0, 0, 0, 0, -86.6267, 0, 33.5391, 0, 0, 0, 0, 0, 0, -103.802, 0.138075, 23.8239, 0, 0, 0, 0, 0, 0, -109.558, 0.208984, 7.49365, 0, 0, 0, 0, 0, 0, -114.167, 0.030489, -13.0818, 0, 0, 0, 0, 0, 0, -107.355, -0.274413, -23.2321, 0, 0, 0, 0, 0, 0, -99.2921, 0.0980453, -34.1664, 0, 0, 0, 0, 0, 0, -91.6714, 0, -38.288, 0, 0, 0, 0, 0, 0, -70.523, 0, -50.2912, 0, 0, 0, 0, 0, 0, -39.6578, -0.0917969, -50.7199, 0, 0, 0, 0, 0, 0, -30.3894, -0.059082, -47.6747, 0, 0, 0, 0, 0, 0, -10.3007, 0.00617981, -45.6549, 0, 0, 0, 0, 0, 0, 21.9456, 0.136963, -44.5079, 0, 0, 0, 0, 0, 0, 58.6134, 0.136963, -41.5079, 0, 0, 0, 0, 0, 0, 84.1142, -1.03247, -37.1744 ),
+"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, 80.3319, -1.27759, 60.5645, 0, 0, 0, 0, 0, 0, 68.6514, 0, 41.8757, 0, 0, 0, 0, 0, 0, 50.8611, 0, 59.8457, 0, 0, 0, 0, 0, 0, 44.9718, 0, 42.0398, 0, 0, 0, 0, 0, 0, 22.2532, 0, 42.436, 0, 0, 0, 0, 0, 0, 21.9294, 0, 57.5096, 0, 0, 0, 0, 0, 0, 6.32242, 0, 56.1072, 0, 0, 0, 0, 0, 0, -11.9142, -0.306053, 53.6623, 0, 0, 0, 0, 0, 0, 4.01106, -1.34686, 45.1453, 0, 0, 0, 0, 0, 0, -21.5989, -0.115234, 44.5494, 0, 0, 0, 0, 0, 0, -32.0336, -0.563721, 42.0398, 0, 0, 0, 0, 0, 0, -41.512, -0.321304, 38.6243, 0, 0, 0, 0, 0, 0, -55.087, -0.584396, 31.6188, 0, 0, 0, 0, 0, 0, -72.0821, 0, 30.0535, 0, 0, 0, 0, 0, 0, -74.88, 0, 42.1945, 0, 0, 0, 0, 0, 0, -86.6267, 0, 33.5391, 0, 0, 0, 0, 0, 0, -103.802, 0.138075, 23.8239, 0, 0, 0, 0, 0, 0, -109.558, 0.208984, 7.49365, 0, 0, 0, 0, 0, 0, -114.167, 0.030489, -13.0818, 0, 0, 0, 0, 0, 0, -107.355, -0.274413, -23.2321, 0, 0, 0, 0, 0, 0, -99.2921, 0.0980453, -34.1664, 0, 0, 0, 0, 0, 0, -91.6714, 0, -38.288, 0, 0, 0, 0, 0, 0, -70.523, 0, -50.2912, 0, 0, 0, 0, 0, 0, -39.6578, -0.0917969, -50.7199, 0, 0, 0, 0, 0, 0, -30.3894, -0.059082, -47.6747, 0, 0, 0, 0, 0, 0, -10.3007, 0.00617981, -45.6549, 0, 0, 0, 0, 0, 0, 21.9456, 0.136963, -44.5079, 0, 0, 0, 0, 0, 0, 58.6134, 0.136963, -41.5079, 0, 0, 0, 0, 0, 0, 84.1142, -1.03247, -37.1744 ),
 "tilts": PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
 }
 
@@ -33,11 +33,14 @@ panorama = ExtResource( 3 )
 [sub_resource type="Environment" id=2]
 background_mode = 2
 background_sky = SubResource( 1 )
-background_sky_orientation = Basis( 0.976582, 0, -0.215144, 0, 1, 0, 0.215144, 0, 0.976582 )
 background_energy = 1.62
 ambient_light_color = Color( 0.862745, 0.858824, 0.784314, 1 )
 ambient_light_energy = 1.92
 ambient_light_sky_contribution = 0.39
+fog_enabled = true
+fog_color = Color( 0.501961, 0.6, 0.701961, 0.592157 )
+fog_depth_begin = 517.1
+fog_depth_end = 1364.3
 tonemap_mode = 2
 tonemap_exposure = 0.7
 tonemap_white = 16.0
@@ -67,48 +70,106 @@ curve = SubResource( 3 )
 script = ExtResource( 4 )
 Scene = ExtResource( 5 )
 NumInstances = 200
-InstanceScale = 2.0
 ScaleVariation = 0.7
 
 [node name="TreeScatter" parent="Trees" index="1" instance=ExtResource( 6 )]
 transform = Transform( -3.13294e-06, 0, -111.063, 0, 1, 0, 71.6732, 0, -4.85472e-06, -239.991, 0, 0 )
-Count = 300
+Count = 600
 UseNearScaling = false
 Texture = ExtResource( 7 )
 TreeSize = Vector2( 10, 15 )
 WidthRatioVariation = 0.2
 
 [node name="TreeScatter2" parent="Trees" index="2" instance=ExtResource( 6 )]
-transform = Transform( 207.241, 0, -5.79425, 0, 1, 0, 16.809, 0, 71.4386, -114.463, 0, -132.898 )
-Count = 600
+transform = Transform( 210.775, 0, 0, 0, 1, 0, 0, 0, 96.6668, -118.466, 0, -173.419 )
+Count = 1200
 UseNearScaling = false
 Texture = ExtResource( 7 )
 TreeSize = Vector2( 10, 15 )
 WidthRatioVariation = 0.2
 
 [node name="TreeScatter3" parent="Trees" index="3" instance=ExtResource( 6 )]
-transform = Transform( 74.8281, 0, 0, 0, 1, 0, 0, 0, 85.4115, 174.562, 0, 63.5686 )
-Count = 240
+transform = Transform( 81.5221, 0, -13.0163, 0, 1, 0, 7.09068, 0, 149.649, 179.577, 0, 122.461 )
+Count = 480
 UseNearScaling = false
 Texture = ExtResource( 7 )
 TreeSize = Vector2( 10, 15 )
 WidthRatioVariation = 0.2
 
 [node name="TreeScatter4" parent="Trees" index="4" instance=ExtResource( 6 )]
-transform = Transform( 174.338, 0, -5.28834, 0, 1, 0, 12.8883, 0, 71.5349, -93.8949, 0, 112.936 )
-Count = 600
+transform = Transform( 207.63, 0, -16.9377, 0, 1, 0, 31.4604, 0, 111.784, -137.64, 0, 152.741 )
+Count = 1200
 UseNearScaling = false
 Texture = ExtResource( 7 )
 TreeSize = Vector2( 10, 15 )
 WidthRatioVariation = 0.2
 
 [node name="TreeScatter5" parent="Trees" index="5" instance=ExtResource( 6 )]
-transform = Transform( 73.7037, 0, -14.7508, 0, 1, 0, 12.923, 0, 84.1281, 188.172, 0, -97.1618 )
-Count = 240
+transform = Transform( 73.185, 0, -27.2844, 0, 1, 0, 15.5946, 0, 128.045, 195.668, 0, -138.339 )
+Count = 480
 UseNearScaling = false
 Texture = ExtResource( 7 )
 TreeSize = Vector2( 10, 15 )
 WidthRatioVariation = 0.2
+
+[node name="ManuallyPlaced" type="Spatial" parent="Trees" index="6"]
+
+[node name="ImpostorPine" parent="Trees/ManuallyPlaced" index="0" instance=ExtResource( 5 )]
+transform = Transform( 1.17389, -0.0508017, 0, 0.0508017, 1.17389, 0, 0, 0, 1.17499, 20.6959, 0, 30.2216 )
+
+[node name="ImpostorPine12" parent="Trees/ManuallyPlaced" index="1" instance=ExtResource( 5 )]
+transform = Transform( 0.838071, 0.0600148, 0.542251, -0.0714278, 0.997446, 0, -0.540866, -0.0387318, 0.840217, 12.7665, 0, 30.2216 )
+
+[node name="ImpostorPine13" parent="Trees/ManuallyPlaced" index="2" instance=ExtResource( 5 )]
+transform = Transform( 0.684771, 0.049037, 0.443063, -0.0583623, 0.814994, 0, -0.441931, -0.031647, 0.686525, 8.30911, 0, 30.2216 )
+
+[node name="ImpostorPine19" parent="Trees/ManuallyPlaced" index="3" instance=ExtResource( 5 )]
+transform = Transform( 0.851216, 0.147753, 0.427867, -0.155901, 0.692387, -0.0527856, -0.430009, -0.0307933, 0.866112, 3.2429, 0, 30.0692 )
+
+[node name="ImpostorPine14" parent="Trees/ManuallyPlaced" index="4" instance=ExtResource( 5 )]
+transform = Transform( 1.15998, 0.083067, 0.183902, -0.0840992, 1.17439, 0, -0.183432, -0.0131357, 1.16295, -2.07415, 0, 28.9924 )
+
+[node name="ImpostorPine15" parent="Trees/ManuallyPlaced" index="5" instance=ExtResource( 5 )]
+transform = Transform( 0.838071, 0.0600148, 0.542251, -0.0714278, 0.997446, 0, -0.540866, -0.0387318, 0.840217, -7.66269, 0, 30.2216 )
+
+[node name="ImpostorPine16" parent="Trees/ManuallyPlaced" index="6" instance=ExtResource( 5 )]
+transform = Transform( 0.539703, 0.0702434, 0.350656, -0.0726013, 0.643125, -0.0170886, -0.350176, -0.0250764, 0.543986, -19.8069, 0, 30.2216 )
+
+[node name="ImpostorPine17" parent="Trees/ManuallyPlaced" index="7" instance=ExtResource( 5 )]
+transform = Transform( 0.39559, 0.0283285, 0.91799, -0.0714278, 0.997446, 0, -0.915645, -0.06557, 0.396603, -28.7951, 0, 27.7724 )
+
+[node name="ImpostorPine18" parent="Trees/ManuallyPlaced" index="8" instance=ExtResource( 5 )]
+transform = Transform( 0.865164, 0.061955, 0.778309, -0.0832406, 1.1624, 0, -0.776321, -0.0555929, 0.867379, -23.3011, -0.0954018, 28.8558 )
+
+[node name="ImpostorPine2" parent="Trees/ManuallyPlaced" index="9" instance=ExtResource( 5 )]
+transform = Transform( 0.582605, 0, 0.812755, 0, 1, 0, -0.812755, 0, 0.582605, 27.4732, 0, 27.4314 )
+
+[node name="ImpostorPine10" parent="Trees/ManuallyPlaced" index="10" instance=ExtResource( 5 )]
+transform = Transform( 0.391784, 0, 0.546553, 0, 0.672469, 0, -0.546553, 0, 0.391784, 31.7902, 3.8147e-06, 29.3362 )
+
+[node name="ImpostorPine3" parent="Trees/ManuallyPlaced" index="11" instance=ExtResource( 5 )]
+transform = Transform( -0.016453, 0, -1.09099, 0, 1.09111, 0, 1.09099, 0, -0.016453, 34.415, 0, 25.0297 )
+
+[node name="ImpostorPine4" parent="Trees/ManuallyPlaced" index="12" instance=ExtResource( 5 )]
+transform = Transform( 1.2672, 0, 0, 0, 1.2672, 0, 0, 0, 1.2672, 39.9743, 0, 28.5424 )
+
+[node name="ImpostorPine5" parent="Trees/ManuallyPlaced" index="13" instance=ExtResource( 5 )]
+transform = Transform( 0.800283, 0.0518922, 0.597373, -0.0647065, 0.997904, 0, -0.596121, -0.0386539, 0.801963, 44.8579, 0, 26.1534 )
+
+[node name="ImpostorPine6" parent="Trees/ManuallyPlaced" index="14" instance=ExtResource( 5 )]
+transform = Transform( 0.715874, 0, 0, 0, 1.26099, 0, 0, 0, 0.884722, 48.6204, 0, 26.7885 )
+
+[node name="ImpostorPine7" parent="Trees/ManuallyPlaced" index="15" instance=ExtResource( 5 )]
+transform = Transform( -0.986013, 0, 0.166666, 0, 1, 0, -0.166666, 0, -0.986013, 53.3049, 0, 26.374 )
+
+[node name="ImpostorPine8" parent="Trees/ManuallyPlaced" index="16" instance=ExtResource( 5 )]
+transform = Transform( 0.776036, 0, 0, 0, 0.776036, 0, 0, 0, 0.776036, 62.3858, 0, 27.6699 )
+
+[node name="ImpostorPine11" parent="Trees/ManuallyPlaced" index="17" instance=ExtResource( 5 )]
+transform = Transform( 1.38264, 0, 0, 0, 1.04986, 0, 0, 0, 1.38264, 66.1298, 0, 26.3143 )
+
+[node name="ImpostorPine9" parent="Trees/ManuallyPlaced" index="18" instance=ExtResource( 5 )]
+transform = Transform( 0.296678, 0, -0.647822, 0, 0.712524, 0, 0.647822, 0, 0.296678, 71.3858, 0, 25.6699 )
 
 [node name="GrassScatter" parent="." index="9" instance=ExtResource( 8 )]
 InstanceCount = 15000
