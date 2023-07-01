@@ -99,7 +99,7 @@ namespace SimInput
     {
         public int ButtonIndex { get; set; }
         public bool Inverted { get; set; }
-        public bool Momentary { get; set; }
+        public bool Momentary { get; set; } = true;
         private float currentValue = -1;
 
         public override float? ProcessEvent(InputEvent _event)
