@@ -129,7 +129,6 @@ ControlHubPath = NodePath("../../GyroHub")
 
 [node name="Battery" parent="." instance=ExtResource( 6 )]
 CellInternalResistance = 0.0
-MaxCapacity = 1000.0
 
 [node name="CSGBox" type="CSGBox" parent="."]
 transform = Transform( 0.0340534, 0, 0, 0, 0.0340534, 0, 0, 0, 0.0340534, 0, 0, -0.110127 )
