@@ -6,20 +6,49 @@ namespace Locations
     public class Location : Spatial
     {
         public RigidBody Aircraft { get; set; }
-
-        public AircraftLauncher.LauncherSettings LauncherSettings { get; set; } = null;
+        public ContentManagement.Aircraft AircraftInfo { get; set; }
+        public ContentManagement.Location LocationInfo { get; set; }
+        public ContentManagement.AircraftSpawnPosition CrntSpawnPosition { get; set; }
 
         private AircraftLauncher launcher;
+        private GroundCamera groundCamera;
+        private PackedScene orbitCameraScene = ResourceLoader.Load<PackedScene>("res://Scenes/Aircraft/Common/OrbitCamera.tscn");
 
         public override void _Ready()
         {
-            var camera = GetNode<GroundCamera>("GroundCamera");
+            groundCamera = GetNode<GroundCamera>("GroundCamera");
             SimSettings.Settings.Current.ApplyToViewport(GetViewport());
             SimInput.Manager.Instance.LoadInputMap(SimSettings.Settings.Current.InputMap);
-            camera.Target = Aircraft;
-            camera.CurrentZoomSettings = SimSettings.Settings.Current.GroundCameraZoom;
+            groundCamera.Target = Aircraft;
+            groundCamera.CurrentZoomSettings = SimSettings.Settings.Current.GroundCameraZoom;
             launcher = GetNode<AircraftLauncher>("AircraftLauncher");
+
+            SetupAircraft();
             Reset();
+        }
+
+        private void SetupAircraft()
+        {
+            launcher.Settings = new AircraftLauncher.LauncherSettings()
+            {
+                Speed = AircraftInfo.LauncherSpeed,
+                Height = AircraftInfo.LauncherHeight,
+                AngleDegrees = AircraftInfo.LauncherAngleDegrees
+            };
+
+            // Set up cameras
+            var orbitRadius = Mathf.Max(AircraftInfo.Length, AircraftInfo.WingSpan);
+            var freeCamera = orbitCameraScene.Instance<Aircraft.OrbitCamera>();
+            freeCamera.ViewName = "Orbit - Unlocked";
+            freeCamera.OrbitRadius = orbitRadius;
+            freeCamera.RotateWithAircraft = false;
+            Aircraft.AddChild(freeCamera);
+
+            var lockedCamera = orbitCameraScene.Instance<Aircraft.OrbitCamera>();
+            lockedCamera.ViewName = "Orbit - Locked";
+            lockedCamera.OrbitRadius = orbitRadius;
+            lockedCamera.RotateWithAircraft = true;
+            Aircraft.AddChild(lockedCamera);
         }
 
         public override void _Process(float delta)
@@ -30,20 +59,19 @@ namespace Locations
 
         private void Reset()
         {
-            var needsLauncher = LauncherSettings != null;
-
-            if (needsLauncher)
+            var aircraftTransform = GetNode<Spatial>(CrntSpawnPosition.AircraftPositionNodePath).GlobalTransform;
+            if (AircraftInfo.NeedsLauncher)
             {
-                launcher.GlobalTransform = GetNode<Spatial>("StartLocation").GlobalTransform;
-                launcher.Settings = LauncherSettings;
-                launcher.SetTarget(Aircraft);
+                launcher.GlobalTransform = aircraftTransform;
             }
             else
             {
                 Aircraft.LinearVelocity = Vector3.Zero;
                 Aircraft.AngularVelocity = Vector3.Zero;
-                Aircraft.GlobalTransform = GetNode<Spatial>("StartLocation").GlobalTransform;
+                Aircraft.GlobalTransform = aircraftTransform;
             }
+            groundCamera.GlobalTranslation = GetNode<Spatial>(CrntSpawnPosition.CameraPositionNodePath).GlobalTranslation;
+            launcher.Reset(Aircraft);
         }
     }
 

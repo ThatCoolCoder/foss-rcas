@@ -10,3 +10,6 @@ A large oval based on one near my house.
 [location]
 world_location = "Suburban US"
 elevation = 0
+spawn_positions = [
+    { name = "South Border", aircraft_at = "StartPosition", camera_at = "CameraPosition" },
+]

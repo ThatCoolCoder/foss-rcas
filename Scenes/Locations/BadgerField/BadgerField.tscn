@@ -54,16 +54,33 @@ adjustment_saturation = 0.91
 [node name="BadgerField" parent="." index="0" instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.276415, 0 )
 
-[node name="StartLocation" parent="." index="4"]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -39.7529, 0.680992, 0 )
-
-[node name="GroundCamera" parent="." index="6"]
+[node name="GroundCamera" parent="." index="5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -23.9925, 1.10245, 17.9634 )
 
-[node name="FreeCamera" parent="." index="7"]
+[node name="FreeCamera" parent="." index="6"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13.3525, 2.0807, 18.2569 )
 
-[node name="Trees" type="Spatial" parent="." index="8"]
+[node name="Positions" type="Spatial" parent="." index="8"]
+
+[node name="RunwayWest" type="Position3D" parent="Positions" index="0"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -42.4019, 0.650588, 0 )
+
+[node name="BehindFenceWest" type="Position3D" parent="Positions" index="1"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -23.5901, 0.650588, 18.2121 )
+
+[node name="RunwayEast" type="Position3D" parent="Positions" index="2"]
+transform = Transform( 1.49012e-07, 0, 1, 0, 1, 0, -1, 0, 1.49012e-07, 42.0856, 0.650588, 0 )
+
+[node name="BehindFenceEast" type="Position3D" parent="Positions" index="3"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 40.2027, 0.650588, 14.8076 )
+
+[node name="InFrontOfShelter" type="Position3D" parent="Positions" index="4"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.73489, 0.650588, 18.641 )
+
+[node name="UnderShelter" type="Position3D" parent="Positions" index="5"]
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.49172, 0.650588, 21.1494 )
+
+[node name="Trees" type="Spatial" parent="." index="9"]
 
 [node name="NearbyTrees" type="Path" parent="Trees" index="0"]
 curve = SubResource( 3 )
@@ -171,13 +188,13 @@ transform = Transform( 1.38264, 0, 0, 0, 1.04986, 0, 0, 0, 1.38264, 66.1298, 0, 
 [node name="ImpostorPine9" parent="Trees/ManuallyPlaced" index="18" instance=ExtResource( 5 )]
 transform = Transform( 0.296678, 0, -0.647822, 0, 0.712524, 0, 0.647822, 0, 0.296678, 71.3858, 0, 25.6699 )
 
-[node name="GrassScatter" parent="." index="9" instance=ExtResource( 8 )]
+[node name="GrassScatter" parent="." index="10" instance=ExtResource( 8 )]
 InstanceCount = 15000
 Mask = ExtResource( 11 )
 NormalMap = ExtResource( 9 )
 NormalStrength = 2.0
 
-[node name="Bushes" type="Spatial" parent="." index="10"]
+[node name="Bushes" type="Spatial" parent="." index="11"]
 
 [node name="ByTheRoad" type="Spatial" parent="Bushes" index="0"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 77.5994, 0.379002, 0 )
@@ -211,7 +228,7 @@ transform = Transform( 24.2736, 0, 3.46787, 0, 1, 0, -7.128, 0, 11.8094, -65.081
 Texture = ExtResource( 12 )
 TreeSize = Vector2( 2.5, 2.5 )
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="11"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="12"]
 environment = SubResource( 2 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="WorldEnvironment" index="0"]

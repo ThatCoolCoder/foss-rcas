@@ -9,7 +9,6 @@ namespace UI.FlightSettings
     {
         private AircraftSelector aircraftSelector;
         private LocationSelector locationSelector;
-        private PackedScene orbitCameraScene = ResourceLoader.Load<PackedScene>("res://Scenes/Aircraft/Common/OrbitCamera.tscn");
 
         public override void _Ready()
         {
@@ -61,43 +60,22 @@ namespace UI.FlightSettings
             RememberLastLoadedContent();
 
             var location = ResourceLoader.Load<PackedScene>(locationSelector.SelectedItem.GetScenePath()).Instance<Locations.Location>();
-            if (aircraftSelector.SelectedItem.NeedsLauncher)
-            {
-                location.LauncherSettings = new()
-                {
-                    Speed = aircraftSelector.SelectedItem.LauncherSpeed,
-                    Height = aircraftSelector.SelectedItem.LauncherHeight,
-                    Angle = Mathf.Deg2Rad(aircraftSelector.SelectedItem.LauncherAngleDegrees),
-                };
-            }
+            location.LocationInfo = locationSelector.SelectedItem;
 
             var aircraft = ResourceLoader.Load<PackedScene>(aircraftSelector.SelectedItem.GetScenePath()).Instance<RigidBody>();
+            location.AircraftInfo = aircraftSelector.SelectedItem;
 
             location.AddChild(aircraft);
             location.Aircraft = aircraft;
+            location.CrntSpawnPosition = locationSelector.SelectedItem.SpawnPositions.First();
 
+            // switch scenes, done manually because we needed to set the values above
             var root = GetTree().Root;
             var tree = GetTree();
             root.RemoveChild(this);
             root.AddChild(location);
             tree.CurrentScene = location;
             QueueFree();
-
-            // Add default onboard cameras (need to do it after putting the plane in the world, so that they can figure out their orientation)
-            {
-                var size = Mathf.Max(aircraftSelector.SelectedItem.Length, aircraftSelector.SelectedItem.WingSpan);
-                var freeCamera = orbitCameraScene.Instance<Aircraft.OrbitCamera>();
-                freeCamera.ViewName = "Orbit - Unlocked";
-                freeCamera.OrbitRadius = size;
-                freeCamera.RotateWithAircraft = false;
-                aircraft.AddChild(freeCamera);
-
-                var lockedCamera = orbitCameraScene.Instance<Aircraft.OrbitCamera>();
-                lockedCamera.ViewName = "Orbit - Locked";
-                lockedCamera.OrbitRadius = size;
-                lockedCamera.RotateWithAircraft = true;
-                aircraft.AddChild(lockedCamera);
-            }
         }
     }
 }

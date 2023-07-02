@@ -10,3 +10,6 @@ A very plain and simple location designed for testing
 [location]
 world_location = "Abstract place"
 elevation = 0
+spawn_positions = [
+    { name = "Middle", aircraft_at = "StartPosition", camera_at = "CameraPosition" },
+]

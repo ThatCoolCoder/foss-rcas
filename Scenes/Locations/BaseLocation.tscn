@@ -32,12 +32,6 @@ script = ExtResource( 4 )
 [node name="SpatialFluidBeacon" type="Spatial" parent="Air"]
 script = ExtResource( 2 )
 
-[node name="StartLocation" type="Position3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.283917, 0 )
-__meta__ = {
-"_editor_description_": "Orient this so that Z-positive is facing in the direction of flight"
-}
-
 [node name="AircraftLauncher" type="Spatial" parent="."]
 script = ExtResource( 7 )
 

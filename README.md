@@ -89,6 +89,9 @@ Channel directions:
     - if there is a non-permitted class found when loading the input map, the entire game crashes. Instead it should just skip that item
         - problem: tomlet doesn't appreciate returning null from a converter function, which is the place where we do the checks
             - hacky solution: create an InvalidMappingType
+    - if it fails to find positions for spawn, game crashes
+- redo flightsettingscreen so that we can change stuff like spawn position and wind
+    - total visual redesign, perhaps a vertical tab menu with icons
 - General refactoring/organizing
     - move `Art/Common` -> `Art/Locations/Common`
     - get rid of ControlHubLocator? it's literally one line of code per class that it's saving
@@ -145,9 +148,5 @@ Channel directions:
         - Perhaps have a semantic versioning system with with the ability to use wildcards (similar to how npm dependencies are specified).
         - Requires the game knowing its version
 - make settings fileinput lineedit editable?
-- add a way to configure wind in-game (likely requires large redesign of flightsettingsscreen - vertical tab menu with icons?)
-- come up with a neater way to add the default aircraft cameras (currently they're just stuck on by FlightSettingsScreen)
-    - it's tricky because we use the content loading metadata to get the plane size. Perhaps we need to decouple the aircraft info bit from the content bit
-        - or we could just give them the content bit.
 - update to godot 4?
     - wait until it has opengl support or whatever important thing it was missing
