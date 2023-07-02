@@ -11,7 +11,6 @@ namespace UI.Apps
         // todo: in future, create a version with a little tx that has sticks that move around, and visual indications for switches
 
         [Export] public List<string> ChannelNames { get; set; }
-        [Export] public int DecimalPlaces { get; set; } = 0;
         private RichTextLabel label;
 
         public override void _Ready()
@@ -25,7 +24,7 @@ namespace UI.Apps
             var text = String.Join("\n", ChannelNames.Select(action =>
             {
                 var rawValue = SimInput.Manager.GetActionValue("aircraft/" + action);
-                var displayedValue = Utils.RoundNumber(rawValue * 100, Mathf.Pow(10, DecimalPlaces));
+                var displayedValue = Utils.RoundToPlaces(rawValue * 100, 0);
                 var name = action.Split("/").Last();
                 return $"{name}: {displayedValue:+0;-#}%";
             }));

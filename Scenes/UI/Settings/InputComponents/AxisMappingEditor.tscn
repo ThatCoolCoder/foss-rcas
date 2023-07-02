@@ -7,33 +7,41 @@
 [ext_resource path="res://Scripts/UI/Settings/InputComponents/AxisMappingEditor.cs" type="Script" id=5]
 
 [node name="AxisMappingEditor" instance=ExtResource( 1 )]
-visible = false
+visible = true
+margin_right = 406.0
 margin_bottom = 234.0
 script = ExtResource( 5 )
 
 [node name="VBoxContainer" parent="MarginContainer" index="0"]
+margin_right = 396.0
 margin_bottom = 224.0
 
 [node name="JoystickAxisInput" parent="MarginContainer/VBoxContainer" index="0" instance=ExtResource( 4 )]
-margin_right = 361.0
+margin_right = 386.0
 margin_bottom = 24.0
 
 [node name="InvertedInput" parent="MarginContainer/VBoxContainer" index="1" instance=ExtResource( 3 )]
 margin_top = 28.0
-margin_right = 361.0
+margin_right = 386.0
 margin_bottom = 54.0
 
 [node name="Sensitivity" parent="MarginContainer/VBoxContainer" index="2" instance=ExtResource( 2 )]
 margin_top = 58.0
-margin_right = 361.0
+margin_right = 386.0
 margin_bottom = 76.0
 
 [node name="DeadzoneRest" parent="MarginContainer/VBoxContainer" index="3" instance=ExtResource( 2 )]
 margin_top = 80.0
-margin_right = 361.0
+margin_right = 386.0
 margin_bottom = 98.0
 
 [node name="DeadzoneEnd" parent="MarginContainer/VBoxContainer" index="4" instance=ExtResource( 2 )]
 margin_top = 102.0
-margin_right = 361.0
+margin_right = 386.0
 margin_bottom = 120.0
+
+[node name="HSplitContainer" parent="MarginContainer/VBoxContainer" index="5"]
+margin_left = 111.0
+margin_top = 124.0
+margin_right = 274.0
+margin_bottom = 148.0

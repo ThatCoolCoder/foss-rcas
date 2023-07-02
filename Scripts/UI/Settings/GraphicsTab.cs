@@ -80,34 +80,34 @@ namespace UI.Settings
                 holder,
                 "Directional shadow size",
                 s => s.Graphics.DirectionalShadowSizeExponent,
-                (s, v) => s.Graphics.DirectionalShadowSizeExponent = (int) v,
-                8, 14, step: 1, _customDisplayFunc: v => 1 << (int) v);
+                (s, v) => s.Graphics.DirectionalShadowSizeExponent = (int)v,
+                8, 14, step: 1, _customDisplayFunc: v => (1 << (int)v).ToString());
 
             NumericSliderInput.Scene.Instance<NumericSliderInput>().Config(
                 holder,
                 "Shadow atlas size",
                 s => s.Graphics.ShadowAtlasSizeExponent,
-                (s, v) => s.Graphics.ShadowAtlasSizeExponent = (int) v,
-                8, 14, step: 1, _customDisplayFunc: v => 1 << (int) v);
+                (s, v) => s.Graphics.ShadowAtlasSizeExponent = (int)v,
+                8, 14, step: 1, _customDisplayFunc: v => (1 << (int)v).ToString());
 
             NumericSliderInput.Scene.Instance<NumericSliderInput>().Config(
                 holder,
                 "Shadow atlas cubemap size",
                 s => s.Graphics.ShadowAtlasCubemapSizeExponent,
-                (s, v) => s.Graphics.ShadowAtlasCubemapSizeExponent = (int) v,
-                6, 14, step: 1, _customDisplayFunc: v => 1 << (int) v);
+                (s, v) => s.Graphics.ShadowAtlasCubemapSizeExponent = (int)v,
+                6, 14, step: 1, _customDisplayFunc: v => (1 << (int)v).ToString());
 
             EnumInput.Scene.Instance<EnumInput>().Config(
                 holder,
                 "Anti-aliasing mode",
                 s => s.Graphics.AntiAliasingMode,
-                (s, v) => s.Graphics.AntiAliasingMode = (SimSettings.AntiAliasingMode) v,
+                (s, v) => s.Graphics.AntiAliasingMode = (SimSettings.AntiAliasingMode)v,
                 typeof(SimSettings.AntiAliasingMode));
 
             EnumInput.Scene.Instance<EnumInput>().Config(holder,
                 "Anti aliasing amount",
                 s => s.Graphics.Msaa,
-                (s, v) => s.Graphics.Msaa = (Viewport.MSAA) v,
+                (s, v) => s.Graphics.Msaa = (Viewport.MSAA)v,
                 typeof(Viewport.MSAA),
                 customValueFormatter: (obj) => obj.ToString().Replace("Msaa", ""),
                 toolTip: "Amount of anti aliasing passes. Only applies if high quality anti aliasing is enabled");

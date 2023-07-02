@@ -239,7 +239,7 @@ namespace Locations
                     var pos = ToLocal(relativeToCamera + falloffCenter);
 
                     // Snap to grid
-                    var snappedPos = new Vector3(Utils.RoundNumber(pos.x, gridSpacing), 0, Utils.RoundNumber(pos.z, gridSpacing));
+                    var snappedPos = new Vector3(Utils.RoundTo(pos.x, gridSpacing), 0, Utils.RoundTo(pos.z, gridSpacing));
 
                     // Jiggle
                     var jiggle = new Vector3(

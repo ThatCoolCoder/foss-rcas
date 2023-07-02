@@ -82,7 +82,6 @@ Channel directions:
     - Make content creation docs more friendly to non-programmers
     - If we make exotic stuff like quadcopters, create documentation on that
 - Misc bugs/problems
-    - UI for joystick axis deadzones is unusable.
     - Anticlockwise propeller has bad shading due to the scaling by -1
     - settings toml file is technically incorrect with slashes in keys, should hopefully be a tomlet update to fix this soon.
     - Make propellerwithmodel properly stop spinning when it hits things

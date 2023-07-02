@@ -72,10 +72,15 @@ public static class Utils
         return number;
     }
 
-    public static float RoundNumber(float number, float roundTo)
+    public static float RoundTo(float number, float roundTo)
     {
-        // Round number to a multiple of RoundTo
+        // Round number to a multiple of roundTo
         return Mathf.Round(number / roundTo) * roundTo;
+    }
+
+    public static float RoundToPlaces(float number, float decimalPlaces)
+    {
+        return RoundTo(number, Mathf.Pow(10, -decimalPlaces));
     }
 
     public static List<string> GetItemsInDirectory(string path, bool recursive = true)

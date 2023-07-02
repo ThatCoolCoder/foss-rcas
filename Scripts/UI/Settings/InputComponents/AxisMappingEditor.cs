@@ -24,6 +24,8 @@ namespace UI.Settings.InputComponents
 
         public override void _Ready()
         {
+            Func<float, string> percentageDisplayFunc = x => Utils.RoundToPlaces(x * 100, 0).ToString() + "%";
+
             var holder = GetMainItemHolder();
             holder.GetNode<BooleanInput>("InvertedInput").Config(null, "Inverted",
                 s => controlMapping.Inverted,
@@ -38,19 +40,19 @@ namespace UI.Settings.InputComponents
             holder.GetNode<NumericSliderInput>("Sensitivity").Config(null, "Sensitivity",
                 s => controlMapping.Multiplier,
                 (s, v) => controlMapping.Multiplier = v,
-                min: 0, max: 2, step: 0.01f)
+                min: 0, max: 2, step: 0.01f, _customDisplayFunc: percentageDisplayFunc)
                 .OnSettingsChanged();
 
             holder.GetNode<NumericSliderInput>("DeadzoneRest").Config(null, "Deadzone (rest)",
                 s => controlMapping.DeadzoneRest,
                 (s, v) => controlMapping.DeadzoneRest = v,
-                min: 0, max: 2, step: 0.01f)
+                min: 0, max: 2, step: 0.01f, _customDisplayFunc: percentageDisplayFunc)
                 .OnSettingsChanged();
 
             holder.GetNode<NumericSliderInput>("DeadzoneEnd").Config(null, "Deadzone (end)",
                 s => controlMapping.DeadzoneEnd,
                 (s, v) => controlMapping.DeadzoneEnd = v,
-                min: 0, max: 2, step: 0.01f)
+                min: 0, max: 2, step: 0.01f, _customDisplayFunc: percentageDisplayFunc)
                 .OnSettingsChanged();
         }
     }
