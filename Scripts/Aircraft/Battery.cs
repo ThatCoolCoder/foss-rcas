@@ -43,6 +43,7 @@ namespace Aircraft
         public override void _Ready()
         {
             RemainingCapacity = MaxCapacity;
+            AddToGroup("Battery");
         }
 
         public override void _Process(float delta)

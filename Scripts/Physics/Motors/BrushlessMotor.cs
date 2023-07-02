@@ -17,12 +17,15 @@ namespace Physics.Motors
         [Export] public float CurrentMultiplier { get; set; } = 1; // If you have measurements of the current drawn under load, you can use this to make the calculated current match
         [Export] public bool Clockwise { get; set; } = true;
         public float ThrustProportion { get; set; } = 0;
+        public float LastTorque { get; private set; }
+        public float LastCurrent { get; private set; }
 
         public override void _Ready()
         {
             battery = Utils.GetNodeWithWarnings<Aircraft.Battery>(this, BatteryPath, "battery");
             propeller = Utils.GetNodeWithWarnings<Forcers.Propeller>(this, PropellerPath, "propeller");
             torqueRigidBody = Utils.GetNodeWithWarnings<RigidBody>(this, TorqueRigidBodyPath, "torque rigid body");
+            AddToGroup("BrushlessMotor");
         }
 
         public override void _PhysicsProcess(float delta)
@@ -55,6 +58,9 @@ namespace Physics.Motors
             {
                 torqueRigidBody.AddTorque(GlobalTransform.basis.z * torque);
             }
+
+            LastTorque = torque;
+            LastCurrent = current;
         }
     }
 }
