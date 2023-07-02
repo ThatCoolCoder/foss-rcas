@@ -60,6 +60,8 @@ namespace Locations
 
         public override void _Process(float delta)
         {
+            if (!camera.Current) return;
+
             WalkMovement(delta);
             if (rotationManager.Update(delta)) StartWalkMode();
 

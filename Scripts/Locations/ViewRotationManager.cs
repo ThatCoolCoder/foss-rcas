@@ -37,8 +37,6 @@ namespace Locations
 
         public bool Update(float delta)
         {
-            if (Target == null) return false;
-
             var changed = false;
 
             if (KeyboardRotationEnabled)
@@ -46,7 +44,10 @@ namespace Locations
                 changed = KeyboardRotation(delta);
             }
 
-            Target.Rotation = new Vector3(crntRotation.x + crntDragRotation.x, crntRotation.y + crntDragRotation.y, 0);
+            if (Target != null)
+            {
+                Target.Rotation = new Vector3(crntRotation.x + crntDragRotation.x, crntRotation.y + crntDragRotation.y, 0);
+            }
 
             return changed;
         }

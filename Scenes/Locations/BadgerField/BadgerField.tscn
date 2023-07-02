@@ -172,7 +172,6 @@ transform = Transform( 1.38264, 0, 0, 0, 1.04986, 0, 0, 0, 1.38264, 66.1298, 0, 
 transform = Transform( 0.296678, 0, -0.647822, 0, 0.712524, 0, 0.647822, 0, 0.296678, 71.3858, 0, 25.6699 )
 
 [node name="GrassScatter" parent="." index="9" instance=ExtResource( 8 )]
-visible = false
 InstanceCount = 15000
 Mask = ExtResource( 11 )
 NormalMap = ExtResource( 9 )
