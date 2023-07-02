@@ -1,6 +1,5 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://addons/MaxSizeContainer/max_size_container.gd" type="Script" id=1]
 [ext_resource path="res://Scenes/UI/Misc/CollapsibleMenu.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scripts/UI/Settings/InputComponents/ActionCategoryEditor.cs" type="Script" id=3]
 
@@ -34,21 +33,13 @@ margin_bottom = 58.0
 custom_constants/margin_right = 10
 custom_constants/margin_left = 10
 
-[node name="MaxSizeContainer" type="MarginContainer" parent="MarginContainer" index="0"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" index="0"]
 margin_left = 10.0
-margin_right = 1270.0
-custom_constants/margin_right = 760
-custom_constants/margin_top = 0
-custom_constants/margin_left = 0
-custom_constants/margin_bottom = 0
-script = ExtResource( 1 )
-max_size = Vector2( 500, -1 )
-halign = 0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MaxSizeContainer" index="0"]
-margin_right = 500.0
+margin_right = 610.0
+rect_min_size = Vector2( 600, 0 )
+size_flags_horizontal = 0
 custom_constants/separation = 10
 
-[node name="ActionList" type="VBoxContainer" parent="MarginContainer/MaxSizeContainer/VBoxContainer" index="0"]
-margin_right = 500.0
+[node name="ActionList" type="VBoxContainer" parent="MarginContainer/VBoxContainer" index="0"]
+margin_right = 600.0
 custom_constants/separation = 5

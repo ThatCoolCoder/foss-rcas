@@ -6,11 +6,12 @@
 [node name="ActionPreview" type="HBoxContainer"]
 margin_right = 529.0
 margin_bottom = 27.0
+custom_constants/separation = 20
 script = ExtResource( 1 )
 
 [node name="Label" type="Label" parent="."]
 margin_top = 4.0
-margin_right = 503.0
+margin_right = 487.0
 margin_bottom = 22.0
 size_flags_horizontal = 3
 text = "Action"

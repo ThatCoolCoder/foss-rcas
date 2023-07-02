@@ -32,7 +32,7 @@ namespace UI.Settings.InputComponents
 
         private void UpdateChildren()
         {
-            var holder = GetNode<Control>("MarginContainer/MaxSizeContainer/VBoxContainer/ActionList");
+            var holder = GetNode<Control>("MarginContainer/VBoxContainer/ActionList");
 
             foreach (var child in holder.GetChildNodeList()) child.QueueFree();
 
