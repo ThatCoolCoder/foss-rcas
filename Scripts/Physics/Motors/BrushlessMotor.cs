@@ -47,7 +47,9 @@ namespace Physics.Motors
             propeller.AddTorque(torque);
 
             var torqueConstant = 1 / (KV / 60 * Mathf.Tau);
-            battery.Discharge(torque / torqueConstant * CurrentMultiplier, delta); // todo: does this recharge the battery when the prop is windmilling? It shouldn't.
+            var current = torque / torqueConstant * CurrentMultiplier;
+            current = Mathf.Max(current, 0);
+            battery.Discharge(current, delta);
 
             if (torqueRigidBody != null)
             {
