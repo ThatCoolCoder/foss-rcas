@@ -96,6 +96,7 @@ namespace Locations
             if (AircraftInfo.NeedsLauncher)
             {
                 launcher.GlobalTransform = aircraftTransform;
+                launcher.Reset(Aircraft);
             }
             else
             {
@@ -104,7 +105,6 @@ namespace Locations
                 Aircraft.GlobalTransform = aircraftTransform;
             }
             groundCamera.GlobalTranslation = GetNode<Spatial>(CrntSpawnPosition.CameraPositionNodePath).GlobalTranslation;
-            launcher.Reset(Aircraft);
         }
     }
 

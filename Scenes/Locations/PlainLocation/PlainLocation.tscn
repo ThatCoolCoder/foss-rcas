@@ -71,7 +71,7 @@ directional_shadow_split_2 = 0.106
 directional_shadow_split_3 = 0.229
 
 [node name="StartPosition" type="Position3D" parent="." index="10"]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 1.38927, -4.88273 )
+transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.586959, -4.88273 )
 
 [node name="CameraPosition" type="Position3D" parent="." index="11"]
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0.527703, -0.323742 )
