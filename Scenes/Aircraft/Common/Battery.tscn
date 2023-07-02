@@ -2,5 +2,5 @@
 
 [ext_resource path="res://Scripts/Aircraft/Battery.cs" type="Script" id=1]
 
-[node name="Battery" type="Spatial"]
+[node name="Battery" type="Spatial" groups=["battery"]]
 script = ExtResource( 1 )
