@@ -67,7 +67,7 @@ namespace Locations
 
             if (SimInput.Manager.IsActionJustPressed("camera/reset"))
             {
-                UI.MessageManager.StaticAddMessage("Ground camera: switched to tracking mode");
+                UI.MessageManager.StaticAddMessage("Ground camera: switched to tracking mode", CameraManager.UIMessageCategory);
                 isWalkMode = false;
             }
 
@@ -96,7 +96,7 @@ namespace Locations
             isWalkMode = true;
             camera.Fov = startingFov;
             rotationManager.SetPanAndTilt(camera.Rotation.x, camera.Rotation.y);
-            UI.MessageManager.StaticAddMessage("Ground camera: switched to walking mode");
+            UI.MessageManager.StaticAddMessage("Ground camera: switched to walking mode", CameraManager.UIMessageCategory);
         }
 
         private void WalkMovement(float delta)

@@ -16,13 +16,19 @@ namespace SimInput
             // returns non-copied list of mappings, so changing the value will change the mappings
 
             if (Mappings.TryGetValue(actionPath, out var mappings)) return mappings;
-            else return new List<IControlMapping>();
+            else
+            {
+                var items = new List<IControlMapping>();
+                Mappings[actionPath] = items;
+                return items;
+            }
         }
 
         public static readonly InputMap DefaultMap = new()
         {
             Mappings =
         {
+            // AIRCRAFT
             {"aircraft/throttle", new() {
                 new SimInput.AxisControlMapping() { Axis = 0 }}
             },
@@ -66,6 +72,7 @@ namespace SimInput
                 }}
             },
 
+            // CAMERA
             {"camera/move_backward_forward", new() },
             {"camera/move_backward", new() {
                 new SimInput.SimpleKeyboardControlMapping()
@@ -140,6 +147,7 @@ namespace SimInput
                 },
             }},
 
+            // GAMEPLAY
             {"gameplay/launch", new() {
                 new SimInput.SimpleKeyboardControlMapping()
                 {
@@ -151,6 +159,13 @@ namespace SimInput
                 new SimInput.SimpleKeyboardControlMapping()
                 {
                     KeyScancode = (uint) KeyList.R,
+                    Momentary = true
+                },
+            }},
+            {"gameplay/reload_aircraft", new() {
+                new SimInput.SimpleKeyboardControlMapping()
+                {
+                    KeyScancode = (uint) KeyList.R | (uint) KeyModifierMask.MaskCmd,
                     Momentary = true
                 },
             }},

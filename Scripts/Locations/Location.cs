@@ -27,6 +27,13 @@ namespace Locations
             Reset();
         }
 
+        public override void _Process(float delta)
+        {
+            if (SimInput.Manager.IsActionJustPressed("gameplay/reset")) Reset();
+            if (SimInput.Manager.IsActionJustPressed("gameplay/reload_aircraft")) ReloadAircraft();
+            if (SimInput.Manager.IsActionJustPressed("gameplay/launch")) launcher.Launch();
+        }
+
         private void SetupAircraft()
         {
             launcher.Settings = new AircraftLauncher.LauncherSettings()
@@ -51,10 +58,36 @@ namespace Locations
             Aircraft.AddChild(lockedCamera);
         }
 
-        public override void _Process(float delta)
+        private void ReloadAircraft()
         {
-            if (SimInput.Manager.IsActionJustPressed("gameplay/reset")) Reset();
-            if (SimInput.Manager.IsActionJustPressed("gameplay/launch")) launcher.Launch();
+            void DisplayReloadError(string message) => UI.MessageManager.StaticAddMessage($"Failed reloading aircraft: {message}", "aircraft_reload");
+
+            var scene = ResourceLoader.Load<PackedScene>(AircraftInfo.LoadedFromWithoutExtension + ".tscn", noCache: true);
+            if (scene == null)
+            {
+                DisplayReloadError("file not found");
+                return;
+            }
+
+            try
+            {
+                var instance = scene.Instance<RigidBody>();
+                if (instance == null)
+                {
+                    DisplayReloadError("instance did not appear");
+                    return;
+                }
+                Aircraft.QueueFree(); // todo: aircraft doesn't like being deleted, fix that and make this feature work
+                Aircraft = instance;
+            }
+            catch (InvalidCastException)
+            {
+                DisplayReloadError("aircraft is not a RigidBody");
+                return;
+            }
+
+            SetupAircraft();
+            Reset();
         }
 
         private void Reset()

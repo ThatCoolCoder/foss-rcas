@@ -7,6 +7,7 @@ namespace Locations
     public class CameraManager : Spatial
     {
         public static CameraManager instance;
+        public static readonly string UIMessageCategory = "camera";
         // Use of a hashset was considered for this, since we don't want duplicate cameras.
         // But we need preservation of order, so a list with manual checks in the accessors are used
         private List<IFlightCamera> cameras = new();
@@ -66,7 +67,7 @@ namespace Locations
             if (newCameraIndex != activeCameraIndex && hasInitDefaultCamera) cameras[activeCameraIndex].Deactivate();
             activeCameraIndex = newCameraIndex;
 
-            UI.MessageManager.StaticAddMessage(new UI.Message(category: "camera", content: $"Camera: {cameras[newCameraIndex].ViewName}"));
+            UI.MessageManager.StaticAddMessage($"Camera: {cameras[newCameraIndex].ViewName}", UIMessageCategory);
         }
 
         public override void _Process(float delta)

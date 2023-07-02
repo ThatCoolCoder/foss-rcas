@@ -95,6 +95,8 @@ namespace SimInput
                     defaultValue: -1),
                 new InputAction("reset",
                     defaultValue: -1),
+                new InputAction("reload_aircraft",
+                    defaultValue: -1),
                 new InputAction("pause",
                     defaultValue: -1),
             })
