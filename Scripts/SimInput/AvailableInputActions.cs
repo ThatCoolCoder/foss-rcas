@@ -82,12 +82,12 @@ namespace SimInput
                         {"camera/tilt_combined", extraMapperPositiveHalf}
                     }),
 
-                new InputAction("reset", "reset", "- resets the camera angle",
+                new InputAction("reset", "reset", " - resets the current camera",
                     defaultValue: -1),
 
-                new InputAction("previous", "previous",  "- switch to the previous camera",
+                new InputAction("previous", "previous",  " - switch to the previous camera",
                     defaultValue: -1),
-                new InputAction("next", "next",  "- switch to the next camera",
+                new InputAction("next", "next",  " - switch to the next camera",
                     defaultValue: -1),
             }),
             new("gameplay", "gameplay", new() {

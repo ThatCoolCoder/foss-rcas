@@ -45,6 +45,11 @@ namespace UI
         {
             if (Instance != null) Instance.AddMessage(notification);
         }
+
+        public static void StaticAddMessage(string content, string category = null, float? timeDisplayed = null)
+        {
+            if (Instance != null) Instance.AddMessage(new Message(content, category, timeDisplayed));
+        }
     }
 
     public class Message
