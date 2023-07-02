@@ -1,8 +1,5 @@
 using Godot;
-using Physics.Motors;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace UI.Apps
 {
@@ -19,7 +16,7 @@ namespace UI.Apps
                 $"Peak torque: {motor.PeakTorque:F3}\n" +
                 $"Clockwise: {motor.Clockwise}\n" +
                 $"Throttle: {motor.ThrustProportion * 100:F0}%\n" +
-                $"Unloaded rpm: {motor.KV * battery.CurrentCellVoltage:F0}\n" +
+                $"Unloaded rpm: {motor.KV * battery.CurrentVoltage:F0}\n" +
                 $"Rpm: {propeller.Rpm:F0}\n" +
                 $"Torque: {motor.LastTorque:F3}Nm\n" +
                 $"Current: {motor.LastCurrent:F2}A\n";

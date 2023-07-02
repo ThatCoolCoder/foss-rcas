@@ -39,6 +39,12 @@ namespace Physics.Forcers
         public float LastThrustMagnitude { get; private set; }
         private float currentTorques;
 
+        public override void _Ready()
+        {
+            base._Ready();
+            AddToGroup("Propeller");
+        }
+
         public override Vector3 CalculateForce(ISpatialFluid fluid, PhysicsDirectBodyState state)
         {
             var rps = AngularVelocity / Mathf.Tau;
