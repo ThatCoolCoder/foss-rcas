@@ -65,6 +65,7 @@ Channel directions:
         - Should be easier than electrics especially now that all the propeller stuff is done.
         - Just have a rpm/torque curve, then throttle directly controls torque proportion and fuel consumption
     - Potentially create a simulation of FPV inteference - we make a raycast from viewing position to camera, and degrade based on how many intersections.
+        - viewing position is FpvGroundStation, which is attached to the ground camera
 - Input
     - Add an input debug UI thing
     - Add a preview for all the inputs so we can check direction etc without flying (requires poking SimInput.Manager to give it a custom inputmap)
@@ -88,8 +89,6 @@ Channel directions:
         - problem: tomlet doesn't appreciate returning null from a converter function, which is the place where we do the checks
             - hacky solution: create an InvalidMappingType
     - if it fails to find positions for spawn, game crashes
-- redo flightsettingscreen so that we can change stuff like spawn position and wind
-    - total visual redesign, perhaps a vertical tab menu with icons
 - General refactoring/organizing
     - move `Art/Common` -> `Art/Locations/Common`
     - get rid of ControlHubLocator? it's literally one line of code per class that it's saving
@@ -104,11 +103,18 @@ Channel directions:
 - audio
     - procedural?
     - can link motor sound to an advanced motor simulation? (rpm, air disturbance factor, air disturbance shape)
-- UI Apps system
-    - Somewhat complex, we need:
-        - app code itself
-        - ui for creating apps, moving apps around, deciding where they dock do, deleting apps
-        - code & format for saving + loading apps, and associated error checking
+- UI
+    - UI Apps system
+        - Somewhat complex, we need:
+            - app code itself
+            - ui for creating apps, moving apps around, deciding where they dock do, deleting apps
+            - code & format for saving + loading apps, and associated error checking
+    - redo flightsettingscreen so that we can change stuff like spawn position and wind
+        - total visual redesign, perhaps a vertical tab menu with icons
+    - make a map thing that you can switch to and
+        - teleport camera to location
+        - move plane to predefined location
+        - move plane to custom location (because why not, this is supposed to be free-ware and free includes freedom of it not blocking you)
 - Content
     - Stabilise various formats, create compatibility fields
         - Thing saying what version of content file is used?

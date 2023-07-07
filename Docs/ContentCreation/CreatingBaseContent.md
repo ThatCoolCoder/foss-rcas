@@ -8,7 +8,7 @@ The only difference between base and addon content is the file location.
 
 Aircraft scenes, metadata files, mixes files, thumbnails, etc should be located in a subdirectory of `Scenes/Aircraft` - EG `Scenes/Aircraft/T28`. Aircraft 3d models, textures, etc should be located in a subdirectory of `Art/Aircraft`. If a propeller sound effect or model has been created for that aircraft, store it in `Art/Aircaft/PropAudio` or `Art/Aircaft/Props` respectively, so that other aircraft can use those assets in the future. 
 
-Locations are the same except that `Aircraft` in the paths is replaced with `Locations`.
+Locations are the same except that `Aircraft` in the paths is replaced with `Locations`. Stuff like vegetation that has been created for locations should be stored in `Art/Locations/Common` (raw files) and `Scenes/Locations/Common` (scenes.)
 
 ## Integration
 

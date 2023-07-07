@@ -20,12 +20,13 @@ todo: write somewhere about how it's safe to use stuff in the common directory b
 If you are not a programmer, or are simply not familiar with this project, it may seem daunting at first to create addons. These steps provide a suggested order in which to learn about the various aspects of addon creation.
 
 1. Follow the instructions in [Prerequisites](CreatingLocations.md) to setup an environment for creating addons.
-2. Read through the information regarding [content metadata files](ContentMetadata.md)
-3. Create a simple location following the instructions in [Creating locations](CreatingLocations.md). Locations are simpler than aircraft, so even if your end goal is to make aircraft it's recommended to do this first.
-4. Try packaging it.
-5. Create a simple aircraft through [Creating your first aircraft](CreatingFirstAircraft.md)
-6. Model a plane in blender and do more advanced stuff
+1. If you haven't used the Godot engine previously, read through the [introduction to Godot](GodotIntroduction.md).
+1. Read through the information regarding [content metadata files](ContentMetadata.md).
 
-todo: write more here
+1. Create a simple aircraft through [Creating your first aircraft](CreatingFirstAircraft.md). Although aircraft are more complex than locations, they are less tedious and require less existing skill, so it's recommended to start with them.
+1. Read through [Aircraft techniques](AircraftTechniques.md) and try modelling a plane then implementing it using some of the technquies described in that document.
+1. Try [packaging your aircraft](AddonPackaging.md) and sharing it online.
+
+1. If you want to create locations, follow the instructions in [Creating locations](CreatingLocations.md).
 
 If you have any difficulties, create an issue at `https://github.com/ThatCoolCoder/foss-rcas/issues`.

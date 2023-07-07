@@ -9,7 +9,7 @@ namespace Physics.Forcers
         [Export] public float MaxThrust { get; set; } = 10;
         [Export] public float MaxSpeed { get; set; } = 30; // thrust decays to 0 at this speed
 
-        public float ThrustProportion { get; set; } = 0;
+        [Export] public float ThrustProportion { get; set; } = 0; // public so people can mess with it in content creation tutorial before learning about control
 
         public override void Apply(PhysicsDirectBodyState state)
         {
