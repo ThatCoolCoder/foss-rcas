@@ -19,7 +19,7 @@ namespace SimInput
                 new InputAction("throttle", defaultValue: -1),
                 new InputAction("aileron"),
                 new InputAction("elevator"),
-                new InputAction("rudder", defaultValue: -1),
+                new InputAction("rudder"),
 
                 new InputAction("aux1", "aux 1", " - used for things like flaps",
                 defaultValue: -1),
