@@ -24,8 +24,7 @@ namespace Aircraft.Control
 
             var targetValue = inputValue;
 
-            // this should match the expo calculation used by open/edge tx
-            targetValue = Expo * Mathf.Pow(targetValue, 3) + (1 - Expo) * targetValue;
+            targetValue = CalculateExpo(targetValue, Expo);
             targetValue *= Weight;
 
             targetValue += Offset;
@@ -38,6 +37,12 @@ namespace Aircraft.Control
             else if (Mode == ChannelMixMode.Replace) channelValue = currentValue;
 
             return channelValue;
+        }
+
+        public static float CalculateExpo(float inputValue, float expo)
+        {
+            // Exponential controls. This should match the expo calculation used by open/edge tx
+            return expo * Mathf.Pow(inputValue, 3) + (1 - expo) * inputValue;
         }
     }
 }

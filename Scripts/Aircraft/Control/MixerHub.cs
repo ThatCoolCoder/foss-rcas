@@ -2,12 +2,11 @@ using Godot;
 using System;
 using System.Linq;
 using System.Collections.Generic;
-
 using Tomlet;
 
 namespace Aircraft.Control
 {
-    public class Hub : Spatial
+    public class MixerHub : Spatial, IHub
     {
         [Export(PropertyHint.File, "*.toml")] public string MixesFile { get; set; }
 

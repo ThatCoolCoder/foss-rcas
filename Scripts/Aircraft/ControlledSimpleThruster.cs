@@ -7,7 +7,7 @@ namespace Aircraft
     {
         [Export] public string ThrottleActionName { get; set; }
         [Export] public bool Reversible { get; set; }
-        public Control.Hub ControlHub { get; set; }
+        public Control.IHub ControlHub { get; set; }
 
         public override void _Process(float delta)
         {

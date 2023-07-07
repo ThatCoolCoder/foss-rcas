@@ -9,7 +9,7 @@ namespace Aircraft
         [Export] public string BrakeActionName { get; set; }
         [Export] public bool ReversibleDrive { get; set; } // whether can drive forward and reverse
         [Export] public bool Backwards { get; set; }
-        public Control.Hub ControlHub { get; set; }
+        public Control.IHub ControlHub { get; set; }
 
         public override void _Process(float delta)
         {

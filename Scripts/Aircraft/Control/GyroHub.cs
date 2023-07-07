@@ -44,7 +44,7 @@ namespace Aircraft.Control
         public float YawRateDegrees = 500;
     }
 
-    public class GyroHub : Hub
+    public class GyroHub : MixerHub
     {
         // todo: Hacky implementation, need to rework the base class to make it more extensible
 

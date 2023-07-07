@@ -5,6 +5,6 @@ namespace Aircraft.Control
 {
     public interface IControllable
     {
-        public Hub ControlHub { get; set; }
+        public IHub ControlHub { get; set; }
     }
 }

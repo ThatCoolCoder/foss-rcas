@@ -11,8 +11,8 @@
 [ext_resource path="res://Resources/AeroCurves/FlatPlateLiftCoefficient.tres" type="Curve" id=9]
 [ext_resource path="res://Scenes/Aircraft/Common/PropellerWithModel.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scenes/Aircraft/Common/ControlledBrushlessMotor.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Scenes/Aircraft/Common/ControlHub.tscn" type="PackedScene" id=12]
-[ext_resource path="res://Scenes/Aircraft/Common/ControlHubLocator.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Scenes/Aircraft/Common/Control/MixerControlHub.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Scenes/Aircraft/Common/Control/ControlHubLocator.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Scenes/Forcers/AeroObject.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Art/Aircraft/TinyTrainer/Elevator.glb" type="PackedScene" id=15]
 [ext_resource path="res://Art/Aircraft/TinyTrainer/Rudder.glb" type="PackedScene" id=16]
@@ -42,12 +42,11 @@ can_sleep = false
 angular_damp = 1.0
 script = ExtResource( 1 )
 
-[node name="ControlHub" parent="." instance=ExtResource( 12 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0243317, 0.00628343 )
-MixesFile = "res://Scenes/Aircraft/TinyTrainer/Mixes.toml"
-
 [node name="AircraftModel" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0201254, -0.105241 )
+
+[node name="MixerControlHub" parent="." instance=ExtResource( 12 )]
+MixesFile = "res://Scenes/Aircraft/TinyTrainer/Mixes.toml"
 
 [node name="WingCollider" type="CollisionShape" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0325681, 0.0364668 )
@@ -98,7 +97,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.007337 )
 
 [node name="ControlHubLocator" parent="Electrics/ControlledBrushlessMotor" instance=ExtResource( 13 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0164136, 0.0567389 )
-ControlHubPath = NodePath("../../../ControlHub")
+ControlHubPath = NodePath("../../../MixerControlHub")
 
 [node name="Battery" parent="Electrics" instance=ExtResource( 3 )]
 
@@ -165,7 +164,7 @@ TotalLiftCoefficient = ExtResource( 9 )
 ParasiticDragCoefficient = ExtResource( 4 )
 
 [node name="ControlHubLocator" parent="ElevatorHolder/Elevator" instance=ExtResource( 13 )]
-ControlHubPath = NodePath("../../../ControlHub")
+ControlHubPath = NodePath("../../../MixerControlHub")
 
 [node name="Elevator" parent="ElevatorHolder/Elevator" instance=ExtResource( 15 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.032, -0.486 )
@@ -196,7 +195,7 @@ AreaMultiplier = 0.75
 Thickness = 0.005
 
 [node name="ControlHubLocator" parent="RudderHolder/Rudder" instance=ExtResource( 13 )]
-ControlHubPath = NodePath("../../../ControlHub")
+ControlHubPath = NodePath("../../../MixerControlHub")
 
 [node name="Rudder" parent="RudderHolder/Rudder" instance=ExtResource( 16 )]
 transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.036, 0.003, -0.486 )

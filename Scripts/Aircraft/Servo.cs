@@ -12,7 +12,7 @@ namespace Aircraft
         [Export] public string ChannelName { get; set; } = "";
         [Export] public float Time60Degrees { get; set; } = 0.10f;
 
-        public Control.Hub ControlHub { get; set; }
+        public Control.IHub ControlHub { get; set; }
         private float trueDeflection = 0;
 
         public override void _Process(float delta)

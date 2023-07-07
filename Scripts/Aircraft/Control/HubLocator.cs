@@ -15,7 +15,7 @@ namespace Aircraft.Control
             if (parent is IControllable controllable)
             {
                 var foundNode = GetNode(ControlHubPath);
-                if (foundNode is Hub controlHub)
+                if (foundNode is IHub controlHub)
                 {
                     controllable.ControlHub = controlHub;
                 }
