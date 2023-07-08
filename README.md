@@ -122,7 +122,6 @@ Depending on how much base content is desired and how large the repository gets,
     - Make content creation docs more friendly to non-programmers
     - If we make exotic stuff like quadcopters, create documentation on that
 - Misc bugs/problems
-    - if you're paused in flight and then you exit to flightsettingsscreen, it remains paused and dies
     - large oval has wrong ground normal
     - thing has a heart attack if it tries loading a content item that doesn't have a scene file
     - Anticlockwise propeller has bad shading due to the scaling by -1

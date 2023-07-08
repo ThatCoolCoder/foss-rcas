@@ -32,6 +32,7 @@ namespace Locations
             if (SimInput.Manager.IsActionJustPressed("gameplay/reset")) Reset();
             if (SimInput.Manager.IsActionJustPressed("gameplay/reload_aircraft")) ReloadAircraft();
             if (SimInput.Manager.IsActionJustPressed("gameplay/launch")) launcher.Launch();
+            if (SimInput.Manager.IsActionJustPressed("gameplay/pause")) GetTree().Paused = !GetTree().Paused;
         }
 
         private void SetupAircraft()
@@ -108,6 +109,12 @@ namespace Locations
                 Aircraft.GlobalTransform = aircraftTransform;
                 Aircraft.GlobalTranslation += aircraftTransform.basis.Xform(AircraftInfo.PositionOffset);
             }
+        }
+
+        public override void _ExitTree()
+        {
+            // Make sure we unpause, since the menus don't appreciate being paused
+            GetTree().Paused = false;
         }
     }
 

@@ -17,7 +17,6 @@ public class GlobalKeybinds : Node
 
         if (Input.IsActionJustPressed("complete_reset")) GetTree().ChangeScene("res://Scenes/UI/StartScreen.tscn");
         if (Input.IsActionJustPressed("screenshot")) SaveScreenshot();
-        if (Input.IsActionJustPressed("pause")) GetTree().Paused = !GetTree().Paused;
     }
 
     private void SaveScreenshot()
