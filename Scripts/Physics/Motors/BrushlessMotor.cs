@@ -40,27 +40,30 @@ namespace Physics.Motors
                 noLoadRpm *= ThrustProportion;
                 var torqueProportion = (noLoadRpm - propeller.Rpm) / noLoadRpm;
                 torque = torqueProportion * PeakTorque * TorqueAdjustment * Mathf.Sign(noLoadRpm);
+
+                torque = Mathf.Clamp(torque, -PeakTorque, PeakTorque);
+
+                var torqueConstant = 1 / (KV / 60 * Mathf.Tau);
+                var current = torque / torqueConstant * CurrentMultiplier;
+                current = Mathf.Max(current, 0);
+                battery.Discharge(current, delta);
+                propeller.AddTorque(torque);
+
+                LastCurrent = current;
             }
             else
             {
-                var torqueProportion = (noLoadRpm - propeller.Rpm) / noLoadRpm;
-                torque = torqueProportion * PeakTorque * TorqueAdjustment * Mathf.Sign(noLoadRpm) * ThrustProportion;
-            }
-            torque = Mathf.Clamp(torque, -PeakTorque, PeakTorque);
-            propeller.AddTorque(torque);
+                torque = PeakTorque * TorqueAdjustment * 0.05f;
+                propeller.AddBrakingTorque(torque);
 
-            var torqueConstant = 1 / (KV / 60 * Mathf.Tau);
-            var current = torque / torqueConstant * CurrentMultiplier;
-            current = Mathf.Max(current, 0);
-            battery.Discharge(current, delta);
+                LastTorque = 0;
+                LastCurrent = 0;
+            }
 
             if (torqueRigidBody != null)
             {
                 torqueRigidBody.AddTorque(GlobalTransform.basis.z * torque);
             }
-
-            LastTorque = torque;
-            LastCurrent = current;
         }
     }
 }

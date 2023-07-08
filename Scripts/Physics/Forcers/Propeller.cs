@@ -38,6 +38,7 @@ namespace Physics.Forcers
         public Vector3 LastEntryVelocity { get; private set; } // hacky thing we need to make propwash work with wind
         public float LastThrustMagnitude { get; private set; }
         private float currentTorques;
+        private float currentBrakingTorques;
 
         public override void _Ready()
         {
@@ -92,7 +93,18 @@ namespace Physics.Forcers
             AddTorque(CalculateAirResistance());
             var momentOfInertia = Mass * RadiusMetres * RadiusMetres / 3;
             AngularVelocity += currentTorques / momentOfInertia * delta;
+            var brakingAcceleration = currentBrakingTorques / momentOfInertia * delta;
+            if (Mathf.Abs(brakingAcceleration) > Mathf.Abs(AngularVelocity))
+            {
+                AngularVelocity = 0;
+            }
+            else
+            {
+                AngularVelocity -= brakingAcceleration * Mathf.Sign(AngularVelocity);
+            }
+
             currentTorques = 0;
+            currentBrakingTorques = 0;
         }
 
         public override void _Process(float delta)
@@ -105,6 +117,11 @@ namespace Physics.Forcers
         public void AddTorque(float torque)
         {
             currentTorques += torque;
+        }
+
+        public void AddBrakingTorque(float torque)
+        {
+            currentBrakingTorques += torque;
         }
 
         public void HitObject()

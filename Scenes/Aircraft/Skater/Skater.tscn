@@ -75,7 +75,7 @@ TargetPath = NodePath("../../..")
 DiameterInches = 22.0
 PitchInches = 10.0
 EfficiencyFactor = 0.8
-Mass = 0.005
+Mass = 0.23
 
 [node name="PrerecordedPropellerNoise" type="AudioStreamPlayer3D" parent="Electrics/ControlledBrushlessMotor/PropellerWithModel"]
 stream = ExtResource( 7 )

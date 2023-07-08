@@ -94,10 +94,10 @@ Depending on how much base content is desired and how large the repository gets,
         - need some way of expressing conditions without creating a turing-complete language?
     - PropellerWithModel needs a way of fading between the two models instead of simply hiding/showing (hard to do because import from gltf)
     - Electrics simulation
+        - revamp motor sim to blend between power torque and stopping force instead of sudden cutoff
         - Check anticlockwise physics is working as intended
         - Consider moment of inertia of motor, as prop should spin up and down differently.
             - currently it has too much aero force to weight ratio
-        - Have a constant stopping force from the motor, otherwise it never stops.
         - Make prop drag based on raw force, not efficiency factor force. This makes it way easier to tune to have the right rpm, current and thrust.
             - Will require retuning all the planes
     - slow motion
