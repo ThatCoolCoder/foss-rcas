@@ -4,7 +4,7 @@ This directory contains a series of documents detailing how to create content (a
 
 ## Contents:
 
-- [Prerequisites](CreatingLocations.md)
+- [Prerequisites](Prerequisites.md)
 - [Content metadata files](ContentMetadata.md)
 - [Creating locations](CreatingLocations.md)
 - [Creating your first aircraft](CreatingFirstAircraft.md)
@@ -19,7 +19,7 @@ todo: write somewhere about how it's safe to use stuff in the common directory b
 
 If you are not a programmer, or are simply not familiar with this project, it may seem daunting at first to create addons. These steps provide a suggested order in which to learn about the various aspects of addon creation.
 
-1. Follow the instructions in [Prerequisites](CreatingLocations.md) to setup an environment for creating addons.
+1. Follow the instructions in [Prerequisites](Prerequisites.md) to setup an environment for creating addons.
 1. If you haven't used the Godot engine previously, read through the [introduction to Godot](GodotIntroduction.md).
 1. Read through the information regarding [content metadata files](ContentMetadata.md).
 

@@ -32,6 +32,46 @@ Channel directions:
 - elevator: stick back is low
 - rudder: stick left is low.
 
+## Addons
+
+It's not recommended to make or distribute addons currently as various formats haven't been stabilised yet. However, in future it's planned to create a site for hosting addons and possibly a downloader integrated into the game.
+
+For help on installing addons, read [doesn't exist yet]
+
+Information on creating addons can be found in [Docs/ContentCreation](Docs/ContentCreation/Index.md), although this information is incomplete and sometimes out of date.
+
+## Contributing
+
+Currently the project is still in early development. Things are constantly changing and because of that not much is written down yet. Therefore I invite you not to make contributions currently, as they may not align with my goals for this simulator.
+
+## Guidelines
+
+This section describes guidelines for simulator developers. For guidelines, tips and help on content creation, see [Docs/ContentCreation](Docs/ContentCreation/Index.md)
+
+#### C#
+
+This will be written at some later time, by this point the README document will be all cleaned up and this whole section will be moved to a separate document.
+
+Discuss naming, whitespace + structure, namespaces, integration into godot, tools, 
+
+#### Godot
+
+Todo: write this section.
+
+This section only describes stuff that you edit through the godot editor. Describe: naming, when to make a scene, whether to register scenes as nodes, 
+
+#### Documentation
+
+Todo: write this section
+
+#### Git
+
+Small commits and much use of feature branches are welcomed.
+
+As there are many largish binary files (most of which are the base content), measures need to be taken to ensure that their history does not take up a ridiculous amount of space. Try to minimise editing of existing binary files. If creating a new content item or overhauling an existing one, switch to a new branch for that. Make your commits as required, then squash merge (`git merge --squash featurebranch`) and delete the feature branch. This means that only 1 set of changes is kept.
+
+Depending on how much base content is desired and how large the repository gets, a more advanced solution such as git LFS might be used.
+
 ## Todo:
 - Physics/simulations
     - Wheels
@@ -39,7 +79,7 @@ Channel directions:
     - Make common methods in AbstractSpatialFluidForcer for getting relative & local velocity, there is no point having code for this in every derived class
     - improve wing/body aero physics
         - allow importing some better format of curves
-            - xflr import?
+            - xflr importer/exporter?
         - rudders are ineffective
         - dihedral too
         - stall is mushy, not sharp
