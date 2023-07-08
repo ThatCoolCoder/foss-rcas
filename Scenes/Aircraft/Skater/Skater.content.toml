@@ -16,7 +16,7 @@ weight = 5.2
 power_type = 0
 channels = 4
 
-[aircraft.launcher]
-speed = 0
-height = 0.6
-angle = 0
+[aircraft.position_offset]
+x = 0
+y = 0.2
+z = -1

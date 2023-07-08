@@ -42,6 +42,7 @@ namespace Locations
                 Height = AircraftInfo.LauncherHeight,
                 AngleDegrees = AircraftInfo.LauncherAngleDegrees
             };
+            launcher.PositionOffset = AircraftInfo.PositionOffset;
 
             // Set up cameras
             var orbitRadius = Mathf.Max(AircraftInfo.Length, AircraftInfo.WingSpan);
@@ -103,6 +104,7 @@ namespace Locations
                 Aircraft.LinearVelocity = Vector3.Zero;
                 Aircraft.AngularVelocity = Vector3.Zero;
                 Aircraft.GlobalTransform = aircraftTransform;
+                Aircraft.GlobalTranslation += aircraftTransform.basis.Xform(AircraftInfo.PositionOffset);
             }
             groundCamera.GlobalTranslation = GetNode<Spatial>(CrntSpawnPosition.CameraPositionNodePath).GlobalTranslation;
         }

@@ -217,7 +217,7 @@ ChannelName = "aileron"
 transform = Transform( 0.999708, 0, 0.024153, 0, 1, 0, -0.024153, 0, 0.999708, 0.0537564, 0, -0.00115981 )
 
 [node name="AeroSurface" parent="LeftAileronHolder/LeftAileron" instance=ExtResource( 16 )]
-transform = Transform( 0.870505, 0, -0.0190312, 0, 1, 0, 0.0885762, 0, 0.187034, 0.00101286, 0, 0.0469452 )
+transform = Transform( 0.870505, 0, -0.0190312, 0, 1, 0, 0.0885762, 0, 0.187034, 0.00101292, 0, 0.0469452 )
 TargetPath = NodePath("../../..")
 TotalLiftCoefficient = ExtResource( 22 )
 ParasiticDragCoefficient = ExtResource( 4 )
@@ -249,7 +249,7 @@ ControlHubPath = NodePath("../../../MixerControlHub")
 [node name="BodyAero" parent="." instance=ExtResource( 15 )]
 transform = Transform( 0.197786, 0, 0, 0, 0.207736, 0, 0, 0, 1.37939, 0, -0.0168573, 0.0588067 )
 LiftCubePath = "res://Resources/BaseBodyLift.tres"
-DragCubePath = "res://Resources/BaseBodyDrag.tres"
+DragCubePath = "res://Scenes/Aircraft/Skater/BodyDrag.tres"
 
 [node name="RightWheel" parent="." instance=ExtResource( 24 )]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.244932, -0.207297, -0.318569 )

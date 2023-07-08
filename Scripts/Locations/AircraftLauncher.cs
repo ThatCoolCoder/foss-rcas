@@ -13,6 +13,7 @@ namespace Locations
         }
 
         public LauncherSettings Settings { get; set; }
+        public Vector3 PositionOffset { get; set; }
         private RigidBody target;
         private bool used = false;
 
@@ -24,7 +25,7 @@ namespace Locations
 
             target.LinearVelocity = Vector3.Zero;
             target.AngularVelocity = Vector3.Zero;
-            target.GlobalTranslation = GlobalTranslation.WithY(GlobalTranslation.y + Settings.Height);
+            target.GlobalTranslation = GlobalTranslation.WithY(GlobalTranslation.y + Settings.Height) + PositionOffset.Rotated(Vector3.Up, GlobalRotation.y);
             target.Rotation = new Vector3(Mathf.Deg2Rad(Settings.AngleDegrees), Rotation.y, 0);
         }
 
