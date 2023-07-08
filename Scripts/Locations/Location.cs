@@ -57,6 +57,8 @@ namespace Locations
             lockedCamera.OrbitRadius = orbitRadius;
             lockedCamera.RotateWithAircraft = true;
             Aircraft.AddChild(lockedCamera);
+
+            groundCamera.GlobalTranslation = GetNode<Spatial>(CrntSpawnPosition.CameraPositionNodePath).GlobalTranslation;
         }
 
         private void ReloadAircraft()
@@ -106,7 +108,6 @@ namespace Locations
                 Aircraft.GlobalTransform = aircraftTransform;
                 Aircraft.GlobalTranslation += aircraftTransform.basis.Xform(AircraftInfo.PositionOffset);
             }
-            groundCamera.GlobalTranslation = GetNode<Spatial>(CrntSpawnPosition.CameraPositionNodePath).GlobalTranslation;
         }
     }
 
