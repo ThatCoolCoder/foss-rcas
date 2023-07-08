@@ -161,6 +161,8 @@ Depending on how much base content is desired and how large the repository gets,
         - move plane to predefined location
         - move plane to custom location (because why not, this is supposed to be free-ware and free includes freedom of it not blocking you)
 - Content
+    - create some super-light locations that are actually just 3d photos and some shadow catchers
+        - (it appears some other sims do this)
     - Stabilise various formats, create compatibility fields
         - Thing saying what version of content file is used?
         - Thing saying what game versions are supported?
