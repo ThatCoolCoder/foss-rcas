@@ -76,7 +76,7 @@ namespace SimInput
             return category + "/" + actionName;
         }
 
-        public override void _Input(InputEvent _event)
+        public override void _UnhandledInput(InputEvent _event)
         {
             foreach (var actionPath in inputMap.Mappings.Keys)
             {

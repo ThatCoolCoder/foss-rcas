@@ -51,11 +51,11 @@ namespace Locations
             Translation += Transform.basis.Xform(velocity * delta);
         }
 
-        public override void _Input(InputEvent _event)
+        public override void _UnhandledInput(InputEvent _event)
         {
             if (!Current) return;
 
-            rotationManager.Input(_event);
+            rotationManager.UnhandledInput(_event);
         }
 
         public override void BeforeActivated()

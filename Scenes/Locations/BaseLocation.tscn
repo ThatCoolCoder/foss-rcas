@@ -55,7 +55,7 @@ script = ExtResource( 12 )
 [node name="HUD" type="MarginContainer" parent="CanvasLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-mouse_filter = 1
+mouse_filter = 2
 theme = ExtResource( 3 )
 custom_constants/margin_right = 10
 custom_constants/margin_top = 10
@@ -67,11 +67,12 @@ margin_left = 10.0
 margin_top = 10.0
 margin_right = 1270.0
 margin_bottom = 710.0
-mouse_filter = 1
+mouse_filter = 2
 
 [node name="TopBar" type="HBoxContainer" parent="CanvasLayer/HUD/VSplitContainer"]
 margin_right = 1260.0
 margin_bottom = 29.0
+mouse_filter = 2
 
 [node name="BackButton" parent="CanvasLayer/HUD/VSplitContainer/TopBar" instance=ExtResource( 8 )]
 margin_left = 0.0
@@ -84,6 +85,7 @@ ScenePath = "res://Scenes/UI/FlightSettings/FlightSettingsScreen.tscn"
 margin_top = 682.0
 margin_right = 1260.0
 margin_bottom = 700.0
+mouse_filter = 2
 size_flags_vertical = 8
 
 [node name="FpsIndicator" type="Label" parent="CanvasLayer/HUD/VSplitContainer/BottomBar"]
@@ -101,6 +103,7 @@ anchor_right = 1.0
 margin_left = -40.0
 margin_bottom = 40.0
 grow_horizontal = 0
+mouse_filter = 2
 custom_constants/margin_right = 0
 custom_constants/margin_top = 0
 custom_constants/margin_left = 0
@@ -111,6 +114,7 @@ max_size = Vector2( 200, -1 )
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MaxSizeContainer"]
 margin_right = 40.0
 margin_bottom = 40.0
+mouse_filter = 2
 custom_constants/margin_right = 10
 custom_constants/margin_top = 10
 custom_constants/margin_left = 10
@@ -121,5 +125,6 @@ margin_left = 10.0
 margin_top = 10.0
 margin_right = 30.0
 margin_bottom = 30.0
+mouse_filter = 2
 custom_constants/separation = 10
 script = ExtResource( 14 )

@@ -46,11 +46,11 @@ namespace Aircraft
             }
         }
 
-        public override void _Input(InputEvent _event)
+        public override void _UnhandledInput(InputEvent _event)
         {
             if (camera.Current)
             {
-                rotationManager.Input(_event);
+                rotationManager.UnhandledInput(_event);
             }
         }
 

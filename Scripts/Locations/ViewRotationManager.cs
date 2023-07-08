@@ -72,7 +72,7 @@ namespace Locations
             return crntAcceleration.LengthSquared() > 0;
         }
 
-        public bool Input(InputEvent _event)
+        public bool UnhandledInput(InputEvent _event)
         {
             if (!MouseRotationEnabled) return false;
 

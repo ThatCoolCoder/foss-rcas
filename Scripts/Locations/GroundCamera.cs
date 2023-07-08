@@ -123,11 +123,11 @@ namespace Locations
             localVelocity = velocity.Rotated(Vector3.Up, -camera.GlobalRotation.y);
         }
 
-        public override void _Input(InputEvent _event)
+        public override void _UnhandledInput(InputEvent _event)
         {
             if (camera.Current)
             {
-                if (rotationManager.Input(_event)) StartWalkMode();
+                if (rotationManager.UnhandledInput(_event)) StartWalkMode();
             }
         }
 
