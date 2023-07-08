@@ -1,0 +1,274 @@
+[gd_scene load_steps=29 format=2]
+
+[ext_resource path="res://Scripts/Physics/SpatialForceable.cs" type="Script" id=1]
+[ext_resource path="res://Scripts/Aircraft/Servo.cs" type="Script" id=2]
+[ext_resource path="res://Resources/AeroCurves/FlatPlateLiftCoefficient.tres" type="Curve" id=3]
+[ext_resource path="res://Resources/AeroCurves/WingDragCoefficient.tres" type="Curve" id=4]
+[ext_resource path="res://Art/Aircraft/Skater/Wheel.glb" type="PackedScene" id=5]
+[ext_resource path="res://Scripts/Audio/PrerecordedPropellerNoise.cs" type="Script" id=6]
+[ext_resource path="res://Art/Aircraft/Common/PropAudio/3S-2304-6x4E.mp3" type="AudioStream" id=7]
+[ext_resource path="res://Scenes/Aircraft/Common/ControlledBrushlessMotor.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Art/Aircraft/Skater/SkaterBody.glb" type="PackedScene" id=9]
+[ext_resource path="res://Scenes/Aircraft/Common/Control/ControlHubLocator.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scenes/Aircraft/Common/Propwash.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scenes/Aircraft/Common/Control/MixerControlHub.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Scenes/Aircraft/Common/PropellerWithModel.tscn" type="PackedScene" id=13]
+[ext_resource path="res://Scenes/Aircraft/Common/Mirror.tscn" type="PackedScene" id=14]
+[ext_resource path="res://Scenes/Forcers/AeroObject.tscn" type="PackedScene" id=15]
+[ext_resource path="res://Scenes/Forcers/AeroSurface.tscn" type="PackedScene" id=16]
+[ext_resource path="res://Art/Aircraft/Skater/Rudder.glb" type="PackedScene" id=17]
+[ext_resource path="res://Scenes/Aircraft/Common/Battery.tscn" type="PackedScene" id=18]
+[ext_resource path="res://Art/Aircraft/Skater/Elevator.glb" type="PackedScene" id=19]
+[ext_resource path="res://Art/Aircraft/Skater/LeftAileron.glb" type="PackedScene" id=20]
+[ext_resource path="res://Scenes/Aircraft/Common/Servo.tscn" type="PackedScene" id=21]
+[ext_resource path="res://Resources/AeroCurves/DeltaWingLiftCoefficient.tres" type="Curve" id=22]
+[ext_resource path="res://Art/Aircraft/Skater/RightAileron.glb" type="PackedScene" id=23]
+[ext_resource path="res://Scenes/Forcers/ControlledWheelForcer.tscn" type="PackedScene" id=24]
+[ext_resource path="res://Resources/AeroCurves/naca0015_2m.tres" type="Curve" id=25]
+
+[sub_resource type="BoxShape" id=1]
+extents = Vector3( 0.949427, 0.01845, 0.202763 )
+
+[sub_resource type="BoxShape" id=2]
+extents = Vector3( 0.103539, 0.089479, 0.739668 )
+
+[sub_resource type="BoxShape" id=3]
+extents = Vector3( 0.00659916, 0.209339, 0.0906756 )
+
+[node name="Skater" type="RigidBody"]
+mass = 5.2
+script = ExtResource( 1 )
+
+[node name="SkaterBody" parent="." instance=ExtResource( 9 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.110448 )
+
+[node name="MixerControlHub" parent="." instance=ExtResource( 12 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.110448 )
+MixesFile = "res://Scenes/Aircraft/Skater/Mixes.toml"
+
+[node name="WingCollider" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00243798, -0.11999 )
+shape = SubResource( 1 )
+
+[node name="BodyCollider" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0164696, 0.082279 )
+shape = SubResource( 2 )
+
+[node name="TailCollider" type="CollisionShape" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0688131, 0.839092 )
+shape = SubResource( 3 )
+
+[node name="Electrics" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.110448 )
+
+[node name="ControlledBrushlessMotor" parent="Electrics" instance=ExtResource( 8 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0345769, -0.575092 )
+BatteryPath = NodePath("../Battery")
+PropellerPath = NodePath("PropellerWithModel")
+TorqueRigidBodyPath = NodePath("../..")
+KV = 210.0
+PeakTorque = 20.0
+CurrentMultiplier = 1.8
+
+[node name="PropellerWithModel" parent="Electrics/ControlledBrushlessMotor" instance=ExtResource( 13 )]
+TargetPath = NodePath("../../..")
+DiameterInches = 22.0
+PitchInches = 10.0
+EfficiencyFactor = 0.8
+Mass = 0.005
+
+[node name="PrerecordedPropellerNoise" type="AudioStreamPlayer3D" parent="Electrics/ControlledBrushlessMotor/PropellerWithModel"]
+stream = ExtResource( 7 )
+unit_db = 6.0
+max_db = 6.0
+autoplay = true
+doppler_tracking = 1
+script = ExtResource( 6 )
+DominantFrequency = 460.0
+DecibelsChange = 0.0
+
+[node name="Propwash" parent="Electrics/ControlledBrushlessMotor/PropellerWithModel" instance=ExtResource( 11 )]
+MaxDistance = 4.0
+
+[node name="ControlHubLocator" parent="Electrics/ControlledBrushlessMotor" instance=ExtResource( 10 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0164136, 0.0567389 )
+ControlHubPath = NodePath("../../../MixerControlHub")
+
+[node name="Battery" parent="Electrics" instance=ExtResource( 18 )]
+CellCount = 10
+MaxCapacity = 4.5
+
+[node name="Wing" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.000782432, -0.178281 )
+__meta__ = {
+"_editor_description_": "The wing is done in sections so that we get good-enough rolling resistance. Only half is made, then it is mirrored"
+}
+
+[node name="Mirror" parent="Wing" instance=ExtResource( 14 )]
+transform = Transform( 0.117, -3.7343e-07, 0, 4.36913e-08, 1, 0, 0, 0, 0.13, 0.00729886, 1.56462e-07, 0 )
+
+[node name="Section1" parent="Wing" instance=ExtResource( 16 )]
+transform = Transform( 0.159828, -5.10124e-07, 0, 4.36913e-08, 1, 0, 0, 0, 0.272481, -0.186525, 2.23517e-08, -0.0294451 )
+TargetPath = NodePath("../..")
+TotalLiftCoefficient = ExtResource( 25 )
+ParasiticDragCoefficient = ExtResource( 4 )
+AreaMultiplier = 0.6
+Thickness = 0.01
+
+[node name="Section2" parent="Wing" instance=ExtResource( 16 )]
+transform = Transform( 0.159828, -5.10124e-07, 0, 4.36913e-08, 1, 0, 0, 0, 0.256039, -0.346563, 2.23517e-08, -0.0294451 )
+TargetPath = NodePath("../..")
+TotalLiftCoefficient = ExtResource( 25 )
+ParasiticDragCoefficient = ExtResource( 4 )
+AreaMultiplier = 0.6
+Thickness = 0.01
+
+[node name="Section3" parent="Wing" instance=ExtResource( 16 )]
+transform = Transform( 0.159828, -5.10124e-07, 0, 4.36913e-08, 1, 0, 0, 0, 0.234884, -0.503888, 2.23517e-08, -0.0382098 )
+TargetPath = NodePath("../..")
+TotalLiftCoefficient = ExtResource( 25 )
+ParasiticDragCoefficient = ExtResource( 4 )
+AreaMultiplier = 0.6
+Thickness = 0.01
+
+[node name="Section4" parent="Wing" instance=ExtResource( 16 )]
+transform = Transform( 0.159828, -5.10124e-07, 0, 4.36913e-08, 1, 0, 0, 0, 0.204895, -0.664504, 2.23517e-08, -0.0423302 )
+TargetPath = NodePath("../..")
+TotalLiftCoefficient = ExtResource( 25 )
+ParasiticDragCoefficient = ExtResource( 4 )
+AreaMultiplier = 0.6
+Thickness = 0.01
+
+[node name="Section5" parent="Wing" instance=ExtResource( 16 )]
+transform = Transform( 0.200835, -6.41008e-07, 0, 4.36913e-08, 1, 0, 0, 0, 0.197985, -0.84671, 2.23517e-08, -0.0404082 )
+TargetPath = NodePath("../..")
+TotalLiftCoefficient = ExtResource( 25 )
+ParasiticDragCoefficient = ExtResource( 4 )
+AreaMultiplier = 0.6
+Thickness = 0.01
+
+[node name="HorizontalStabiliser" parent="." instance=ExtResource( 16 )]
+transform = Transform( 0.816069, -1.03355e-06, 0, 1.10107e-07, 1, 0, 0, 0, 0.128139, 0, 0.00115138, 0.724166 )
+TargetPath = NodePath("..")
+TotalLiftCoefficient = ExtResource( 3 )
+ParasiticDragCoefficient = ExtResource( 4 )
+AreaMultiplier = 0.7
+Thickness = 0.005
+
+[node name="VerticalStabiiser" parent="." instance=ExtResource( 16 )]
+transform = Transform( -1.24045e-07, -0.663754, 0, 0.213588, -1.01454e-06, 0, 0, 0, 0.107398, -6.46606e-08, 0.108441, 0.754506 )
+TargetPath = NodePath("..")
+TotalLiftCoefficient = ExtResource( 3 )
+ParasiticDragCoefficient = ExtResource( 4 )
+AreaMultiplier = 0.7
+Thickness = 0.005
+
+[node name="ElevatorHolder" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.999872, 0.0160215, 0, -0.0160215, 0.999872, 0, 0.00534578, 0.805744 )
+
+[node name="Elevator" type="Spatial" parent="ElevatorHolder"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00011377, -0.0169004 )
+script = ExtResource( 2 )
+MaxDeflectionDegrees = 45.0
+ChannelName = "elevator"
+
+[node name="AeroSurface" parent="ElevatorHolder/Elevator" instance=ExtResource( 16 )]
+transform = Transform( 0.841681, -1.06599e-06, 0, 1.10282e-07, 1.00159, -0.00218257, -8.01403e-09, -0.0727841, 0.155468, 0, -0.00313328, 0.075735 )
+TargetPath = NodePath("../../..")
+TotalLiftCoefficient = ExtResource( 22 )
+ParasiticDragCoefficient = ExtResource( 4 )
+
+[node name="ControlHubLocator" parent="ElevatorHolder/Elevator" instance=ExtResource( 10 )]
+ControlHubPath = NodePath("../../../MixerControlHub")
+
+[node name="Elevator" parent="ElevatorHolder/Elevator" instance=ExtResource( 19 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0211163, 0.000338256 )
+
+[node name="RudderHolder" type="Spatial" parent="."]
+transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -4.53532e-10, 0.00470001, 0.808195 )
+
+[node name="Rudder" type="Spatial" parent="RudderHolder"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.051, 0, 0.001 )
+script = ExtResource( 2 )
+MaxDeflectionDegrees = 45.0
+ChannelName = "rudder"
+
+[node name="AeroSurface" parent="RudderHolder/Rudder" instance=ExtResource( 16 )]
+transform = Transform( 0.411324, -1.50206e-06, 0, 2.83233e-08, 1, 0, 0, 0, 0.153654, 0.0199863, -7.42494e-10, 0.0806107 )
+TargetPath = NodePath("../../..")
+TotalLiftCoefficient = ExtResource( 22 )
+ParasiticDragCoefficient = ExtResource( 4 )
+Thickness = 0.005
+
+[node name="ControlHubLocator" parent="RudderHolder/Rudder" instance=ExtResource( 10 )]
+ControlHubPath = NodePath("../../../MixerControlHub")
+
+[node name="Rudder" parent="RudderHolder/Rudder" instance=ExtResource( 17 )]
+transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.0347614, -2.91645e-09, 0.00259519 )
+
+[node name="LeftAileronHolder" type="Spatial" parent="."]
+transform = Transform( 0.999767, 0, -0.0215706, 0, 1, 0, 0.0215706, 0, 0.999767, -0.520936, 0, -0.0526384 )
+
+[node name="LeftAileron" parent="LeftAileronHolder" instance=ExtResource( 21 )]
+MaxDeflectionDegrees = 45.0
+ChannelName = "aileron"
+
+[node name="Model" parent="LeftAileronHolder/LeftAileron" instance=ExtResource( 20 )]
+transform = Transform( 0.999708, 0, 0.024153, 0, 1, 0, -0.024153, 0, 0.999708, 0.0537564, 0, -0.00115981 )
+
+[node name="AeroSurface" parent="LeftAileronHolder/LeftAileron" instance=ExtResource( 16 )]
+transform = Transform( 0.870505, 0, -0.0190312, 0, 1, 0, 0.0885762, 0, 0.187034, 0.00101286, 0, 0.0469452 )
+TargetPath = NodePath("../../..")
+TotalLiftCoefficient = ExtResource( 22 )
+ParasiticDragCoefficient = ExtResource( 4 )
+
+[node name="ControlHubLocator" parent="LeftAileronHolder/LeftAileron" instance=ExtResource( 10 )]
+ControlHubPath = NodePath("../../../MixerControlHub")
+
+[node name="RightAileronHolder" type="Spatial" parent="."]
+transform = Transform( 0.999767, 0, 0.0215706, 0, 1, 0, -0.0215706, 0, 0.999767, 0.521, 0, -0.0528891 )
+
+[node name="RightAileron" parent="RightAileronHolder" instance=ExtResource( 21 )]
+MaxDeflectionDegrees = 45.0
+Reversed = true
+ChannelName = "aileron"
+
+[node name="AeroSurface" parent="RightAileronHolder/RightAileron" instance=ExtResource( 16 )]
+transform = Transform( 0.870505, 0, 0.0190312, 0, 1, 0, -0.0885762, 0, 0.187034, 0.00101286, 0, 0.0469452 )
+TargetPath = NodePath("../../..")
+TotalLiftCoefficient = ExtResource( 22 )
+ParasiticDragCoefficient = ExtResource( 4 )
+
+[node name="RightAileron" parent="RightAileronHolder/RightAileron" instance=ExtResource( 23 )]
+transform = Transform( 0.999759, 0, -0.0219719, 0, 1, 0, 0.0219719, 0, 0.999759, -0.0529589, 0, -0.00114262 )
+
+[node name="ControlHubLocator" parent="RightAileronHolder/RightAileron" instance=ExtResource( 10 )]
+transform = Transform( 0.99907, 0, -0.0431312, 0, 1, 0, 0.0431312, 0, 0.99907, -1.0417, 0, -0.0222246 )
+ControlHubPath = NodePath("../../../MixerControlHub")
+
+[node name="BodyAero" parent="." instance=ExtResource( 15 )]
+transform = Transform( 0.197786, 0, 0, 0, 0.207736, 0, 0, 0, 1.37939, 0, -0.0168573, 0.0588067 )
+LiftCubePath = "res://Resources/BaseBodyLift.tres"
+DragCubePath = "res://Resources/BaseBodyDrag.tres"
+
+[node name="RightWheel" parent="." instance=ExtResource( 24 )]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.244932, -0.207297, -0.318569 )
+TargetPath = NodePath("..")
+DisplayObjectPath = NodePath("Model")
+SuspensionTravel = 0.1
+SuspensionStrength = 300.0
+SuspensionDamping = 50.0
+WheelMass = 0.04
+
+[node name="Model" parent="RightWheel" instance=ExtResource( 5 )]
+
+[node name="LeftWheel" parent="." instance=ExtResource( 24 )]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.245, -0.207757, -0.318889 )
+TargetPath = NodePath("..")
+DisplayObjectPath = NodePath("Model")
+SuspensionTravel = 0.1
+SuspensionStrength = 300.0
+SuspensionDamping = 50.0
+WheelMass = 0.04
+
+[node name="Model" parent="LeftWheel" instance=ExtResource( 5 )]

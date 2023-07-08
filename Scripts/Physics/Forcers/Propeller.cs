@@ -99,7 +99,7 @@ namespace Physics.Forcers
         {
             base._Process(delta);
 
-            RotateZ(-AngularVelocity); // (In godot a negative rotation along -z is clockwise)
+            RotateZ(-AngularVelocity * delta); // (In godot a negative rotation along -z is clockwise)
         }
 
         public void AddTorque(float torque)

@@ -1,0 +1,22 @@
+name = "Skater 75"
+author = "ThatCoolCoder"
+version = "0.1.0"
+date_created = 2023-07-07
+date_updated = 2023-07-08
+description = """
+75" competition 3d aircraft. Currently it runs on a beefy 10S electric setup but when gas engines are implemented a gas version will be added.
+
+Will be bumped to v1.0 when the sound system has been fixed and a proper audio sample has been obtained.
+"""
+
+[aircraft]
+wingspan = 1.9
+length = 1.8
+weight = 5.2
+power_type = 0
+channels = 4
+
+[aircraft.launcher]
+speed = 0
+height = 0.6
+angle = 0

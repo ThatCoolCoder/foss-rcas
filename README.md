@@ -94,18 +94,19 @@ Depending on how much base content is desired and how large the repository gets,
         - need some way of expressing conditions without creating a turing-complete language?
     - PropellerWithModel needs a way of fading between the two models instead of simply hiding/showing (hard to do because import from gltf)
     - Electrics simulation
-        - Add some sort of resistance from the motor when it's not powering, otherwise props spin forever
         - Check anticlockwise physics is working as intended
         - Consider moment of inertia of motor, as prop should spin up and down differently.
             - currently it has too much aero force to weight ratio
         - Have a constant stopping force from the motor, otherwise it never stops.
         - Make prop drag based on raw force, not efficiency factor force. This makes it way easier to tune to have the right rpm, current and thrust.
             - Will require retuning all the planes
+    - slow motion
     - Internal combustion engine simulation
         - Should be easier than electrics especially now that all the propeller stuff is done.
         - Just have a rpm/torque curve, then throttle directly controls torque proportion and fuel consumption
     - Potentially create a simulation of FPV inteference - we make a raycast from viewing position to camera, and degrade based on how many intersections.
         - viewing position is FpvGroundStation, which is attached to the ground camera
+    - prerecorded prop audio needs more control of volume
 - Input
     - Add an input debug UI thing
     - Add a preview for all the inputs so we can check direction etc without flying (requires poking SimInput.Manager to give it a custom inputmap)
@@ -121,6 +122,9 @@ Depending on how much base content is desired and how large the repository gets,
     - Make content creation docs more friendly to non-programmers
     - If we make exotic stuff like quadcopters, create documentation on that
 - Misc bugs/problems
+    - if you're paused in flight and then you exit to flightsettingsscreen, it remains paused and dies
+    - large oval has wrong ground normal
+    - thing has a heart attack if it tries loading a content item that doesn't have a scene file
     - Anticlockwise propeller has bad shading due to the scaling by -1
     - settings toml file is technically incorrect with slashes in keys, should hopefully be a tomlet update to fix this soon.
     - Make propellerwithmodel properly stop spinning when it hits things
@@ -147,7 +151,8 @@ Depending on how much base content is desired and how large the repository gets,
     - UI Apps system
         - Somewhat complex, we need:
             - app code itself
-            - ui for creating apps, moving apps around, deciding where they dock do, deleting apps
+            - ui for creating apps, moving apps around, deciding which side they dock to, deleting apps
+                - the docking part might be really easy because godot has the anchor property of controls designed for exactly this
             - code & format for saving + loading apps, and associated error checking
     - redo flightsettingscreen so that we can change stuff like spawn position and wind
         - total visual redesign, perhaps a vertical tab menu with icons
