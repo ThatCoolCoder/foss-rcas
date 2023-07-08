@@ -113,13 +113,18 @@ namespace Locations
 
             if (crntAcceleration.x == 0) localVelocity.x = Utils.ConvergeValue(localVelocity.x, 0, Acceleration * delta);
             if (crntAcceleration.z == 0) localVelocity.z = Utils.ConvergeValue(localVelocity.z, 0, Acceleration * delta);
-            if (SimInput.Manager.IsActionJustPressed("camera/move_down_up")) localVelocity.y = JumpSpeed;
+            var jumped = false;
+            if (SimInput.Manager.IsActionJustPressed("camera/move_down_up"))
+            {
+                localVelocity.y = JumpSpeed;
+                jumped = true;
+            }
 
-            if (origLocalVelocity != localVelocity) StartWalkMode();
+            if (crntAcceleration.LengthSquared() > 0 || jumped) StartWalkMode();
 
             localVelocity.y -= 9.8f * delta;
 
-            var velocity = MoveAndSlide(localVelocity.Rotated(Vector3.Up, camera.GlobalRotation.y));
+            var velocity = MoveAndSlide(localVelocity.Rotated(Vector3.Up, camera.GlobalRotation.y), stopOnSlope: true);
             localVelocity = velocity.Rotated(Vector3.Up, -camera.GlobalRotation.y);
         }
 
