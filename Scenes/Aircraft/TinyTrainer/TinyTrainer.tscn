@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Scripts/Physics/SpatialForceable.cs" type="Script" id=1]
 [ext_resource path="res://Art/Aircraft/TinyTrainer/TinyTrainer.glb" type="PackedScene" id=2]
@@ -12,7 +12,6 @@
 [ext_resource path="res://Scenes/Aircraft/Common/PropellerWithModel.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scenes/Aircraft/Common/ControlledBrushlessMotor.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scenes/Aircraft/Common/Control/MixerControlHub.tscn" type="PackedScene" id=12]
-[ext_resource path="res://Scenes/Aircraft/Common/Control/ControlHubLocator.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Scenes/Forcers/AeroObject.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Art/Aircraft/TinyTrainer/Elevator.glb" type="PackedScene" id=15]
 [ext_resource path="res://Art/Aircraft/TinyTrainer/Rudder.glb" type="PackedScene" id=16]
@@ -74,6 +73,7 @@ KV = 1850.0
 PeakTorque = 0.074
 TorqueAdjustment = 1.5
 CurrentMultiplier = 1.8
+ControlHubPath = NodePath("../../MixerControlHub")
 
 [node name="PropellerWithModel" parent="Electrics/ControlledBrushlessMotor" instance=ExtResource( 10 )]
 TargetPath = NodePath("../../..")
@@ -94,10 +94,6 @@ DominantFrequency = 460.0
 
 [node name="Propwash" parent="Electrics/ControlledBrushlessMotor/PropellerWithModel" instance=ExtResource( 19 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.007337 )
-
-[node name="ControlHubLocator" parent="Electrics/ControlledBrushlessMotor" instance=ExtResource( 13 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0164136, 0.0567389 )
-ControlHubPath = NodePath("../../../MixerControlHub")
 
 [node name="Battery" parent="Electrics" instance=ExtResource( 3 )]
 
@@ -156,15 +152,13 @@ transform = Transform( 1, 0, 0, 0, 0.998657, 0.0518131, 0, -0.0518131, 0.998657,
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00011377, -0.0169004 )
 script = ExtResource( 7 )
 ChannelName = "elevator"
+ControlHubPath = NodePath("../../MixerControlHub")
 
 [node name="AeroSurface" parent="ElevatorHolder/Elevator" instance=ExtResource( 5 )]
 transform = Transform( 0.294853, -3.73431e-07, 0, 1.10175e-07, 1.00062, -0.000476888, -1.3184e-09, -0.0119738, 0.0490193, 0, -0.00230037, 0.0237533 )
 TargetPath = NodePath("../../..")
 TotalLiftCoefficient = ExtResource( 9 )
 ParasiticDragCoefficient = ExtResource( 4 )
-
-[node name="ControlHubLocator" parent="ElevatorHolder/Elevator" instance=ExtResource( 13 )]
-ControlHubPath = NodePath("../../../MixerControlHub")
 
 [node name="Elevator" parent="ElevatorHolder/Elevator" instance=ExtResource( 15 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.032, -0.486 )
@@ -185,6 +179,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.051, -0.003, 0.000999987 )
 script = ExtResource( 7 )
 MaxDeflectionDegrees = 35.0
 ChannelName = "rudder"
+ControlHubPath = NodePath("../../MixerControlHub")
 
 [node name="AeroSurface" parent="RudderHolder/Rudder" instance=ExtResource( 5 )]
 transform = Transform( 0.138905, -4.78299e-07, 0, 4.02311e-08, 1, 0, 0, 0, 0.0536885, 0.00444882, 0.003, 0.0269877 )
@@ -193,9 +188,6 @@ TotalLiftCoefficient = ExtResource( 9 )
 ParasiticDragCoefficient = ExtResource( 4 )
 AreaMultiplier = 0.75
 Thickness = 0.005
-
-[node name="ControlHubLocator" parent="RudderHolder/Rudder" instance=ExtResource( 13 )]
-ControlHubPath = NodePath("../../../MixerControlHub")
 
 [node name="Rudder" parent="RudderHolder/Rudder" instance=ExtResource( 16 )]
 transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.036, 0.003, -0.486 )

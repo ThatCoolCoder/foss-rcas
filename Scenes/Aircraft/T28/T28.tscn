@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Scripts/Physics/SpatialForceable.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/Aircraft/Servo.cs" type="Script" id=2]
@@ -12,7 +12,6 @@
 [ext_resource path="res://Scenes/Aircraft/Common/PropellerWithModel.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scripts/Audio/PrerecordedPropellerNoise.cs" type="Script" id=11]
 [ext_resource path="res://Scenes/Aircraft/Common/Control/MixerControlHub.tscn" type="PackedScene" id=12]
-[ext_resource path="res://Scenes/Aircraft/Common/Control/ControlHubLocator.tscn" type="PackedScene" id=13]
 [ext_resource path="res://Scenes/Forcers/AeroObject.tscn" type="PackedScene" id=14]
 [ext_resource path="res://Scenes/Aircraft/Common/FpvCamera.tscn" type="PackedScene" id=15]
 [ext_resource path="res://Scenes/Aircraft/Common/ControlledBrushlessMotor.tscn" type="PackedScene" id=16]
@@ -61,6 +60,7 @@ TorqueRigidBodyPath = NodePath("../..")
 KV = 1950.0
 PeakTorque = 0.25
 TorqueAdjustment = 1.5
+ControlHubPath = NodePath("../../ControlHub")
 
 [node name="PropellerWithModel" parent="Electrics/ControlledBrushlessMotor" instance=ExtResource( 10 )]
 TargetPath = NodePath("../../..")
@@ -80,10 +80,6 @@ script = ExtResource( 11 )
 DominantFrequency = 460.0
 
 [node name="Propwash" parent="Electrics/ControlledBrushlessMotor/PropellerWithModel" instance=ExtResource( 7 )]
-
-[node name="ControlHubLocator" parent="Electrics/ControlledBrushlessMotor" instance=ExtResource( 13 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0164136, 0.0567389 )
-ControlHubPath = NodePath("../../../ControlHub")
 
 [node name="Battery" parent="Electrics" instance=ExtResource( 17 )]
 
@@ -132,6 +128,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.154, 0.00418614, 0.039648 )
 script = ExtResource( 2 )
 MaxDeflectionDegrees = 20.0
 ChannelName = "leftAileron"
+ControlHubPath = NodePath("../ControlHub")
 
 [node name="AeroSurface" parent="AileronL" instance=ExtResource( 5 )]
 transform = Transform( 0.198269, -2.51107e-07, 0, 1.10107e-07, 1, 0, 0, 0, 0.0254438, 0, 0, 0.015 )
@@ -139,23 +136,18 @@ TargetPath = NodePath("../..")
 TotalLiftCoefficient = ExtResource( 4 )
 ParasiticDragCoefficient = ExtResource( 9 )
 
-[node name="ControlHubLocator" parent="AileronL" instance=ExtResource( 13 )]
-ControlHubPath = NodePath("../../ControlHub")
-
 [node name="AileronR" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.153949, 0.004, 0.0393202 )
 script = ExtResource( 2 )
 MaxDeflectionDegrees = 20.0
 ChannelName = "rightAileron"
+ControlHubPath = NodePath("../ControlHub")
 
 [node name="AeroSurface" parent="AileronR" instance=ExtResource( 5 )]
 transform = Transform( 0.198269, -2.51107e-07, 0, 1.10107e-07, 1, 0, 0, 0, 0.0254438, 0, 0, 0.015 )
 TargetPath = NodePath("../..")
 TotalLiftCoefficient = ExtResource( 4 )
 ParasiticDragCoefficient = ExtResource( 9 )
-
-[node name="ControlHubLocator" parent="AileronR" instance=ExtResource( 13 )]
-ControlHubPath = NodePath("../../ControlHub")
 
 [node name="HorizontalStabiliser" parent="." instance=ExtResource( 5 )]
 transform = Transform( 0.243969, 0, 0, 0, 1, 0, 0, 0, 0.0423619, -5.09775e-05, 0.00532245, 0.252604 )
@@ -172,15 +164,13 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00420604, 0.000879437 )
 script = ExtResource( 2 )
 MaxDeflectionDegrees = 25.0
 ChannelName = "elevator"
+ControlHubPath = NodePath("../../ControlHub")
 
 [node name="AeroSurface" parent="ElevatorHolder/Elevator" instance=ExtResource( 5 )]
 transform = Transform( 0.24274, -3.0743e-07, 0, 1.10107e-07, 1, 0, 0, 0, 0.0314426, 0, 0, 0.015 )
 TargetPath = NodePath("../../..")
 TotalLiftCoefficient = ExtResource( 4 )
 ParasiticDragCoefficient = ExtResource( 9 )
-
-[node name="ControlHubLocator" parent="ElevatorHolder/Elevator" instance=ExtResource( 13 )]
-ControlHubPath = NodePath("../../../ControlHub")
 
 [node name="VerticalStabiiser" parent="." instance=ExtResource( 5 )]
 transform = Transform( 4.63029e-08, 1, -4.91546e-09, -0.0848055, 3.18702e-07, -4.91546e-09, -7.41393e-09, 8.74228e-08, 0.0562263, -5.09729e-05, 0.0693141, 0.269249 )
@@ -198,6 +188,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0117185, -5.12955e-10, 0.000
 script = ExtResource( 2 )
 MaxDeflectionDegrees = 20.0
 ChannelName = "rudder"
+ControlHubPath = NodePath("../../ControlHub")
 
 [node name="AeroSurface" parent="RudderHolder/Rudder" instance=ExtResource( 5 )]
 transform = Transform( 0.124525, -4.24259e-07, 0, 4.08597e-08, 1, 0, 0, 0, 0.0329688, 0.00725566, 2.17551e-09, 0.0160582 )
@@ -205,9 +196,6 @@ TargetPath = NodePath("../../..")
 TotalLiftCoefficient = ExtResource( 4 )
 ParasiticDragCoefficient = ExtResource( 9 )
 Thickness = 0.005
-
-[node name="ControlHubLocator" parent="RudderHolder/Rudder" instance=ExtResource( 13 )]
-ControlHubPath = NodePath("../../../ControlHub")
 
 [node name="BodyAero" parent="." instance=ExtResource( 14 )]
 transform = Transform( 0.0495848, 0, 0, 0, 0.0469194, 0, 0, 0, 0.458425, 0, 0.00942594, 0.071843 )

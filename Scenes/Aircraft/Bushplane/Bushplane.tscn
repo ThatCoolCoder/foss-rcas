@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://Art/Aircraft/Bushplane/Rudder.glb" type="PackedScene" id=1]
 [ext_resource path="res://Art/Aircraft/Bushplane/MainBody.glb" type="PackedScene" id=2]
@@ -9,7 +9,6 @@
 [ext_resource path="res://Scenes/Aircraft/Common/Propwash.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scenes/Aircraft/Common/ControlledBrushlessMotor.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scripts/Audio/PrerecordedPropellerNoise.cs" type="Script" id=9]
-[ext_resource path="res://Scenes/Aircraft/Common/Control/ControlHubLocator.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scripts/Aircraft/Servo.cs" type="Script" id=11]
 [ext_resource path="res://Resources/AeroCurves/WingLiftCoefficient.tres" type="Curve" id=12]
 [ext_resource path="res://Resources/AeroCurves/FlatPlateLiftCoefficient.tres" type="Curve" id=13]
@@ -79,6 +78,7 @@ KV = 1850.0
 PeakTorque = 0.074
 TorqueAdjustment = 1.5
 CurrentMultiplier = 1.8
+ControlHubPath = NodePath("../../ControlHub")
 
 [node name="PropellerWithModel" parent="Electrics/ControlledBrushlessMotor" instance=ExtResource( 22 )]
 TargetPath = NodePath("../../..")
@@ -100,10 +100,6 @@ DominantFrequency = 460.0
 [node name="Propwash" parent="Electrics/ControlledBrushlessMotor/PropellerWithModel" instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.007337 )
 
-[node name="ControlHubLocator" parent="Electrics/ControlledBrushlessMotor" instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0164136, 0.0567389 )
-ControlHubPath = NodePath("../../../ControlHub")
-
 [node name="Battery" parent="Electrics" instance=ExtResource( 21 )]
 
 [node name="LeftWheel" parent="." instance=ExtResource( 23 )]
@@ -117,9 +113,7 @@ WheelRadius = 0.03
 WheelFrictionTorque = 0.0
 WheelDriveTorque = 20.0
 WheelBrakeTorque = 0.0
-
-[node name="ControlHubLocator" parent="LeftWheel" instance=ExtResource( 10 )]
-ControlHubPath = NodePath("../../ControlHub")
+ControlHubPath = NodePath("../ControlHub")
 
 [node name="Wheel" parent="LeftWheel" instance=ExtResource( 24 )]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.146639, 8.5108e-05, 0.00143338 )
@@ -135,9 +129,7 @@ WheelRadius = 0.03
 WheelFrictionTorque = 0.0
 WheelDriveTorque = 20.0
 WheelBrakeTorque = 0.0
-
-[node name="ControlHubLocator" parent="RightWheel" instance=ExtResource( 10 )]
-ControlHubPath = NodePath("../../ControlHub")
+ControlHubPath = NodePath("../ControlHub")
 
 [node name="Wheel" parent="RightWheel" instance=ExtResource( 24 )]
 transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.146488, 8.5108e-05, 0.00143338 )
@@ -202,6 +194,7 @@ transform = Transform( 1, 0, 0, 0, 0.998355, 0.0573375, 0, -0.0573375, 0.998355,
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00011377, -0.0169004 )
 script = ExtResource( 11 )
 ChannelName = "elevator"
+ControlHubPath = NodePath("../../ControlHub")
 
 [node name="AeroSurface" parent="ElevatorHolder/Elevator" instance=ExtResource( 16 )]
 transform = Transform( 0.294853, -3.73431e-07, 0, 1.10175e-07, 1.00062, -0.000476888, -1.3184e-09, -0.0119738, 0.0490193, 0, -0.00230037, 0.0237533 )
@@ -209,9 +202,6 @@ TargetPath = NodePath("../../..")
 TotalLiftCoefficient = ExtResource( 13 )
 ParasiticDragCoefficient = ExtResource( 15 )
 AreaMultiplier = 0.8
-
-[node name="ControlHubLocator" parent="ElevatorHolder/Elevator" instance=ExtResource( 10 )]
-ControlHubPath = NodePath("../../../ControlHub")
 
 [node name="Elevator" parent="ElevatorHolder/Elevator" instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0210005, -0.376084 )
@@ -231,6 +221,7 @@ transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -4.5353
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.051, -0.003, 0.000999987 )
 script = ExtResource( 11 )
 ChannelName = "rudder"
+ControlHubPath = NodePath("../../ControlHub")
 
 [node name="AeroSurface" parent="RudderHolder/Rudder" instance=ExtResource( 16 )]
 transform = Transform( 0.115005, -3.88483e-07, 0, 4.12758e-08, 1, 0, 0, 0, 0.0524033, 0.0071404, 0.003, 0.020717 )
@@ -240,9 +231,6 @@ ParasiticDragCoefficient = ExtResource( 15 )
 AreaMultiplier = 0.8
 Thickness = 0.005
 
-[node name="ControlHubLocator" parent="RudderHolder/Rudder" instance=ExtResource( 10 )]
-ControlHubPath = NodePath("../../../ControlHub")
-
 [node name="Rudder" parent="RudderHolder/Rudder" instance=ExtResource( 1 )]
 transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.0549504, 0.003, -0.379004 )
 
@@ -250,6 +238,7 @@ transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.0549
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0598263, 0.0399512 )
 script = ExtResource( 11 )
 ChannelName = "flap"
+ControlHubPath = NodePath("../ControlHub")
 
 [node name="FlapModelL" parent="Flaps" instance=ExtResource( 6 )]
 transform = Transform( 1, 0, 0, 0, 0.993797, 0.111209, 0, -0.111209, 0.993797, -0.119233, -3.00184e-05, 0.0212931 )
@@ -264,13 +253,11 @@ TotalLiftCoefficient = ExtResource( 17 )
 ParasiticDragCoefficient = ExtResource( 15 )
 AreaMultiplier = 0.8
 
-[node name="ControlHubLocator" parent="Flaps" instance=ExtResource( 10 )]
-ControlHubPath = NodePath("../../ControlHub")
-
 [node name="LAileron" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.303927, 0.0598263, 0.0395102 )
 script = ExtResource( 11 )
 ChannelName = "aileronl"
+ControlHubPath = NodePath("../ControlHub")
 
 [node name="AileronModel" parent="LAileron" instance=ExtResource( 3 )]
 transform = Transform( 1, 0, 0, 0, 0.993276, 0.115769, 0, -0.115769, 0.993276, -0.0010891, -0.000733249, 0.0150639 )
@@ -281,22 +268,17 @@ TargetPath = NodePath("../..")
 TotalLiftCoefficient = ExtResource( 13 )
 ParasiticDragCoefficient = ExtResource( 15 )
 
-[node name="ControlHubLocator" parent="LAileron" instance=ExtResource( 10 )]
-ControlHubPath = NodePath("../../ControlHub")
-
 [node name="RAileron" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.304, 0.0593573, 0.0396146 )
 script = ExtResource( 11 )
 ChannelName = "aileronr"
+ControlHubPath = NodePath("../ControlHub")
 
 [node name="AeroSurface" parent="RAileron" instance=ExtResource( 16 )]
 transform = Transform( 0.210047, 0, 0, 0, 1, 0, 0, 0, 0.0456588, -0.00140372, 3.14862e-05, 0.0199355 )
 TargetPath = NodePath("../..")
 TotalLiftCoefficient = ExtResource( 13 )
 ParasiticDragCoefficient = ExtResource( 15 )
-
-[node name="ControlHubLocator" parent="RAileron" instance=ExtResource( 10 )]
-ControlHubPath = NodePath("../../ControlHub")
 
 [node name="AileronModel" parent="RAileron" instance=ExtResource( 3 )]
 transform = Transform( -1, 8.74228e-08, 0, -8.6835e-08, -0.993276, -0.115769, -1.01209e-08, -0.115769, 0.993276, -0.0010891, -0.000733249, 0.0150639 )

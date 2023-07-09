@@ -3,7 +3,7 @@ using System;
 
 namespace Aircraft
 {
-    public class Servo : Spatial, Control.IControllable
+    public class Servo : Spatial
     {
         // Object that rotates around its X-axis
 
@@ -11,14 +11,21 @@ namespace Aircraft
         [Export] public bool Reversed { get; set; }
         [Export] public string ChannelName { get; set; } = "";
         [Export] public float Time60Degrees { get; set; } = 0.10f;
+        [Export] public NodePath ControlHubPath { get; set; }
+        private Control.IHub controlHub;
 
-        public Control.IHub ControlHub { get; set; }
         private float trueDeflection = 0;
         private float targetDeflection = 0;
 
+        public override void _Ready()
+        {
+            controlHub = Utils.GetNodeWithWarnings<Control.IHub>(this, ControlHubPath, "control hub", true);
+            base._Ready();
+        }
+
         public override void _Process(float delta)
         {
-            targetDeflection = ControlHub.ChannelValues[ChannelName];
+            targetDeflection = controlHub.ChannelValues[ChannelName];
             targetDeflection *= Mathf.Deg2Rad(MaxDeflectionDegrees);
             if (Reversed) targetDeflection *= -1;
 

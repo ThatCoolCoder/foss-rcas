@@ -1,10 +1,9 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Scripts/Physics/SpatialForceable.cs" type="Script" id=1]
 [ext_resource path="res://Art/Aircraft/Wing/Wing.glb" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/Aircraft/Common/Control/MixerControlHub.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scenes/Aircraft/Common/Battery.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/Aircraft/Common/Control/ControlHubLocator.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Aircraft/Common/Mirror.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scenes/Forcers/AeroSurface.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Resources/AeroCurves/WingDragCoefficient.tres" type="Curve" id=8]
@@ -51,6 +50,7 @@ KV = 1850.0
 PeakTorque = 0.074
 TorqueAdjustment = 1.5
 CurrentMultiplier = 1.8
+ControlHubPath = NodePath("../../ControlHub")
 
 [node name="PropellerWithModel" parent="Electrics/ControlledBrushlessMotor" instance=ExtResource( 14 )]
 TargetPath = NodePath("../../..")
@@ -68,10 +68,6 @@ autoplay = true
 doppler_tracking = 1
 script = ExtResource( 15 )
 DominantFrequency = 460.0
-
-[node name="ControlHubLocator" parent="Electrics/ControlledBrushlessMotor" instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0164136, 0.0567389 )
-ControlHubPath = NodePath("../../../ControlHub")
 
 [node name="Battery" parent="Electrics" instance=ExtResource( 4 )]
 
@@ -110,12 +106,10 @@ transform = Transform( 0.946706, 0, 0.3221, 0, 1, 0, -0.3221, 0, 0.946706, -0.23
 [node name="LeftElevon" type="Spatial" parent="LeftElevonHolder"]
 script = ExtResource( 9 )
 ChannelName = "leftElevon"
+ControlHubPath = NodePath("../../ControlHub")
 
 [node name="ElevonModel" parent="LeftElevonHolder/LeftElevon" instance=ExtResource( 12 )]
 transform = Transform( 0.949518, 0, -0.313711, 0, 1, 0, 0.313711, 0, 0.949518, -0.0103402, 0.00037559, 0.0128749 )
-
-[node name="ControlHubLocator" parent="LeftElevonHolder/LeftElevon" instance=ExtResource( 5 )]
-ControlHubPath = NodePath("../../../ControlHub")
 
 [node name="AeroSurface" parent="LeftElevonHolder/LeftElevon" instance=ExtResource( 7 )]
 transform = Transform( 0.276, 0, -1.40356e-09, 0, 1, 0, 7.44967e-09, 0, 0.052, -0.00551093, 0, 0.0256905 )
@@ -130,12 +124,10 @@ transform = Transform( 0.946705, 0, -0.3221, 0, 1, 0, 0.3221, 0, 0.946705, 0.231
 [node name="RightElevon" type="Spatial" parent="RightElevonHolder"]
 script = ExtResource( 9 )
 ChannelName = "rightElevon"
+ControlHubPath = NodePath("../../ControlHub")
 
 [node name="ElevonModel" parent="RightElevonHolder/RightElevon" instance=ExtResource( 12 )]
 transform = Transform( -0.949518, 8.30095e-08, 0.313711, -8.74227e-08, -1, 0, 0.313711, -2.74255e-08, 0.949518, 0.01, 0, 0.013 )
-
-[node name="ControlHubLocator" parent="RightElevonHolder/RightElevon" instance=ExtResource( 5 )]
-ControlHubPath = NodePath("../../../ControlHub")
 
 [node name="AeroSurface" parent="RightElevonHolder/RightElevon" instance=ExtResource( 7 )]
 transform = Transform( 0.276, 0, -1.40356e-09, 0, 1, 0, 7.44967e-09, 0, 0.052, 0.006, 0, 0.026 )

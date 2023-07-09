@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Scripts/Physics/SpatialForceable.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/Aircraft/Servo.cs" type="Script" id=2]
@@ -9,7 +9,6 @@
 [ext_resource path="res://Art/Aircraft/Common/PropAudio/3S-2304-6x4E.mp3" type="AudioStream" id=7]
 [ext_resource path="res://Scenes/Aircraft/Common/ControlledBrushlessMotor.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Art/Aircraft/Skater/SkaterBody.glb" type="PackedScene" id=9]
-[ext_resource path="res://Scenes/Aircraft/Common/Control/ControlHubLocator.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Scenes/Aircraft/Common/Propwash.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scenes/Aircraft/Common/Control/MixerControlHub.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Scenes/Aircraft/Common/PropellerWithModel.tscn" type="PackedScene" id=13]
@@ -70,6 +69,7 @@ TorqueRigidBodyPath = NodePath("../..")
 KV = 210.0
 PeakTorque = 20.0
 CurrentMultiplier = 1.8
+ControlHubPath = NodePath("../../MixerControlHub")
 
 [node name="PropellerWithModel" parent="Electrics/ControlledBrushlessMotor" instance=ExtResource( 13 )]
 TargetPath = NodePath("../../..")
@@ -90,10 +90,6 @@ DecibelsChange = 0.0
 
 [node name="Propwash" parent="Electrics/ControlledBrushlessMotor/PropellerWithModel" instance=ExtResource( 11 )]
 MaxDistance = 4.0
-
-[node name="ControlHubLocator" parent="Electrics/ControlledBrushlessMotor" instance=ExtResource( 10 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0164136, 0.0567389 )
-ControlHubPath = NodePath("../../../MixerControlHub")
 
 [node name="Battery" parent="Electrics" instance=ExtResource( 18 )]
 CellCount = 10
@@ -172,15 +168,13 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00011377, -0.0169004 )
 script = ExtResource( 2 )
 MaxDeflectionDegrees = 45.0
 ChannelName = "elevator"
+ControlHubPath = NodePath("../../MixerControlHub")
 
 [node name="AeroSurface" parent="ElevatorHolder/Elevator" instance=ExtResource( 16 )]
 transform = Transform( 0.841681, -1.06599e-06, 0, 1.10282e-07, 1.00159, -0.00218257, -8.01403e-09, -0.0727841, 0.155468, 0, -0.00313328, 0.075735 )
 TargetPath = NodePath("../../..")
 TotalLiftCoefficient = ExtResource( 22 )
 ParasiticDragCoefficient = ExtResource( 4 )
-
-[node name="ControlHubLocator" parent="ElevatorHolder/Elevator" instance=ExtResource( 10 )]
-ControlHubPath = NodePath("../../../MixerControlHub")
 
 [node name="Elevator" parent="ElevatorHolder/Elevator" instance=ExtResource( 19 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0211163, 0.000338256 )
@@ -193,6 +187,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.051, 0, 0.001 )
 script = ExtResource( 2 )
 MaxDeflectionDegrees = 45.0
 ChannelName = "rudder"
+ControlHubPath = NodePath("../../MixerControlHub")
 
 [node name="AeroSurface" parent="RudderHolder/Rudder" instance=ExtResource( 16 )]
 transform = Transform( 0.411324, -1.50206e-06, 0, 2.83233e-08, 1, 0, 0, 0, 0.153654, 0.0199863, -7.42494e-10, 0.0806107 )
@@ -200,9 +195,6 @@ TargetPath = NodePath("../../..")
 TotalLiftCoefficient = ExtResource( 22 )
 ParasiticDragCoefficient = ExtResource( 4 )
 Thickness = 0.005
-
-[node name="ControlHubLocator" parent="RudderHolder/Rudder" instance=ExtResource( 10 )]
-ControlHubPath = NodePath("../../../MixerControlHub")
 
 [node name="Rudder" parent="RudderHolder/Rudder" instance=ExtResource( 17 )]
 transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.0347614, -2.91645e-09, 0.00259519 )
@@ -213,6 +205,7 @@ transform = Transform( 0.999767, 0, -0.0215706, 0, 1, 0, 0.0215706, 0, 0.999767,
 [node name="LeftAileron" parent="LeftAileronHolder" instance=ExtResource( 21 )]
 MaxDeflectionDegrees = 45.0
 ChannelName = "aileron"
+ControlHubPath = NodePath("../../MixerControlHub")
 
 [node name="Model" parent="LeftAileronHolder/LeftAileron" instance=ExtResource( 20 )]
 transform = Transform( 0.999708, 0, 0.024153, 0, 1, 0, -0.024153, 0, 0.999708, 0.0537564, 0, -0.00115981 )
@@ -223,9 +216,6 @@ TargetPath = NodePath("../../..")
 TotalLiftCoefficient = ExtResource( 22 )
 ParasiticDragCoefficient = ExtResource( 4 )
 
-[node name="ControlHubLocator" parent="LeftAileronHolder/LeftAileron" instance=ExtResource( 10 )]
-ControlHubPath = NodePath("../../../MixerControlHub")
-
 [node name="RightAileronHolder" type="Spatial" parent="."]
 transform = Transform( 0.999767, 0, 0.0215706, 0, 1, 0, -0.0215706, 0, 0.999767, 0.521, 0, -0.0528891 )
 
@@ -233,6 +223,7 @@ transform = Transform( 0.999767, 0, 0.0215706, 0, 1, 0, -0.0215706, 0, 0.999767,
 MaxDeflectionDegrees = 45.0
 Reversed = true
 ChannelName = "aileron"
+ControlHubPath = NodePath("../../MixerControlHub")
 
 [node name="AeroSurface" parent="RightAileronHolder/RightAileron" instance=ExtResource( 16 )]
 transform = Transform( 0.870505, 0, 0.0190312, 0, 1, 0, -0.0885762, 0, 0.187034, 0.00101286, 0, 0.0469452 )
@@ -242,10 +233,6 @@ ParasiticDragCoefficient = ExtResource( 4 )
 
 [node name="RightAileron" parent="RightAileronHolder/RightAileron" instance=ExtResource( 23 )]
 transform = Transform( 0.999759, 0, -0.0219719, 0, 1, 0, 0.0219719, 0, 0.999759, -0.0529589, 0, -0.00114262 )
-
-[node name="ControlHubLocator" parent="RightAileronHolder/RightAileron" instance=ExtResource( 10 )]
-transform = Transform( 0.99907, 0, -0.0431312, 0, 1, 0, 0.0431312, 0, 0.99907, -1.0417, 0, -0.0222246 )
-ControlHubPath = NodePath("../../../MixerControlHub")
 
 [node name="BodyAero" parent="." instance=ExtResource( 15 )]
 transform = Transform( 0.197786, 0, 0, 0, 0.207736, 0, 0, 0, 1.37939, 0, -0.0168573, 0.0588067 )
@@ -260,6 +247,7 @@ SuspensionTravel = 0.1
 SuspensionStrength = 300.0
 SuspensionDamping = 50.0
 WheelMass = 0.04
+ControlHubPath = NodePath("../MixerControlHub")
 
 [node name="Model" parent="RightWheel" instance=ExtResource( 5 )]
 
@@ -271,5 +259,6 @@ SuspensionTravel = 0.1
 SuspensionStrength = 300.0
 SuspensionDamping = 50.0
 WheelMass = 0.04
+ControlHubPath = NodePath("../MixerControlHub")
 
 [node name="Model" parent="LeftWheel" instance=ExtResource( 5 )]

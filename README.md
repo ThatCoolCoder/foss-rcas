@@ -81,6 +81,7 @@ Depending on how much base content is desired and how large the repository gets,
         - allow importing some better format of curves
             - xflr importer/exporter?
         - rudders are ineffective
+            - are they?
         - dihedral too
         - stall is mushy, not sharp
             is it?
@@ -138,15 +139,13 @@ Depending on how much base content is desired and how large the repository gets,
     - if it fails to find positions for spawn, game crashes
 - General refactoring/organizing
     - move `Art/Common` -> `Art/Locations/Common`
-    - get rid of ControlHubLocator? it's literally one line of code per class that it's saving
-    - Should spatialfluidrepository become an autoload singleton?
     - Make all "modules" (EG Propeller, BrushlessMotor, Battery) instanceable scenes? (instead of just scripts)
     - Make more things (forcers, etc) use Utils.GetNodeWithWarnings, and give that method a better name
     - Reorganize stuff, currently we have aircraft stuff strewn everywhere.
         - Maybe make a simulation directory/namespace, then within have electrics, fluid dynamics
         - But then where does all the control stuff go?
         - And what about all the cameras?
-- Add support for flight computers/gyros extending from ControlHub and program a couple of types so that we can have quadcopters
+- make gyros not suck
 - audio
     - procedural?
     - can link motor sound to an advanced motor simulation? (rpm, air disturbance factor, air disturbance shape)
