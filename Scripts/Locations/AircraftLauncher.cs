@@ -3,9 +3,9 @@ using System;
 
 namespace Locations
 {
-    public class AircraftLauncher : Spatial
+    public partial class AircraftLauncher : Node3D
     {
-        public class LauncherSettings
+        public partial class LauncherSettings
         {
             public float Height { get; set; } = 1.5f;
             public float Speed { get; set; } = 10;
@@ -14,19 +14,19 @@ namespace Locations
 
         public LauncherSettings Settings { get; set; }
         public Vector3 PositionOffset { get; set; }
-        private RigidBody target;
+        private RigidBody3D target;
         private bool used = false;
 
-        public void Reset(RigidBody newTarget)
+        public void Reset(RigidBody3D newTarget)
         {
             target = newTarget;
-            target.Mode = RigidBody.ModeEnum.Static;
+            target.Freeze = true;
             used = false;
 
             target.LinearVelocity = Vector3.Zero;
             target.AngularVelocity = Vector3.Zero;
-            target.GlobalTranslation = GlobalTranslation.WithY(GlobalTranslation.y + Settings.Height) + PositionOffset.Rotated(Vector3.Up, GlobalRotation.y);
-            target.Rotation = new Vector3(Mathf.Deg2Rad(Settings.AngleDegrees), Rotation.y, 0);
+            target.GlobalPosition = GlobalPosition.WithY(GlobalPosition.Y + Settings.Height) + PositionOffset.Rotated(Vector3.Up, GlobalRotation.Y);
+            target.Rotation = new Vector3(Mathf.DegToRad(Settings.AngleDegrees), Rotation.Y, 0);
         }
 
         public void Launch()
@@ -34,8 +34,8 @@ namespace Locations
             if (used || target == null) return;
 
             used = true;
-            target.Mode = RigidBody.ModeEnum.Rigid;
-            target.LinearVelocity = (Vector3.Forward * Settings.Speed).Rotated(Vector3.Right, Mathf.Deg2Rad(Settings.AngleDegrees)).Rotated(Vector3.Up, Rotation.y);
+            target.Freeze = false;
+            target.LinearVelocity = (Vector3.Forward * Settings.Speed).Rotated(Vector3.Right, Mathf.DegToRad(Settings.AngleDegrees)).Rotated(Vector3.Up, Rotation.Y);
         }
     }
 }

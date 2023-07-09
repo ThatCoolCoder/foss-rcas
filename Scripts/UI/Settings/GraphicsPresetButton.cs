@@ -3,7 +3,7 @@ using System;
 
 namespace UI.Settings
 {
-    public class GraphicsPresetButton : Button
+    public partial class GraphicsPresetButton : Button
     {
         public GraphicsPreset GraphicsPreset { get; set; }
 
@@ -13,7 +13,7 @@ namespace UI.Settings
         {
             if (GraphicsPreset == null) Utils.LogError("GraphicsPreset is null", this);
             Text = GraphicsPreset.Name;
-            HintTooltip = GraphicsPreset.Description;
+            TooltipText = GraphicsPreset.Description;
         }
 
         private void _on_GraphicsPresetButton_pressed()

@@ -7,22 +7,22 @@
 script = ExtResource( 2 )
 
 [node name="VBoxContainer" parent="MarginContainer" index="0"]
-margin_right = 150.0
+offset_right = 150.0
 
 [node name="Heading" parent="MarginContainer/VBoxContainer" index="0"]
-margin_right = 145.0
+offset_right = 145.0
 text = "Propeller Debug"
 
 [node name="HBoxContainer" parent="MarginContainer/VBoxContainer" index="1"]
-margin_right = 145.0
+offset_right = 145.0
 
 [node name="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" index="0"]
-margin_right = 79.0
+offset_right = 79.0
 text = "Prop number"
 
 [node name="SpinBox" parent="MarginContainer/VBoxContainer/HBoxContainer" index="1"]
-margin_left = 83.0
-margin_right = 145.0
+offset_left = 83.0
+offset_right = 145.0
 
 [node name="Output" parent="MarginContainer/VBoxContainer" index="2"]
-margin_right = 145.0
+offset_right = 145.0

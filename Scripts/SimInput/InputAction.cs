@@ -7,7 +7,7 @@ namespace SimInput
 {
     using MapperFuncList = Dictionary<string, Func<float, float>>;
 
-    public class InputAction
+    public partial class InputAction
     {
         public string Name { get; set; } = "";
         // todo: disp name and description shouldn't be serialized but we read this off the settings when doing UI so we need it

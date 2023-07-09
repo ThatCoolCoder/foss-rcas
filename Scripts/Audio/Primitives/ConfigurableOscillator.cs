@@ -3,7 +3,7 @@ using System;
 
 namespace Audio.Primitives
 {
-    public class ConfigurableOscillator : AbstractOscillator
+    public partial class ConfigurableOscillator : AbstractOscillator
     {
         public Func<float, float> OscillatorFunc { get; set; } = Mathf.Sin;
 

@@ -3,7 +3,7 @@ using System;
 
 namespace Aircraft
 {
-    public class OrbitCamera : Spatial, Locations.IFlightCamera
+    public partial class OrbitCamera : Node3D, Locations.IFlightCamera
     {
         [Export] public float OrbitRadius { get; set; } = 1;
         [Export] public float MaxAngularSpeedDegrees { get; set; } = 120;
@@ -15,13 +15,13 @@ namespace Aircraft
         [Export] public string ViewName { get; set; } = "Orbit";
         [Export] public bool RotateWithAircraft { get; set; } = false;
 
-        private Camera camera;
+        private Camera3D camera;
 
         public override void _Ready()
         {
-            camera = GetNode<Camera>("Camera");
-            camera.Translation = new Vector3(0, 0, OrbitRadius);
-            if (!RotateWithAircraft) RotateY(GetParent<Spatial>().GlobalRotation.y);
+            camera = GetNode<Camera3D>("Camera3D");
+            camera.Position = new Vector3(0, 0, OrbitRadius);
+            if (!RotateWithAircraft) RotateY(GetParent<Node3D>().GlobalRotation.Y);
             Locations.CameraManager.instance.AddCamera(this);
 
             rotationManager.MaxAngularSpeedDegrees = MaxAngularSpeedDegrees;
@@ -34,7 +34,7 @@ namespace Aircraft
             Locations.CameraManager.instance.RemoveCamera(this);
         }
 
-        public override void _Process(float delta)
+        public override void _Process(double delta)
         {
             if (camera.Current)
             {

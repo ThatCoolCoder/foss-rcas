@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class SpawnAlongPath : Path
+public partial class SpawnAlongPath : Path3D
 {
     [Export] public PackedScene Scene { get; set; }
     [Export] public int NumInstances { get; set; } = 3;
@@ -13,12 +13,12 @@ public class SpawnAlongPath : Path
     {
         for (int i = 0; i < NumInstances; i++)
         {
-            var position = Curve.InterpolateBaked(GD.Randf() * Curve.GetBakedLength(), cubic: true);
-            position.x += (float)GD.RandRange(-2, 2);
-            position.z += (float)GD.RandRange(-2, 2);
-            var child = Scene.Instance<Spatial>();
+            var position = Curve.SampleBaked(GD.Randf() * Curve.GetBakedLength(), cubic: true);
+            position.X += (float)GD.RandRange(-2, 2);
+            position.Z += (float)GD.RandRange(-2, 2);
+            var child = Scene.Instantiate<Node3D>();
             AddChild(child);
-            child.GlobalTranslation = position;
+            child.GlobalPosition = position;
             child.Rotation = child.Rotation.WithY(GD.Randf() * Mathf.Tau);
             child.Scale = Vector3.One * (GD.Randf() * ScaleVariation + 1) * InstanceScale;
         }

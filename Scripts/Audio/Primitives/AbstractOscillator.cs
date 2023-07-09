@@ -3,7 +3,7 @@ using System;
 
 namespace Audio.Primitives
 {
-    public abstract class AbstractOscillator
+    public abstract partial class AbstractOscillator
     {
         public float Frequency { get; set; } = 440;
         private float phase = 0;

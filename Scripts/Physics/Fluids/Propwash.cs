@@ -3,7 +3,7 @@ using System;
 
 namespace Physics.Fluids
 {
-    public class Propwash : Spatial, ISpatialFluid
+    public partial class Propwash : Node3D, ISpatialFluid
     {
         // Class that adds propwash to a propeller. Must be the child of the propeller.
         // May be inaccurate for objects very close to the propeller since it assumes propwash is a perfect cone.
@@ -14,14 +14,14 @@ namespace Physics.Fluids
         {
             get
             {
-                return Mathf.Rad2Deg(spreadAngle);
+                return Mathf.RadToDeg(spreadAngle);
             }
             set
             {
-                spreadAngle = Mathf.Deg2Rad(value);
+                spreadAngle = Mathf.DegToRad(value);
             }
         }
-        private float spreadAngle = Mathf.Deg2Rad(20);
+        private float spreadAngle = Mathf.DegToRad(20);
 
         private Forcers.Propeller propeller;
 
@@ -44,7 +44,7 @@ namespace Physics.Fluids
 
         public bool ContainsPoint(Vector3 point)
         {
-            return (GlobalTranslation.DistanceSquaredTo(point) < MaxDistance * MaxDistance &&
+            return (GlobalPosition.DistanceSquaredTo(point) < MaxDistance * MaxDistance &&
                 AngleToPoint(point) < spreadAngle);
         }
 
@@ -53,12 +53,12 @@ namespace Physics.Fluids
             var localPosition = ToLocal(point);
 
             // Make speed fall off further away from prop
-            var axialSpeedMultiplier = Mathf.Abs(localPosition.z) / MaxDistance;
+            var axialSpeedMultiplier = Mathf.Abs(localPosition.Z) / MaxDistance;
             AngleToPoint(point);
 
             // Make speed higher at the outside, since the blades spin faster there.
-            var radiusAtDistance = Mathf.Tan(spreadAngle) * localPosition.z;
-            var radialSpeedMultiplier = new Vector2(localPosition.x, localPosition.y).Length() / radiusAtDistance;
+            var radiusAtDistance = Mathf.Tan(spreadAngle) * localPosition.Z;
+            var radialSpeedMultiplier = new Vector2(localPosition.X, localPosition.Y).Length() / radiusAtDistance;
             radialSpeedMultiplier = Mathf.Max(radialSpeedMultiplier, .25f);
 
             var directionToPoint = localPosition.Normalized();
@@ -74,9 +74,9 @@ namespace Physics.Fluids
         private float AngleToPoint(Vector3 globalPoint)
         {
             var local = ToLocal(globalPoint);
-            var squashed = new Vector2(local.x, local.y);
+            var squashed = new Vector2(local.X, local.Y);
             var sideDisplacement = squashed.Length();
-            return Mathf.Atan2(sideDisplacement, local.z);
+            return Mathf.Atan2(sideDisplacement, local.Z);
         }
 
         public FluidType Type { get; set; } = FluidType.Gas;

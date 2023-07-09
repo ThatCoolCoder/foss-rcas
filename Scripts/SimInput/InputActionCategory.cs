@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace SimInput
 {
 
-    public class InputActionCategory
+    public partial class InputActionCategory
     {
         public string Name { get; set; } = "";
         public string DisplayName { get; set; } = ""; // should not be capitalised

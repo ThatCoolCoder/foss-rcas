@@ -3,7 +3,7 @@ using System;
 
 namespace UI.FlightSettings
 {
-    public class LocationSelector : AbstractContentSelector<ContentManagement.Location>
+    public partial class LocationSelector : AbstractContentSelector<ContentManagement.Location>
     {
         protected override string FormatCustomInfo()
         {

@@ -5,7 +5,7 @@ using System.Linq;
 namespace UI
 {
 
-    public class MessageManager : Control
+    public partial class MessageManager : Control
     {
         public static MessageManager Instance { get; private set; }
         private PackedScene messageBoxScene = ResourceLoader.Load<PackedScene>("res://Scenes/UI/MessageBox.tscn");
@@ -21,7 +21,7 @@ namespace UI
             // If there is no node, create one
             if (existingNodeInCategory == null)
             {
-                var instance = messageBoxScene.Instance<MessageBox>();
+                var instance = messageBoxScene.Instantiate<MessageBox>();
                 AddChild(instance);
                 instance.SetMessage(message);
             }
@@ -52,7 +52,7 @@ namespace UI
         }
     }
 
-    public class Message
+    public partial class Message
     {
         public string Category { get; set; } = Guid.NewGuid().ToString(); // used to group notifications
         public string Content { get; set; } = "No content provided!";

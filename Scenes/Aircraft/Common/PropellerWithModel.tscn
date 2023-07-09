@@ -4,27 +4,27 @@
 [ext_resource path="res://Art/Aircraft/Common/Props/TwinBlade/SlowModel.glb" type="PackedScene" id=2]
 [ext_resource path="res://Art/Aircraft/Common/Props/TwinBlade/BlurShape.glb" type="PackedScene" id=3]
 
-[sub_resource type="CylinderShape" id=1]
+[sub_resource type="CylinderShape3D" id=1]
 height = 0.013716
 radius = 0.127
 
-[node name="PropellerWithModel" type="Spatial"]
+[node name="PropellerWithModel" type="Node3D"]
 script = ExtResource( 1 )
 TargetPath = NodePath("")
 ModelHeightMultiplier = 1.019
 ColliderHeightMultiplier = 0.09
 
 [node name="BlurShape" parent="." instance=ExtResource( 3 )]
-transform = Transform( 0.127, 0, 0, 0, 0.127, 0, 0, 0, 0.155296, 0, 0, 0 )
+transform = Transform3D( 0.127, 0, 0, 0, 0.127, 0, 0, 0, 0.155296, 0, 0, 0 )
 
 [node name="SlowModel" parent="." instance=ExtResource( 2 )]
-transform = Transform( -0.127, 0, -2.3449e-08, 0, 0.127, 0, 1.91765e-08, 0, -0.155296, 0, 0, 0 )
+transform = Transform3D( -0.127, 0, -2.3449e-08, 0, 0.127, 0, 1.91765e-08, 0, -0.155296, 0, 0, 0 )
 
-[node name="Area" type="Area" parent="."]
+[node name="Area3D" type="Area3D" parent="."]
 
-[node name="CollisionShape" type="CollisionShape" parent="Area"]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
 shape = SubResource( 1 )
 
-[connection signal="body_entered" from="Area" to="." method="_on_Area_body_entered"]
-[connection signal="body_exited" from="Area" to="." method="_on_Area_body_exited"]
+[connection signal="body_entered" from="Area3D" to="." method="_on_Area_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_Area_body_exited"]

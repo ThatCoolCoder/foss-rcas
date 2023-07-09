@@ -7,122 +7,122 @@
 [node name="InputChannelEditor" instance=ExtResource( 2 )]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 0.0
-margin_bottom = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
 size_flags_horizontal = 3
 script = ExtResource( 1 )
 Title = ""
 
 [node name="Header" parent="." index="0"]
-margin_right = 1280.0
+offset_right = 1280.0
 
 [node name="HBoxContainer" parent="Header" index="0"]
-margin_right = 1280.0
+offset_right = 1280.0
 
 [node name="HSeparator" parent="Header" index="1"]
-margin_right = 1280.0
+offset_right = 1280.0
 
 [node name="Label" type="Label" parent="." index="1"]
-margin_top = 36.0
-margin_right = 1280.0
-margin_bottom = 54.0
+offset_top = 36.0
+offset_right = 1280.0
+offset_bottom = 54.0
 text = "Bindings"
 
 [node name="MarginContainer" type="MarginContainer" parent="." index="2"]
-margin_top = 58.0
-margin_right = 1280.0
-margin_bottom = 144.0
-custom_constants/margin_right = 10
-custom_constants/margin_left = 10
+offset_top = 58.0
+offset_right = 1280.0
+offset_bottom = 144.0
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_left = 10
 
 [node name="MaxSizeContainer" type="MarginContainer" parent="MarginContainer" index="0"]
-margin_left = 10.0
-margin_right = 1270.0
-margin_bottom = 86.0
-custom_constants/margin_right = 0
-custom_constants/margin_top = 0
-custom_constants/margin_left = 0
-custom_constants/margin_bottom = 0
+offset_left = 10.0
+offset_right = 1270.0
+offset_bottom = 86.0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_bottom = 0
 script = ExtResource( 3 )
 max_size = Vector2( 500, -1 )
 halign = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/MaxSizeContainer" index="0"]
-margin_right = 500.0
-margin_bottom = 86.0
-custom_constants/separation = 10
+offset_right = 500.0
+offset_bottom = 86.0
+theme_override_constants/separation = 10
 
 [node name="MappingList" type="VBoxContainer" parent="MarginContainer/MaxSizeContainer/VBoxContainer" index="0"]
-margin_right = 500.0
-margin_bottom = 52.0
+offset_right = 500.0
+offset_bottom = 52.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MaxSizeContainer/VBoxContainer/MappingList" index="0"]
-margin_right = 500.0
-margin_bottom = 24.0
+offset_right = 500.0
+offset_bottom = 24.0
 
 [node name="Label" type="Label" parent="MarginContainer/MaxSizeContainer/VBoxContainer/MappingList/HBoxContainer" index="0"]
-margin_top = 3.0
-margin_right = 180.0
-margin_bottom = 21.0
+offset_top = 3.0
+offset_right = 180.0
+offset_bottom = 21.0
 text = "Keyboard (3 position) - A, S, D"
 
 [node name="Button" type="Button" parent="MarginContainer/MaxSizeContainer/VBoxContainer/MappingList/HBoxContainer" index="1"]
-margin_left = 409.0
-margin_right = 445.0
-margin_bottom = 24.0
+offset_left = 409.0
+offset_right = 445.0
+offset_bottom = 24.0
 size_flags_horizontal = 10
 text = "Edit"
 
 [node name="Button2" type="Button" parent="MarginContainer/MaxSizeContainer/VBoxContainer/MappingList/HBoxContainer" index="2"]
-margin_left = 449.0
-margin_right = 500.0
-margin_bottom = 24.0
+offset_left = 449.0
+offset_right = 500.0
+offset_bottom = 24.0
 text = "Delete"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/MaxSizeContainer/VBoxContainer/MappingList" index="1"]
-margin_top = 28.0
-margin_right = 500.0
-margin_bottom = 52.0
+offset_top = 28.0
+offset_right = 500.0
+offset_bottom = 52.0
 
 [node name="Label" type="Label" parent="MarginContainer/MaxSizeContainer/VBoxContainer/MappingList/HBoxContainer2" index="0"]
-margin_top = 3.0
-margin_right = 91.0
-margin_bottom = 21.0
+offset_top = 3.0
+offset_right = 91.0
+offset_bottom = 21.0
 text = "Joystick - axis 3"
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/MaxSizeContainer/VBoxContainer/MappingList/HBoxContainer2/Label" index="0"]
-margin_right = 40.0
-margin_bottom = 40.0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="Button" type="Button" parent="MarginContainer/MaxSizeContainer/VBoxContainer/MappingList/HBoxContainer2" index="1"]
-margin_left = 409.0
-margin_right = 445.0
-margin_bottom = 24.0
+offset_left = 409.0
+offset_right = 445.0
+offset_bottom = 24.0
 size_flags_horizontal = 10
 text = "Edit"
 
 [node name="Button2" type="Button" parent="MarginContainer/MaxSizeContainer/VBoxContainer/MappingList/HBoxContainer2" index="2"]
-margin_left = 449.0
-margin_right = 500.0
-margin_bottom = 24.0
+offset_left = 449.0
+offset_right = 500.0
+offset_bottom = 24.0
 text = "Delete"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/MaxSizeContainer/VBoxContainer" index="1"]
-margin_top = 62.0
-margin_right = 500.0
-margin_bottom = 86.0
+offset_top = 62.0
+offset_right = 500.0
+offset_bottom = 86.0
 alignment = 2
 
 [node name="NewMappingType" type="OptionButton" parent="MarginContainer/MaxSizeContainer/VBoxContainer/HBoxContainer" index="0"]
-margin_left = 294.0
-margin_right = 396.0
-margin_bottom = 24.0
+offset_left = 294.0
+offset_right = 396.0
+offset_bottom = 24.0
 text = "Joystick Axis"
 
 [node name="NewMappingButton" type="Button" parent="MarginContainer/MaxSizeContainer/VBoxContainer/HBoxContainer" index="1"]
-margin_left = 400.0
-margin_right = 500.0
-margin_bottom = 24.0
+offset_left = 400.0
+offset_right = 500.0
+offset_bottom = 24.0
 text = "Create binding"
 
 [connection signal="pressed" from="MarginContainer/MaxSizeContainer/VBoxContainer/HBoxContainer/NewMappingButton" to="." method="_on_NewMappingButton_pressed"]

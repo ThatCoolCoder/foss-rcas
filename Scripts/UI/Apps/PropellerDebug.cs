@@ -3,7 +3,7 @@ using System;
 
 namespace UI.Apps
 {
-    public class PropellerDebug : AbstractBasicNodeDebug<Physics.Forcers.Propeller>
+    public partial class PropellerDebug : AbstractBasicNodeDebug<Physics.Forcers.Propeller>
     {
         protected override string GroupName { get; set; } = "Propeller";
 

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace UI.Settings.Components
 {
-    public class EnumInput : SettingsRow<object>
+    public partial class EnumInput : SettingsRow<object>
     {
         // Dropdown input for enum values.
         // Since you (fairly enough) can't have a node with generics, we have to throw away the type system and users will have to cast results from object.

@@ -5,13 +5,13 @@ using System.Linq;
 
 namespace UI.Settings.Components
 {
-    public class JoystickAxisInput : BaseInputInput<int, int?>
+    public partial class JoystickAxisInput : BaseInputInput<JoyAxis, JoyAxis?>
     {
-        private Dictionary<int, (float min, float max)> CandidateAxisValues = new();
+        private Dictionary<JoyAxis, (float min, float max)> CandidateAxisValues = new();
 
         public static PackedScene Scene = ResourceLoader.Load<PackedScene>("res://Scenes/UI/Settings/Components/JoystickAxisInput.tscn");
 
-        public new JoystickAxisInput Config(Node parent, string name, SettingReader<int> read, SettingWriter<int> write, string toolTip = "")
+        public new JoystickAxisInput Config(Node parent, string name, SettingReader<JoyAxis> read, SettingWriter<JoyAxis> write, string toolTip = "")
         {
             base.Config(parent, name, read, write, toolTip);
 
@@ -38,7 +38,7 @@ namespace UI.Settings.Components
             }
         }
 
-        protected override int? GetCandidateValue()
+        protected override JoyAxis? GetCandidateValue()
         {
             // Get the axis that is currently the most moved (and therefore the current candidate)
             // returns null if no axis has been moved enough
@@ -47,7 +47,7 @@ namespace UI.Settings.Components
                 .Select(x => (x.Key, x.Value.max - x.Value.min))
                 .Where(x => x.Item2 > 0.5f)
                 .OrderByDescending(x => x.Item2)
-                .Select(x => (int?)x.Item1)
+                .Select(x => (JoyAxis?)x.Item1)
                 .FirstOrDefault();
         }
 

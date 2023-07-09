@@ -5,7 +5,7 @@ namespace UI.Settings
 {
     using InputComponents;
 
-    public class InputTab : Control
+    public partial class InputTab : Control
     {
         public override void _Ready()
         {
@@ -14,13 +14,13 @@ namespace UI.Settings
             foreach (var category in SimInput.AvailableInputActions.Categories)
             {
                 var name = category.Name.Capitalize();
-                ActionCategoryEditor.Scene.Instance<ActionCategoryEditor>().Config(holder, name, category);
+                ActionCategoryEditor.Scene.Instantiate<ActionCategoryEditor>().Config(holder, name, category);
             }
         }
 
         private void _on_Reset_pressed()
         {
-            GetNode<ConfirmationDialog>("CustomConfirmationDialog").PopupCenteredMinsize();
+            GetNode<ConfirmationDialog>("CustomConfirmationDialog").PopupCenteredClamped();
         }
 
         private void _on_ConfirmationDialog_confirmed()

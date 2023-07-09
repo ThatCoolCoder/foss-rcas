@@ -3,11 +3,11 @@ using System;
 
 namespace UI.Settings.Components
 {
-    public abstract class SettingsRow<T> : HSplitContainer
+    public abstract partial class SettingsRow<T> : HSplitContainer
     {
         // Base class for settings row
 
-        // suggested usage: DerivedScene.Instance<DerivedClass>().Config(parentNode, "Awesome setting" s => s.a, (s, v) => s.a = v );
+        // suggested usage: DerivedScene.Instantiate<DerivedClass>().Config(parentNode, "Awesome setting" s => s.a, (s, v) => s.a = v );
         // You can also provide null instead of a parent and manually add it to the scene
 
         protected private string name { get; private set; }
@@ -26,7 +26,7 @@ namespace UI.Settings.Components
 
             GetNode<Label>("Label").Text = name;
 
-            HintTooltip = toolTip;
+            TooltipText = toolTip;
 
             SettingsScreen.OnSettingsChanged += OnSettingsChanged;
 

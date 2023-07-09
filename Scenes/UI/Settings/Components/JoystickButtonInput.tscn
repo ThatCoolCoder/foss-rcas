@@ -6,8 +6,8 @@
 [node name="JoystickButtonInput" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
 
-[node name="WindowDialog" parent="." index="2"]
+[node name="Window" parent="." index="2"]
 window_title = "Select Button"
 
-[node name="VBoxContainer" parent="WindowDialog/MarginContainer" index="0"]
-margin_right = 321.0
+[node name="VBoxContainer" parent="Window/MarginContainer" index="0"]
+offset_right = 321.0

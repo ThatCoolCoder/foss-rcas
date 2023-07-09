@@ -4,7 +4,7 @@ using System;
 
 namespace Physics.Forcers
 {
-    public class Propeller : AbstractSpatialFluidForcer
+    public partial class Propeller : AbstractSpatialFluidForcer
     {
         [Export] public float DiameterInches { get; set; } = 10; // Inches were used for diameter and pitch because that's what all the propeller manufacturers use.
         public float RadiusMetres
@@ -46,16 +46,18 @@ namespace Physics.Forcers
             AddToGroup("Propeller");
         }
 
-        public override Vector3 CalculateForce(ISpatialFluid fluid, PhysicsDirectBodyState state)
+        public override Vector3 CalculateForce(ISpatialFluid fluid, PhysicsDirectBodyState3D state)
         {
+            return Vector3.Zero; // convtodo: enable this forcer
+
             var rps = AngularVelocity / Mathf.Tau;
             var exitSpeed = PitchMetres * rps;
 
-            var density = fluid.DensityAtPoint(GlobalTransform.origin);
-            LastEntryVelocity = fluid.VelocityAtPoint(GlobalTransform.origin);
+            var density = fluid.DensityAtPoint(GlobalPosition);
+            LastEntryVelocity = fluid.VelocityAtPoint(GlobalPosition);
             var relativeVelocity = state.GetVelocityAtGlobalPosition(target, this) - LastEntryVelocity;
-            var localVelocity = GlobalTransform.basis.XformInv(relativeVelocity);
-            var entrySpeed = -localVelocity.z;
+            var localVelocity = GlobalTransform.Basis.Inverse() * relativeVelocity;
+            var entrySpeed = -localVelocity.Z;
             var deltaSpeed = exitSpeed - entrySpeed;
 
             LastExitSpeed = deltaSpeed;
@@ -75,7 +77,7 @@ namespace Physics.Forcers
 
             LastThrustMagnitude = force;
 
-            return -GlobalTransform.basis.z * force;
+            return -GlobalTransform.Basis.Z * force;
         }
 
         private float CalculateAirResistance()
@@ -88,12 +90,12 @@ namespace Physics.Forcers
             return torqueDistance * dragForce;
         }
 
-        public override void _PhysicsProcess(float delta)
+        public override void _PhysicsProcess(double delta)
         {
-            AddTorque(CalculateAirResistance());
+            AddConstantTorque(CalculateAirResistance());
             var momentOfInertia = Mass * RadiusMetres * RadiusMetres / 3;
-            AngularVelocity += currentTorques / momentOfInertia * delta;
-            var brakingAcceleration = currentBrakingTorques / momentOfInertia * delta;
+            AngularVelocity += currentTorques / momentOfInertia * (float)delta;
+            var brakingAcceleration = currentBrakingTorques / momentOfInertia * (float)delta;
             if (Mathf.Abs(brakingAcceleration) > Mathf.Abs(AngularVelocity))
             {
                 AngularVelocity = 0;
@@ -106,10 +108,10 @@ namespace Physics.Forcers
             currentTorques = 0;
             currentBrakingTorques = 0;
 
-            RotateZ(-AngularVelocity * delta); // (In godot a negative rotation along -z is clockwise)
+            RotateZ(-AngularVelocity * (float)delta); // (In godot a negative rotation along -z is clockwise)
         }
 
-        public void AddTorque(float torque)
+        public void AddConstantTorque(float torque)
         {
             currentTorques += torque;
         }

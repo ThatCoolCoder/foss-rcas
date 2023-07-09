@@ -4,7 +4,7 @@ using Tomlet.Attributes;
 
 namespace ContentManagement
 {
-    public class Aircraft : ContentItem
+    public partial class Aircraft : ContentItem
     {
         [PropName("wingspan")] public float WingSpan { get; set; }
         [PropName("length")] public float Length { get; set; }

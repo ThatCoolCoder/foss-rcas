@@ -3,7 +3,7 @@ using System;
 
 namespace Audio
 {
-    public class SpatialSineAudio : ProceduralSpatialAudio
+    public partial class SpatialSineAudio : ProceduralSpatialAudio
     {
         // Basic audio thing to test that it works
 

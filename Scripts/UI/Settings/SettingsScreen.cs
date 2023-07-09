@@ -6,7 +6,7 @@ namespace UI.Settings
     using Components;
     using Settings = SimSettings.Settings;
 
-    public class SettingsScreen : Control
+    public partial class SettingsScreen : Control
     {
         // using statics here makes it so much easier and I don't envisage a scenario where someone would ever want two instances, so that is what is done
 
@@ -52,7 +52,7 @@ namespace UI.Settings
             Settings.SaveCurrent();
 
 
-            GetTree().ChangeScene("res://Scenes/UI/StartScreen.tscn");
+            GetTree().ChangeSceneToFile("res://Scenes/UI/StartScreen.tscn");
         }
 
         public override void _ExitTree()

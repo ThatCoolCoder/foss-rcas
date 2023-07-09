@@ -3,7 +3,7 @@
 [ext_resource path="res://Scripts/UI/Misc/CustomConfirmationDialogue.cs" type="Script" id=1]
 
 [node name="CustomConfirmationDialog" type="ConfirmationDialog"]
-margin_right = 150.0
-margin_bottom = 66.0
-rect_min_size = Vector2( 150, 52.5 )
+offset_right = 150.0
+offset_bottom = 66.0
+custom_minimum_size = Vector2( 150, 52.5 )
 script = ExtResource( 1 )

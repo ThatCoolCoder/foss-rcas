@@ -1,13 +1,14 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://c0mvleldx8vta"]
 
-[ext_resource path="res://Scenes/UI/Settings/Components/BaseInputInput.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scripts/UI/Settings/Components/JoystickAxisInput.cs" type="Script" id=2]
+[ext_resource type="PackedScene" uid="uid://7ovogrdnxmuy" path="res://Scenes/UI/Settings/Components/BaseInputInput.tscn" id="1"]
+[ext_resource type="Script" path="res://Scripts/UI/Settings/Components/JoystickAxisInput.cs" id="2"]
 
-[node name="JoystickAxisInput" instance=ExtResource( 1 )]
-script = ExtResource( 2 )
+[node name="JoystickAxisInput" instance=ExtResource("1")]
+script = ExtResource("2")
 
-[node name="WindowDialog" parent="." index="2"]
-window_title = "Select Axis"
+[node name="MarginContainer" parent="Window" index="0"]
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="SelectAnotherInput" parent="WindowDialog/MarginContainer/VBoxContainer/HBoxContainer" index="1"]
+[node name="SelectAnotherInput" parent="Window/MarginContainer/VBoxContainer/HBoxContainer" index="1"]
 text = "Select a different axis"

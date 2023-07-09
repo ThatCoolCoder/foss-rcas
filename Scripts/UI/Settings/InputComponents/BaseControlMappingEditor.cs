@@ -5,7 +5,7 @@ namespace UI.Settings.InputComponents
 {
     using Components;
 
-    public class BaseControlMappingEditor : WindowDialog
+    public partial class BaseControlMappingEditor : Window
     {
         // It was decided to not make this a smart control using readers and writers, and simply regenerate them every time the settings change.
         // The performance should still be fine and this makes it SO much easier to code.

@@ -5,7 +5,7 @@ using Tomlet;
 
 namespace UI.Settings
 {
-    public class GraphicsPreset : SimSettings.GraphicsSettings
+    public partial class GraphicsPreset : SimSettings.GraphicsSettings
     {
         public string Name { get; set; } = "Unnamed preset";
         public string Description { get; set; } = "What type of computer can run this?";
@@ -35,7 +35,7 @@ namespace UI.Settings
                 ShadowAtlasCubemapSizeExponent = 6,
 
                 AntiAliasingMode = SimSettings.AntiAliasingMode.Disabled,
-                Msaa = Viewport.MSAA.Disabled,
+                Msaa = SubViewport.Msaa.Disabled,
             },
             new()
             {
@@ -56,7 +56,7 @@ namespace UI.Settings
                 ShadowAtlasCubemapSizeExponent = 6,
 
                 AntiAliasingMode = SimSettings.AntiAliasingMode.Disabled,
-                Msaa = Viewport.MSAA.Disabled,
+                Msaa = SubViewport.Msaa.Disabled,
             },
             new()
             {
@@ -77,7 +77,7 @@ namespace UI.Settings
                 ShadowAtlasCubemapSizeExponent = 6,
 
                 AntiAliasingMode = SimSettings.AntiAliasingMode.Fast,
-                Msaa = Viewport.MSAA.Disabled,
+                Msaa = SubViewport.Msaa.Disabled,
             },
             new()
             {
@@ -98,7 +98,7 @@ namespace UI.Settings
                 ShadowAtlasCubemapSizeExponent = 7,
 
                 AntiAliasingMode = SimSettings.AntiAliasingMode.Quality,
-                Msaa = Viewport.MSAA.Msaa2x,
+                Msaa = SubViewport.Msaa.Msaa2X,
             },
             new()
             {
@@ -113,13 +113,13 @@ namespace UI.Settings
                 NearVegetationMultiplier = 1f,
                 GrassDistanceMultiplier = 1f,
                 GrassMultiplier = 1f,
-                
+
                 DirectionalShadowSizeExponent = 12,
                 ShadowAtlasSizeExponent = 12,
                 ShadowAtlasCubemapSizeExponent = 9,
 
                 AntiAliasingMode = SimSettings.AntiAliasingMode.Quality,
-                Msaa = Viewport.MSAA.Msaa4x,
+                Msaa = SubViewport.Msaa.Msaa4X,
             },
             new()
             {
@@ -139,7 +139,7 @@ namespace UI.Settings
                 ShadowAtlasCubemapSizeExponent = 12,
 
                 AntiAliasingMode = SimSettings.AntiAliasingMode.Quality,
-                Msaa = Viewport.MSAA.Msaa16x,
+                Msaa = SubViewport.Msaa.Msaa8X,
             },
         };
     }

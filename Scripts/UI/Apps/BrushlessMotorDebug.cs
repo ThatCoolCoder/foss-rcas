@@ -3,7 +3,7 @@ using System;
 
 namespace UI.Apps
 {
-    public class BrushlessMotorDebug : AbstractBasicNodeDebug<Physics.Motors.BrushlessMotor>
+    public partial class BrushlessMotorDebug : AbstractBasicNodeDebug<Physics.Motors.BrushlessMotor>
     {
         protected override string GroupName { get; set; } = "BrushlessMotor";
 

@@ -3,7 +3,7 @@ using System;
 
 namespace UI.Settings.Components
 {
-    public class BooleanInput : SettingsRow<bool>
+    public partial class BooleanInput : SettingsRow<bool>
     {
         private CheckBox checkBox;
 

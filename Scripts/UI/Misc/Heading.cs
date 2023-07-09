@@ -3,7 +3,7 @@ using System;
 
 namespace UI.Misc
 {
-    public class Heading : CenterContainer
+    public partial class Heading : CenterContainer
     {
         // Basic page heading 
 

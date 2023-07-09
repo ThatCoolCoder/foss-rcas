@@ -3,7 +3,7 @@ using System;
 
 namespace Aircraft
 {
-    public class Servo : Spatial
+    public partial class Servo : Node3D
     {
         // Object that rotates around its X-axis
 
@@ -23,19 +23,19 @@ namespace Aircraft
             base._Ready();
         }
 
-        public override void _Process(float delta)
+        public override void _Process(double delta)
         {
             targetDeflection = controlHub.ChannelValues[ChannelName];
-            targetDeflection *= Mathf.Deg2Rad(MaxDeflectionDegrees);
+            targetDeflection *= Mathf.DegToRad(MaxDeflectionDegrees);
             if (Reversed) targetDeflection *= -1;
 
             Rotation = Rotation.WithX(trueDeflection);
         }
 
-        public override void _PhysicsProcess(float delta)
+        public override void _PhysicsProcess(double delta)
         {
-            var rotationSpeed = Mathf.Deg2Rad(60.0f / Time60Degrees);
-            trueDeflection = Utils.ConvergeValue(trueDeflection, targetDeflection, rotationSpeed * delta);
+            var rotationSpeed = Mathf.DegToRad(60.0f / Time60Degrees);
+            trueDeflection = Utils.ConvergeValue(trueDeflection, targetDeflection, rotationSpeed * (float)delta);
         }
     }
 }

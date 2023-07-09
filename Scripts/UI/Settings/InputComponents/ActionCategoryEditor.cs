@@ -6,7 +6,7 @@ namespace UI.Settings.InputComponents
 {
     using SimInput;
 
-    public class ActionCategoryEditor : Misc.CollapsibleMenu
+    public partial class ActionCategoryEditor : Misc.CollapsibleMenu
     {
         public static PackedScene Scene = ResourceLoader.Load<PackedScene>("res://Scenes/UI/Settings/InputComponents/ActionCategoryEditor.tscn");
 
@@ -38,7 +38,7 @@ namespace UI.Settings.InputComponents
 
             foreach (var action in category.Actions)
             {
-                ActionPreview.Scene.Instance<ActionPreview>().Config(holder, action, category.Name + "/" + action.Name);
+                ActionPreview.Scene.Instantiate<ActionPreview>().Config(holder, action, category.Name + "/" + action.Name);
             }
             UpdateLayout();
         }

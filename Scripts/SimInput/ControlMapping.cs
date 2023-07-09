@@ -6,7 +6,7 @@ using Tomlet;
 
 namespace SimInput
 {
-    public abstract class IControlMapping
+    public abstract partial class IControlMapping
     {
         // Try to process event that is given. Return null if event isn't bound to the mapping 
         public abstract float? ProcessEvent(InputEvent _event);
@@ -65,9 +65,9 @@ namespace SimInput
         };
     }
 
-    public class AxisControlMapping : IControlMapping
+    public partial class AxisControlMapping : IControlMapping
     {
-        public int Axis { get; set; }
+        public JoyAxis Axis { get; set; }
         public float Multiplier { get; set; } = 1;
         public bool Inverted { get; set; } = false;
         public float DeadzoneEnd { get; set; } = 0.025f;
@@ -95,9 +95,9 @@ namespace SimInput
         }
     }
 
-    public class ButtonControlMapping : IControlMapping
+    public partial class ButtonControlMapping : IControlMapping
     {
-        public int ButtonIndex { get; set; }
+        public JoyButton ButtonIndex { get; set; }
         public bool Inverted { get; set; }
         public bool Momentary { get; set; } = true;
         private float currentValue = -1;
@@ -128,15 +128,15 @@ namespace SimInput
         }
     }
 
-    public class SimpleKeyboardControlMapping : IControlMapping
+    public partial class SimpleKeyboardControlMapping : IControlMapping
     {
-        public uint KeyScancode { get; set; } = 65;
+        public Key KeyScancode { get; set; } = Key.A;
         public bool Momentary { get; set; } = true;
         private float currentValue = -1;
 
         public override float? ProcessEvent(InputEvent _event)
         {
-            if (_event is InputEventKey keyEvent && keyEvent.GetScancodeWithModifiers() == KeyScancode && !keyEvent.Echo)
+            if (_event is InputEventKey keyEvent && keyEvent.GetKeycodeWithModifiers() == KeyScancode && !keyEvent.Echo)
             {
                 if (Momentary) return keyEvent.Pressed ? 1 : -1;
                 else
@@ -152,19 +152,19 @@ namespace SimInput
         }
     }
 
-    public class ThreePosKeyboardControlMapping : IControlMapping
+    public partial class ThreePosKeyboardControlMapping : IControlMapping
     {
         // Useful for flaps
-        public uint Key1Scancode { get; set; }
-        public uint Key2Scancode { get; set; }
-        public uint Key3Scancode { get; set; }
+        public Key Key1Scancode { get; set; }
+        public Key Key2Scancode { get; set; }
+        public Key Key3Scancode { get; set; }
 
 
         public override float? ProcessEvent(InputEvent _event)
         {
             if (_event is InputEventKey keyEvent && keyEvent.Pressed && !keyEvent.Echo)
             {
-                var scancode = keyEvent.GetScancodeWithModifiers();
+                var scancode = keyEvent.GetKeycodeWithModifiers();
                 if (scancode == Key1Scancode) return -1;
                 if (scancode == Key2Scancode) return 0;
                 if (scancode == Key3Scancode) return 1;

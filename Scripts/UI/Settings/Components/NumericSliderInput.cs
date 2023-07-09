@@ -3,13 +3,13 @@ using System;
 
 namespace UI.Settings.Components
 {
-    public class NumericSliderInput : SettingsRow<float>
+    public partial class NumericSliderInput : SettingsRow<float>
     {
         // Input for numeric values using a slider. Step value controls actual value,
         // displayedDecimalPlaces controls decimal places shown when using default formatter, 
         // customDisplayFunc allows having a completely custom format
 
-        private Range slider;
+        private Godot.Range slider;
         private Label valueLabel;
         private int displayedDecimalPlaces;
         private Func<float, string> customDisplayFunc { get; set; } = null;
@@ -24,7 +24,7 @@ namespace UI.Settings.Components
             base.Config(parent, name, read, write, toolTip);
 
             valueLabel = GetNode<Label>("HSplitContainer/ValueLabel");
-            slider = GetNode<Range>("HSplitContainer/HSlider");
+            slider = GetNode<Godot.Range>("HSplitContainer/HSlider");
 
             slider.MinValue = min;
             slider.MaxValue = max;

@@ -3,7 +3,7 @@ using System;
 
 namespace Audio
 {
-    public class ProceduralPropellerNoise : ProceduralSpatialAudio
+    public partial class ProceduralPropellerNoise : ProceduralSpatialAudio
     {
         // sorry this is very messy due to the process of experimentation - it's basically an auditory shader, what did you expect?
 
@@ -13,7 +13,7 @@ namespace Audio
         private Physics.Forcers.Propeller propeller;
 
 
-        private OpenSimplexNoise pinkNoise = new();
+        private FastNoiseLite pinkNoise = new();
         private float approximatePitch = 50;
 
         private float maxRpm = 25000;
@@ -31,16 +31,17 @@ namespace Audio
             base._Ready();
 
 
-            pinkNoise.Octaves = 5;
-            pinkNoise.Lacunarity = 2;
-            pinkNoise.Persistence = 0.25f;
+            pinkNoise.FractalOctaves = 5;
+            pinkNoise.NoiseType = FastNoiseLite.NoiseTypeEnum.Simplex;
+            pinkNoise.FractalLacunarity = 2;
+            pinkNoise.FractalGain = 0.25f;
         }
 
         protected override Vector2 ComputeAudioValue()
         {
             // if (motor == null) return Vector2.Zero;
 
-            var pink = pinkNoise.GetNoise1d(time * 100000) / 2 + 0.5f;
+            var pink = pinkNoise.GetNoise1D(time * 100000) / 2 + 0.5f;
             saw.Frequency = bps;
             var sawn = saw.Sample(sampleHz);
             sawn *= Mathf.PosMod(time, 1 / bps) * bps;
@@ -51,7 +52,7 @@ namespace Audio
             return Vector2.One * baseValue;
         }
 
-        public override void _Process(float delta)
+        public override void _Process(double delta)
         {
             bps = Mathf.Abs(propeller.AngularVelocity) / Mathf.Tau * 2;
             base._Process(delta);

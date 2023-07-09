@@ -2,11 +2,12 @@ using Godot;
 using System.Collections.Generic;
 using System.Linq;
 
-class DebugLineDrawer : ImmediateGeometry
+public partial class DebugLineDrawer : MeshInstance3D
 {
     // Thing for drawing lines in 3D for debugging purposes (autoloaded)
 
     private Dictionary<(string, int), (Vector3, Vector3, Color)> lines = new();
+    private StandardMaterial3D material = new StandardMaterial3D() { ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded, VertexColorUseAsAlbedo = true };
 
     private static DebugLineDrawer Instance;
 
@@ -46,7 +47,7 @@ class DebugLineDrawer : ImmediateGeometry
     public override void _EnterTree()
     {
         Instance = this;
-        MaterialOverride = new SpatialMaterial() { FlagsUnshaded = true, VertexColorUseAsAlbedo = true };
+        Mesh = new ImmediateMesh();
     }
 
     public override void _ExitTree()
@@ -54,20 +55,24 @@ class DebugLineDrawer : ImmediateGeometry
         Instance = null;
     }
 
-    public override void _Process(float delta)
+    public override void _Process(double delta)
     {
         base._Process(delta);
 
-        Clear();
+        var mesh = Mesh as ImmediateMesh;
+        mesh.ClearSurfaces();
 
-        Begin(Mesh.PrimitiveType.Lines);
+        if (lines.Count == 0) return;
+
+        mesh.SurfaceBegin(Mesh.PrimitiveType.Lines);
+
         foreach (var pair in lines.Values)
         {
-            SetColor(pair.Item3);
-            AddVertex(pair.Item1);
-            AddVertex(pair.Item2);
+            mesh.SurfaceSetColor(pair.Item3);
+            mesh.SurfaceAddVertex(pair.Item1);
+            mesh.SurfaceAddVertex(pair.Item2);
         }
 
-        End();
+        mesh.SurfaceEnd();
     }
 }

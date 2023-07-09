@@ -3,7 +3,7 @@ using System;
 
 namespace SimSettings
 {
-    public class MiscSettings
+    public partial class MiscSettings
     {
         public string LastLoadedAircraft { get; set; } = null;
         public string LastLoadedLocation { get; set; } = null;
@@ -12,7 +12,7 @@ namespace SimSettings
 
         public void Apply()
         {
-            Engine.IterationsPerSecond = PhysicsFps;
+            Engine.PhysicsTicksPerSecond = PhysicsFps;
         }
     }
 }

@@ -8,7 +8,7 @@ namespace UI.Settings.InputComponents
 {
     using Components;
 
-    public class NewMappingDialog : WindowDialog
+    public partial class NewMappingDialog : Window
     {
         private Dictionary<string, Type> mappingTypes = new()
         {
@@ -24,7 +24,7 @@ namespace UI.Settings.InputComponents
         {
             mappingTypeSelector = GetNode<OptionButton>("MarginContainer/VBoxContainer/MappingTypeSelector");
 
-            mappingTypeSelector.Items.Clear();
+            mappingTypeSelector.Clear();
             foreach (var mappingType in mappingTypes.Keys) mappingTypeSelector.AddItem(mappingType);
             _on_MappingTypeSelector_item_selected(-1);
 

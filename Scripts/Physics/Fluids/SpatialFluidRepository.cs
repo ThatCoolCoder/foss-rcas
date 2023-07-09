@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Physics.Fluids
 {
-    public class SpatialFluidRepository : Spatial
+    public partial class SpatialFluidRepository : Node3D
     {
 
         // Please do not edit this property directly, use methods of the class

@@ -3,7 +3,7 @@ using System;
 
 namespace Aircraft
 {
-    public class FpvCamera : Locations.BasicFlightCamera
+    public partial class FpvCamera : Locations.BasicFlightCamera
     {
         private CanvasLayer overlay;
 
@@ -13,7 +13,7 @@ namespace Aircraft
             overlay = GetNode<CanvasLayer>("CanvasLayer");
         }
 
-        public override void _Process(float delta)
+        public override void _Process(double delta)
         {
             base._Process(delta);
             overlay.Visible = Current;

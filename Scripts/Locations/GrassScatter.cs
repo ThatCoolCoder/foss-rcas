@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Locations
 {
-    public class GrassScatter : MultiMeshInstance
+    public partial class GrassScatter : MultiMeshInstance3D
     {
         // Thing that scatters grass within a rectangular region while also respecting a mask and only creating it within a certain distance of the camera.
         // Updates the grass when camera moves but tries not to jitter existing blades
@@ -17,9 +17,9 @@ namespace Locations
         [Export] public float FalloffMaxDistance { get; set; } = 100;
         [Export] public float CameraMoveDistBeforeUpdate { get; set; } = 20; // Update grass falloff when camera moves this far
         [Export] public int InstanceCount { get; set; } = 100;
-        [Export] public Texture Mask { get; set; } // Only on white regions of this texture is grass spawned. If you leave it out then it's just everywhere
-        [Export] public Texture Texture { get; set; }
-        [Export] public Texture NormalMap { get; set; }
+        [Export] public Texture2D Mask { get; set; } // Only on white regions of this texture is grass spawned. If you leave it out then it's just everywhere
+        [Export] public Texture2D Texture2D { get; set; }
+        [Export] public Texture2D NormalMap { get; set; }
         [Export] public float NormalStrength { get; set; } = 1;
         [Export] public Vector2 GrassSize { get; set; } = new Vector2(0.07f, 0.5f);
         [Export] public Vector2 GrassSizeVariation { get; set; } = Vector2.One * 0.3f; // varies by +- this amount
@@ -46,17 +46,18 @@ namespace Locations
 
 
         private Vector3 size;
-        private Thread generateGrassThread;
+        private GodotThread generateGrassThread;
+        private Vector3 crntCameraPos;
         private Vector3 lastUpdatePos;
         private bool generatedInitialGrass = false;
 
         public override void _Ready()
         {
             // Clean up the editor visualisations
-            GetNode<Spatial>("CSGBox").Visible = false;
+            GetNode<Node3D>("CSGBox3D").Visible = false;
 
             size = Scale * 2;
-            GetNode<Spatial>("CSGBox").Scale = Scale;
+            GetNode<Node3D>("CSGBox3D").Scale = Scale;
             Scale = Vector3.One;
         }
 
@@ -64,20 +65,20 @@ namespace Locations
         {
             // todo: probably we could move some of this code to ready()
             MultiMesh multimesh = new();
-            multimesh.TransformFormat = MultiMesh.TransformFormatEnum.Transform3d;
+            multimesh.TransformFormat = MultiMesh.TransformFormatEnum.Transform3D;
             var mesh = new QuadMesh();
             mesh.Size = GrassSize;
             multimesh.Mesh = mesh;
 
-            var material = new SpatialMaterial();
-            material.AlbedoTexture = Texture;
-            material.FlagsTransparent = true;
+            var material = new StandardMaterial3D();
+            material.AlbedoTexture = Texture2D;
+            material.Transparency = BaseMaterial3D.TransparencyEnum.Alpha;
             mesh.Material = material;
-            material.ParamsCullMode = SpatialMaterial.CullMode.Disabled;
+            material.CullMode = BaseMaterial3D.CullModeEnum.Disabled;
 
             material.DistanceFadeMaxDistance = 0;
             material.DistanceFadeMinDistance = trueFalloffMaxDistance;
-            material.DistanceFadeMode = SpatialMaterial.DistanceFadeModeEnum.PixelAlpha;
+            material.DistanceFadeMode = StandardMaterial3D.DistanceFadeModeEnum.PixelAlpha;
 
             if (NormalMap == null) material.NormalEnabled = false;
             else
@@ -87,7 +88,7 @@ namespace Locations
                 material.NormalScale = NormalStrength;
             }
 
-            var cameraPos = GetCameraPos();
+            var cameraPos = crntCameraPos;
             lastUpdatePos = cameraPos;
             var positions = GenerateGrassPositionsV3(cameraPos);
 
@@ -96,18 +97,18 @@ namespace Locations
             for (int i = 0; i < positions.Count; i++)
             {
                 // Calculcate rotation + scale
-                var transform = Transform.Identity;
+                var transform = Transform3D.Identity;
                 var pos = positions[i];
-                transform = transform.Rotated(Vector3.Up, SemiRandomFloat(pos.x + pos.z) * Mathf.Tau);
+                transform = transform.Rotated(Vector3.Up, SemiRandomFloat(pos.X + pos.Z) * Mathf.Tau);
                 Func<float, float, float, float> getAxisScale = (float x, float z, float variation) => 1 + (SemiRandomFloat(x + z * 1.52f) - .5f) * 2 * variation;
-                transform.basis.Scale = new Vector3(
-                    getAxisScale(pos.x, pos.z, GrassSizeVariation.x),
-                    getAxisScale(pos.x, pos.z, GrassSizeVariation.y),
-                    getAxisScale(pos.x, pos.z, GrassSizeVariation.x)
-                );
+                // transform.Basis.Scale = new Vector3( // convtodo: this needs a scale!
+                //     getAxisScale(pos.X, pos.Z, GrassSizeVariation.X),
+                //     getAxisScale(pos.X, pos.Z, GrassSizeVariation.Y),
+                //     getAxisScale(pos.X, pos.Z, GrassSizeVariation.X)
+                // );
 
                 // Adjust position then save
-                transform.origin = pos.WithY(transform.basis.Scale.y * GrassSize.y / 2);
+                transform.Origin = pos.WithY(transform.Basis.Scale.Y * GrassSize.Y / 2);
                 multimesh.SetInstanceTransform(i, transform);
             }
 
@@ -123,8 +124,8 @@ namespace Locations
 
             int targetInstanceCount = trueInstanceCount;
 
-            var maskImage = Mask == null ? null : Mask.GetData();
-            if (maskImage != null) maskImage.Lock();
+            var maskImage = Mask == null ? null : Mask.GetImage();
+            // if (maskImage != null) maskImage.Lock();
 
             var positions = new List<Vector3>();
 
@@ -137,14 +138,14 @@ namespace Locations
                     var pos = ToLocal(relativeToCamera + falloffCenter);
 
                     // Check if within bounds
-                    if (Mathf.Abs(pos.x) > (size.x / 2) || Mathf.Abs(pos.z) > (size.z / 2)) continue;
+                    if (Mathf.Abs(pos.X) > (size.X / 2) || Mathf.Abs(pos.Z) > (size.Z / 2)) continue;
 
                     // Check if within mask
                     if (Mask != null)
                     {
-                        var x = (pos.x / size.x + 0.5f) * Mask.GetWidth();
-                        var y = (pos.z / size.z + 0.5f) * Mask.GetHeight();
-                        if (maskImage.GetPixel((int)x, (int)y).r < 0.5f) continue;
+                        var x = (pos.X / size.X + 0.5f) * Mask.GetWidth();
+                        var y = (pos.Z / size.Z + 0.5f) * Mask.GetHeight();
+                        if (maskImage.GetPixel((int)x, (int)y).R < 0.5f) continue;
                     }
 
                     positions.Add(pos);
@@ -154,7 +155,7 @@ namespace Locations
 
             // var culledPositions = 
 
-            if (maskImage != null) maskImage.Unlock();
+            // if (maskImage != null) maskImage.Unlock();
 
             return positions;
         }
@@ -174,8 +175,8 @@ namespace Locations
             int rowCount = Mathf.FloorToInt(Mathf.Sqrt(preCullInstanceCount));
             var gridSpacing = 2 * trueFalloffMaxDistance / Mathf.Sqrt(preCullInstanceCount);
 
-            var maskImage = Mask == null ? null : Mask.GetData();
-            if (maskImage != null) maskImage.Lock();
+            var maskImage = Mask == null ? null : Mask.GetImage();
+            // if (maskImage != null) maskImage.Lock();
 
             var initialPositions = new List<Vector3>();
 
@@ -191,14 +192,14 @@ namespace Locations
                     var pos = ToLocal(relativeToCamera + falloffCenter);
 
                     // Check if within bounds
-                    if (Mathf.Abs(pos.x) > (size.x / 2) || Mathf.Abs(pos.z) > (size.z / 2)) continue;
+                    if (Mathf.Abs(pos.X) > (size.X / 2) || Mathf.Abs(pos.Z) > (size.Z / 2)) continue;
 
                     // Check if within mask
                     if (Mask != null)
                     {
-                        var x = (pos.x / size.x + 0.5f) * Mask.GetWidth();
-                        var y = (pos.z / size.z + 0.5f) * Mask.GetHeight();
-                        if (maskImage.GetPixel((int)x, (int)y).r < 0.5f) continue;
+                        var x = (pos.X / size.X + 0.5f) * Mask.GetWidth();
+                        var y = (pos.Z / size.Z + 0.5f) * Mask.GetHeight();
+                        if (maskImage.GetPixel((int)x, (int)y).R < 0.5f) continue;
                     }
 
                     initialPositions.Add(pos);
@@ -206,7 +207,7 @@ namespace Locations
                 }
             };
 
-            if (maskImage != null) maskImage.Unlock();
+            // if (maskImage != null) maskImage.Unlock();
             return initialPositions;
         }
 
@@ -225,8 +226,8 @@ namespace Locations
             int targetInstanceCount = (int)(InstanceCount * g.GrassMultiplier * g.GrassDistanceMultiplier * g.GrassDistanceMultiplier);
             var gridSpacing = 2 * trueFalloffMaxDistance / Mathf.Sqrt(targetInstanceCount);
 
-            var maskImage = Mask == null ? null : Mask.GetData();
-            if (maskImage != null) maskImage.Lock();
+            var maskImage = Mask == null ? null : Mask.GetImage();
+            // if (maskImage != null) maskImage.Lock();
 
             var positions = new List<Vector3>();
 
@@ -239,24 +240,24 @@ namespace Locations
                     var pos = ToLocal(relativeToCamera + falloffCenter);
 
                     // Snap to grid
-                    var snappedPos = new Vector3(Utils.RoundTo(pos.x, gridSpacing), 0, Utils.RoundTo(pos.z, gridSpacing));
+                    var snappedPos = new Vector3(Utils.RoundTo(pos.X, gridSpacing), 0, Utils.RoundTo(pos.Z, gridSpacing));
 
                     // Jiggle
                     var jiggle = new Vector3(
-                        SemiRandomFloat(pos.x + 3 * pos.z) * gridSpacing,
+                        SemiRandomFloat(pos.X + 3 * pos.Z) * gridSpacing,
                         0,
-                        SemiRandomFloat(3 * pos.x + pos.z) * gridSpacing);
+                        SemiRandomFloat(3 * pos.X + pos.Z) * gridSpacing);
                     var finalPos = snappedPos + jiggle;
 
                     // Check if within bounds
-                    if (Mathf.Abs(finalPos.x) > (size.x / 2) || Mathf.Abs(finalPos.z) > (size.z / 2)) continue;
+                    if (Mathf.Abs(finalPos.X) > (size.X / 2) || Mathf.Abs(finalPos.Z) > (size.Z / 2)) continue;
 
                     // Check if within mask
                     if (Mask != null)
                     {
-                        var x = (finalPos.x / size.x + 0.5f) * Mask.GetWidth();
-                        var y = (finalPos.z / size.z + 0.5f) * Mask.GetHeight();
-                        if (maskImage.GetPixel((int)x, (int)y).r < 0.5f) continue;
+                        var x = (finalPos.X / size.X + 0.5f) * Mask.GetWidth();
+                        var y = (finalPos.Z / size.Z + 0.5f) * Mask.GetHeight();
+                        if (maskImage.GetPixel((int)x, (int)y).R < 0.5f) continue;
                     }
 
                     positions.Add(finalPos);
@@ -264,7 +265,7 @@ namespace Locations
                 }
             };
 
-            if (maskImage != null) maskImage.Unlock();
+            // if (maskImage != null) maskImage.Unlock();
 
             return positions;
         }
@@ -283,17 +284,18 @@ namespace Locations
             if (generateGrassThread == null || !generateGrassThread.IsAlive())
             {
                 if (generateGrassThread != null) generateGrassThread.WaitToFinish();
-                generateGrassThread = new Thread();
-                generateGrassThread.Start(this, "GenerateGrass");
+                crntCameraPos = GetViewport().GetCamera3D().GlobalPosition;
+                generateGrassThread = new GodotThread();
+                // generateGrassThread.Start(new Callable(this, MethodName.GenerateGrass)); // convtodo: fix threading and enable crass
             }
         }
 
         private Vector3 GetCameraPos()
         {
-            return GetViewport().GetCamera().GlobalTranslation;
+            return GetViewport().GetCamera3D().GlobalPosition;
         }
 
-        public override void _Process(float delta)
+        public override void _Process(double delta)
         {
             if (!generatedInitialGrass)
             {

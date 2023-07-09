@@ -3,7 +3,7 @@ using System;
 
 namespace Audio
 {
-    public abstract class ProceduralSpatialAudio : AudioStreamPlayer3D
+    public abstract partial class ProceduralSpatialAudio : AudioStreamPlayer3D
     {
         protected AudioStreamGenerator generator = new();
         protected AudioStreamGeneratorPlayback playback;
@@ -18,14 +18,14 @@ namespace Audio
             generator.MixRate = sampleHz;
             Stream = generator;
             generator.BufferLength = 0.1f;
+            Play();
             playback = GetStreamPlayback() as AudioStreamGeneratorPlayback;
             FillBuffer();
-            Play();
         }
 
         protected abstract Vector2 ComputeAudioValue();
 
-        public override void _Process(float delta)
+        public override void _Process(double delta)
         {
             FillBuffer();
             // time += delta;

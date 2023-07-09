@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Physics.Forcers
 {
-    public abstract class AbstractSpatialFluidForcer : AbstractSpatialForcer
+    public abstract partial class AbstractSpatialFluidForcer : AbstractSpatialForcer
     {
         // Base class for things that apply force because of fluids.
         // Note that this is tool-safe: extending classes can be [Tool]s without issues
@@ -24,7 +24,7 @@ namespace Physics.Forcers
 
         public override void _Ready()
         {
-            if (Engine.EditorHint) return;
+            if (Engine.IsEditorHint()) return;
 
             base._Ready();
 
@@ -37,26 +37,26 @@ namespace Physics.Forcers
         }
 
         // Should return a force in global coordinates
-        public abstract Vector3 CalculateForce(Fluids.ISpatialFluid fluid, PhysicsDirectBodyState state);
+        public abstract Vector3 CalculateForce(Fluids.ISpatialFluid fluid, PhysicsDirectBodyState3D state);
 
-        public override void Apply(PhysicsDirectBodyState state)
+        public override void Apply(PhysicsDirectBodyState3D state)
         {
             var candidateFluids = fluids.Where(f => fluidTypes.Contains(f.Type));
             if (autoCheckInsideFluid)
             {
-                candidateFluids = candidateFluids.Where(f => f.ContainsPoint(GlobalTranslation));
+                candidateFluids = candidateFluids.Where(f => f.ContainsPoint(GlobalPosition));
             }
             var totalForce = candidateFluids.Select(f => CalculateForce(f, state))
                 .Aggregate(Vector3.Zero, (prev, next) => prev + next);
-            var position = GlobalTranslation;
+            var position = GlobalPosition;
             if (debugModeWasActive) DebugLineDrawer.ClearLinesStatic(this);
             if (DebugModeActive)
             {
-                DebugLineDrawer.RegisterLineStatic(this, GlobalTranslation, GlobalTranslation + totalForce);
+                DebugLineDrawer.RegisterLineStatic(this, GlobalPosition, GlobalPosition + totalForce);
             }
 
-            position -= target.GlobalTransform.origin;
-            state.AddForce(totalForce, position);
+            position -= target.GlobalPosition;
+            state.AddConstantForce(totalForce, position);
 
             debugModeWasActive = DebugModeActive;
         }
@@ -69,7 +69,7 @@ namespace Physics.Forcers
 
         public override void _ExitTree()
         {
-            if (Engine.EditorHint) return;
+            if (Engine.IsEditorHint()) return;
 
             target.UnregisterForcer(this);
             if (debugModeWasActive) DebugLineDrawer.ClearLinesStatic(this);

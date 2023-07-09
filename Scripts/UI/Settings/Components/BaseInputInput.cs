@@ -5,13 +5,13 @@ using System.Linq;
 
 namespace UI.Settings.Components
 {
-    public abstract class BaseInputInput<T, TNullable> : SettingsRow<T>
+    public abstract partial class BaseInputInput<T, TNullable> : SettingsRow<T>
     {
         // Base input for inputs (eg key presses)
 
         private Label currentValueLabel;
         private Label popupText;
-        private WindowDialog dialog;
+        private Window dialog;
 
         private Button selectAgainButton;
         private Button okButton;
@@ -19,10 +19,10 @@ namespace UI.Settings.Components
         public override void _Ready()
         {
             currentValueLabel = GetNode<Label>("HBoxContainer/CurrentValue");
-            popupText = GetNode<Label>("WindowDialog/MarginContainer/VBoxContainer/PopupText");
-            dialog = GetNode<WindowDialog>("WindowDialog");
-            selectAgainButton = GetNode<Button>("WindowDialog/MarginContainer/VBoxContainer/HBoxContainer/SelectAnotherInput");
-            okButton = GetNode<Button>("WindowDialog/MarginContainer/VBoxContainer/HBoxContainer/Ok");
+            popupText = GetNode<Label>("Window/MarginContainer/VBoxContainer/PopupText");
+            dialog = GetNode<Window>("Window");
+            selectAgainButton = GetNode<Button>("Window/MarginContainer/VBoxContainer/HBoxContainer/SelectAnotherInput");
+            okButton = GetNode<Button>("Window/MarginContainer/VBoxContainer/HBoxContainer/Ok");
         }
 
         public override void OnSettingsChanged()

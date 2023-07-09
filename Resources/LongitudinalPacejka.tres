@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource( 1 )
 Peak = 0.5
-Shape = 1.35
+Shape3D = 1.35
 Stiff = 10.0
 Curve = 0.0

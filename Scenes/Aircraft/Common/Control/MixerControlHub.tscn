@@ -2,5 +2,5 @@
 
 [ext_resource path="res://Scripts/Aircraft/Control/MixerHub.cs" type="Script" id=1]
 
-[node name="MixerControlHub" type="Spatial"]
+[node name="MixerControlHub" type="Node3D"]
 script = ExtResource( 1 )

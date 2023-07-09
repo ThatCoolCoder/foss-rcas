@@ -5,13 +5,13 @@ using System.Linq;
 
 namespace UI.Settings.Components
 {
-    public class JoystickButtonInput : BaseInputInput<int, int?>
+    public partial class JoystickButtonInput : BaseInputInput<JoyButton, JoyButton?>
     {
-        private int? lastPressedButton;
+        private JoyButton? lastPressedButton;
 
         public static PackedScene Scene = ResourceLoader.Load<PackedScene>("res://Scenes/UI/Settings/Components/JoystickButtonInput.tscn");
 
-        public new JoystickButtonInput Config(Node parent, string name, SettingReader<int> read, SettingWriter<int> write, string toolTip = "")
+        public new JoystickButtonInput Config(Node parent, string name, SettingReader<JoyButton> read, SettingWriter<JoyButton> write, string toolTip = "")
         {
             base.Config(parent, name, read, write, toolTip);
 
@@ -27,7 +27,7 @@ namespace UI.Settings.Components
             }
         }
 
-        protected override int? GetCandidateValue()
+        protected override JoyButton? GetCandidateValue()
         {
             // Get the axis that is currently the most moved (and therefore the current candidate)
             // returns null if no axis has been moved enough
@@ -39,7 +39,7 @@ namespace UI.Settings.Components
         {
             var candidate = GetCandidateValue();
 
-            if (candidate is int notNull) return $"Button {notNull} selected";
+            if (candidate is JoyButton notNull) return $"Button {notNull} selected";
             else return "Press a button on your controller to select it";
         }
 

@@ -8,13 +8,13 @@
 script = ExtResource( 3 )
 
 [node name="KeyInput1" parent="MarginContainer/VBoxContainer" index="0" instance=ExtResource( 1 )]
-margin_right = 361.0
-margin_bottom = 24.0
+offset_right = 361.0
+offset_bottom = 24.0
 
 [node name="KeyInput2" parent="MarginContainer/VBoxContainer" index="1" instance=ExtResource( 1 )]
-margin_right = 361.0
-margin_bottom = 24.0
+offset_right = 361.0
+offset_bottom = 24.0
 
 [node name="KeyInput3" parent="MarginContainer/VBoxContainer" index="2" instance=ExtResource( 1 )]
-margin_right = 361.0
-margin_bottom = 24.0
+offset_right = 361.0
+offset_bottom = 24.0

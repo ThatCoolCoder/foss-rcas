@@ -3,7 +3,7 @@ using System;
 
 namespace UI
 {
-    public class MessageBox : Control
+    public partial class MessageBox : Control
     {
         public Message Message { get; private set; }
         private Timer deleteTimer;

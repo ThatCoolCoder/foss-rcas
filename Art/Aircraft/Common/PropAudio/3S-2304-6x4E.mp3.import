@@ -2,14 +2,18 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-path="res://.import/3S-2304-6x4E.mp3-dcdd7f12859bf19cf00b34ee2f4db496.mp3str"
+uid="uid://deys0bnykpb1r"
+path="res://.godot/imported/3S-2304-6x4E.mp3-dcdd7f12859bf19cf00b34ee2f4db496.mp3str"
 
 [deps]
 
 source_file="res://Art/Aircraft/Common/PropAudio/3S-2304-6x4E.mp3"
-dest_files=[ "res://.import/3S-2304-6x4E.mp3-dcdd7f12859bf19cf00b34ee2f4db496.mp3str" ]
+dest_files=["res://.godot/imported/3S-2304-6x4E.mp3-dcdd7f12859bf19cf00b34ee2f4db496.mp3str"]
 
 [params]
 
 loop=true
 loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

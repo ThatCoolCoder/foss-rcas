@@ -12,5 +12,6 @@ export.cfg
 
 # Mono-specific ignores
 .mono/
+.godot/
 mono_crash.*
 data_*/

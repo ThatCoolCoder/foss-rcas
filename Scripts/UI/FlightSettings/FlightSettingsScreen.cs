@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace UI.FlightSettings
 {
-    public class FlightSettingsScreen : Control
+    public partial class FlightSettingsScreen : Control
     {
         private AircraftSelector aircraftSelector;
         private LocationSelector locationSelector;
@@ -38,7 +38,7 @@ namespace UI.FlightSettings
         {
             SimSettings.Settings.Current.Misc.LastLoadedAircraft = aircraftSelector.SelectedItem.LoadedFromWithoutExtension;
             SimSettings.Settings.Current.Misc.LastLoadedLocation = locationSelector.SelectedItem.LoadedFromWithoutExtension;
-            SimSettings.Settings.SaveCurrent();
+            SimSettings.Settings.SaveCurrent(); // convtodo: fix settings and enable this
         }
 
         private void TrySelectFromPath<T>(string lastLoadedPath, AbstractContentSelector<T> selector) where T : ContentManagement.ContentItem
@@ -51,7 +51,7 @@ namespace UI.FlightSettings
 
         public void _on_BackButton_pressed()
         {
-            GetTree().ChangeScene("res://Scenes/UI/StartScreen.tscn");
+            GetTree().ChangeSceneToFile("res://Scenes/UI/StartScreen.tscn");
         }
 
 
@@ -59,15 +59,16 @@ namespace UI.FlightSettings
         {
             RememberLastLoadedContent();
 
-            var location = ResourceLoader.Load<PackedScene>(locationSelector.SelectedItem.GetScenePath()).Instance<Locations.Location>();
+            var location = ResourceLoader.Load<PackedScene>(locationSelector.SelectedItem.GetScenePath()).Instantiate<Locations.Location>();
             location.LocationInfo = locationSelector.SelectedItem;
 
-            var aircraft = ResourceLoader.Load<PackedScene>(aircraftSelector.SelectedItem.GetScenePath()).Instance<RigidBody>();
+            var aircraft = ResourceLoader.Load<PackedScene>(aircraftSelector.SelectedItem.GetScenePath()).Instantiate<RigidBody3D>();
             location.AircraftInfo = aircraftSelector.SelectedItem;
 
             location.AddChild(aircraft);
             location.Aircraft = aircraft;
             location.CrntSpawnPosition = locationSelector.SelectedItem.SpawnPositions.First();
+            GD.Print(location.CrntSpawnPosition.Name);
 
             // switch scenes, done manually because we needed to set the values above
             var root = GetTree().Root;

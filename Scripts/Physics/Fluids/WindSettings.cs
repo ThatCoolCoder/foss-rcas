@@ -3,7 +3,7 @@ using System;
 
 namespace Physics.Fluids
 {
-    public class WindSettings
+    public partial class WindSettings
     {
         public float Speed { get; set; } = 0;
         public float GustSpeedDelta { get; set; } = 0; // max gust speed = speed + gust speed delta
@@ -12,11 +12,11 @@ namespace Physics.Fluids
         {
             get
             {
-                return Mathf.Rad2Deg(Direction);
+                return Mathf.RadToDeg(Direction);
             }
             set
             {
-                Direction = Mathf.Deg2Rad(value);
+                Direction = Mathf.DegToRad(value);
             }
         }
         public float Direction = 3.14f;
@@ -24,11 +24,11 @@ namespace Physics.Fluids
         {
             get
             {
-                return Mathf.Rad2Deg(DirectionVariability);
+                return Mathf.RadToDeg(DirectionVariability);
             }
             set
             {
-                DirectionVariability = Mathf.Deg2Rad(value);
+                DirectionVariability = Mathf.DegToRad(value);
             }
         }
         public float DirectionVariability = 0.4f;

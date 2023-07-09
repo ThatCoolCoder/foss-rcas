@@ -3,7 +3,7 @@ using System;
 
 namespace Locations
 {
-    public class GroundCamera : KinematicBody, IFlightCamera
+    public partial class GroundCamera : CharacterBody3D, IFlightCamera
     {
         [Export] public string ViewName { get; set; } = "Ground";
         [Export] public NodePath TargetPath { get; set; }
@@ -20,16 +20,16 @@ namespace Locations
 
 
         public ZoomSettings CurrentZoomSettings;
-        public Spatial Target { get; set; }
+        public Node3D Target { get; set; }
 
         private bool isWalkMode = false;
         private float startingFov;
-        private Camera camera;
+        private Camera3D camera;
 
         public override void _Ready()
         {
-            if (TargetPath != null) Target = GetNode<Spatial>(TargetPath);
-            camera = GetNode<Camera>("Camera");
+            if (TargetPath != null) Target = GetNode<Node3D>(TargetPath);
+            camera = GetNode<Camera3D>("Camera3D");
 
             rotationManager.Target = camera;
             rotationManager.MaxAngularSpeedDegrees = MaxAngularSpeedDegrees;
@@ -58,7 +58,7 @@ namespace Locations
             camera.Current = false;
         }
 
-        public override void _Process(float delta)
+        public override void _Process(double delta)
         {
             if (!camera.Current) return;
 
@@ -73,15 +73,15 @@ namespace Locations
 
             if (Target != null && !isWalkMode)
             {
-                camera.LookAt(Target.GlobalTranslation, Vector3.Up);
+                camera.LookAt(Target.GlobalPosition, Vector3.Up);
 
                 if (CurrentZoomSettings.Enabled)
                 {
-                    var fovProportion = Mathf.Atan(1 / CurrentZoomSettings.StartDist) / Mathf.Deg2Rad(CurrentZoomSettings.BaseFov);
+                    var fovProportion = Mathf.Atan(1 / CurrentZoomSettings.StartDist) / Mathf.DegToRad(CurrentZoomSettings.BaseFov);
 
-                    var distance = Target.GlobalTranslation.DistanceTo(GlobalTranslation);
+                    var distance = Target.GlobalPosition.DistanceTo(GlobalPosition);
                     var angle = Mathf.Atan(1 / (distance * CurrentZoomSettings.Factor)) / fovProportion;
-                    angle = Mathf.Rad2Deg(angle);
+                    angle = Mathf.RadToDeg(angle);
                     angle = Mathf.Clamp(angle, 1, CurrentZoomSettings.BaseFov);
 
                     camera.Fov = angle;
@@ -95,37 +95,39 @@ namespace Locations
 
             isWalkMode = true;
             camera.Fov = startingFov;
-            rotationManager.SetPanAndTilt(camera.Rotation.x, camera.Rotation.y);
+            rotationManager.SetPanAndTilt(camera.Rotation.X, camera.Rotation.Y);
             UI.MessageManager.StaticAddMessage("Ground camera: switched to walking mode", CameraManager.UIMessageCategory);
         }
 
-        private void WalkMovement(float delta)
+        private void WalkMovement(double delta)
         {
+            var fdelta = (float)delta;
             var crntAcceleration = new Vector3(SimInput.Manager.GetActionValue("camera/move_left_right"),
                 0,
                 -SimInput.Manager.GetActionValue("camera/move_backward_forward")) * Acceleration;
 
             var origLocalVelocity = localVelocity;
 
-            localVelocity += crntAcceleration * delta;
-            var _2dVel = new Vector2(localVelocity.x, localVelocity.z).LimitLength(MaxSpeed);
-            localVelocity = new Vector3(_2dVel.x, localVelocity.y, _2dVel.y);
+            localVelocity += crntAcceleration * fdelta;
+            var _2dVel = new Vector2(localVelocity.X, localVelocity.Z).LimitLength(MaxSpeed);
+            localVelocity = new Vector3(_2dVel.X, localVelocity.Y, _2dVel.Y);
 
-            if (crntAcceleration.x == 0) localVelocity.x = Utils.ConvergeValue(localVelocity.x, 0, Acceleration * delta);
-            if (crntAcceleration.z == 0) localVelocity.z = Utils.ConvergeValue(localVelocity.z, 0, Acceleration * delta);
+            if (crntAcceleration.X == 0) localVelocity.X = Utils.ConvergeValue(localVelocity.X, 0, Acceleration * fdelta);
+            if (crntAcceleration.Z == 0) localVelocity.Z = Utils.ConvergeValue(localVelocity.Z, 0, Acceleration * fdelta);
             var jumped = false;
             if (SimInput.Manager.IsActionJustPressed("camera/move_down_up"))
             {
-                localVelocity.y = JumpSpeed;
+                localVelocity.Y = JumpSpeed;
                 jumped = true;
             }
 
             if (crntAcceleration.LengthSquared() > 0 || jumped) StartWalkMode();
 
-            localVelocity.y -= 9.8f * delta;
+            localVelocity.Y -= 9.8f * fdelta;
 
-            var velocity = MoveAndSlide(localVelocity.Rotated(Vector3.Up, camera.GlobalRotation.y), stopOnSlope: true);
-            localVelocity = velocity.Rotated(Vector3.Up, -camera.GlobalRotation.y);
+            // convtodo: enable moving
+            // var velocity = MoveAndSlide(localVelocity.Rotated(Vector3.Up, camera.GlobalRotation.Y), stopOnSlope: true);
+            // localVelocity = velocity.Rotated(Vector3.Up, -camera.GlobalRotation.Y);
         }
 
         public override void _UnhandledInput(InputEvent _event)
@@ -136,7 +138,7 @@ namespace Locations
             }
         }
 
-        public class ZoomSettings
+        public partial class ZoomSettings
         {
             public bool Enabled { get; set; } = true;
             public float BaseFov { get; set; } = 70;

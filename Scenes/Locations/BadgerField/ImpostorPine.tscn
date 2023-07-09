@@ -2,19 +2,19 @@
 
 [ext_resource path="res://Scripts/Locations/ImpostorTree.cs" type="Script" id=1]
 [ext_resource path="res://Art/Common/Trees/PineV2/Pine.glb" type="PackedScene" id=2]
-[ext_resource path="res://Art/Common/Trees/PineV2/Render/Pine240.png" type="Texture" id=3]
+[ext_resource path="res://Art/Common/Trees/PineV2/Render/Pine240.png" type="Texture2D" id=3]
 [ext_resource path="res://Scripts/Locations/ImpostorSprite.cs" type="Script" id=4]
-[ext_resource path="res://Art/Common/Trees/PineV2/Render/Pine120.png" type="Texture" id=6]
-[ext_resource path="res://Art/Common/Trees/PineV2/Render/Pine0.png" type="Texture" id=7]
+[ext_resource path="res://Art/Common/Trees/PineV2/Render/Pine120.png" type="Texture2D" id=6]
+[ext_resource path="res://Art/Common/Trees/PineV2/Render/Pine0.png" type="Texture2D" id=7]
 
-[node name="ImpostorPine" type="Spatial"]
+[node name="ImpostorPine" type="Node3D"]
 script = ExtResource( 1 )
 
-[node name="Impostor" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.379182 )
+[node name="Impostor" type="Node3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.379182 )
 
 [node name="Sprite3D" type="Sprite3D" parent="Impostor"]
-transform = Transform( 1.384, 0, 0, 0, 1.384, 0, 0, 0, 1.384, 0.0732747, 6.97738, -0.333741 )
+transform = Transform3D( 1.384, 0, 0, 0, 1.384, 0, 0, 0, 1.384, 0.0732747, 6.97738, -0.333741 )
 billboard = 2
 shaded = true
 alpha_cut = 2

@@ -3,10 +3,10 @@ using System;
 
 namespace Physics.Forcers
 {
-    public class WheelForcer : AbstractSpatialForcer
+    public partial class WheelForcer : AbstractSpatialForcer
     {
         [Export] public NodePath DisplayObjectPath { get; set; }
-        private Spatial displayObject;
+        private Node3D displayObject;
 
         [Export] public float SuspensionTravel { get; set; } = .05f;
         [Export] public float SuspensionStrength { get; set; } = 1;
@@ -26,8 +26,8 @@ namespace Physics.Forcers
         private PacejkaSettings longitudinalPacejka;
 
         // Nodes
-        private SpringArm springArm;
-        private RayCast rayCast;
+        private SpringArm3D springArm;
+        private RayCast3D rayCast;
 
         // State
         private float prevCompression;
@@ -46,35 +46,36 @@ namespace Physics.Forcers
         {
             base._Ready();
 
-            GetNode<Spatial>("SpringArm/CSGBox").QueueFree(); // delete visual widget
+            GetNode<Node3D>("SpringArm3D/CSGBox3D").QueueFree(); // delete visual widget
 
             if (LateralPacejkaPath != null) lateralPacejka = ResourceLoader.Load<PacejkaSettings>(LateralPacejkaPath);
             if (LongitudinalPacejkaPath != null) longitudinalPacejka = ResourceLoader.Load<PacejkaSettings>(LongitudinalPacejkaPath);
 
-            displayObject = Utils.GetNodeWithWarnings<Spatial>(this, DisplayObjectPath, "display object");
+            displayObject = Utils.GetNodeWithWarnings<Node3D>(this, DisplayObjectPath, "display object");
 
-            springArm = GetNode<SpringArm>("SpringArm");
-            rayCast = GetNode<RayCast>("SpringArm/RayCast");
+            springArm = GetNode<SpringArm3D>("SpringArm3D");
+            rayCast = GetNode<RayCast3D>("SpringArm3D/RayCast3D");
 
-            rayCast.CastTo = Vector3.Down * WheelRadius * 5;
+            rayCast.TargetPosition = Vector3.Down * WheelRadius * 5;
 
-            var shape = new SphereShape();
+            var shape = new SphereShape3D();
             shape.Radius = WheelRadius;
             springArm.Shape = shape;
             springArm.SpringLength = SuspensionTravel;
         }
 
-        public override void _Process(float delta)
+        public override void _Process(double delta)
         {
             if (displayObject != null)
             {
-                displayObject.RotateX(-angularVelocity * delta);
-                displayObject.GlobalTranslation = rayCast.GlobalTranslation;
+                displayObject.RotateX(-angularVelocity * (float)delta);
+                displayObject.GlobalPosition = rayCast.GlobalPosition;
             }
         }
 
-        public override void Apply(PhysicsDirectBodyState state)
+        public override void Apply(PhysicsDirectBodyState3D state)
         {
+            return; // convtodo: make this work
             // todo: this is somewhat messy, perhaps this should be split up or part of it moved out of apply into process
 
             // Torques, inertia
@@ -103,15 +104,15 @@ namespace Physics.Forcers
                 var springForce = SuspensionStrength * compression;
                 springForce += SuspensionDamping * (compression - prevCompression) / state.Step;
 
-                var contactPoint = rayCast.GetCollisionPoint() - state.Transform.origin;
+                var contactPoint = rayCast.GetCollisionPoint() - state.Transform.Origin;
 
                 // tire
-                var localVelocity = GlobalTransform.basis.XformInv((GlobalTranslation - prevPosition) / state.Step);
-                var zVel = -localVelocity.y; // because raycast needs to be rotated
-                var directionVector = new Vector2(localVelocity.x, localVelocity.y).Normalized();
-                prevPosition = GlobalTranslation;
+                var localVelocity = GlobalTransform.Basis.Inverse() * ((GlobalPosition - prevPosition) / state.Step);
+                var zVel = -localVelocity.Y; // because raycast needs to be rotated
+                var directionVector = new Vector2(localVelocity.X, localVelocity.Y).Normalized();
+                prevPosition = GlobalPosition;
 
-                var xSlip = Mathf.Asin(Mathf.Clamp(-directionVector.x, -1, 1));
+                var xSlip = Mathf.Asin(Mathf.Clamp(-directionVector.X, -1, 1));
                 var xForce = Pacejka(springForce, xSlip, lateralPacejka);
 
                 float zSlip = 0;
@@ -120,9 +121,9 @@ namespace Physics.Forcers
                 var zForce = Pacejka(springForce, zSlip, longitudinalPacejka);
 
                 // Add all the forces
-                state.AddForce(GlobalTransform.basis.x * xForce, contactPoint);
-                state.AddForce(springForce * rayCast.GetCollisionNormal(), contactPoint);
-                // state.AddForce(-GlobalTransform.basis.y * zForce, contactPoint);
+                state.AddConstantForce(GlobalTransform.Basis.X * xForce, contactPoint);
+                state.AddConstantForce(springForce * rayCast.GetCollisionNormal(), contactPoint);
+                // state.AddForce(-GlobalTransform.Basis.Y * zForce, contactPoint);
 
                 prevZForce = -zForce;
                 prevCompression = compression;
@@ -137,7 +138,7 @@ namespace Physics.Forcers
         private float Pacejka(float normalForce, float slip, PacejkaSettings s)
         {
             // Pacejka tire formula
-            return normalForce * s.Peak * Mathf.Sin(s.Shape * Mathf.Atan(s.Stiff * slip - s.Curve * s.Stiff * slip - Mathf.Atan(s.Stiff * slip)));
+            return normalForce * s.Peak * Mathf.Sin(s.Shape3D * Mathf.Atan(s.Stiff * slip - s.Curve * s.Stiff * slip - Mathf.Atan(s.Stiff * slip)));
         }
     }
 }

@@ -3,7 +3,7 @@ using System;
 
 namespace UI.Settings.Components
 {
-    public class NumericInput : SettingsRow<float>
+    public partial class NumericInput : SettingsRow<float>
     {
 
         private SpinBox spinBox;

@@ -1,16 +1,16 @@
 using Godot;
 using System;
 
-public class AeroTestScene : Spatial
+public partial class AeroTestScene : Node3D
 {
     public override void _Ready()
     {
         SimSettings.Settings.LoadCurrent();
     }
 
-    public override void _Process(float delta)
+    public override void _Process(double delta)
     {
-        if (Input.IsKeyPressed((int)KeyList.R))
+        if (Input.IsKeyPressed(Key.R))
         {
             GetTree().ReloadCurrentScene();
         }

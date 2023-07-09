@@ -3,141 +3,141 @@ using System;
 
 namespace Locations
 {
-    public class Location : Spatial
-    {
-        public RigidBody Aircraft { get; set; }
-        public ContentManagement.Aircraft AircraftInfo { get; set; }
-        public ContentManagement.Location LocationInfo { get; set; }
-        public ContentManagement.AircraftSpawnPosition CrntSpawnPosition { get; set; }
+	public partial class Location : Node3D
+	{
+		public RigidBody3D Aircraft { get; set; }
+		public ContentManagement.Aircraft AircraftInfo { get; set; }
+		public ContentManagement.Location LocationInfo { get; set; }
+		public ContentManagement.AircraftSpawnPosition CrntSpawnPosition { get; set; }
 
-        private const int maxSlowMotion = 64; // as in 1/64 speed
-        private const int minSlowMotion = 1;
-        private int slowMotionAmount = 1; // this becomes a fraction, eg a value of 2 equals 1/2 speed
-        private AircraftLauncher launcher;
-        private GroundCamera groundCamera;
-        private PackedScene orbitCameraScene = ResourceLoader.Load<PackedScene>("res://Scenes/Aircraft/Common/OrbitCamera.tscn");
+		private const int maxSlowMotion = 64; // as in 1/64 speed
+		private const int minSlowMotion = 1;
+		private int slowMotionAmount = 1; // this becomes a fraction, eg a value of 2 equals 1/2 speed
+		private AircraftLauncher launcher;
+		private GroundCamera groundCamera;
+		private PackedScene orbitCameraScene = ResourceLoader.Load<PackedScene>("res://Scenes/Aircraft/Common/OrbitCamera.tscn");
 
-        public override void _Ready()
-        {
-            groundCamera = GetNode<GroundCamera>("GroundCamera");
-            SimSettings.Settings.Current.ApplyToViewport(GetViewport());
-            SimInput.Manager.Instance.LoadInputMap(SimSettings.Settings.Current.InputMap);
-            groundCamera.Target = Aircraft;
-            groundCamera.CurrentZoomSettings = SimSettings.Settings.Current.GroundCameraZoom;
-            launcher = GetNode<AircraftLauncher>("AircraftLauncher");
+		public override void _Ready()
+		{
+			groundCamera = GetNode<GroundCamera>("GroundCamera");
+			SimSettings.Settings.Current.ApplyToViewport(GetViewport() as SubViewport);
+			SimInput.Manager.Instance.LoadInputMap(SimSettings.Settings.Current.InputMap);
+			groundCamera.Target = Aircraft;
+			groundCamera.CurrentZoomSettings = SimSettings.Settings.Current.GroundCameraZoom;
+			launcher = GetNode<AircraftLauncher>("AircraftLauncher");
 
-            SetupAircraft();
-            Reset();
-        }
+			SetupAircraft();
+			Reset();
+		}
 
-        public override void _Process(float delta)
-        {
-            if (SimInput.Manager.IsActionJustPressed("gameplay/reset")) Reset();
-            if (SimInput.Manager.IsActionJustPressed("gameplay/reload_aircraft")) ReloadAircraft();
-            if (SimInput.Manager.IsActionJustPressed("gameplay/launch")) launcher.Launch();
-            if (SimInput.Manager.IsActionJustPressed("gameplay/pause"))
-            {
-                GetTree().Paused = !GetTree().Paused;
-                var text = GetTree().Paused ? "Paused" : "Unpaused";
-                UI.MessageManager.StaticAddMessage(text, "time");
-            }
+		public override void _Process(double delta)
+		{
+			if (SimInput.Manager.IsActionJustPressed("gameplay/reset")) Reset();
+			if (SimInput.Manager.IsActionJustPressed("gameplay/reload_aircraft")) ReloadAircraft();
+			if (SimInput.Manager.IsActionJustPressed("gameplay/launch")) launcher.Launch();
+			if (SimInput.Manager.IsActionJustPressed("gameplay/pause"))
+			{
+				GetTree().Paused = !GetTree().Paused;
+				var text = GetTree().Paused ? "Paused" : "Unpaused";
+				UI.MessageManager.StaticAddMessage(text, "time");
+			}
 
-            if (SimInput.Manager.IsActionJustPressed("gameplay/more_slow_motion")) AdjustSlowMotion(slowMotionAmount * 2);
-            if (SimInput.Manager.IsActionJustPressed("gameplay/less_slow_motion")) AdjustSlowMotion(slowMotionAmount / 2);
-            if (SimInput.Manager.IsActionJustPressed("gameplay/reset_slow_motion")) AdjustSlowMotion(1);
-        }
+			if (SimInput.Manager.IsActionJustPressed("gameplay/more_slow_motion")) AdjustSlowMotion(slowMotionAmount * 2);
+			if (SimInput.Manager.IsActionJustPressed("gameplay/less_slow_motion")) AdjustSlowMotion(slowMotionAmount / 2);
+			if (SimInput.Manager.IsActionJustPressed("gameplay/reset_slow_motion")) AdjustSlowMotion(1);
+		}
 
-        private void AdjustSlowMotion(int newSlowMotionAmount)
-        {
-            slowMotionAmount = Mathf.Clamp(newSlowMotionAmount, minSlowMotion, maxSlowMotion);
-            Engine.TimeScale = 1f / slowMotionAmount;
+		private void AdjustSlowMotion(int newSlowMotionAmount)
+		{
+			slowMotionAmount = Mathf.Clamp(newSlowMotionAmount, minSlowMotion, maxSlowMotion);
+			Engine.TimeScale = 1f / slowMotionAmount;
 
-            if (slowMotionAmount == 1) UI.MessageManager.StaticAddMessage("Normal speed", "time");
-            else UI.MessageManager.StaticAddMessage($"1/{slowMotionAmount} speed", "time");
-        }
+			if (slowMotionAmount == 1) UI.MessageManager.StaticAddMessage("Normal speed", "time");
+			else UI.MessageManager.StaticAddMessage($"1/{slowMotionAmount} speed", "time");
+		}
 
-        private void SetupAircraft()
-        {
-            launcher.Settings = new AircraftLauncher.LauncherSettings()
-            {
-                Speed = AircraftInfo.LauncherSpeed,
-                Height = AircraftInfo.LauncherHeight,
-                AngleDegrees = AircraftInfo.LauncherAngleDegrees
-            };
-            launcher.PositionOffset = AircraftInfo.PositionOffset;
+		private void SetupAircraft()
+		{
+			launcher.Settings = new AircraftLauncher.LauncherSettings()
+			{
+				Speed = AircraftInfo.LauncherSpeed,
+				Height = AircraftInfo.LauncherHeight,
+				AngleDegrees = AircraftInfo.LauncherAngleDegrees
+			};
+			launcher.PositionOffset = AircraftInfo.PositionOffset;
 
-            // Set up cameras
-            var orbitRadius = Mathf.Max(AircraftInfo.Length, AircraftInfo.WingSpan);
-            var freeCamera = orbitCameraScene.Instance<Aircraft.OrbitCamera>();
-            freeCamera.ViewName = "Orbit - Unlocked";
-            freeCamera.OrbitRadius = orbitRadius;
-            freeCamera.RotateWithAircraft = false;
-            Aircraft.AddChild(freeCamera);
+			// Set up cameras
+			var orbitRadius = Mathf.Max(AircraftInfo.Length, AircraftInfo.WingSpan);
+			var freeCamera = orbitCameraScene.Instantiate<Aircraft.OrbitCamera>();
+			freeCamera.ViewName = "Orbit - Unlocked";
+			freeCamera.OrbitRadius = orbitRadius;
+			freeCamera.RotateWithAircraft = false;
+			Aircraft.AddChild(freeCamera);
 
-            var lockedCamera = orbitCameraScene.Instance<Aircraft.OrbitCamera>();
-            lockedCamera.ViewName = "Orbit - Locked";
-            lockedCamera.OrbitRadius = orbitRadius;
-            lockedCamera.RotateWithAircraft = true;
-            Aircraft.AddChild(lockedCamera);
+			var lockedCamera = orbitCameraScene.Instantiate<Aircraft.OrbitCamera>();
+			lockedCamera.ViewName = "Orbit - Locked";
+			lockedCamera.OrbitRadius = orbitRadius;
+			lockedCamera.RotateWithAircraft = true;
+			Aircraft.AddChild(lockedCamera);
 
-            groundCamera.GlobalTranslation = GetNode<Spatial>(CrntSpawnPosition.CameraPositionNodePath).GlobalTranslation;
-        }
+			groundCamera.GlobalPosition = GetNode<Node3D>(CrntSpawnPosition.CameraPositionNodePath).GlobalPosition;
+		}
 
-        private void ReloadAircraft()
-        {
-            void DisplayReloadError(string message) => UI.MessageManager.StaticAddMessage($"Failed reloading aircraft: {message}", "aircraft_reload");
+		private void ReloadAircraft()
+		{
+			void DisplayReloadError(string message) => UI.MessageManager.StaticAddMessage($"Failed reloading aircraft: {message}", "aircraft_reload");
 
-            var scene = ResourceLoader.Load<PackedScene>(AircraftInfo.LoadedFromWithoutExtension + ".tscn", noCache: true);
-            if (scene == null)
-            {
-                DisplayReloadError("file not found");
-                return;
-            }
+			var scene = ResourceLoader.Load<PackedScene>(AircraftInfo.LoadedFromWithoutExtension + ".tscn", cacheMode: ResourceLoader.CacheMode.Ignore);
+			if (scene == null)
+			{
+				DisplayReloadError("file not found");
+				return;
+			}
 
-            try
-            {
-                var instance = scene.Instance<RigidBody>();
-                if (instance == null)
-                {
-                    DisplayReloadError("instance did not appear");
-                    return;
-                }
-                Aircraft.QueueFree(); // todo: aircraft doesn't like being deleted, fix that and make this feature work
-                Aircraft = instance;
-            }
-            catch (InvalidCastException)
-            {
-                DisplayReloadError("aircraft is not a RigidBody");
-                return;
-            }
+			try
+			{
+				var instance = scene.Instantiate<RigidBody3D>();
+				if (instance == null)
+				{
+					DisplayReloadError("instance did not appear");
+					return;
+				}
+				Aircraft.QueueFree(); // todo: aircraft doesn't like being deleted, fix that and make this feature work
+				Aircraft = instance;
+			}
+			catch (InvalidCastException)
+			{
+				DisplayReloadError("aircraft is not a RigidBody3D");
+				return;
+			}
 
-            SetupAircraft();
-            Reset();
-        }
+			SetupAircraft();
+			Reset();
+		}
 
-        private void Reset()
-        {
-            var aircraftTransform = GetNode<Spatial>(CrntSpawnPosition.AircraftPositionNodePath).GlobalTransform;
-            if (AircraftInfo.NeedsLauncher)
-            {
-                launcher.GlobalTransform = aircraftTransform;
-                launcher.Reset(Aircraft);
-            }
-            else
-            {
-                Aircraft.LinearVelocity = Vector3.Zero;
-                Aircraft.AngularVelocity = Vector3.Zero;
-                Aircraft.GlobalTransform = aircraftTransform;
-                Aircraft.GlobalTranslation += aircraftTransform.basis.Xform(AircraftInfo.PositionOffset);
-            }
-        }
+		private void Reset()
+		{
+			var aircraftTransform = GetNode<Node3D>(CrntSpawnPosition.AircraftPositionNodePath).GlobalTransform;
+			if (AircraftInfo.NeedsLauncher)
+			{
+				launcher.GlobalTransform = aircraftTransform;
+				launcher.Reset(Aircraft);
+			}
+			else
+			{
+				Aircraft.LinearVelocity = Vector3.Zero;
+				Aircraft.AngularVelocity = Vector3.Zero;
+				Aircraft.GlobalTransform = aircraftTransform;
+				Aircraft.GlobalPosition += aircraftTransform.Basis * AircraftInfo.PositionOffset;
+			}
+		}
 
-        public override void _ExitTree()
-        {
-            // Make sure we reset time etc, since the menus don't appreciate being paused
-            GetTree().Paused = false;
-            Engine.TimeScale = 1;
-        }
-    }
+		public override void _ExitTree()
+		{
+			// Make sure we reset time etc, since the menus don't appreciate being paused
+			GetTree().Paused = false;
+			Engine.TimeScale = 1;
+		}
+	}
 
 }

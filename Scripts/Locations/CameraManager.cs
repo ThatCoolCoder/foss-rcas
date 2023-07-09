@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Locations
 {
-    public class CameraManager : Spatial
+    public partial class CameraManager : Node3D
     {
         public static CameraManager instance;
         public static readonly string UIMessageCategory = "camera";
@@ -70,7 +70,7 @@ namespace Locations
             UI.MessageManager.StaticAddMessage($"Camera: {cameras[newCameraIndex].ViewName}", UIMessageCategory);
         }
 
-        public override void _Process(float delta)
+        public override void _Process(double delta)
         {
             if (!hasInitDefaultCamera)
             {

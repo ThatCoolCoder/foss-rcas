@@ -1,44 +1,38 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://cak5716oeutxt"]
 
-[ext_resource path="res://Scripts/UI/Settings/InputComponents/BaseControlMappingEditor.cs" type="Script" id=1]
+[ext_resource type="Script" path="res://Scripts/UI/Settings/InputComponents/BaseControlMappingEditor.cs" id="1"]
 
-[node name="BaseControlMappingEditor" type="WindowDialog"]
-margin_right = 381.0
-margin_bottom = 147.0
-window_title = "Edit Control Mapping"
-script = ExtResource( 1 )
+[node name="BaseControlMappingEditor" type="Window"]
+initial_position = 2
+size = Vector2i(300, 100)
+exclusive = true
+popup_window = true
+script = ExtResource("1")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_constants/margin_right = 10
-custom_constants/margin_top = 10
-custom_constants/margin_left = 10
-custom_constants/margin_bottom = 10
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 371.0
-margin_bottom = 137.0
+layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer/VBoxContainer"]
-margin_left = 99.0
-margin_right = 262.0
-margin_bottom = 24.0
+layout_mode = 2
 size_flags_horizontal = 4
 dragger_visibility = 1
 
 [node name="Delete" type="Button" parent="MarginContainer/VBoxContainer/HSplitContainer"]
-margin_right = 51.0
-margin_bottom = 24.0
+layout_mode = 2
 text = "Delete"
 
 [node name="Save" type="Button" parent="MarginContainer/VBoxContainer/HSplitContainer"]
-margin_left = 63.0
-margin_right = 163.0
-margin_bottom = 24.0
+layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 10
 text = "Save and close"

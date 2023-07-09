@@ -3,7 +3,7 @@ using System;
 
 namespace Aircraft
 {
-    public class ControlledWheelForcer : Physics.Forcers.WheelForcer
+    public partial class ControlledWheelForcer : Physics.Forcers.WheelForcer
     {
         [Export] public string DriveActionName { get; set; }
         [Export] public string BrakeActionName { get; set; }
@@ -18,14 +18,14 @@ namespace Aircraft
             base._Ready();
         }
 
-        public override void _Process(float delta)
+        public override void _Process(double delta)
         {
-            var powerProportion = DriveActionName == null ? 0 : controlHub.ChannelValues[DriveActionName];
+            var powerProportion = (DriveActionName == null || DriveActionName == "") ? 0 : controlHub.ChannelValues[DriveActionName];
             if (Backwards) powerProportion *= -1;
             if (!ReversibleDrive) powerProportion = powerProportion / 2 + 0.5f;
 
             WheelDriveFactor = powerProportion;
-            var brakeProportion = BrakeActionName == null ? 0 : controlHub.ChannelValues[BrakeActionName];
+            var brakeProportion = (BrakeActionName == null || BrakeActionName == "") ? 0 : controlHub.ChannelValues[BrakeActionName];
             WheelBrakeFactor = Utils.MapNumber(brakeProportion, -1, 1, 0, 1);
 
             base._Process(delta);

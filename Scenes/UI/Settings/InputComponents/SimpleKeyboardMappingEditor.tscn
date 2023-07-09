@@ -1,18 +1,19 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://b7168pw4ffj0m"]
 
-[ext_resource path="res://Scenes/UI/Settings/InputComponents/BaseControlMappingEditor.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scripts/UI/Settings/InputComponents/SimpleKeyboardMappingEditor.cs" type="Script" id=2]
-[ext_resource path="res://Scenes/UI/Settings/Components/KeyInput.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scenes/UI/Settings/Components/BooleanInput.tscn" type="PackedScene" id=4]
+[ext_resource type="PackedScene" uid="uid://cak5716oeutxt" path="res://Scenes/UI/Settings/InputComponents/BaseControlMappingEditor.tscn" id="1"]
+[ext_resource type="Script" path="res://Scripts/UI/Settings/InputComponents/SimpleKeyboardMappingEditor.cs" id="2"]
+[ext_resource type="PackedScene" uid="uid://dcx1tkd8lan8m" path="res://Scenes/UI/Settings/Components/KeyInput.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://Scenes/UI/Settings/Components/BooleanInput.tscn" id="4"]
 
-[node name="MomentaryKeyboardMappingEditor" instance=ExtResource( 1 )]
-script = ExtResource( 2 )
+[node name="MomentaryKeyboardMappingEditor" instance=ExtResource("1")]
+script = ExtResource("2")
 
-[node name="KeyInput" parent="MarginContainer/VBoxContainer" index="0" instance=ExtResource( 3 )]
-margin_right = 361.0
-margin_bottom = 24.0
+[node name="MarginContainer" parent="." index="0"]
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="MomentaryInput" parent="MarginContainer/VBoxContainer" index="1" instance=ExtResource( 4 )]
-margin_top = 28.0
-margin_right = 361.0
-margin_bottom = 54.0
+[node name="KeyInput" parent="MarginContainer/VBoxContainer" index="0" instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="MomentaryInput" parent="MarginContainer/VBoxContainer" index="1" instance=ExtResource("4")]
+layout_mode = 2

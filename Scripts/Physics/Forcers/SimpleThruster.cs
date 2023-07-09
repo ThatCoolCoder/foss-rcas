@@ -4,24 +4,24 @@ using System;
 
 namespace Physics.Forcers
 {
-    public class SimpleThruster : AbstractSpatialForcer
+    public partial class SimpleThruster : AbstractSpatialForcer
     {
         [Export] public float MaxThrust { get; set; } = 10;
         [Export] public float MaxSpeed { get; set; } = 30; // thrust decays to 0 at this speed
 
         [Export] public float ThrustProportion { get; set; } = 0; // public so people can mess with it in content creation tutorial before learning about control
 
-        public override void Apply(PhysicsDirectBodyState state)
+        public override void Apply(PhysicsDirectBodyState3D state)
         {
             ThrustProportion = Mathf.Clamp(ThrustProportion, -1, 1);
 
             var relativeVelocity = state.GetVelocityAtGlobalPosition(target, this);
-            var localVelocity = GlobalTransform.basis.XformInv(relativeVelocity);
+            var localVelocity = GlobalTransform.Basis.Inverse() * relativeVelocity;
 
-            var forceMag = Utils.MapNumber(-localVelocity.z, 0, MaxSpeed, MaxThrust, 0) * ThrustProportion;
-            var force = -GlobalTransform.basis.z * forceMag;
+            var forceMag = Utils.MapNumber(-localVelocity.Z, 0, MaxSpeed, MaxThrust, 0) * ThrustProportion;
+            var force = -GlobalTransform.Basis.Z * forceMag;
 
-            state.AddForce(force, GlobalTranslation - state.Transform.origin);
+            state.AddConstantForce(force, GlobalPosition - state.Transform.Origin);
         }
     }
 }

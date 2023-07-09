@@ -3,8 +3,8 @@
 [ext_resource path="res://Scripts/UI/Settings/GraphicsPresetButton.cs" type="Script" id=1]
 
 [node name="GraphicsPresetButton" type="Button"]
-margin_right = 12.0
-margin_bottom = 24.0
+offset_right = 12.0
+offset_bottom = 24.0
 size_flags_horizontal = 0
 size_flags_vertical = 0
 script = ExtResource( 1 )

@@ -7,7 +7,7 @@ using Tomlet;
 
 namespace Aircraft.Control
 {
-    public class PidTuning
+    public partial class PidTuning
     {
         public float P = 1;
         public float I = 1;
@@ -34,7 +34,7 @@ namespace Aircraft.Control
         }
     }
 
-    public class GyroSettings
+    public partial class GyroSettings
     {
         public PidTuning PitchTuning = new();
         public float PitchRateDegrees = 500;
@@ -44,7 +44,7 @@ namespace Aircraft.Control
         public float YawRateDegrees = 500;
     }
 
-    public class GyroHub : MixerHub
+    public partial class GyroHub : MixerHub
     {
         // todo: Hacky implementation, need to rework the base class to make it more extensible
 
@@ -52,37 +52,41 @@ namespace Aircraft.Control
         private GyroSettings gyroSettings;
 
         [Export] public NodePath RigidBodyPath { get; set; }
-        private RigidBody rigidBody;
+        private RigidBody3D rigidBody;
 
 
         public override void _Ready()
         {
             base._Ready();
 
-            rigidBody = Utils.GetNodeWithWarnings<RigidBody>(this, RigidBodyPath, "rigidbody", true);
+            rigidBody = Utils.GetNodeWithWarnings<RigidBody3D>(this, RigidBodyPath, "rigidbody", true);
 
-            var gdFile = new File();
-            gdFile.Open(GyroSettingsFile, File.ModeFlags.Read);
-            var content = gdFile.GetAsText();
-            gdFile.Close();
-            gyroSettings = TomletMain.To<GyroSettings>(content);
+            var gdFile = FileAccess.Open(GyroSettingsFile, FileAccess.ModeFlags.Read);
+            if (gdFile == null) Utils.LogError($"Failed opening gyro settings file ({GyroSettingsFile})", this);
+            else
+            {
+                var content = gdFile.GetAsText();
+                gdFile.Close();
+                gyroSettings = TomletMain.To<GyroSettings>(content);
+            }
         }
 
-        public override void _Process(float delta)
+        public override void _Process(double delta)
         {
+            var fdelta = (float)delta;
             var angularVelocity = rigidBody.AngularVelocity;
-            angularVelocity = GlobalTransform.basis.Inverse().Xform(angularVelocity);
+            angularVelocity = GlobalTransform.Basis.Inverse() * angularVelocity;
             var elevatorValue = gyroSettings.PitchTuning.CalculateOutput(SimInput.Manager.GetActionValue("aircraft/elevator") * gyroSettings.PitchRateDegrees,
-                Mathf.Rad2Deg(angularVelocity.x),
-                delta);
+                Mathf.RadToDeg(angularVelocity.X),
+                fdelta);
 
             var aileronValue = gyroSettings.RollTuning.CalculateOutput(SimInput.Manager.GetActionValue("aircraft/aileron") * gyroSettings.RollRateDegrees,
-                Mathf.Rad2Deg(angularVelocity.z),
-                delta);
+                Mathf.RadToDeg(angularVelocity.Z),
+                fdelta);
 
             var rudderValue = gyroSettings.YawTuning.CalculateOutput(SimInput.Manager.GetActionValue("aircraft/rudder") * gyroSettings.YawRateDegrees,
-                Mathf.Rad2Deg(angularVelocity.y),
-                delta);
+                Mathf.RadToDeg(angularVelocity.Y),
+                fdelta);
 
             var newChannelValues = new Dictionary<string, float>();
             foreach (var mix in channelMixSet.Mixes)
@@ -97,7 +101,7 @@ namespace Aircraft.Control
                     if (mix.InputChannelName == "aileron") rawValue = aileronValue;
                     if (mix.InputChannelName == "rudder") rawValue = rudderValue;
                 }
-                newChannelValues[mix.OutputChannelName] = mix.Apply(rawValue, previousValue, delta);
+                newChannelValues[mix.OutputChannelName] = mix.Apply(rawValue, previousValue, fdelta);
             }
 
             ChannelValues = newChannelValues.ToDictionary(kvp => kvp.Key, kvp => Mathf.Clamp(kvp.Value, -1, 1));

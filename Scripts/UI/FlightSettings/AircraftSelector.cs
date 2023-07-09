@@ -6,7 +6,7 @@ using ContentManagement;
 
 namespace UI.FlightSettings
 {
-    public class AircraftSelector : AbstractContentSelector<ContentManagement.Aircraft>
+    public partial class AircraftSelector : AbstractContentSelector<ContentManagement.Aircraft>
     {
         private static readonly Dictionary<AircraftPowerType, string> PowerTypeNames = new()
         {

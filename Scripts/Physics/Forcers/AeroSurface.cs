@@ -4,7 +4,7 @@ using System;
 
 namespace Physics.Forcers
 {
-    public class AeroSurface : AbstractSpatialFluidForcer
+    public partial class AeroSurface : AbstractSpatialFluidForcer
     {
         // Basically a wing, not restricted to operating in air though.
         // Uses a model supporting lift, induced drag, and parasitic drag.
@@ -29,7 +29,7 @@ namespace Physics.Forcers
         {
             get
             {
-                return Mathf.Abs(Scale.x * Scale.z * AreaMultiplier);
+                return Mathf.Abs(Scale.X * Scale.Z * AreaMultiplier);
             }
         }
 
@@ -45,24 +45,23 @@ namespace Physics.Forcers
             base._Ready();
         }
 
-        public override Vector3 CalculateForce(ISpatialFluid fluid, PhysicsDirectBodyState state)
+        public override Vector3 CalculateForce(ISpatialFluid fluid, PhysicsDirectBodyState3D state)
         {
-            var density = fluid.DensityAtPoint(GlobalTranslation);
-            var relativeVelocity = state.GetVelocityAtGlobalPosition(target, this) - fluid.VelocityAtPoint(GlobalTranslation);
+            var density = fluid.DensityAtPoint(GlobalPosition);
+            var relativeVelocity = state.GetVelocityAtGlobalPosition(target, this) - fluid.VelocityAtPoint(GlobalPosition);
 
-            var basis = GlobalTransform.basis;
-            basis.Scale = Vector3.One;
+            var basis = GlobalTransform.Basis.Orthonormalized();
             // Velocity relative to the rotation of self
-            var localVelocity = basis.XformInv(relativeVelocity);
+            var localVelocity = basis.Transposed() * relativeVelocity;
 
             // Regular lift (modelled as airfoil)
             var regularLocalVelocity = localVelocity.WithX(0);
-            var regularAoa = WrapAoa(Mathf.Atan2(-regularLocalVelocity.y, -regularLocalVelocity.z));
+            var regularAoa = WrapAoa(Mathf.Atan2(-regularLocalVelocity.Y, -regularLocalVelocity.Z));
             var regularLiftVector = CalculateLiftForce(basis, regularLocalVelocity.LengthSquared(), regularAoa, TotalLiftCoefficient, ParasiticDragCoefficient, density);
 
             // Spanwise lift (modelled as a flat plate)
             var spanwiseLocalVelocity = localVelocity.WithZ(0);
-            var spanwiseAoa = WrapAoa(Mathf.Atan2(-spanwiseLocalVelocity.y, spanwiseLocalVelocity.x));
+            var spanwiseAoa = WrapAoa(Mathf.Atan2(-spanwiseLocalVelocity.Y, spanwiseLocalVelocity.X));
             var spanwiseLiftVector = CalculateLiftForce(basis, spanwiseLocalVelocity.LengthSquared(), spanwiseAoa, flatPlateLiftCoefficient, ParasiticDragCoefficient, density);
 
             var liftVector = regularLiftVector + spanwiseLiftVector;
@@ -71,18 +70,19 @@ namespace Physics.Forcers
 
             if (DebugModeActive)
             {
-                DebugLineDrawer.RegisterLineStatic(this, GlobalTranslation, GlobalTranslation + liftVector, Colors.Blue, 1);
-                DebugLineDrawer.RegisterLineStatic(this, GlobalTranslation, GlobalTranslation + dragVector, Colors.Red, 2);
+                DebugLineDrawer.RegisterLineStatic(this, GlobalPosition, GlobalPosition + liftVector, Colors.Blue, 1);
+                DebugLineDrawer.RegisterLineStatic(this, GlobalPosition, GlobalPosition + dragVector, Colors.Red, 2);
             }
 
-            return liftVector + dragVector;
+            // return liftVector + dragVector;
+            return liftVector;
         }
 
         private Vector3 CalculateLiftForce(Basis basis, float localSpeedSquared, float aoa, Curve totalLiftCurve, Curve parasiticDragCurve, float fluidDensity)
         {
             var liftCoefficient = InterpolateFromHalfAoaCurve(totalLiftCurve, aoa, flatPlateLiftCoefficient);
             var liftMag = CalculateAeroForceMagnitude(liftCoefficient, area, fluidDensity, localSpeedSquared);
-            var liftVector = basis.y * liftMag;
+            var liftVector = basis.Y * liftMag;
 
             return liftVector;
         }
@@ -103,9 +103,9 @@ namespace Physics.Forcers
             // If that assumption is not valid for some calculation, calculate AOA yourself.
 
             // Probably could do this better with quaternions but this works...
-            var tr = new Transform().LookingAt(localVelocity, Vector3.Up);
-            var euler = tr.basis.GetEuler();
-            return WrapAoa(-euler.x);
+            var tr = new Transform3D().LookingAt(localVelocity, Vector3.Up);
+            var euler = tr.Basis.GetEuler();
+            return WrapAoa(-euler.X);
         }
 
         private float WrapAoa(float rawAoa)
@@ -136,11 +136,11 @@ namespace Physics.Forcers
             if (aoa < deg90 || aoa > deg90 * 3)
             {
                 if (aoa > Mathf.Pi) aoa -= Mathf.Tau;
-                return curve.Interpolate(Utils.MapNumber(aoa, -deg90, deg90, 0, 1));
+                return curve.Sample(Utils.MapNumber(aoa, -deg90, deg90, 0, 1));
             }
             // Backward flight
             {
-                return backwardFlightCurve.Interpolate(Utils.MapNumber(aoa, deg90, deg90 * 3, 1, 0));
+                return backwardFlightCurve.Sample(Utils.MapNumber(aoa, deg90, deg90 * 3, 1, 0));
             }
         }
 
@@ -160,7 +160,7 @@ namespace Physics.Forcers
 
         private void UpdateDebugBoxVisibility()
         {
-            GetNode<Spatial>("DebugBox").Visible = DebugModeActive;
+            GetNode<Node3D>("DebugBox").Visible = DebugModeActive;
         }
 
         public override void _ExitTree()

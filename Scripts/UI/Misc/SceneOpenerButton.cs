@@ -3,7 +3,7 @@ using System;
 
 namespace UI.Misc
 {
-    public class SceneOpenerButton : Button
+    public partial class SceneOpenerButton : Button
     {
         // Button that opens a scene when clicked, saves work having to 
 
@@ -11,12 +11,12 @@ namespace UI.Misc
 
         public override void _Ready()
         {
-            Connect("pressed", this, "OnClicked");
+            Connect("pressed", new Callable(this, "OnClicked"));
         }
 
         public void OnClicked()
         {
-            GetTree().ChangeScene(ScenePath);
+            GetTree().ChangeSceneToFile(ScenePath);
         }
     }
 }

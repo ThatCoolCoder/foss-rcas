@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Aircraft.Control
 {
-    public class ChannelMix
+    public partial class ChannelMix
     {
         public string InputChannelName { get; set; }
         public string OutputChannelName { get; set; }

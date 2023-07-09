@@ -2,5 +2,5 @@
 
 [ext_resource path="res://Scripts/Physics/Forcers/SimpleThruster.cs" type="Script" id=1]
 
-[node name="SimpleThruster" type="Spatial"]
+[node name="SimpleThruster" type="Node3D"]
 script = ExtResource( 1 )

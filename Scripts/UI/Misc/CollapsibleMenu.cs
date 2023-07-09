@@ -4,7 +4,7 @@ using System;
 namespace UI.Misc
 {
     [Tool]
-    public class CollapsibleMenu : Control
+    public partial class CollapsibleMenu : Control
     {
         [Export] public int Spacing { get; set; }
         [Export]

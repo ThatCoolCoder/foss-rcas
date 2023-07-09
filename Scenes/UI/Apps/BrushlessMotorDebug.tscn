@@ -7,22 +7,22 @@
 script = ExtResource( 2 )
 
 [node name="VBoxContainer" parent="MarginContainer" index="0"]
-margin_right = 158.0
+offset_right = 158.0
 
 [node name="Heading" parent="MarginContainer/VBoxContainer" index="0"]
-margin_right = 153.0
+offset_right = 153.0
 text = "Brushless Motor Debug"
 
 [node name="HBoxContainer" parent="MarginContainer/VBoxContainer" index="1"]
-margin_right = 153.0
+offset_right = 153.0
 
 [node name="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" index="0"]
-margin_right = 87.0
+offset_right = 87.0
 text = "Motor number"
 
 [node name="SpinBox" parent="MarginContainer/VBoxContainer/HBoxContainer" index="1"]
-margin_left = 91.0
-margin_right = 153.0
+offset_left = 91.0
+offset_right = 153.0
 
 [node name="Output" parent="MarginContainer/VBoxContainer" index="2"]
-margin_right = 153.0
+offset_right = 153.0

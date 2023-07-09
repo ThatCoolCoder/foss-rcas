@@ -4,7 +4,7 @@ using System;
 namespace UI.Misc
 {
     [Tool]
-    public class AccordionMenu : VBoxContainer
+    public partial class AccordionMenu : VBoxContainer
     {
         // Collection of collapsible menus in which only one can be open at a time.
         // They start all closed

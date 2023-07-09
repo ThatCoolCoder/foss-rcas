@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace SimInput
 {
-    public class Manager : Node
+    public partial class Manager : Node
     {
         public static Manager Instance { get; private set; }
 
@@ -20,7 +20,7 @@ namespace SimInput
 
         public override void _EnterTree()
         {
-            PauseMode = PauseModeEnum.Process;
+            ProcessMode = ProcessModeEnum.Always;
             Instance = this;
         }
 
@@ -97,7 +97,7 @@ namespace SimInput
             }
         }
 
-        public override void _Process(float delta)
+        public override void _Process(double delta)
         {
             // save the previous action values at the end of each frame
             intermediateTimeActionValues = new(actionValues);
@@ -119,7 +119,7 @@ namespace SimInput
             }
             catch (KeyNotFoundException)
             {
-                Utils.LogError($"Unknown action: {actionPath}");
+                // Utils.LogError($"Unknown action: {actionPath}"); convtodo: uncomment me
                 return 0;
             }
         }
@@ -132,7 +132,7 @@ namespace SimInput
             }
             catch (KeyNotFoundException)
             {
-                Utils.LogError($"Unknown action: {actionPath}");
+                // Utils.LogError($"Unknown action: {actionPath}"); convtodo: uncomment me
                 return false;
             }
         }
@@ -144,7 +144,7 @@ namespace SimInput
             }
             catch (KeyNotFoundException)
             {
-                Utils.LogError($"Unknown action: {actionPath}");
+                // Utils.LogError($"Unknown action: {actionPath}"); convtodo: uncomment me
                 return false;
             }
         }
@@ -156,7 +156,7 @@ namespace SimInput
             }
             catch (KeyNotFoundException)
             {
-                Utils.LogError($"Unknown action: {actionPath}");
+                // Utils.LogError($"Unknown action: {actionPath}"); convtodo: uncomment me
                 return false;
             }
         }

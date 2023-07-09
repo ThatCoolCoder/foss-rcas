@@ -6,7 +6,7 @@ using Tomlet;
 
 namespace SimSettings
 {
-    public class Settings
+    public partial class Settings
     {
         public Locations.GroundCamera.ZoomSettings GroundCameraZoom { get; set; } = new();
         public GraphicsSettings Graphics { get; set; } = new();
@@ -22,7 +22,7 @@ namespace SimSettings
             Graphics.Apply();
         }
 
-        public void ApplyToViewport(Viewport viewport)
+        public void ApplyToViewport(SubViewport viewport)
         {
             // Some settings need to run code in a viewport, so do it here
 
@@ -42,8 +42,8 @@ namespace SimSettings
 
         public static Settings Load()
         {
-            using var f = new File();
-            if (f.Open(SavePath, File.ModeFlags.Read) == Error.Ok)
+            using var f = FileAccess.Open(SavePath, FileAccess.ModeFlags.Read);
+            if (f != null)
             {
                 return TomletMain.To<Settings>(f.GetAsText());
             }
@@ -59,8 +59,7 @@ namespace SimSettings
 
         public static void Save(Settings settings)
         {
-            using var f = new File();
-            f.Open(SavePath, File.ModeFlags.Write);
+            using var f = FileAccess.Open(SavePath, FileAccess.ModeFlags.Write);
             f.StoreString(TomletMain.TomlStringFrom(settings));
         }
 

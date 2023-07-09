@@ -3,7 +3,7 @@ using System;
 
 namespace Aircraft
 {
-    public class Battery : Spatial
+    public partial class Battery : Node3D
     {
         [Export] public int CellCount { get; set; } = 3;
         [Export] public float ChargedCellVoltage { get; set; } = 4.2f;
@@ -18,7 +18,7 @@ namespace Aircraft
                 if (RemainingCapacity == 0) return 0; // If it is completely flat have the plane just die
 
                 var capacityUsed = 1 - (RemainingCapacity / MaxCapacity);
-                var baseVoltage = Mathf.Lerp(FlatCellVoltage, ChargedCellVoltage, DischargeCurve.Interpolate(capacityUsed));
+                var baseVoltage = Mathf.Lerp(FlatCellVoltage, ChargedCellVoltage, DischargeCurve.Sample(capacityUsed));
                 baseVoltage -= CurrentDrawn * CellInternalResistance;
                 return baseVoltage;
             }
@@ -46,11 +46,11 @@ namespace Aircraft
             AddToGroup("Battery");
         }
 
-        public override void _Process(float delta)
+        public override void _Process(double delta)
         {
             // Calculate current.
             // Todo: this and the related fields are a bit messy, please clean this up
-            timeSinceLastCurrentCalc += delta;
+            timeSinceLastCurrentCalc += (float)delta;
             if (Engine.GetFramesDrawn() % currentCalculationInterval == 0)
             {
                 var dischargeAmount = currentUsageAccumulator;

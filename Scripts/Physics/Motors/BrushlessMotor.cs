@@ -3,14 +3,14 @@ using System;
 
 namespace Physics.Motors
 {
-    public class BrushlessMotor : Spatial
+    public partial class BrushlessMotor : Node3D
     {
         [Export] public NodePath BatteryPath { get; set; }
         private Aircraft.Battery battery;
         [Export] public NodePath PropellerPath { get; set; }
         private Forcers.Propeller propeller;
         [Export] public NodePath TorqueRigidBodyPath { get; set; }
-        private RigidBody torqueRigidBody;
+        private RigidBody3D torqueRigidBody;
         [Export] public float KV { get; set; } = 1000;
         [Export] public float PeakTorque { get; set; } = .4f; // in newton-metres
         [Export] public float TorqueAdjustment { get; set; } = 1; // Use this to fine-tune the rpm without messing up the regular peak torque adjustment
@@ -24,11 +24,11 @@ namespace Physics.Motors
         {
             battery = Utils.GetNodeWithWarnings<Aircraft.Battery>(this, BatteryPath, "battery");
             propeller = Utils.GetNodeWithWarnings<Forcers.Propeller>(this, PropellerPath, "propeller");
-            torqueRigidBody = Utils.GetNodeWithWarnings<RigidBody>(this, TorqueRigidBodyPath, "torque rigid body");
+            torqueRigidBody = Utils.GetNodeWithWarnings<RigidBody3D>(this, TorqueRigidBodyPath, "torque rigid body");
             AddToGroup("BrushlessMotor");
         }
 
-        public override void _PhysicsProcess(float delta)
+        public override void _PhysicsProcess(double delta)
         {
 
             var noLoadRpm = KV * battery.CurrentVoltage;
@@ -46,8 +46,8 @@ namespace Physics.Motors
                 var torqueConstant = 1 / (KV / 60 * Mathf.Tau);
                 var current = torque / torqueConstant * CurrentMultiplier;
                 current = Mathf.Max(current, 0);
-                battery.Discharge(current, delta);
-                propeller.AddTorque(torque);
+                battery.Discharge(current, (float)delta);
+                propeller.AddConstantTorque(torque);
 
                 LastCurrent = current;
             }
@@ -62,7 +62,7 @@ namespace Physics.Motors
 
             if (torqueRigidBody != null)
             {
-                torqueRigidBody.AddTorque(GlobalTransform.basis.z * torque);
+                // torqueRigidBody.AddConstantTorque(GlobalTransform.Basis.Z * torque); convtodo
             }
         }
     }

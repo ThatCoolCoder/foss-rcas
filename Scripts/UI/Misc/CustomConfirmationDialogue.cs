@@ -3,14 +3,14 @@ using System;
 
 namespace UI.Misc
 {
-    public class CustomConfirmationDialogue : ConfirmationDialog
+    public partial class CustomConfirmationDialogue : ConfirmationDialog
     {
-        private static readonly Vector2 size = new(300, 100);
+        private static readonly Vector2I size = new(300, 100);
 
         public void AskToConfirm()
         {
-            RectSize = size;
-            WindowTitle = "Please confirm...";
+            Size = size;
+            Title = "Please confirm...";
             PopupCentered();
         }
     }

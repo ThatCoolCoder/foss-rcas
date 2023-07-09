@@ -5,7 +5,7 @@ using System.Linq;
 namespace Physics.Fluids
 {
     // Class that registers a ISpatialFluid (normally its parent, but can have a custom node path) in a SpatialFluidRepository
-    public class SpatialFluidBeacon : Spatial
+    public partial class SpatialFluidBeacon : Node3D
     {
         [Export] public NodePath FluidPath { get; set; } = null;
         [Export] public bool Enabled { get; set; } = true;

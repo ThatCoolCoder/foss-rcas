@@ -3,7 +3,7 @@ using System;
 
 namespace Locations
 {
-    public class FreeCamera : BasicFlightCamera
+    public partial class FreeCamera : BasicFlightCamera
     {
         private Vector3 velocity; // (in local space)
         [Export] public float MaxSpeed { get; set; } = 10;
@@ -25,7 +25,7 @@ namespace Locations
             base._Ready();
         }
 
-        public override void _Process(float delta)
+        public override void _Process(double delta)
         {
             if (Current)
             {
@@ -35,20 +35,21 @@ namespace Locations
             }
         }
 
-        private void KeyboardMovement(float delta)
+        private void KeyboardMovement(double delta)
         {
+            var fdelta = (float)delta;
             var crntAcceleration = new Vector3(SimInput.Manager.GetActionValue("camera/move_left_right"),
                 SimInput.Manager.GetActionValue("camera/move_down_up"),
                 -SimInput.Manager.GetActionValue("camera/move_backward_forward")) * Acceleration;
 
-            velocity += crntAcceleration * delta;
+            velocity += crntAcceleration * fdelta;
             velocity = velocity.LimitLength(MaxSpeed);
 
-            if (crntAcceleration.x == 0) velocity.x = Utils.ConvergeValue(velocity.x, 0, Acceleration * delta);
-            if (crntAcceleration.y == 0) velocity.y = Utils.ConvergeValue(velocity.y, 0, Acceleration * delta);
-            if (crntAcceleration.z == 0) velocity.z = Utils.ConvergeValue(velocity.z, 0, Acceleration * delta);
+            if (crntAcceleration.X == 0) velocity.X = Utils.ConvergeValue(velocity.X, 0, Acceleration * fdelta);
+            if (crntAcceleration.Y == 0) velocity.Y = Utils.ConvergeValue(velocity.Y, 0, Acceleration * fdelta);
+            if (crntAcceleration.Z == 0) velocity.Z = Utils.ConvergeValue(velocity.Z, 0, Acceleration * fdelta);
 
-            Translation += Transform.basis.Xform(velocity * delta);
+            Position += Transform.Basis * velocity * fdelta;
         }
 
         public override void _UnhandledInput(InputEvent _event)
@@ -60,10 +61,10 @@ namespace Locations
 
         public override void BeforeActivated()
         {
-            var camera = GetViewport().GetCamera();
-            GlobalTranslation = camera.GlobalTranslation;
+            var camera = GetViewport().GetCamera3D();
+            GlobalPosition = camera.GlobalPosition;
 
-            rotationManager.SetPanAndTilt(camera.GlobalRotation.x, camera.GlobalRotation.y);
+            rotationManager.SetPanAndTilt(camera.GlobalRotation.X, camera.GlobalRotation.Y);
         }
     }
 }

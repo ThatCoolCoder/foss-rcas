@@ -7,11 +7,11 @@ namespace Locations
 {
 
     [Tool]
-    public class ImpostorSprite : Sprite3D
+    public partial class ImpostorSprite : Sprite3D
     {
         // Sprite for an impostor tree, randomly chooses an image on Ready
 
-        [Export] public List<Texture> Textures { get; set; } = new();
+        [Export] public Godot.Collections.Array<Texture2D> Textures { get; set; } = new();
 
         private int lastTexCount = 0;
 
@@ -27,9 +27,9 @@ namespace Locations
             else Texture = null;
         }
 
-        public override void _Process(float delta)
+        public override void _Process(double delta)
         {
-            if (Engine.EditorHint && Engine.GetFramesDrawn() % 60 == 0)
+            if (Engine.IsEditorHint() && Engine.GetFramesDrawn() % 60 == 0)
             {
                 if (Textures.Where(x => x != null).Count() != lastTexCount)
                 {

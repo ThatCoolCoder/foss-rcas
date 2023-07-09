@@ -6,7 +6,7 @@ namespace UI.Settings
 {
     using Components;
 
-    public class GraphicsTab : Control
+    public partial class GraphicsTab : Control
     {
 
         public override void _Ready()
@@ -15,14 +15,14 @@ namespace UI.Settings
 
             CreatePresetButtons();
 
-            BooleanInput.Scene.Instance<BooleanInput>().Config(
+            BooleanInput.Scene.Instantiate<BooleanInput>().Config(
                 holder,
                 "Use impostors",
                 s => s.Graphics.UseImpostors,
                 (s, v) => s.Graphics.UseImpostors = v,
                 toolTip: "Whether to use fake trees beyond a certain distance for better performance");
 
-            NumericSliderInput.Scene.Instance<NumericSliderInput>().Config(
+            NumericSliderInput.Scene.Instantiate<NumericSliderInput>().Config(
                 holder,
                 "Impostor distance",
                 s => s.Graphics.ImpostorDistance,
@@ -30,21 +30,21 @@ namespace UI.Settings
                 0, 1000, step: 1,
                 toolTip: "Distance at which to show impostors");
 
-            BooleanInput.Scene.Instance<BooleanInput>().Config(
+            BooleanInput.Scene.Instantiate<BooleanInput>().Config(
                 holder,
                 "Impostor shadows enabled",
                 s => s.Graphics.ImpostorShadowsEnabled,
                 (s, v) => s.Graphics.ImpostorShadowsEnabled = v,
                 toolTip: "Whether to draw shadows for impostor trees");
 
-            BooleanInput.Scene.Instance<BooleanInput>().Config(
+            BooleanInput.Scene.Instantiate<BooleanInput>().Config(
                 holder,
                 "FPS counter enabled",
                 s => s.Graphics.ShowFps,
                 (s, v) => s.Graphics.ShowFps = v,
                 toolTip: "Whether to show the frames per second on screen");
 
-            NumericSliderInput.Scene.Instance<NumericSliderInput>().Config(
+            NumericSliderInput.Scene.Instantiate<NumericSliderInput>().Config(
                 holder,
                 "Vegetation multiplier (near)",
                 s => s.Graphics.NearVegetationMultiplier,
@@ -52,7 +52,7 @@ namespace UI.Settings
                 0, 3, step: .05f,
                 toolTip: "Amount of nearby vegetation (trees & bushes)");
 
-            NumericSliderInput.Scene.Instance<NumericSliderInput>().Config(
+            NumericSliderInput.Scene.Instantiate<NumericSliderInput>().Config(
                 holder,
                 "Vegetation multiplier (far)",
                 s => s.Graphics.FarVegetationMultiplier,
@@ -60,7 +60,7 @@ namespace UI.Settings
                 0, 3, step: .05f,
                 toolTip: "Amount of far away vegetation (trees & bushes)");
 
-            NumericSliderInput.Scene.Instance<NumericSliderInput>().Config(
+            NumericSliderInput.Scene.Instantiate<NumericSliderInput>().Config(
                 holder,
                 "Grass multiplier",
                 s => s.Graphics.GrassMultiplier,
@@ -68,7 +68,7 @@ namespace UI.Settings
                 0, 3, step: .05f,
                 toolTip: "Amount of grass");
 
-            NumericSliderInput.Scene.Instance<NumericSliderInput>().Config(
+            NumericSliderInput.Scene.Instantiate<NumericSliderInput>().Config(
                 holder,
                 "Grass distance multiplier",
                 s => s.Graphics.GrassDistanceMultiplier,
@@ -76,39 +76,39 @@ namespace UI.Settings
                 .1f, 3, step: .05f,
                 toolTip: "Max distance for spawning grass");
 
-            NumericSliderInput.Scene.Instance<NumericSliderInput>().Config(
+            NumericSliderInput.Scene.Instantiate<NumericSliderInput>().Config(
                 holder,
                 "Directional shadow size",
                 s => s.Graphics.DirectionalShadowSizeExponent,
                 (s, v) => s.Graphics.DirectionalShadowSizeExponent = (int)v,
                 8, 14, step: 1, _customDisplayFunc: v => (1 << (int)v).ToString());
 
-            NumericSliderInput.Scene.Instance<NumericSliderInput>().Config(
+            NumericSliderInput.Scene.Instantiate<NumericSliderInput>().Config(
                 holder,
                 "Shadow atlas size",
                 s => s.Graphics.ShadowAtlasSizeExponent,
                 (s, v) => s.Graphics.ShadowAtlasSizeExponent = (int)v,
                 8, 14, step: 1, _customDisplayFunc: v => (1 << (int)v).ToString());
 
-            NumericSliderInput.Scene.Instance<NumericSliderInput>().Config(
+            NumericSliderInput.Scene.Instantiate<NumericSliderInput>().Config(
                 holder,
                 "Shadow atlas cubemap size",
                 s => s.Graphics.ShadowAtlasCubemapSizeExponent,
                 (s, v) => s.Graphics.ShadowAtlasCubemapSizeExponent = (int)v,
                 6, 14, step: 1, _customDisplayFunc: v => (1 << (int)v).ToString());
 
-            EnumInput.Scene.Instance<EnumInput>().Config(
+            EnumInput.Scene.Instantiate<EnumInput>().Config(
                 holder,
                 "Anti-aliasing mode",
                 s => s.Graphics.AntiAliasingMode,
                 (s, v) => s.Graphics.AntiAliasingMode = (SimSettings.AntiAliasingMode)v,
                 typeof(SimSettings.AntiAliasingMode));
 
-            EnumInput.Scene.Instance<EnumInput>().Config(holder,
+            EnumInput.Scene.Instantiate<EnumInput>().Config(holder,
                 "Anti aliasing amount",
                 s => s.Graphics.Msaa,
-                (s, v) => s.Graphics.Msaa = (Viewport.MSAA)v,
-                typeof(Viewport.MSAA),
+                (s, v) => s.Graphics.Msaa = (SubViewport.Msaa)v,
+                typeof(SubViewport.Msaa),
                 customValueFormatter: (obj) => obj.ToString().Replace("Msaa", ""),
                 toolTip: "Amount of anti aliasing passes. Only applies if high quality anti aliasing is enabled");
         }
@@ -119,7 +119,7 @@ namespace UI.Settings
             var holder = GetNode<Control>("MaxSizeContainer/VBoxContainer/Presets");
             foreach (var preset in GraphicsPreset.Presets)
             {
-                var button = presetButtonScene.Instance<GraphicsPresetButton>();
+                var button = presetButtonScene.Instantiate<GraphicsPresetButton>();
                 button.GraphicsPreset = preset;
                 button.OnClicked += ApplyPreset;
                 holder.AddChild(button);

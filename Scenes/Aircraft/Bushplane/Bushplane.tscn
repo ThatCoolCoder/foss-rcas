@@ -27,50 +27,50 @@
 [sub_resource type="PhysicsMaterial" id=6]
 friction = 0.3
 
-[sub_resource type="BoxShape" id=1]
-extents = Vector3( 0.0304559, 0.0253591, 0.27949 )
+[sub_resource type="BoxShape3D" id=1]
+size = Vector3( 0.0304559, 0.0253591, 0.27949 )
 
-[sub_resource type="BoxShape" id=2]
-extents = Vector3( 0.0304948, 0.045441, 0.100615 )
+[sub_resource type="BoxShape3D" id=2]
+size = Vector3( 0.0304948, 0.045441, 0.100615 )
 
-[sub_resource type="BoxShape" id=4]
-extents = Vector3( 0.408803, 0.0082743, 0.0683337 )
+[sub_resource type="BoxShape3D" id=4]
+size = Vector3( 0.408803, 0.0082743, 0.0683337 )
 
-[sub_resource type="BoxShape" id=5]
-extents = Vector3( 0.0413718, 0.030287, 0.00831722 )
+[sub_resource type="BoxShape3D" id=5]
+size = Vector3( 0.0413718, 0.030287, 0.00831722 )
 
-[node name="Bushplane" type="RigidBody"]
+[node name="Bushplane" type="RigidBody3D"]
 mass = 0.49
 physics_material_override = SubResource( 6 )
 script = ExtResource( 4 )
 
 [node name="ControlHub" parent="." instance=ExtResource( 18 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00364272, -0.0049444 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00364272, -0.0049444 )
 MixesFile = "res://Scenes/Aircraft/Bushplane/Mixes.toml"
 
 [node name="MainBody" parent="." instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00364272, -0.0049444 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00364272, -0.0049444 )
 
-[node name="BodyCollider1" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.999012, 0.0444389, 0, -0.0444389, 0.999012, 0, 0.00364304, 0.093262 )
+[node name="BodyCollider1" type="CollisionShape3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 0.999012, 0.0444389, 0, -0.0444389, 0.999012, 0, 0.00364304, 0.093262 )
 shape = SubResource( 1 )
 
-[node name="BodyCollider2" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00364304, 0.0387503 )
+[node name="BodyCollider2" type="CollisionShape3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00364304, 0.0387503 )
 shape = SubResource( 2 )
 
-[node name="WingCollider" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.059002, 0.0142283 )
+[node name="WingCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.059002, 0.0142283 )
 shape = SubResource( 4 )
 
-[node name="RudderCollider" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0544111, 0.367896 )
+[node name="RudderCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0544111, 0.367896 )
 shape = SubResource( 5 )
 
-[node name="Electrics" type="Spatial" parent="."]
+[node name="Electrics" type="Node3D" parent="."]
 
 [node name="ControlledBrushlessMotor" parent="Electrics" instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00845719, -0.193971 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00845719, -0.193971 )
 BatteryPath = NodePath("../Battery")
 PropellerPath = NodePath("PropellerWithModel")
 TorqueRigidBodyPath = NodePath("../..")
@@ -98,12 +98,12 @@ script = ExtResource( 9 )
 DominantFrequency = 460.0
 
 [node name="Propwash" parent="Electrics/ControlledBrushlessMotor/PropellerWithModel" instance=ExtResource( 7 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.007337 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.007337 )
 
 [node name="Battery" parent="Electrics" instance=ExtResource( 21 )]
 
 [node name="LeftWheel" parent="." instance=ExtResource( 23 )]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.0714547, -0.0601215, -0.0715475 )
+transform = Transform3D( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.0714547, -0.0601215, -0.0715475 )
 TargetPath = NodePath("..")
 DisplayObjectPath = NodePath("Wheel")
 SuspensionTravel = 0.03
@@ -116,10 +116,10 @@ WheelBrakeTorque = 0.0
 ControlHubPath = NodePath("../ControlHub")
 
 [node name="Wheel" parent="LeftWheel" instance=ExtResource( 24 )]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.146639, 8.5108e-05, 0.00143338 )
+transform = Transform3D( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0.146639, 8.5108e-05, 0.00143338 )
 
 [node name="RightWheel" parent="." instance=ExtResource( 23 )]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.0751043, -0.0596044, -0.0709881 )
+transform = Transform3D( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.0751043, -0.0596044, -0.0709881 )
 TargetPath = NodePath("..")
 DisplayObjectPath = NodePath("Wheel")
 SuspensionTravel = 0.03
@@ -132,23 +132,23 @@ WheelBrakeTorque = 0.0
 ControlHubPath = NodePath("../ControlHub")
 
 [node name="Wheel" parent="RightWheel" instance=ExtResource( 24 )]
-transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.146488, 8.5108e-05, 0.00143338 )
+transform = Transform3D( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.146488, 8.5108e-05, 0.00143338 )
 
-[node name="WheelBackupCollider" type="CollisionShape" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0536563, -0.0695753 )
+[node name="WheelBackupCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0536563, -0.0695753 )
 shape = SubResource( 5 )
 
-[node name="Wing" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0167407, -0.054771 )
+[node name="Wing" type="Node3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0167407, -0.054771 )
 __meta__ = {
 "_editor_description_": "The wing is done in sections so that we get good-enough rolling resistance. Only half is made, then it is mirrored"
 }
 
 [node name="Mirror" parent="Wing" instance=ExtResource( 14 )]
-transform = Transform( 0.117, -3.7343e-07, 0, 4.36913e-08, 1, 0, 0, 0, 0.13, 0.00729886, 1.56462e-07, 0 )
+transform = Transform3D( 0.117, -3.7343e-07, 0, 4.36913e-08, 1, 0, 0, 0, 0.13, 0.00729886, 1.56462e-07, 0 )
 
 [node name="Section1" parent="Wing" instance=ExtResource( 16 )]
-transform = Transform( 0.0969216, 0.144114, 0, -0.0141151, 0.989561, 0, 0, 0, 0.0982189, -0.0619779, 0.0420306, 0.0179331 )
+transform = Transform3D( 0.0969216, 0.144114, 0, -0.0141151, 0.989561, 0, 0, 0, 0.0982189, -0.0619779, 0.0420306, 0.0179331 )
 TargetPath = NodePath("../..")
 TotalLiftCoefficient = ExtResource( 12 )
 ParasiticDragCoefficient = ExtResource( 15 )
@@ -156,7 +156,7 @@ AreaMultiplier = 0.6
 Thickness = 0.005
 
 [node name="Section2" parent="Wing" instance=ExtResource( 16 )]
-transform = Transform( 0.097944, -3.12609e-07, 0, 4.36913e-08, 1, 0, 0, 0, 0.0982189, -0.160965, 0.0420306, 0.0179331 )
+transform = Transform3D( 0.097944, -3.12609e-07, 0, 4.36913e-08, 1, 0, 0, 0, 0.0982189, -0.160965, 0.0420306, 0.0179331 )
 TargetPath = NodePath("../..")
 TotalLiftCoefficient = ExtResource( 12 )
 ParasiticDragCoefficient = ExtResource( 15 )
@@ -164,7 +164,7 @@ AreaMultiplier = 0.6
 Thickness = 0.005
 
 [node name="Section3" parent="Wing" instance=ExtResource( 16 )]
-transform = Transform( 0.097944, -3.12609e-07, 0, 4.36913e-08, 1, 0, 0, 0, 0.0982189, -0.260421, 0.0420306, 0.0179331 )
+transform = Transform3D( 0.097944, -3.12609e-07, 0, 4.36913e-08, 1, 0, 0, 0, 0.0982189, -0.260421, 0.0420306, 0.0179331 )
 TargetPath = NodePath("../..")
 TotalLiftCoefficient = ExtResource( 12 )
 ParasiticDragCoefficient = ExtResource( 15 )
@@ -172,7 +172,7 @@ AreaMultiplier = 0.6
 Thickness = 0.005
 
 [node name="Section4" parent="Wing" instance=ExtResource( 16 )]
-transform = Transform( 0.097944, -3.12609e-07, 0, 4.36504e-08, 0.999063, 0.00425, -1.89055e-09, -0.0432707, 0.0981269, -0.359408, 0.0420306, 0.0179331 )
+transform = Transform3D( 0.097944, -3.12609e-07, 0, 4.36504e-08, 0.999063, 0.00425, -1.89055e-09, -0.0432707, 0.0981269, -0.359408, 0.0420306, 0.0179331 )
 TargetPath = NodePath("../..")
 TotalLiftCoefficient = ExtResource( 12 )
 ParasiticDragCoefficient = ExtResource( 15 )
@@ -180,51 +180,51 @@ AreaMultiplier = 0.6
 Thickness = 0.005
 
 [node name="HStab" parent="." instance=ExtResource( 16 )]
-transform = Transform( 0.29737, 0, 0, 0, 1, 0, 0, 0, 0.0610834, -2.56114e-09, 0.0163661, 0.340579 )
+transform = Transform3D( 0.29737, 0, 0, 0, 1, 0, 0, 0, 0.0610834, -2.56114e-09, 0.0163661, 0.340579 )
 TargetPath = NodePath("..")
 TotalLiftCoefficient = ExtResource( 13 )
 ParasiticDragCoefficient = ExtResource( 15 )
 AreaMultiplier = 0.7
 Thickness = 0.005
 
-[node name="ElevatorHolder" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.998355, 0.0573375, 0, -0.0573375, 0.998355, 0, 0.0174716, 0.389763 )
+[node name="ElevatorHolder" type="Node3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 0.998355, 0.0573375, 0, -0.0573375, 0.998355, 0, 0.0174716, 0.389763 )
 
-[node name="Elevator" type="Spatial" parent="ElevatorHolder"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00011377, -0.0169004 )
+[node name="Elevator" type="Node3D" parent="ElevatorHolder"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00011377, -0.0169004 )
 script = ExtResource( 11 )
 ChannelName = "elevator"
 ControlHubPath = NodePath("../../ControlHub")
 
 [node name="AeroSurface" parent="ElevatorHolder/Elevator" instance=ExtResource( 16 )]
-transform = Transform( 0.294853, -3.73431e-07, 0, 1.10175e-07, 1.00062, -0.000476888, -1.3184e-09, -0.0119738, 0.0490193, 0, -0.00230037, 0.0237533 )
+transform = Transform3D( 0.294853, -3.73431e-07, 0, 1.10175e-07, 1.00062, -0.000476888, -1.3184e-09, -0.0119738, 0.0490193, 0, -0.00230037, 0.0237533 )
 TargetPath = NodePath("../../..")
 TotalLiftCoefficient = ExtResource( 13 )
 ParasiticDragCoefficient = ExtResource( 15 )
 AreaMultiplier = 0.8
 
 [node name="Elevator" parent="ElevatorHolder/Elevator" instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0210005, -0.376084 )
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0210005, -0.376084 )
 
 [node name="VStab" parent="." instance=ExtResource( 16 )]
-transform = Transform( -4.63028e-08, -1, 0, 0.0853436, -3.20724e-07, 0, 0, 0, 0.0524033, -2.56114e-09, 0.0724361, 0.341285 )
+transform = Transform3D( -4.63028e-08, -1, 0, 0.0853436, -3.20724e-07, 0, 0, 0, 0.0524033, -2.56114e-09, 0.0724361, 0.341285 )
 TargetPath = NodePath("..")
 TotalLiftCoefficient = ExtResource( 13 )
 ParasiticDragCoefficient = ExtResource( 15 )
 AreaMultiplier = 0.8
 Thickness = 0.005
 
-[node name="RudderHolder" type="Spatial" parent="."]
-transform = Transform( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -4.53532e-10, 0.0010573, 0.374599 )
+[node name="RudderHolder" type="Node3D" parent="."]
+transform = Transform3D( -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -4.53532e-10, 0.0010573, 0.374599 )
 
-[node name="Rudder" type="Spatial" parent="RudderHolder"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.051, -0.003, 0.000999987 )
+[node name="Rudder" type="Node3D" parent="RudderHolder"]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.051, -0.003, 0.000999987 )
 script = ExtResource( 11 )
 ChannelName = "rudder"
 ControlHubPath = NodePath("../../ControlHub")
 
 [node name="AeroSurface" parent="RudderHolder/Rudder" instance=ExtResource( 16 )]
-transform = Transform( 0.115005, -3.88483e-07, 0, 4.12758e-08, 1, 0, 0, 0, 0.0524033, 0.0071404, 0.003, 0.020717 )
+transform = Transform3D( 0.115005, -3.88483e-07, 0, 4.12758e-08, 1, 0, 0, 0, 0.0524033, 0.0071404, 0.003, 0.020717 )
 TargetPath = NodePath("../../..")
 TotalLiftCoefficient = ExtResource( 13 )
 ParasiticDragCoefficient = ExtResource( 15 )
@@ -232,58 +232,58 @@ AreaMultiplier = 0.8
 Thickness = 0.005
 
 [node name="Rudder" parent="RudderHolder/Rudder" instance=ExtResource( 1 )]
-transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.0549504, 0.003, -0.379004 )
+transform = Transform3D( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.0549504, 0.003, -0.379004 )
 
-[node name="Flaps" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0598263, 0.0399512 )
+[node name="Flaps" type="Node3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0598263, 0.0399512 )
 script = ExtResource( 11 )
 ChannelName = "flap"
 ControlHubPath = NodePath("../ControlHub")
 
 [node name="FlapModelL" parent="Flaps" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 0.993797, 0.111209, 0, -0.111209, 0.993797, -0.119233, -3.00184e-05, 0.0212931 )
+transform = Transform3D( 1, 0, 0, 0, 0.993797, 0.111209, 0, -0.111209, 0.993797, -0.119233, -3.00184e-05, 0.0212931 )
 
 [node name="FlapModelR" parent="Flaps" instance=ExtResource( 6 )]
-transform = Transform( 1, 0, 0, 0, 0.993797, 0.111209, 0, -0.111209, 0.993797, 0.119, 0, 0.021 )
+transform = Transform3D( 1, 0, 0, 0, 0.993797, 0.111209, 0, -0.111209, 0.993797, 0.119, 0, 0.021 )
 
 [node name="AeroSurface" parent="Flaps" instance=ExtResource( 16 )]
-transform = Transform( 0.396768, 0, 0, 0, 1, 0, 0, 0, 0.0456588, 0, 0, 0.02 )
+transform = Transform3D( 0.396768, 0, 0, 0, 1, 0, 0, 0, 0.0456588, 0, 0, 0.02 )
 TargetPath = NodePath("../..")
 TotalLiftCoefficient = ExtResource( 17 )
 ParasiticDragCoefficient = ExtResource( 15 )
 AreaMultiplier = 0.8
 
-[node name="LAileron" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.303927, 0.0598263, 0.0395102 )
+[node name="LAileron" type="Node3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.303927, 0.0598263, 0.0395102 )
 script = ExtResource( 11 )
 ChannelName = "aileronl"
 ControlHubPath = NodePath("../ControlHub")
 
 [node name="AileronModel" parent="LAileron" instance=ExtResource( 3 )]
-transform = Transform( 1, 0, 0, 0, 0.993276, 0.115769, 0, -0.115769, 0.993276, -0.0010891, -0.000733249, 0.0150639 )
+transform = Transform3D( 1, 0, 0, 0, 0.993276, 0.115769, 0, -0.115769, 0.993276, -0.0010891, -0.000733249, 0.0150639 )
 
 [node name="AeroSurface" parent="LAileron" instance=ExtResource( 16 )]
-transform = Transform( 0.210047, 0, 0, 0, 1, 0, 0, 0, 0.0456588, -0.00140372, 3.14862e-05, 0.0199355 )
+transform = Transform3D( 0.210047, 0, 0, 0, 1, 0, 0, 0, 0.0456588, -0.00140372, 3.14862e-05, 0.0199355 )
 TargetPath = NodePath("../..")
 TotalLiftCoefficient = ExtResource( 13 )
 ParasiticDragCoefficient = ExtResource( 15 )
 
-[node name="RAileron" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.304, 0.0593573, 0.0396146 )
+[node name="RAileron" type="Node3D" parent="."]
+transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.304, 0.0593573, 0.0396146 )
 script = ExtResource( 11 )
 ChannelName = "aileronr"
 ControlHubPath = NodePath("../ControlHub")
 
 [node name="AeroSurface" parent="RAileron" instance=ExtResource( 16 )]
-transform = Transform( 0.210047, 0, 0, 0, 1, 0, 0, 0, 0.0456588, -0.00140372, 3.14862e-05, 0.0199355 )
+transform = Transform3D( 0.210047, 0, 0, 0, 1, 0, 0, 0, 0.0456588, -0.00140372, 3.14862e-05, 0.0199355 )
 TargetPath = NodePath("../..")
 TotalLiftCoefficient = ExtResource( 13 )
 ParasiticDragCoefficient = ExtResource( 15 )
 
 [node name="AileronModel" parent="RAileron" instance=ExtResource( 3 )]
-transform = Transform( -1, 8.74228e-08, 0, -8.6835e-08, -0.993276, -0.115769, -1.01209e-08, -0.115769, 0.993276, -0.0010891, -0.000733249, 0.0150639 )
+transform = Transform3D( -1, 8.74228e-08, 0, -8.6835e-08, -0.993276, -0.115769, -1.01209e-08, -0.115769, 0.993276, -0.0010891, -0.000733249, 0.0150639 )
 
 [node name="BodyAero" parent="." instance=ExtResource( 19 )]
-transform = Transform( 0.0545607, 0, 0, 0, 0.0774784, 0, 0, 0, 0.560043, 0, 0.00374507, 0.101238 )
+transform = Transform3D( 0.0545607, 0, 0, 0, 0.0774784, 0, 0, 0, 0.560043, 0, 0.00374507, 0.101238 )
 LiftCubePath = "res://Scenes/Aircraft/TinyTrainer/BodyLift.tres"
 DragCubePath = "res://Resources/BaseBodyDrag.tres"

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace UI.Apps
 {
-    public abstract class AbstractBasicNodeDebug<T> : Control where T : Node
+    public abstract partial class AbstractBasicNodeDebug<T> : Control where T : Node
     {
         // Simple base debugger for items like motors or batteries
 
@@ -24,7 +24,7 @@ namespace UI.Apps
             ScanForNode();
         }
 
-        public override void _Process(float delta)
+        public override void _Process(double delta)
         {
             if (Engine.GetFramesDrawn() % RescanFrequency == 0) ScanForNode();
 

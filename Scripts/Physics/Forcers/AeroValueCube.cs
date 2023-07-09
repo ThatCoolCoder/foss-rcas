@@ -4,7 +4,7 @@ using System;
 namespace Physics.Forcers
 {
     [Tool]
-    public class AeroValueCube : Resource
+    public partial class AeroValueCube : Resource
     {
         // Lift cube, drag cube, etc
         // Values refer to the direction that the object is moving in - if it's going to the right then Right is used
@@ -24,12 +24,12 @@ namespace Physics.Forcers
 
             return new AeroValueCube()
             {
-                Left = Mathf.Abs(value.x),
-                Right = Mathf.Abs(value.x),
-                Up = Mathf.Abs(value.y),
-                Down = Mathf.Abs(value.y),
-                Forward = Mathf.Abs(value.z),
-                Back = Mathf.Abs(value.z),
+                Left = Mathf.Abs(value.X),
+                Right = Mathf.Abs(value.X),
+                Up = Mathf.Abs(value.Y),
+                Down = Mathf.Abs(value.Y),
+                Forward = Mathf.Abs(value.Z),
+                Back = Mathf.Abs(value.Z),
             };
         }
     }

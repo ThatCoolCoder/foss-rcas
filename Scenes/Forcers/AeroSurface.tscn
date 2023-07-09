@@ -3,26 +3,26 @@
 [ext_resource path="res://Scripts/Physics/Forcers/AeroSurface.cs" type="Script" id=1]
 [ext_resource path="res://Art/Common/ForcerPreviewMaterial.tres" type="Material" id=2]
 
-[sub_resource type="SpatialMaterial" id=1]
+[sub_resource type="StandardMaterial3D" id=1]
 flags_transparent = true
 albedo_color = Color( 0.596078, 0.976471, 0, 0.513726 )
 
-[node name="AeroSurface" type="Spatial"]
+[node name="AeroSurface" type="Node3D"]
 script = ExtResource( 1 )
 __meta__ = {
 "_editor_description_": "The green triangle points in the direction of flight"
 }
 
-[node name="DebugBox" type="Spatial" parent="."]
+[node name="DebugBox" type="Node3D" parent="."]
 
-[node name="CSGBox" type="CSGBox" parent="DebugBox"]
+[node name="CSGBox3D" type="CSGBox3D" parent="DebugBox"]
 material_override = ExtResource( 2 )
 width = 1.0
 height = 0.005
 depth = 1.0
 
-[node name="CSGPolygon" type="CSGPolygon" parent="DebugBox"]
-transform = Transform( -6.9064e-09, 0.378, -2.18557e-08, 0, -1.65229e-08, -0.5, -0.158, -1.65229e-08, 9.55343e-16, -1.44123e-08, -0.000381635, -0.329333 )
-polygon = PoolVector2Array( 0, -0.25, 0, 0.25, 1, 0 )
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="DebugBox"]
+transform = Transform3D( -6.9064e-09, 0.378, -2.18557e-08, 0, -1.65229e-08, -0.5, -0.158, -1.65229e-08, 9.55343e-16, -1.44123e-08, -0.000381635, -0.329333 )
+polygon = PackedVector2Array( 0, -0.25, 0, 0.25, 1, 0 )
 depth = 0.01
 material = SubResource( 1 )

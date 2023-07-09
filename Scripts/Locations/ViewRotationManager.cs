@@ -3,7 +3,7 @@ using System;
 
 namespace Locations
 {
-    public class ViewRotationManager
+    public partial class ViewRotationManager
     {
         // Thing that keeps track of a pan/tilt rotation and handles rotating a spatial to there.
         // If you want to do things manually then just use GetPanAndTilt
@@ -13,7 +13,7 @@ namespace Locations
 
         public bool MouseRotationEnabled { get; set; } = true;
         public bool KeyboardRotationEnabled { get; set; } = true;
-        public Spatial Target { get; set; }
+        public Node3D Target { get; set; }
 
         public float MaxAngularSpeedDegrees { get; set; } = 120;
         public float AngularAccelerationDegrees { get; set; } = 480;
@@ -32,21 +32,21 @@ namespace Locations
 
         public (float, float) GetPanAndTilt()
         {
-            return (crntRotation.x + crntDragRotation.x, crntRotation.y + crntDragRotation.y);
+            return (crntRotation.X + crntDragRotation.X, crntRotation.Y + crntDragRotation.Y);
         }
 
-        public bool Update(float delta)
+        public bool Update(double delta)
         {
             var changed = false;
 
             if (KeyboardRotationEnabled)
             {
-                changed = KeyboardRotation(delta);
+                changed = KeyboardRotation((float)delta);
             }
 
             if (Target != null)
             {
-                Target.Rotation = new Vector3(crntRotation.x + crntDragRotation.x, crntRotation.y + crntDragRotation.y, 0);
+                Target.Rotation = new Vector3(crntRotation.X + crntDragRotation.X, crntRotation.Y + crntDragRotation.Y, 0);
             }
 
             return changed;
@@ -60,14 +60,14 @@ namespace Locations
                 -SimInput.Manager.GetActionValue("camera/pan_combined")) * AngularAccelerationDegrees;
 
             angularVelocityDegrees += crntAcceleration * delta;
-            angularVelocityDegrees.x = Mathf.Clamp(angularVelocityDegrees.x, -MaxAngularSpeedDegrees, MaxAngularSpeedDegrees);
-            angularVelocityDegrees.y = Mathf.Clamp(angularVelocityDegrees.y, -MaxAngularSpeedDegrees, MaxAngularSpeedDegrees);
+            angularVelocityDegrees.X = Mathf.Clamp(angularVelocityDegrees.X, -MaxAngularSpeedDegrees, MaxAngularSpeedDegrees);
+            angularVelocityDegrees.Y = Mathf.Clamp(angularVelocityDegrees.Y, -MaxAngularSpeedDegrees, MaxAngularSpeedDegrees);
 
-            if (crntAcceleration.x == 0) angularVelocityDegrees.x = Utils.ConvergeValue(angularVelocityDegrees.x, 0, AngularAccelerationDegrees * delta);
-            if (crntAcceleration.y == 0) angularVelocityDegrees.y = Utils.ConvergeValue(angularVelocityDegrees.y, 0, AngularAccelerationDegrees * delta);
+            if (crntAcceleration.X == 0) angularVelocityDegrees.X = Utils.ConvergeValue(angularVelocityDegrees.X, 0, AngularAccelerationDegrees * delta);
+            if (crntAcceleration.Y == 0) angularVelocityDegrees.Y = Utils.ConvergeValue(angularVelocityDegrees.Y, 0, AngularAccelerationDegrees * delta);
 
-            crntRotation.x = Mathf.Clamp(crntRotation.x + Mathf.Deg2Rad(angularVelocityDegrees.x * delta), -90, 90);
-            crntRotation.y = crntRotation.y + Mathf.Deg2Rad(angularVelocityDegrees.y * delta);
+            crntRotation.X = Mathf.Clamp(crntRotation.X + Mathf.DegToRad(angularVelocityDegrees.X * delta), -90, 90);
+            crntRotation.Y = crntRotation.Y + Mathf.DegToRad(angularVelocityDegrees.Y * delta);
 
             return crntAcceleration.LengthSquared() > 0;
         }
@@ -84,8 +84,8 @@ namespace Locations
                 }
                 else
                 {
-                    crntRotation.x += crntDragRotation.x;
-                    crntRotation.y += crntDragRotation.y;
+                    crntRotation.X += crntDragRotation.X;
+                    crntRotation.Y += crntDragRotation.Y;
                     crntDragRotation = Vector2.Zero;
                     clickStartPos = null;
                 }
@@ -96,8 +96,8 @@ namespace Locations
                 if (clickStartPos != null)
                 {
                     var movement = motionEvent.Position - (Vector2)clickStartPos;
-                    crntDragRotation.x = -movement.y * MouseSensitivity * 0.001f;
-                    crntDragRotation.y = -movement.x * MouseSensitivity * 0.001f;
+                    crntDragRotation.X = -movement.Y * MouseSensitivity * 0.001f;
+                    crntDragRotation.Y = -movement.X * MouseSensitivity * 0.001f;
                     return true;
                 }
                 else return false;

@@ -19,13 +19,10 @@ namespace ContentManagement
             var files = Utils.GetItemsInDirectory(path, recursive: true)
                 .Where(x => Utils.HasExtension(x, "content.toml"));
 
-            var gdFile = new File();
-
             var fileMap = files.ToDictionary(path => path, path =>
             {
-                gdFile.Open(path, File.ModeFlags.Read);
-                var content = gdFile.GetAsText();
-                gdFile.Close();
+                using var file = FileAccess.Open(path, FileAccess.ModeFlags.Read);
+                var content = file.GetAsText();
                 return content;
             });
 

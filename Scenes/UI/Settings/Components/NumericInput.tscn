@@ -4,16 +4,16 @@
 [ext_resource path="res://Scripts/UI/Settings/Components/NumericInput.cs" type="Script" id=2]
 
 [node name="NumericInput" instance=ExtResource( 1 )]
-margin_right = 527.0
+offset_right = 527.0
 script = ExtResource( 2 )
 
 [node name="Label" parent="." index="0"]
-margin_right = 169.0
+offset_right = 169.0
 
 [node name="SpinBox" type="SpinBox" parent="." index="1"]
-margin_left = 181.0
-margin_right = 243.0
-margin_bottom = 40.0
+offset_left = 181.0
+offset_right = 243.0
+offset_bottom = 40.0
 size_flags_horizontal = 2
 
 [connection signal="value_changed" from="SpinBox" to="." method="_on_SpinBox_value_changed"]

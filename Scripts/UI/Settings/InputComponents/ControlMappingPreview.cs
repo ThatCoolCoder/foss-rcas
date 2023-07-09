@@ -8,7 +8,7 @@ namespace UI.Settings.InputComponents
 {
     using Components;
 
-    public class ControlMappingPreview : Button
+    public partial class ControlMappingPreview : Button
     {
         public static PackedScene Scene = ResourceLoader.Load<PackedScene>("res://Scenes/UI/Settings/InputComponents/ControlMappingPreview.tscn");
 
@@ -44,12 +44,12 @@ namespace UI.Settings.InputComponents
             if (controlMapping is ButtonControlMapping bm) return $"But {bm.ButtonIndex}";
             if (controlMapping is SimpleKeyboardControlMapping skm)
             {
-                if (skm.Momentary) return $"Key - {OS.GetScancodeString(skm.KeyScancode)}";
-                else return $"Key - {OS.GetScancodeString(skm.KeyScancode)}";
+                if (skm.Momentary) return $"Key - {OS.GetKeycodeString(skm.KeyScancode)}";
+                else return $"Key - {OS.GetKeycodeString(skm.KeyScancode)}";
             }
             if (controlMapping is ThreePosKeyboardControlMapping tpkm)
                 return $"Key - " +
-                $"{OS.GetScancodeString(tpkm.Key1Scancode)}, {OS.GetScancodeString(tpkm.Key2Scancode)}, {OS.GetScancodeString(tpkm.Key3Scancode)}";
+                $"{OS.GetKeycodeString(tpkm.Key1Scancode)}, {OS.GetKeycodeString(tpkm.Key2Scancode)}, {OS.GetKeycodeString(tpkm.Key3Scancode)}";
 
             Utils.LogError($"Unknown control type: {controlMapping.GetType().FullName}", this);
             return "Unknown mapping type";
@@ -58,12 +58,12 @@ namespace UI.Settings.InputComponents
         private BaseControlMappingEditor CreateEditor()
         {
             if (controlMapping == null) Utils.LogError("Control mapping is null", this);
-            if (controlMapping is AxisControlMapping am) return AxisMappingEditor.Scene.Instance<AxisMappingEditor>().Config(this, am);
-            if (controlMapping is ButtonControlMapping bm) return ButtonMappingEditor.Scene.Instance<ButtonMappingEditor>().Config(this, bm);
+            if (controlMapping is AxisControlMapping am) return AxisMappingEditor.Scene.Instantiate<AxisMappingEditor>().Config(this, am);
+            if (controlMapping is ButtonControlMapping bm) return ButtonMappingEditor.Scene.Instantiate<ButtonMappingEditor>().Config(this, bm);
             if (controlMapping is SimpleKeyboardControlMapping skm)
-                return SimpleKeyboardMappingEditor.Scene.Instance<SimpleKeyboardMappingEditor>().Config(this, skm);
+                return SimpleKeyboardMappingEditor.Scene.Instantiate<SimpleKeyboardMappingEditor>().Config(this, skm);
             if (controlMapping is ThreePosKeyboardControlMapping tpkm)
-                return ThreePosKeyboardMappingEditor.Scene.Instance<ThreePosKeyboardMappingEditor>().Config(this, tpkm);
+                return ThreePosKeyboardMappingEditor.Scene.Instantiate<ThreePosKeyboardMappingEditor>().Config(this, tpkm);
             return null;
         }
 

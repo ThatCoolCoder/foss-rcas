@@ -4,7 +4,7 @@ using System;
 
 namespace Physics.Forcers
 {
-    public class AeroObject : AbstractSpatialFluidForcer
+    public partial class AeroObject : AbstractSpatialFluidForcer
     {
         // Like an AeroSurface but for other aerodynamic entities - Body, landing gear, etc.
         // Stuff that generally produces more drag than lift
@@ -25,29 +25,30 @@ namespace Physics.Forcers
             base._Ready();
         }
 
-        public override Vector3 CalculateForce(ISpatialFluid fluid, PhysicsDirectBodyState state)
+        public override Vector3 CalculateForce(ISpatialFluid fluid, PhysicsDirectBodyState3D state)
         {
+            return Vector3.Zero; // convtodo: enable this forcer
+
             var totalForce = Vector3.Zero;
 
-            var density = fluid.DensityAtPoint(GlobalTranslation);
-            var relativeVelocity = state.GetVelocityAtGlobalPosition(target, this) - fluid.VelocityAtPoint(GlobalTranslation);
+            var density = fluid.DensityAtPoint(GlobalPosition);
+            var relativeVelocity = state.GetVelocityAtGlobalPosition(target, this) - fluid.VelocityAtPoint(GlobalPosition);
 
-            var basis = GlobalTransform.basis;
-            basis.Scale = Vector3.One;
+            var basis = GlobalTransform.Basis.Orthonormalized();
             // Velocity relative to the rotation of self
-            var localVelocity = basis.XformInv(relativeVelocity);
+            var localVelocity = basis.Inverse() * relativeVelocity;
 
             var size = Scale;
-            var sideAreas = new Vector3(size.y * size.z, size.x * size.z, size.x * size.y);
+            var sideAreas = new Vector3(size.Y * size.Z, size.X * size.Z, size.X * size.Y);
 
             if (liftCube != null)
             {
                 // Calculate force for the 3 axis separately then combine.
 
-                var localLift = new Vector3(GetLiftAlongAxis(localVelocity.x, liftCube.Left, liftCube.Right) * sideAreas.x,
-                    GetLiftAlongAxis(localVelocity.y, liftCube.Down, liftCube.Up) * sideAreas.y,
-                    GetLiftAlongAxis(localVelocity.z, liftCube.Forward, liftCube.Back) * sideAreas.z);
-                var relativeLift = basis.Xform(localLift);
+                var localLift = new Vector3(GetLiftAlongAxis(localVelocity.X, liftCube.Left, liftCube.Right) * sideAreas.X,
+                    GetLiftAlongAxis(localVelocity.Y, liftCube.Down, liftCube.Up) * sideAreas.Y,
+                    GetLiftAlongAxis(localVelocity.Z, liftCube.Forward, liftCube.Back) * sideAreas.Z);
+                var relativeLift = basis * localLift;
                 totalForce += relativeLift;
             }
             if (dragCube != null)
@@ -78,19 +79,19 @@ namespace Physics.Forcers
 
             var normalised = localVelocity.Normalized();
 
-            return InterpolatePositiveNegative(normalised.x, aeroValueCube.Left, aeroValueCube.Right) +
-                InterpolatePositiveNegative(normalised.y, aeroValueCube.Down, aeroValueCube.Up) +
-                InterpolatePositiveNegative(normalised.z, aeroValueCube.Forward, aeroValueCube.Back);
+            return InterpolatePositiveNegative(normalised.X, aeroValueCube.Left, aeroValueCube.Right) +
+                InterpolatePositiveNegative(normalised.Y, aeroValueCube.Down, aeroValueCube.Up) +
+                InterpolatePositiveNegative(normalised.Z, aeroValueCube.Forward, aeroValueCube.Back);
         }
 
         private void UpdateDebugBoxVisibility()
         {
-            GetNode<Spatial>("DebugBox").Visible = DebugModeActive;
+            GetNode<Node3D>("DebugBox").Visible = DebugModeActive;
         }
 
         public override void _ExitTree()
         {
-            if (Engine.EditorHint) return;
+            if (Engine.IsEditorHint()) return;
 
             onDebugModeChanged -= UpdateDebugBoxVisibility;
         }

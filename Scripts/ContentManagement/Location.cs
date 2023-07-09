@@ -5,7 +5,7 @@ using Tomlet.Attributes;
 
 namespace ContentManagement
 {
-    public class Location : ContentItem
+    public partial class Location : ContentItem
     {
         [PropName("world_location")] public string LocationInWorld { get; set; }
         [PropName("elevation")] public float Elevation { get; set; }

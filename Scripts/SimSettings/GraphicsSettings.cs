@@ -4,7 +4,7 @@ using Tomlet;
 
 namespace SimSettings
 {
-    public class GraphicsSettings
+    public partial class GraphicsSettings
     {
         public bool ShowFps { get; set; } = false;
         public bool UseImpostors { get; set; } = true;
@@ -29,7 +29,7 @@ namespace SimSettings
         public int ShadowAtlasCubemapSizeExponent { get; set; } = 9;
         // todo: these two probably need to be applied to the individual viewport.
         public AntiAliasingMode AntiAliasingMode { get; set; } = AntiAliasingMode.Fast;
-        public Viewport.MSAA Msaa { get; set; } = Viewport.MSAA.Msaa4x;
+        public SubViewport.Msaa Msaa { get; set; } = SubViewport.Msaa.Msaa4X;
 
         public void Apply()
         {
@@ -38,22 +38,24 @@ namespace SimSettings
             ProjectSettings.SetSetting("rendering/quality/shadow_atlas/cubemap_size", 1 << DirectionalShadowSizeExponent);
         }
 
-        public void ApplyToViewport(Viewport viewport)
+        public void ApplyToViewport(SubViewport viewport)
         {
+            // convtodo: this doesn't appreciate existing
+            return;
             if (AntiAliasingMode == AntiAliasingMode.Disabled)
             {
-                viewport.Fxaa = false;
-                viewport.Msaa = Viewport.MSAA.Disabled;
+                viewport.ScreenSpaceAA = Viewport.ScreenSpaceAAEnum.Disabled;
+                viewport.Msaa3D = SubViewport.Msaa.Disabled;
             }
             else if (AntiAliasingMode == AntiAliasingMode.Fast)
             {
-                viewport.Fxaa = true;
-                viewport.Msaa = Viewport.MSAA.Disabled;
+                viewport.ScreenSpaceAA = Viewport.ScreenSpaceAAEnum.Fxaa;
+                viewport.Msaa3D = SubViewport.Msaa.Disabled;
             }
             else
             {
-                viewport.Fxaa = false;
-                viewport.Msaa = Msaa;
+                viewport.ScreenSpaceAA = Viewport.ScreenSpaceAAEnum.Disabled;
+                viewport.Msaa3D = Msaa;
             }
         }
     }

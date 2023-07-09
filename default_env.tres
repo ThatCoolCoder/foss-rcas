@@ -1,19 +1,11 @@
-[gd_resource type="Environment" load_steps=2 format=2]
+[gd_resource type="Environment" load_steps=2 format=3 uid="uid://b6tjlnomuo5fh"]
 
-[sub_resource type="ProceduralSky" id=1]
-ground_bottom_color = Color( 0.443137, 0.541176, 0.729412, 1 )
-ground_horizon_color = Color( 0.556863, 0.654902, 0.745098, 1 )
-ground_curve = 0.0348221
+[sub_resource type="Sky" id="1"]
 
 [resource]
 background_mode = 2
-background_sky = SubResource( 1 )
-background_energy = 0.87
-ambient_light_color = Color( 1, 1, 1, 1 )
-ambient_light_energy = 0.63
+sky = SubResource("1")
+ambient_light_color = Color(1, 1, 1, 1)
 ambient_light_sky_contribution = 0.32
+ambient_light_energy = 0.63
 fog_enabled = true
-fog_color = Color( 0.643137, 0.74902, 0.854902, 1 )
-fog_depth_begin = 100.0
-fog_depth_end = 500.0
-fog_depth_curve = 2.82841

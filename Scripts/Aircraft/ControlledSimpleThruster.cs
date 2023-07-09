@@ -3,7 +3,7 @@ using System;
 
 namespace Aircraft
 {
-    public class ControlledSimpleThruster : Physics.Forcers.SimpleThruster
+    public partial class ControlledSimpleThruster : Physics.Forcers.SimpleThruster
     {
         [Export] public string ThrottleActionName { get; set; }
         [Export] public bool Reversible { get; set; }
@@ -16,7 +16,7 @@ namespace Aircraft
             base._Ready();
         }
 
-        public override void _Process(float delta)
+        public override void _Process(double delta)
         {
             ThrustProportion = controlHub.ChannelValues[ThrottleActionName];
             if (!Reversible) ThrustProportion = ThrustProportion / 2 + 0.5f;

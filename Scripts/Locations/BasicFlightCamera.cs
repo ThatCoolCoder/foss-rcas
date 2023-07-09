@@ -3,7 +3,7 @@ using System;
 
 namespace Locations
 {
-    public class BasicFlightCamera : Camera, IFlightCamera
+    public partial class BasicFlightCamera : Camera3D, IFlightCamera
     {
         // Camera used for flying the plane - EG on the ground or FPV
 

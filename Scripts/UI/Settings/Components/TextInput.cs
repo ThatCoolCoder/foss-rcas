@@ -3,7 +3,7 @@ using System;
 
 namespace UI.Settings.Components
 {
-    public class TextInput : SettingsRow<string>
+    public partial class TextInput : SettingsRow<string>
     {
 
         private LineEdit lineEdit;

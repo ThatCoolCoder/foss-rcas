@@ -2,5 +2,5 @@
 
 [ext_resource path="res://Scripts/Aircraft/Servo.cs" type="Script" id=1]
 
-[node name="Servo" type="Spatial"]
+[node name="Servo" type="Node3D"]
 script = ExtResource( 1 )

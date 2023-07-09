@@ -2,9 +2,9 @@
 
 [ext_resource path="res://Scripts/Aircraft/OrbitCamera.cs" type="Script" id=1]
 
-[node name="OrbitCamera" type="Spatial"]
-pause_mode = 2
+[node name="OrbitCamera" type="Node3D"]
+process_mode = 3
 script = ExtResource( 1 )
 
-[node name="Camera" type="Camera" parent="."]
+[node name="Camera3D" type="Camera3D" parent="."]
 far = 50000.0

@@ -5,12 +5,12 @@ using System.Linq;
 
 namespace UI.Apps
 {
-    public class BasicInputDebug : Control
+    public partial class BasicInputDebug : Control
     {
         // Basic implementation just visually displaying values of the aircraft channels.
         // todo: in future, create a version with a little tx that has sticks that move around, and visual indications for switches
 
-        [Export] public List<string> ChannelNames { get; set; }
+        [Export] public Godot.Collections.Array<string> ChannelNames { get; set; }
         private RichTextLabel label;
 
         public override void _Ready()
@@ -19,7 +19,7 @@ namespace UI.Apps
             label.BbcodeEnabled = true;
         }
 
-        public override void _Process(float delta)
+        public override void _Process(double delta)
         {
             var text = String.Join("\n", ChannelNames.Select(action =>
             {
@@ -29,7 +29,7 @@ namespace UI.Apps
                 return $"{name}: {displayedValue:+0;-#}%";
             }));
 
-            label.BbcodeText = text;
+            label.Text = text;
         }
     }
 }

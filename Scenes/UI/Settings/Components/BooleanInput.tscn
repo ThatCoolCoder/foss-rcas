@@ -7,9 +7,9 @@
 script = ExtResource( 2 )
 
 [node name="CheckBox" type="CheckBox" parent="." index="1"]
-margin_left = 92.0
-margin_right = 116.0
-margin_bottom = 40.0
+offset_left = 92.0
+offset_right = 116.0
+offset_bottom = 40.0
 size_flags_horizontal = 2
 
 [connection signal="toggled" from="CheckBox" to="." method="_on_CheckBox_toggled"]

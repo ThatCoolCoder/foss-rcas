@@ -7,7 +7,7 @@ using SimInput;
 
 namespace UI.Settings.InputComponents
 {
-    public class ActionPreview : Control
+    public partial class ActionPreview : Control
     {
         public static PackedScene Scene = ResourceLoader.Load<PackedScene>("res://Scenes/UI/Settings/InputComponents/ActionPreview.tscn");
 
@@ -49,7 +49,7 @@ namespace UI.Settings.InputComponents
 
             foreach (var mapping in SettingsScreen.NewSettings.InputMap.GetMappingsForAction(actionPath))
             {
-                ControlMappingPreview.Scene.Instance<ControlMappingPreview>().Config(mappingHolder, mapping, DeleteControlMapping);
+                ControlMappingPreview.Scene.Instantiate<ControlMappingPreview>().Config(mappingHolder, mapping, DeleteControlMapping);
             }
 
         }

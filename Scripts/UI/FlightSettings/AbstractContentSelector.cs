@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace UI.FlightSettings
 {
-    public abstract class AbstractContentSelector<T> : Control where T : ContentManagement.ContentItem
+    public abstract partial class AbstractContentSelector<T> : Control where T : ContentManagement.ContentItem
     {
         public T SelectedItem
         {
@@ -16,7 +16,7 @@ namespace UI.FlightSettings
         }
 
         private static Vector2 expectedTextureSize = new Vector2(1280, 720);
-        private static Texture noThumbnailTexture = ResourceLoader.Load<Texture>("res://Art/NoThumbnail.png");
+        private static Texture2D noThumbnailTexture = ResourceLoader.Load<Texture2D>("res://Art/NoThumbnail.png");
 
         private OptionButton selector;
         private TextureRect thumbnail;
@@ -66,12 +66,12 @@ namespace UI.FlightSettings
                     formattedCredits
                 };
 
-                mainText.BbcodeText = String.Join("\n\n", sections.Select(x => x.Trim()).Where(x => x != ""));
+                mainText.Text = String.Join("\n\n", sections.Select(x => x.Trim()).Where(x => x != ""));
             }
             else
             {
                 thumbnail.Texture = null;
-                mainText.BbcodeText = "";
+                mainText.Text = "";
                 if (AvailableItems.Count == 0)
                 {
                     selector.Disabled = true;
@@ -80,11 +80,11 @@ namespace UI.FlightSettings
             }
         }
 
-        private Texture LoadThumbnail()
+        private Texture2D LoadThumbnail()
         {
             // todo: very weird bug: in v3.6 installed from aur, the failed loading thumbnail line is not displayed more than once,
             // unless a print is put before the following line
-            var texture = ResourceLoader.Load<Texture>(SelectedItem.GetThumbnailPath());
+            var texture = ResourceLoader.Load<Texture2D>(SelectedItem.GetThumbnailPath());
             if (texture == null)
             {
                 Utils.LogError($"Failed loading thumbnail from {SelectedItem.GetThumbnailPath()}", this);

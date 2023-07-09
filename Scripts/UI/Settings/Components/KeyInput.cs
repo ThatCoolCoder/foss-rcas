@@ -5,13 +5,13 @@ using System.Linq;
 
 namespace UI.Settings.Components
 {
-    public class KeyInput : BaseInputInput<uint, uint?>
+    public partial class KeyInput : BaseInputInput<Key, Key?>
     {
-        private uint? lastPressedKey;
+        private Key? lastPressedKey;
 
         public static PackedScene Scene = ResourceLoader.Load<PackedScene>("res://Scenes/UI/Settings/Components/KeyInput.tscn");
 
-        public new KeyInput Config(Node parent, string name, SettingReader<uint> read, SettingWriter<uint> write, string toolTip = "")
+        public new KeyInput Config(Node parent, string name, SettingReader<Key> read, SettingWriter<Key> write, string toolTip = "")
         {
             base.Config(parent, name, read, write, toolTip);
 
@@ -22,13 +22,13 @@ namespace UI.Settings.Components
         {
             if (_event is InputEventKey keyEvent && keyEvent.Pressed && !keyEvent.Echo)
             {
-                lastPressedKey = keyEvent.GetScancodeWithModifiers();
+                lastPressedKey = keyEvent.GetKeycodeWithModifiers();
 
                 UpdatePopup();
             }
         }
 
-        protected override uint? GetCandidateValue()
+        protected override Key? GetCandidateValue()
         {
             return lastPressedKey;
         }
@@ -37,13 +37,13 @@ namespace UI.Settings.Components
         {
             var candidate = GetCandidateValue();
 
-            if (candidate is uint notNull) return $"{OS.GetScancodeString(notNull)} selected";
+            if (candidate is Key notNull) return $"{OS.GetKeycodeString(notNull)} selected";
             else return "Press a key or key combination to select it...";
         }
 
         protected override string GetCurrentValueText()
         {
-            return OS.GetScancodeString(read(SettingsScreen.NewSettings));
+            return OS.GetKeycodeString(read(SettingsScreen.NewSettings));
         }
 
         protected override void ClearCandidateValue()

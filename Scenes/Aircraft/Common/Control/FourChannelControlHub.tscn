@@ -2,5 +2,5 @@
 
 [ext_resource path="res://Scripts/Aircraft/Control/FourChannelHub.cs" type="Script" id=1]
 
-[node name="FourChannelControlHub" type="Spatial"]
+[node name="FourChannelControlHub" type="Node3D"]
 script = ExtResource( 1 )

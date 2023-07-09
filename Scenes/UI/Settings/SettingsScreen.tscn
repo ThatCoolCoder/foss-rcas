@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Resources/Fonts/Heading2.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Resources/Fonts/Heading2.tres" type="FontFile" id=1]
 [ext_resource path="res://Scenes/UI/Misc/BackButton.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scenes/UI/Misc/Heading.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scripts/UI/Settings/SettingsScreen.cs" type="Script" id=4]
@@ -13,53 +13,53 @@
 [node name="SettingsScreen" type="MarginContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-rect_pivot_offset = Vector2( -483, -148 )
-custom_constants/margin_right = 50
-custom_constants/margin_left = 50
-custom_constants/margin_bottom = 20
+pivot_offset = Vector2( -483, -148 )
+theme_override_constants/margin_right = 50
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_bottom = 20
 script = ExtResource( 4 )
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-margin_left = 50.0
-margin_right = 1230.0
-margin_bottom = 700.0
+offset_left = 50.0
+offset_right = 1230.0
+offset_bottom = 700.0
 
 [node name="Heading" parent="VBoxContainer" instance=ExtResource( 3 )]
 anchor_right = 0.0
-margin_right = 1180.0
+offset_right = 1180.0
 Text = "Settings"
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
-margin_top = 39.0
-margin_right = 1180.0
-margin_bottom = 667.0
+offset_top = 39.0
+offset_right = 1180.0
+offset_bottom = 667.0
 size_flags_vertical = 3
-custom_constants/margin_right = 0
-custom_constants/margin_top = 20
-custom_constants/margin_left = 0
-custom_constants/margin_bottom = 20
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_bottom = 20
 
 [node name="MainTabs" type="TabContainer" parent="VBoxContainer/MarginContainer"]
-margin_top = 20.0
-margin_right = 1180.0
-margin_bottom = 608.0
+offset_top = 20.0
+offset_right = 1180.0
+offset_bottom = 608.0
 size_flags_vertical = 3
-custom_constants/top_margin = 0
-custom_constants/side_margin = 0
-tab_align = 0
+theme_override_constants/top_margin = 0
+theme_override_constants/side_margin = 0
+tab_alignment = 0
 
 [node name="Graphics" parent="VBoxContainer/MarginContainer/MainTabs" instance=ExtResource( 8 )]
-margin_left = 4.0
-margin_top = 36.0
-margin_right = -4.0
-margin_bottom = -4.0
+offset_left = 4.0
+offset_top = 36.0
+offset_right = -4.0
+offset_bottom = -4.0
 
 [node name="View" parent="VBoxContainer/MarginContainer/MainTabs" instance=ExtResource( 5 )]
 visible = false
-margin_left = 4.0
-margin_top = 36.0
-margin_right = -4.0
-margin_bottom = -4.0
+offset_left = 4.0
+offset_top = 36.0
+offset_right = -4.0
+offset_bottom = -4.0
 
 [node name="Input Map" parent="VBoxContainer/MarginContainer/MainTabs" instance=ExtResource( 7 )]
 visible = false
@@ -68,57 +68,57 @@ visible = false
 visible = false
 
 [node name="Buttons" type="HBoxContainer" parent="VBoxContainer"]
-margin_top = 671.0
-margin_right = 1180.0
-margin_bottom = 700.0
-custom_constants/separation = 10
+offset_top = 671.0
+offset_right = 1180.0
+offset_bottom = 700.0
+theme_override_constants/separation = 10
 alignment = 2
 
 [node name="Reset" type="Button" parent="VBoxContainer/Buttons"]
-margin_left = 841.0
-margin_right = 895.0
-margin_bottom = 29.0
-hint_tooltip = "Reset the settings to their defaults"
-custom_fonts/font = ExtResource( 1 )
+offset_left = 841.0
+offset_right = 895.0
+offset_bottom = 29.0
+tooltip_text = "Reset the settings to their defaults"
+theme_override_fonts/font = ExtResource( 1 )
 text = "Reset"
 
 [node name="Cancel" parent="VBoxContainer/Buttons" instance=ExtResource( 2 )]
-margin_left = 905.0
-margin_top = 0.0
-margin_right = 968.0
-margin_bottom = 29.0
-hint_tooltip = "Undo changes and leave"
+offset_left = 905.0
+offset_top = 0.0
+offset_right = 968.0
+offset_bottom = 29.0
+tooltip_text = "Undo changes and leave"
 text = "Cancel"
 ScenePath = "res://Scenes/UI/StartScreen.tscn"
 
 [node name="Revert" type="Button" parent="VBoxContainer/Buttons"]
-margin_left = 978.0
-margin_right = 1040.0
-margin_bottom = 29.0
-hint_tooltip = "Undo changes"
-custom_fonts/font = ExtResource( 1 )
+offset_left = 978.0
+offset_right = 1040.0
+offset_bottom = 29.0
+tooltip_text = "Undo changes"
+theme_override_fonts/font = ExtResource( 1 )
 text = "Revert"
 
 [node name="Apply" type="Button" parent="VBoxContainer/Buttons"]
-margin_left = 1050.0
-margin_right = 1106.0
-margin_bottom = 29.0
-hint_tooltip = "Apply settings but do not leave"
-custom_fonts/font = ExtResource( 1 )
+offset_left = 1050.0
+offset_right = 1106.0
+offset_bottom = 29.0
+tooltip_text = "Apply settings but do not leave"
+theme_override_fonts/font = ExtResource( 1 )
 text = "Apply"
 
 [node name="Accept" type="Button" parent="VBoxContainer/Buttons"]
-margin_left = 1116.0
-margin_right = 1180.0
-margin_bottom = 29.0
-hint_tooltip = "Apply settings and leave"
-custom_fonts/font = ExtResource( 1 )
+offset_left = 1116.0
+offset_right = 1180.0
+offset_bottom = 29.0
+tooltip_text = "Apply settings and leave"
+theme_override_fonts/font = ExtResource( 1 )
 text = "Accept"
 
 [node name="CustomConfirmationDialog" parent="." instance=ExtResource( 9 )]
-margin_left = 50.0
-margin_right = 1230.0
-margin_bottom = 700.0
+offset_left = 50.0
+offset_right = 1230.0
+offset_bottom = 700.0
 dialog_text = "Are you sure you want to completely reset your settings?"
 
 [connection signal="pressed" from="VBoxContainer/Buttons/Reset" to="." method="_on_Reset_pressed"]

@@ -1,238 +1,266 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=20 format=3 uid="uid://c4lnwayphj5t2"]
 
-[ext_resource path="res://Scenes/Locations/BaseLocation.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Art/Locations/BadgerField/BadgerField.glb" type="PackedScene" id=2]
-[ext_resource path="res://Art/SkyOnlyHDRI048_4K-TONEMAPPED.jpg" type="Texture" id=3]
-[ext_resource path="res://Scripts/Locations/SpawnAlongPath.cs" type="Script" id=4]
-[ext_resource path="res://Scenes/Locations/BadgerField/ImpostorPine.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Scenes/Locations/Common/TreeScatter.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Art/Common/Trees/PineV2/Render/Pine0.png" type="Texture" id=7]
-[ext_resource path="res://Scenes/Locations/Common/GrassScatter.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Art/Common/GrassV2Normal.png" type="Texture" id=9]
-[ext_resource path="res://Art/Locations/BadgerField/GrassMask.png" type="Texture" id=11]
-[ext_resource path="res://Art/Common/Bushes/Basic/BasicBush0.png" type="Texture" id=12]
-[ext_resource path="res://Art/Common/Bushes/Basic/BasicBush240.png" type="Texture" id=13]
-[ext_resource path="res://Art/Common/Bushes/Basic/BasicBush120.png" type="Texture" id=14]
-[ext_resource path="res://Scenes/Locations/Common/ImpostorBasicBush.tscn" type="PackedScene" id=15]
+[ext_resource type="PackedScene" path="res://Scenes/Locations/BaseLocation.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://boicgaslj3qqk" path="res://Art/Locations/BadgerField/BadgerField.glb" id="2"]
+[ext_resource type="Texture2D" uid="uid://b6qjkmy76qbah" path="res://Art/SkyOnlyHDRI048_4K-TONEMAPPED.jpg" id="3"]
+[ext_resource type="Script" path="res://Scripts/Locations/SpawnAlongPath.cs" id="4"]
+[ext_resource type="PackedScene" path="res://Scenes/Locations/BadgerField/ImpostorPine.tscn" id="5"]
+[ext_resource type="PackedScene" path="res://Scenes/Locations/Common/TreeScatter.tscn" id="6"]
+[ext_resource type="Texture2D" uid="uid://qs8i37h44tn1" path="res://Art/Common/Trees/PineV2/Render/Pine0.png" id="7"]
+[ext_resource type="PackedScene" path="res://Scenes/Locations/Common/GrassScatter.tscn" id="8"]
+[ext_resource type="Texture2D" uid="uid://cwf1r2t16nxyy" path="res://Art/Common/GrassV2Normal.png" id="9"]
+[ext_resource type="Texture2D" uid="uid://cyvexhh7k4x4j" path="res://Art/Locations/BadgerField/GrassMask.png" id="11"]
+[ext_resource type="Texture2D" uid="uid://cokid8ftn0iil" path="res://Art/Common/Bushes/Basic/BasicBush0.png" id="12"]
+[ext_resource type="Texture2D" uid="uid://ch0elub6u0tsv" path="res://Art/Common/Bushes/Basic/BasicBush240.png" id="13"]
+[ext_resource type="Texture2D" uid="uid://cfdb7t3s6du7u" path="res://Art/Common/Bushes/Basic/BasicBush120.png" id="14"]
+[ext_resource type="PackedScene" path="res://Scenes/Locations/Common/ImpostorBasicBush.tscn" id="15"]
 
-[sub_resource type="Curve3D" id=3]
+[sub_resource type="Curve3D" id="3"]
 _data = {
-"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, 80.3319, -1.27759, 60.5645, 0, 0, 0, 0, 0, 0, 68.6514, 0, 41.8757, 0, 0, 0, 0, 0, 0, 50.8611, 0, 59.8457, 0, 0, 0, 0, 0, 0, 44.9718, 0, 42.0398, 0, 0, 0, 0, 0, 0, 22.2532, 0, 42.436, 0, 0, 0, 0, 0, 0, 21.9294, 0, 57.5096, 0, 0, 0, 0, 0, 0, 6.32242, 0, 56.1072, 0, 0, 0, 0, 0, 0, -11.9142, -0.306053, 53.6623, 0, 0, 0, 0, 0, 0, 4.01106, -1.34686, 45.1453, 0, 0, 0, 0, 0, 0, -21.5989, -0.115234, 44.5494, 0, 0, 0, 0, 0, 0, -32.0336, -0.563721, 42.0398, 0, 0, 0, 0, 0, 0, -41.512, -0.321304, 38.6243, 0, 0, 0, 0, 0, 0, -55.087, -0.584396, 31.6188, 0, 0, 0, 0, 0, 0, -72.0821, 0, 30.0535, 0, 0, 0, 0, 0, 0, -74.88, 0, 42.1945, 0, 0, 0, 0, 0, 0, -86.6267, 0, 33.5391, 0, 0, 0, 0, 0, 0, -103.802, 0.138075, 23.8239, 0, 0, 0, 0, 0, 0, -109.558, 0.208984, 7.49365, 0, 0, 0, 0, 0, 0, -114.167, 0.030489, -13.0818, 0, 0, 0, 0, 0, 0, -107.355, -0.274413, -23.2321, 0, 0, 0, 0, 0, 0, -99.2921, 0.0980453, -34.1664, 0, 0, 0, 0, 0, 0, -91.6714, 0, -38.288, 0, 0, 0, 0, 0, 0, -70.523, 0, -50.2912, 0, 0, 0, 0, 0, 0, -39.6578, -0.0917969, -50.7199, 0, 0, 0, 0, 0, 0, -30.3894, -0.059082, -47.6747, 0, 0, 0, 0, 0, 0, -10.3007, 0.00617981, -45.6549, 0, 0, 0, 0, 0, 0, 21.9456, 0.136963, -44.5079, 0, 0, 0, 0, 0, 0, 58.6134, 0.136963, -41.5079, 0, 0, 0, 0, 0, 0, 84.1142, -1.03247, -37.1744 ),
-"tilts": PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 80.3319, -1.27759, 60.5645, 0, 0, 0, 0, 0, 0, 68.6514, 0, 41.8757, 0, 0, 0, 0, 0, 0, 50.8611, 0, 59.8457, 0, 0, 0, 0, 0, 0, 44.9718, 0, 42.0398, 0, 0, 0, 0, 0, 0, 22.2532, 0, 42.436, 0, 0, 0, 0, 0, 0, 21.9294, 0, 57.5096, 0, 0, 0, 0, 0, 0, 6.32242, 0, 56.1072, 0, 0, 0, 0, 0, 0, -11.9142, -0.306053, 53.6623, 0, 0, 0, 0, 0, 0, 4.01106, -1.34686, 45.1453, 0, 0, 0, 0, 0, 0, -21.5989, -0.115234, 44.5494, 0, 0, 0, 0, 0, 0, -32.0336, -0.563721, 42.0398, 0, 0, 0, 0, 0, 0, -41.512, -0.321304, 38.6243, 0, 0, 0, 0, 0, 0, -55.087, -0.584396, 31.6188, 0, 0, 0, 0, 0, 0, -72.0821, 0, 30.0535, 0, 0, 0, 0, 0, 0, -74.88, 0, 42.1945, 0, 0, 0, 0, 0, 0, -86.6267, 0, 33.5391, 0, 0, 0, 0, 0, 0, -103.802, 0.138075, 23.8239, 0, 0, 0, 0, 0, 0, -109.558, 0.208984, 7.49365, 0, 0, 0, 0, 0, 0, -114.167, 0.030489, -13.0818, 0, 0, 0, 0, 0, 0, -107.355, -0.274413, -23.2321, 0, 0, 0, 0, 0, 0, -99.2921, 0.0980453, -34.1664, 0, 0, 0, 0, 0, 0, -91.6714, 0, -38.288, 0, 0, 0, 0, 0, 0, -70.523, 0, -50.2912, 0, 0, 0, 0, 0, 0, -39.6578, -0.0917969, -50.7199, 0, 0, 0, 0, 0, 0, -30.3894, -0.059082, -47.6747, 0, 0, 0, 0, 0, 0, -10.3007, 0.00617981, -45.6549, 0, 0, 0, 0, 0, 0, 21.9456, 0.136963, -44.5079, 0, 0, 0, 0, 0, 0, 58.6134, 0.136963, -41.5079, 0, 0, 0, 0, 0, 0, 84.1142, -1.03247, -37.1744),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 }
+point_count = 29
 
-[sub_resource type="Curve3D" id=4]
+[sub_resource type="Curve3D" id="4"]
 _data = {
-"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, 73.8498, 0, 24.2916, 0, 0, 0, 0, 0, 0, 54.7341, 0, 25.5519, 0, 0, 0, 0, 0, 0, 32.9925, 0, 24.9218, 0, 0, 0, 0, 0, 0, 8.38623, 0, 29.0266, 0, 0, 0, 0, 0, 0, -23.9409, 0, 28.4863, 0, 0, 0, 0, 0, 0, -44.832, 0, 25.1545, 0, 0, 0, 0, 0, 0, -63.9966, 0, 21.7631, 0, 0, 0, 0, 0, 0, -78.1759, 0, 20.7128, 0, 0, 0, 0, 0, 0, -88.259, 0, 19.5575, 0, 0, 0, 0, 0, 0, -97.2917, 0, 10.5247, 0, 0, 0, 0, 0, 0, -97.7118, 0, -2.81428, 0, 0, 0, 0, 0, 0, -94.876, 0, -15.5231, 0, 0, 0, 0, 0, 0, -83.4275, 0, -21.615, 0, 0, 0, 0, 0, 0, -67.0425, 0, -24.4508, 0, 0, 0, 0, 0, 0, -51.813, 0, -30.4376, 0, 0, 0, 0, 0, 0, -40.5751, 0, -33.9343, 0, 0, 0, 0, 0, 0, -30.0719, 0, -41.2865, 0, 0, 0, 0, 0, 0, -15.2624, 0, -44.3325, 0, 0, 0, 0, 0, 0, -3.07876, 0, -43.8073, 0, 0, 0, 0, 0, 0, 14.4615, 0, -42.0218, 0, 0, 0, 0, 0, 0, 36.7282, 0, -39.7111, 0, 0, 0, 0, 0, 0, 50.4466, 0, -40.0876, 0, 0, 0, 0, 0, 0, 63.8906, 0, -38.9323, 0, 0, 0, 0, 0, 0, 73.9737, 0, -34.9411 ),
-"tilts": PoolRealArray( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 )
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 73.8498, 0, 24.2916, 0, 0, 0, 0, 0, 0, 54.7341, 0, 25.5519, 0, 0, 0, 0, 0, 0, 32.9925, 0, 24.9218, 0, 0, 0, 0, 0, 0, 8.38623, 0, 29.0266, 0, 0, 0, 0, 0, 0, -23.9409, 0, 28.4863, 0, 0, 0, 0, 0, 0, -44.832, 0, 25.1545, 0, 0, 0, 0, 0, 0, -63.9966, 0, 21.7631, 0, 0, 0, 0, 0, 0, -78.1759, 0, 20.7128, 0, 0, 0, 0, 0, 0, -88.259, 0, 19.5575, 0, 0, 0, 0, 0, 0, -97.2917, 0, 10.5247, 0, 0, 0, 0, 0, 0, -97.7118, 0, -2.81428, 0, 0, 0, 0, 0, 0, -94.876, 0, -15.5231, 0, 0, 0, 0, 0, 0, -83.4275, 0, -21.615, 0, 0, 0, 0, 0, 0, -67.0425, 0, -24.4508, 0, 0, 0, 0, 0, 0, -51.813, 0, -30.4376, 0, 0, 0, 0, 0, 0, -40.5751, 0, -33.9343, 0, 0, 0, 0, 0, 0, -30.0719, 0, -41.2865, 0, 0, 0, 0, 0, 0, -15.2624, 0, -44.3325, 0, 0, 0, 0, 0, 0, -3.07876, 0, -43.8073, 0, 0, 0, 0, 0, 0, 14.4615, 0, -42.0218, 0, 0, 0, 0, 0, 0, 36.7282, 0, -39.7111, 0, 0, 0, 0, 0, 0, 50.4466, 0, -40.0876, 0, 0, 0, 0, 0, 0, 63.8906, 0, -38.9323, 0, 0, 0, 0, 0, 0, 73.9737, 0, -34.9411),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 }
+point_count = 24
 
-[sub_resource type="PanoramaSky" id=1]
-panorama = ExtResource( 3 )
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_u6g8h"]
+panorama = ExtResource("3")
 
-[sub_resource type="Environment" id=2]
+[sub_resource type="Sky" id="1"]
+sky_material = SubResource("PanoramaSkyMaterial_u6g8h")
+
+[sub_resource type="Environment" id="2"]
 background_mode = 2
-background_sky = SubResource( 1 )
-background_energy = 1.62
-ambient_light_color = Color( 0.862745, 0.858824, 0.784314, 1 )
-ambient_light_energy = 1.92
+sky = SubResource("1")
+ambient_light_source = 3
+ambient_light_color = Color(0.862745, 0.858824, 0.784314, 1)
 ambient_light_sky_contribution = 0.39
-fog_enabled = true
-fog_color = Color( 0.501961, 0.6, 0.701961, 0.592157 )
-fog_depth_begin = 517.1
-fog_depth_end = 1364.3
+ambient_light_energy = 1.92
 tonemap_mode = 2
 tonemap_exposure = 0.7
 tonemap_white = 16.0
-dof_blur_far_distance = 278.93
-dof_blur_far_transition = 30.72
+fog_enabled = true
+fog_density = 0.0001
+fog_sky_affect = 0.0
 adjustment_enabled = true
 adjustment_saturation = 0.91
 
-[node name="BadgerField" instance=ExtResource( 1 )]
+[node name="BadgerField" instance=ExtResource("1")]
 
-[node name="BadgerField" parent="." index="0" instance=ExtResource( 2 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.276415, 0 )
+[node name="BadgerField" parent="." index="0" instance=ExtResource("2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.276415, 0)
 
 [node name="GroundCamera" parent="." index="5"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -23.9925, 1.10245, 17.9634 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.9925, 1.10245, 17.9634)
 
 [node name="FreeCamera" parent="." index="6"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -13.3525, 2.0807, 18.2569 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.3525, 2.0807, 18.2569)
 
-[node name="Positions" type="Spatial" parent="." index="8"]
+[node name="HUD" parent="CanvasLayer" index="0"]
+anchors_preset = 15
 
-[node name="RunwayWest" type="Position3D" parent="Positions" index="0"]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -42.4019, 0.650588, 0 )
+[node name="VSplitContainer" parent="CanvasLayer/HUD" index="0"]
+layout_mode = 2
 
-[node name="BehindFenceWest" type="Position3D" parent="Positions" index="1"]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -23.5901, 0.650588, 18.2121 )
+[node name="TopBar" parent="CanvasLayer/HUD/VSplitContainer" index="0"]
+layout_mode = 2
 
-[node name="RunwayEast" type="Position3D" parent="Positions" index="2"]
-transform = Transform( 1.49012e-07, 0, 1, 0, 1, 0, -1, 0, 1.49012e-07, 42.0856, 0.650588, 0 )
+[node name="BackButton" parent="CanvasLayer/HUD/VSplitContainer/TopBar" index="0"]
+layout_mode = 2
 
-[node name="BehindFenceEast" type="Position3D" parent="Positions" index="3"]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 40.2027, 0.650588, 14.8076 )
+[node name="BottomBar" parent="CanvasLayer/HUD/VSplitContainer" index="1"]
+layout_mode = 2
 
-[node name="InFrontOfShelter" type="Position3D" parent="Positions" index="4"]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.73489, 0.650588, 18.641 )
+[node name="FpsIndicator" parent="CanvasLayer/HUD/VSplitContainer/BottomBar" index="0"]
+layout_mode = 2
 
-[node name="UnderShelter" type="Position3D" parent="Positions" index="5"]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.49172, 0.650588, 21.1494 )
+[node name="MaxSizeContainer" parent="CanvasLayer" index="1"]
+anchors_preset = 1
 
-[node name="Trees" type="Spatial" parent="." index="9"]
+[node name="MarginContainer" parent="CanvasLayer/MaxSizeContainer" index="0"]
+layout_mode = 2
 
-[node name="NearbyTrees" type="Path" parent="Trees" index="0"]
-curve = SubResource( 3 )
-script = ExtResource( 4 )
-Scene = ExtResource( 5 )
+[node name="NotificationManager" parent="CanvasLayer/MaxSizeContainer/MarginContainer" index="0"]
+layout_mode = 2
+
+[node name="Positions" type="Node3D" parent="." index="8"]
+
+[node name="RunwayWest" type="Marker3D" parent="Positions" index="0"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -42.4019, 0.650588, 0)
+
+[node name="BehindFenceWest" type="Marker3D" parent="Positions" index="1"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -23.5901, 0.650588, 18.2121)
+
+[node name="RunwayEast" type="Marker3D" parent="Positions" index="2"]
+transform = Transform3D(1.49012e-07, 0, 1, 0, 1, 0, -1, 0, 1.49012e-07, 42.0856, 0.650588, 0)
+
+[node name="BehindFenceEast" type="Marker3D" parent="Positions" index="3"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 40.2027, 0.650588, 14.8076)
+
+[node name="InFrontOfShelter" type="Marker3D" parent="Positions" index="4"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.73489, 0.650588, 18.641)
+
+[node name="UnderShelter" type="Marker3D" parent="Positions" index="5"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 1.49172, 0.650588, 21.1494)
+
+[node name="Trees" type="Node3D" parent="." index="9"]
+
+[node name="NearbyTrees" type="Path3D" parent="Trees" index="0"]
+curve = SubResource("3")
+script = ExtResource("4")
+Scene = ExtResource("5")
 NumInstances = 200
 ScaleVariation = 0.7
 
-[node name="TreeScatter" parent="Trees" index="1" instance=ExtResource( 6 )]
-transform = Transform( -3.13294e-06, 0, -111.063, 0, 1, 0, 71.6732, 0, -4.85472e-06, -239.991, 0, 0 )
+[node name="TreeScatter" parent="Trees" index="1" instance=ExtResource("6")]
+transform = Transform3D(-3.13294e-06, 0, -111.063, 0, 1, 0, 71.6732, 0, -4.85472e-06, -239.991, 0, 0)
 Count = 600
 UseNearScaling = false
-Texture = ExtResource( 7 )
-TreeSize = Vector2( 10, 15 )
+Texture2D = ExtResource("7")
+TreeSize = Vector2(10, 15)
 WidthRatioVariation = 0.2
 
-[node name="TreeScatter2" parent="Trees" index="2" instance=ExtResource( 6 )]
-transform = Transform( 210.775, 0, 0, 0, 1, 0, 0, 0, 96.6668, -118.466, 0, -173.419 )
+[node name="TreeScatter2" parent="Trees" index="2" instance=ExtResource("6")]
+transform = Transform3D(210.775, 0, 0, 0, 1, 0, 0, 0, 96.6668, -118.466, 0, -173.419)
 Count = 1200
 UseNearScaling = false
-Texture = ExtResource( 7 )
-TreeSize = Vector2( 10, 15 )
+Texture2D = ExtResource("7")
+TreeSize = Vector2(10, 15)
 WidthRatioVariation = 0.2
 
-[node name="TreeScatter3" parent="Trees" index="3" instance=ExtResource( 6 )]
-transform = Transform( 81.5221, 0, -13.0163, 0, 1, 0, 7.09068, 0, 149.649, 179.577, 0, 122.461 )
+[node name="TreeScatter3" parent="Trees" index="3" instance=ExtResource("6")]
+transform = Transform3D(81.5221, 0, -13.0163, 0, 1, 0, 7.09068, 0, 149.649, 179.577, 0, 122.461)
 Count = 480
 UseNearScaling = false
-Texture = ExtResource( 7 )
-TreeSize = Vector2( 10, 15 )
+Texture2D = ExtResource("7")
+TreeSize = Vector2(10, 15)
 WidthRatioVariation = 0.2
 
-[node name="TreeScatter4" parent="Trees" index="4" instance=ExtResource( 6 )]
-transform = Transform( 207.63, 0, -16.9377, 0, 1, 0, 31.4604, 0, 111.784, -137.64, 0, 152.741 )
+[node name="TreeScatter4" parent="Trees" index="4" instance=ExtResource("6")]
+transform = Transform3D(207.63, 0, -16.9377, 0, 1, 0, 31.4604, 0, 111.784, -137.64, 0, 152.741)
 Count = 1200
 UseNearScaling = false
-Texture = ExtResource( 7 )
-TreeSize = Vector2( 10, 15 )
+Texture2D = ExtResource("7")
+TreeSize = Vector2(10, 15)
 WidthRatioVariation = 0.2
 
-[node name="TreeScatter5" parent="Trees" index="5" instance=ExtResource( 6 )]
-transform = Transform( 73.185, 0, -27.2844, 0, 1, 0, 15.5946, 0, 128.045, 195.668, 0, -138.339 )
+[node name="TreeScatter5" parent="Trees" index="5" instance=ExtResource("6")]
+transform = Transform3D(73.185, 0, -27.2844, 0, 1, 0, 15.5946, 0, 128.045, 195.668, 0, -138.339)
 Count = 480
 UseNearScaling = false
-Texture = ExtResource( 7 )
-TreeSize = Vector2( 10, 15 )
+Texture2D = ExtResource("7")
+TreeSize = Vector2(10, 15)
 WidthRatioVariation = 0.2
 
-[node name="ManuallyPlaced" type="Spatial" parent="Trees" index="6"]
+[node name="ManuallyPlaced" type="Node3D" parent="Trees" index="6"]
 
-[node name="ImpostorPine" parent="Trees/ManuallyPlaced" index="0" instance=ExtResource( 5 )]
-transform = Transform( 1.17389, -0.0508017, 0, 0.0508017, 1.17389, 0, 0, 0, 1.17499, 20.6959, 0, 30.2216 )
+[node name="ImpostorPine" parent="Trees/ManuallyPlaced" index="0" instance=ExtResource("5")]
+transform = Transform3D(1.17389, -0.0508017, 0, 0.0508017, 1.17389, 0, 0, 0, 1.17499, 20.6959, 0, 30.2216)
 
-[node name="ImpostorPine12" parent="Trees/ManuallyPlaced" index="1" instance=ExtResource( 5 )]
-transform = Transform( 0.838071, 0.0600148, 0.542251, -0.0714278, 0.997446, 0, -0.540866, -0.0387318, 0.840217, 12.7665, 0, 30.2216 )
+[node name="ImpostorPine12" parent="Trees/ManuallyPlaced" index="1" instance=ExtResource("5")]
+transform = Transform3D(0.838071, 0.0600148, 0.542251, -0.0714278, 0.997446, 0, -0.540866, -0.0387318, 0.840217, 12.7665, 0, 30.2216)
 
-[node name="ImpostorPine13" parent="Trees/ManuallyPlaced" index="2" instance=ExtResource( 5 )]
-transform = Transform( 0.684771, 0.049037, 0.443063, -0.0583623, 0.814994, 0, -0.441931, -0.031647, 0.686525, 8.30911, 0, 30.2216 )
+[node name="ImpostorPine13" parent="Trees/ManuallyPlaced" index="2" instance=ExtResource("5")]
+transform = Transform3D(0.684771, 0.049037, 0.443063, -0.0583623, 0.814994, 0, -0.441931, -0.031647, 0.686525, 8.30911, 0, 30.2216)
 
-[node name="ImpostorPine19" parent="Trees/ManuallyPlaced" index="3" instance=ExtResource( 5 )]
-transform = Transform( 0.851216, 0.147753, 0.427867, -0.155901, 0.692387, -0.0527856, -0.430009, -0.0307933, 0.866112, 3.2429, 0, 30.0692 )
+[node name="ImpostorPine19" parent="Trees/ManuallyPlaced" index="3" instance=ExtResource("5")]
+transform = Transform3D(0.851216, 0.147753, 0.427867, -0.155901, 0.692387, -0.0527856, -0.430009, -0.0307933, 0.866112, 3.2429, 0, 30.0692)
 
-[node name="ImpostorPine14" parent="Trees/ManuallyPlaced" index="4" instance=ExtResource( 5 )]
-transform = Transform( 1.15998, 0.083067, 0.183902, -0.0840992, 1.17439, 0, -0.183432, -0.0131357, 1.16295, -2.07415, 0, 28.9924 )
+[node name="ImpostorPine14" parent="Trees/ManuallyPlaced" index="4" instance=ExtResource("5")]
+transform = Transform3D(1.15998, 0.083067, 0.183902, -0.0840992, 1.17439, 0, -0.183432, -0.0131357, 1.16295, -2.07415, 0, 28.9924)
 
-[node name="ImpostorPine15" parent="Trees/ManuallyPlaced" index="5" instance=ExtResource( 5 )]
-transform = Transform( 0.838071, 0.0600148, 0.542251, -0.0714278, 0.997446, 0, -0.540866, -0.0387318, 0.840217, -7.66269, 0, 30.2216 )
+[node name="ImpostorPine15" parent="Trees/ManuallyPlaced" index="5" instance=ExtResource("5")]
+transform = Transform3D(0.838071, 0.0600148, 0.542251, -0.0714278, 0.997446, 0, -0.540866, -0.0387318, 0.840217, -7.66269, 0, 30.2216)
 
-[node name="ImpostorPine16" parent="Trees/ManuallyPlaced" index="6" instance=ExtResource( 5 )]
-transform = Transform( 0.539703, 0.0702434, 0.350656, -0.0726013, 0.643125, -0.0170886, -0.350176, -0.0250764, 0.543986, -19.8069, 0, 30.2216 )
+[node name="ImpostorPine16" parent="Trees/ManuallyPlaced" index="6" instance=ExtResource("5")]
+transform = Transform3D(0.539703, 0.0702434, 0.350656, -0.0726013, 0.643125, -0.0170886, -0.350176, -0.0250764, 0.543986, -19.8069, 0, 30.2216)
 
-[node name="ImpostorPine17" parent="Trees/ManuallyPlaced" index="7" instance=ExtResource( 5 )]
-transform = Transform( 0.39559, 0.0283285, 0.91799, -0.0714278, 0.997446, 0, -0.915645, -0.06557, 0.396603, -28.7951, 0, 27.7724 )
+[node name="ImpostorPine17" parent="Trees/ManuallyPlaced" index="7" instance=ExtResource("5")]
+transform = Transform3D(0.39559, 0.0283285, 0.91799, -0.0714278, 0.997446, 0, -0.915645, -0.06557, 0.396603, -28.7951, 0, 27.7724)
 
-[node name="ImpostorPine18" parent="Trees/ManuallyPlaced" index="8" instance=ExtResource( 5 )]
-transform = Transform( 0.865164, 0.061955, 0.778309, -0.0832406, 1.1624, 0, -0.776321, -0.0555929, 0.867379, -23.3011, -0.0954018, 28.8558 )
+[node name="ImpostorPine18" parent="Trees/ManuallyPlaced" index="8" instance=ExtResource("5")]
+transform = Transform3D(0.865164, 0.061955, 0.778309, -0.0832406, 1.1624, 0, -0.776321, -0.0555929, 0.867379, -23.3011, -0.0954018, 28.8558)
 
-[node name="ImpostorPine2" parent="Trees/ManuallyPlaced" index="9" instance=ExtResource( 5 )]
-transform = Transform( 0.582605, 0, 0.812755, 0, 1, 0, -0.812755, 0, 0.582605, 27.4732, 0, 27.4314 )
+[node name="ImpostorPine2" parent="Trees/ManuallyPlaced" index="9" instance=ExtResource("5")]
+transform = Transform3D(0.582605, 0, 0.812755, 0, 1, 0, -0.812755, 0, 0.582605, 27.4732, 0, 27.4314)
 
-[node name="ImpostorPine10" parent="Trees/ManuallyPlaced" index="10" instance=ExtResource( 5 )]
-transform = Transform( 0.391784, 0, 0.546553, 0, 0.672469, 0, -0.546553, 0, 0.391784, 31.7902, 3.8147e-06, 29.3362 )
+[node name="ImpostorPine10" parent="Trees/ManuallyPlaced" index="10" instance=ExtResource("5")]
+transform = Transform3D(0.391784, 0, 0.546553, 0, 0.672469, 0, -0.546553, 0, 0.391784, 31.7902, 3.8147e-06, 29.3362)
 
-[node name="ImpostorPine3" parent="Trees/ManuallyPlaced" index="11" instance=ExtResource( 5 )]
-transform = Transform( -0.016453, 0, -1.09099, 0, 1.09111, 0, 1.09099, 0, -0.016453, 34.415, 0, 25.0297 )
+[node name="ImpostorPine3" parent="Trees/ManuallyPlaced" index="11" instance=ExtResource("5")]
+transform = Transform3D(-0.016453, 0, -1.09099, 0, 1.09111, 0, 1.09099, 0, -0.016453, 34.415, 0, 25.0297)
 
-[node name="ImpostorPine4" parent="Trees/ManuallyPlaced" index="12" instance=ExtResource( 5 )]
-transform = Transform( 1.2672, 0, 0, 0, 1.2672, 0, 0, 0, 1.2672, 39.9743, 0, 28.5424 )
+[node name="ImpostorPine4" parent="Trees/ManuallyPlaced" index="12" instance=ExtResource("5")]
+transform = Transform3D(1.2672, 0, 0, 0, 1.2672, 0, 0, 0, 1.2672, 39.9743, 0, 28.5424)
 
-[node name="ImpostorPine5" parent="Trees/ManuallyPlaced" index="13" instance=ExtResource( 5 )]
-transform = Transform( 0.800283, 0.0518922, 0.597373, -0.0647065, 0.997904, 0, -0.596121, -0.0386539, 0.801963, 44.8579, 0, 26.1534 )
+[node name="ImpostorPine5" parent="Trees/ManuallyPlaced" index="13" instance=ExtResource("5")]
+transform = Transform3D(0.800283, 0.0518922, 0.597373, -0.0647065, 0.997904, 0, -0.596121, -0.0386539, 0.801963, 44.8579, 0, 26.1534)
 
-[node name="ImpostorPine6" parent="Trees/ManuallyPlaced" index="14" instance=ExtResource( 5 )]
-transform = Transform( 0.715874, 0, 0, 0, 1.26099, 0, 0, 0, 0.884722, 48.6204, 0, 26.7885 )
+[node name="ImpostorPine6" parent="Trees/ManuallyPlaced" index="14" instance=ExtResource("5")]
+transform = Transform3D(0.715874, 0, 0, 0, 1.26099, 0, 0, 0, 0.884722, 48.6204, 0, 26.7885)
 
-[node name="ImpostorPine7" parent="Trees/ManuallyPlaced" index="15" instance=ExtResource( 5 )]
-transform = Transform( -0.986013, 0, 0.166666, 0, 1, 0, -0.166666, 0, -0.986013, 53.3049, 0, 26.374 )
+[node name="ImpostorPine7" parent="Trees/ManuallyPlaced" index="15" instance=ExtResource("5")]
+transform = Transform3D(-0.986013, 0, 0.166666, 0, 1, 0, -0.166666, 0, -0.986013, 53.3049, 0, 26.374)
 
-[node name="ImpostorPine8" parent="Trees/ManuallyPlaced" index="16" instance=ExtResource( 5 )]
-transform = Transform( 0.776036, 0, 0, 0, 0.776036, 0, 0, 0, 0.776036, 62.3858, 0, 27.6699 )
+[node name="ImpostorPine8" parent="Trees/ManuallyPlaced" index="16" instance=ExtResource("5")]
+transform = Transform3D(0.776036, 0, 0, 0, 0.776036, 0, 0, 0, 0.776036, 62.3858, 0, 27.6699)
 
-[node name="ImpostorPine11" parent="Trees/ManuallyPlaced" index="17" instance=ExtResource( 5 )]
-transform = Transform( 1.38264, 0, 0, 0, 1.04986, 0, 0, 0, 1.38264, 66.1298, 0, 26.3143 )
+[node name="ImpostorPine11" parent="Trees/ManuallyPlaced" index="17" instance=ExtResource("5")]
+transform = Transform3D(1.38264, 0, 0, 0, 1.04986, 0, 0, 0, 1.38264, 66.1298, 0, 26.3143)
 
-[node name="ImpostorPine9" parent="Trees/ManuallyPlaced" index="18" instance=ExtResource( 5 )]
-transform = Transform( 0.296678, 0, -0.647822, 0, 0.712524, 0, 0.647822, 0, 0.296678, 71.3858, 0, 25.6699 )
+[node name="ImpostorPine9" parent="Trees/ManuallyPlaced" index="18" instance=ExtResource("5")]
+transform = Transform3D(0.296678, 0, -0.647822, 0, 0.712524, 0, 0.647822, 0, 0.296678, 71.3858, 0, 25.6699)
 
-[node name="GrassScatter" parent="." index="10" instance=ExtResource( 8 )]
+[node name="GrassScatter" parent="." index="10" instance=ExtResource("8")]
 InstanceCount = 15000
-Mask = ExtResource( 11 )
-NormalMap = ExtResource( 9 )
+Mask = ExtResource("11")
+NormalMap = ExtResource("9")
 NormalStrength = 2.0
 
-[node name="Bushes" type="Spatial" parent="." index="11"]
+[node name="Bushes" type="Node3D" parent="." index="11"]
 
-[node name="ByTheRoad" type="Spatial" parent="Bushes" index="0"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 77.5994, 0.379002, 0 )
+[node name="ByTheRoad" type="Node3D" parent="Bushes" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 77.5994, 0.379002, 0)
 
-[node name="TreeScatter" parent="Bushes/ByTheRoad" index="0" instance=ExtResource( 6 )]
-transform = Transform( 4.74097, 0, 0.2641, 0, 1, 0, -0.139451, 0, 28.979, -0.927048, 0, -5.40285 )
+[node name="TreeScatter" parent="Bushes/ByTheRoad" index="0" instance=ExtResource("6")]
+transform = Transform3D(4.74097, 0, 0.2641, 0, 1, 0, -0.139451, 0, 28.979, -0.927048, 0, -5.40285)
 Count = 50
-Texture = ExtResource( 12 )
-TreeSize = Vector2( 2.5, 2.5 )
+Texture2D = ExtResource("12")
+TreeSize = Vector2(2.5, 2.5)
 
-[node name="TreeScatter2" parent="Bushes/ByTheRoad" index="1" instance=ExtResource( 6 )]
-transform = Transform( 4.74097, 0, 0.2641, 0, 1, 0, -0.139451, 0, 28.979, -0.927048, 0, -5.40285 )
+[node name="TreeScatter2" parent="Bushes/ByTheRoad" index="1" instance=ExtResource("6")]
+transform = Transform3D(4.74097, 0, 0.2641, 0, 1, 0, -0.139451, 0, 28.979, -0.927048, 0, -5.40285)
 Count = 50
-Texture = ExtResource( 14 )
-TreeSize = Vector2( 2.5, 2.5 )
+Texture2D = ExtResource("14")
+TreeSize = Vector2(2.5, 2.5)
 
-[node name="TreeScatter3" parent="Bushes/ByTheRoad" index="2" instance=ExtResource( 6 )]
-transform = Transform( 4.74097, 0, 0.2641, 0, 1, 0, -0.139451, 0, 28.979, -0.927048, 0, -5.40285 )
+[node name="TreeScatter3" parent="Bushes/ByTheRoad" index="2" instance=ExtResource("6")]
+transform = Transform3D(4.74097, 0, 0.2641, 0, 1, 0, -0.139451, 0, 28.979, -0.927048, 0, -5.40285)
 Count = 50
-Texture = ExtResource( 13 )
-TreeSize = Vector2( 2.5, 2.5 )
+Texture2D = ExtResource("13")
+TreeSize = Vector2(2.5, 2.5)
 
-[node name="RingOfBushes" type="Path" parent="Bushes" index="1"]
-curve = SubResource( 4 )
-script = ExtResource( 4 )
-Scene = ExtResource( 15 )
+[node name="RingOfBushes" type="Path3D" parent="Bushes" index="1"]
+curve = SubResource("4")
+script = ExtResource("4")
+Scene = ExtResource("15")
 NumInstances = 200
 
-[node name="FarCorner" parent="Bushes" index="2" instance=ExtResource( 6 )]
-transform = Transform( 24.2736, 0, 3.46787, 0, 1, 0, -7.128, 0, 11.8094, -65.0812, 0, -37.2937 )
-Texture = ExtResource( 12 )
-TreeSize = Vector2( 2.5, 2.5 )
+[node name="FarCorner" parent="Bushes" index="2" instance=ExtResource("6")]
+transform = Transform3D(24.2736, 0, 3.46787, 0, 1, 0, -7.128, 0, 11.8094, -65.0812, 0, -37.2937)
+Texture2D = ExtResource("12")
+TreeSize = Vector2(2.5, 2.5)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="12"]
-environment = SubResource( 2 )
+environment = SubResource("2")
 
-[node name="DirectionalLight" type="DirectionalLight" parent="WorldEnvironment" index="0"]
-transform = Transform( 0.921829, 0.340151, -0.185818, -0.128866, 0.721107, 0.680734, 0.365547, -0.603575, 0.708571, 5.01703, 3.81502, -6.93806 )
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment" index="0"]
+transform = Transform3D(0.921829, 0.340151, -0.185818, -0.128866, 0.721107, 0.680734, 0.365547, -0.603575, 0.708571, 5.01703, 3.81502, -6.93806)
 light_energy = 1.254
-light_specular = 0.496
 shadow_enabled = true

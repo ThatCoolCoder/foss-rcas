@@ -4,21 +4,21 @@ using System;
 namespace UI.Settings
 {
     using Components;
-    public class ViewTab : Control
+    public partial class ViewTab : Control
     {
 
         public override void _Ready()
         {
             var holder = GetNode<VBoxContainer>("MaxSizeContainer/VBoxContainer/MainList");
 
-            NumericInput.Scene.Instance<NumericInput>().Config(
+            NumericInput.Scene.Instantiate<NumericInput>().Config(
                 holder,
                 "Field of view (degrees)",
                 s => s.GroundCameraZoom.BaseFov,
                 (s, v) => s.GroundCameraZoom.BaseFov = v,
                 min: 10, max: 130, step: 1);
 
-            BooleanInput.Scene.Instance<BooleanInput>().Config(
+            BooleanInput.Scene.Instantiate<BooleanInput>().Config(
                 holder,
                 "Zoom enabled",
                 s => s.GroundCameraZoom.Enabled,
@@ -26,14 +26,14 @@ namespace UI.Settings
                 toolTip: "Whether the camera zooms in as the aircraft flies further away");
 
 
-            NumericInput.Scene.Instance<NumericInput>().Config(
+            NumericInput.Scene.Instantiate<NumericInput>().Config(
                 holder,
                 "Zoom start distance",
                 s => s.GroundCameraZoom.StartDist,
                 (s, v) => s.GroundCameraZoom.StartDist = v,
                 min: 1, max: 1000, step: 1, toolTip: "Distance at which the camera starts zooming in");
 
-            NumericInput.Scene.Instance<NumericInput>().Config(
+            NumericInput.Scene.Instantiate<NumericInput>().Config(
                 holder,
                 "Zoom factor",
                 s => s.GroundCameraZoom.Factor,

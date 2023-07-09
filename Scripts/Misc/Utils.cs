@@ -12,7 +12,7 @@ public static class Utils
     {
         if (node == null) GD.PrintErr($"Error: {message}");
         else GD.PrintErr($"Error: {message} ({node.GetPath().ToString()})");
-        GD.PrintStack();
+        GD.Print(System.Environment.StackTrace);
     }
 
     public static T GetNodeWithWarnings<T>(Node node, NodePath nodePath, string itemDescriptor, bool tryParentFirst = false) where T : class
@@ -40,9 +40,9 @@ public static class Utils
         GD.Print(items.Intersperse(" ").ToArray());
     }
 
-    public static T RandomItem<T>(List<T> items)
+    public static T RandomItem<T>(IList<T> items)
     {
-        return items[random.Next(0, items.Count)];
+        return items[random.Next(0, items.Count())];
     }
 
     public static float MapNumber(float num, float oldMin, float oldMax, float newMin, float newMax)
@@ -85,12 +85,12 @@ public static class Utils
 
     public static List<string> GetItemsInDirectory(string path, bool recursive = true)
     {
-        var dir = new Directory();
-        var files = new List<string>();
-
         if (!path.EndsWith("/")) path += "/";
 
-        if (dir.Open(path) == Error.Ok)
+        var dir = DirAccess.Open(path);
+        var files = new List<string>();
+
+        if (dir != null)
         {
             dir.ListDirBegin();
 

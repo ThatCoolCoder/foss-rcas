@@ -3,15 +3,15 @@
 [ext_resource path="res://Resources/FpvNoise.gdshader" type="Shader" id=1]
 [ext_resource path="res://Scripts/Aircraft/FpvCamera.cs" type="Script" id=2]
 
-[sub_resource type="OpenSimplexNoise" id=1]
-octaves = 4
+[sub_resource type="FastNoiseLite" id=1]
+fractal_octaves = 4
 period = 0.1
 persistence = 0.747
 lacunarity = 4.0
 
 [sub_resource type="NoiseTexture" id=2]
 seamless = true
-as_normalmap = true
+as_normal_map = true
 noise = SubResource( 1 )
 
 [sub_resource type="ShaderMaterial" id=3]
@@ -24,7 +24,7 @@ shader_param/color_clip_min = 0.1
 shader_param/noise_add_multiplier = 0.1
 shader_param/noise = SubResource( 2 )
 
-[node name="FpvCamera" type="Camera"]
+[node name="FpvCamera" type="Camera3D"]
 fov = 55.0
 far = 50000.0
 script = ExtResource( 2 )

@@ -3,7 +3,7 @@ using System;
 
 namespace Locations
 {
-    public class ImpostorTree : Spatial
+    public partial class ImpostorTree : Node3D
     {
         // Very basic impostor/normal model switching intended for trees (currently a drastic last-ditch performance improvement)
         // Expects impostor to be a direct child called "Impostor" and real node to be a direct child called "RealNode"
@@ -13,18 +13,18 @@ namespace Locations
         [Export] public bool Enabled { get; set; } = true;
         [Export] public float ImpostorDistance { get; set; } = 30;
 
-        private Spatial impostor;
-        private Spatial realNode;
+        private Node3D impostor;
+        private Node3D realNode;
 
         public override void _EnterTree()
         {
-            impostor = GetNode<Spatial>("Impostor");
-            realNode = GetNode<Spatial>("RealNode");
+            impostor = GetNode<Node3D>("Impostor");
+            realNode = GetNode<Node3D>("RealNode");
 
             realNode.Visible = false;
         }
 
-        public override void _Process(float delta)
+        public override void _Process(double delta)
         {
             if (Engine.GetFramesDrawn() % UpdateInterval == 0)
             {
@@ -39,7 +39,7 @@ namespace Locations
             if (trulyEnabled)
             {
                 var trueDistance = UseGraphicsSettings ? SimSettings.Settings.Current.Graphics.ImpostorDistance : ImpostorDistance;
-                showImpostor = GetViewport().GetCamera().GlobalTranslation.DistanceSquaredTo(GlobalTranslation) > trueDistance * trueDistance;
+                showImpostor = GetViewport().GetCamera3D().GlobalPosition.DistanceSquaredTo(GlobalPosition) > trueDistance * trueDistance;
             }
 
             if (showImpostor)

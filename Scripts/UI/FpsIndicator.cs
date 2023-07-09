@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class FpsIndicator : Label
+public partial class FpsIndicator : Label
 {
     public override void _Ready()
     {
@@ -9,7 +9,7 @@ public class FpsIndicator : Label
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(float delta)
+    public override void _Process(double delta)
     {
         if (Visible)
         {

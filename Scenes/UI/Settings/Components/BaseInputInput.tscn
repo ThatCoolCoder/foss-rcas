@@ -1,96 +1,71 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://7ovogrdnxmuy"]
 
-[ext_resource path="res://Scenes/UI/Settings/Components/SettingsRow.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scripts/UI/Settings/Components/BaseInputInputWithDummyGenerics.cs" type="Script" id=2]
+[ext_resource type="PackedScene" path="res://Scenes/UI/Settings/Components/SettingsRow.tscn" id="1"]
+[ext_resource type="Script" path="res://Scripts/UI/Settings/Components/BaseInputInputWithDummyGenerics.cs" id="2"]
 
-[node name="BaseInputInput" instance=ExtResource( 1 )]
-margin_right = 413.0
-script = ExtResource( 2 )
-__meta__ = {
-"_editor_description_": "Base input for inputs (eg key presses)"
-}
+[node name="BaseInputInput" instance=ExtResource("1")]
+offset_right = 413.0
+script = ExtResource("2")
 
 [node name="Label" parent="." index="0"]
-margin_right = 131.0
+layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="." index="1"]
-margin_left = 143.0
-margin_right = 413.0
-margin_bottom = 40.0
-rect_pivot_offset = Vector2( -600, -109 )
+layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="CurrentValue" type="Label" parent="HBoxContainer" index="0"]
-margin_top = 11.0
-margin_right = 80.0
-margin_bottom = 29.0
+layout_mode = 2
 text = "Current value"
 
 [node name="ChangeInput" type="Button" parent="HBoxContainer" index="1"]
-margin_left = 84.0
-margin_top = 8.0
-margin_right = 142.0
-margin_bottom = 32.0
+layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 text = "Change"
 
-[node name="WindowDialog" type="WindowDialog" parent="." index="2"]
-margin_right = 300.0
-margin_bottom = 100.0
-focus_mode = 2
-popup_exclusive = true
-window_title = "CHANGE TEXT WHEN EXTENDING"
+[node name="Window" type="Window" parent="." index="2"]
+initial_position = 2
+size = Vector2i(300, 100)
+exclusive = true
 
-[node name="MarginContainer" type="MarginContainer" parent="WindowDialog" index="1"]
+[node name="MarginContainer" type="MarginContainer" parent="Window" index="0"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_constants/margin_right = 10
-custom_constants/margin_top = 10
-custom_constants/margin_left = 10
-custom_constants/margin_bottom = 10
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="WindowDialog/MarginContainer" index="0"]
-margin_left = 10.0
-margin_top = 10.0
-margin_right = 321.0
-margin_bottom = 90.0
+[node name="VBoxContainer" type="VBoxContainer" parent="Window/MarginContainer" index="0"]
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="PopupText" type="Label" parent="WindowDialog/MarginContainer/VBoxContainer" index="0"]
-margin_left = 65.0
-margin_right = 215.0
-margin_bottom = 18.0
+[node name="PopupText" type="Label" parent="Window/MarginContainer/VBoxContainer" index="0"]
+layout_mode = 2
 size_flags_horizontal = 4
 text = "CHANGE THIS WHEN EXTENDING"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="WindowDialog/MarginContainer/VBoxContainer" index="1"]
-margin_top = 56.0
-margin_right = 280.0
-margin_bottom = 80.0
+[node name="HBoxContainer" type="HBoxContainer" parent="Window/MarginContainer/VBoxContainer" index="1"]
+layout_mode = 2
 size_flags_vertical = 10
 alignment = 1
 
-[node name="Cancel" type="Button" parent="WindowDialog/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
-margin_left = 25.0
-margin_right = 77.0
-margin_bottom = 24.0
+[node name="Cancel" type="Button" parent="Window/MarginContainer/VBoxContainer/HBoxContainer" index="0"]
+layout_mode = 2
 text = "Cancel"
 
-[node name="SelectAnotherInput" type="Button" parent="WindowDialog/MarginContainer/VBoxContainer/HBoxContainer" index="1"]
-margin_left = 81.0
-margin_right = 221.0
-margin_bottom = 24.0
+[node name="SelectAnotherInput" type="Button" parent="Window/MarginContainer/VBoxContainer/HBoxContainer" index="1"]
+layout_mode = 2
 text = "CHANGE TEXT WHEN EXTENDING"
 
-[node name="Ok" type="Button" parent="WindowDialog/MarginContainer/VBoxContainer/HBoxContainer" index="2"]
-margin_left = 225.0
-margin_right = 254.0
-margin_bottom = 24.0
+[node name="Ok" type="Button" parent="Window/MarginContainer/VBoxContainer/HBoxContainer" index="2"]
+layout_mode = 2
 text = "Ok"
 
 [connection signal="pressed" from="HBoxContainer/ChangeInput" to="." method="_on_ChangeInput_pressed"]
-[connection signal="pressed" from="WindowDialog/MarginContainer/VBoxContainer/HBoxContainer/Cancel" to="." method="_on_Cancel_pressed"]
-[connection signal="pressed" from="WindowDialog/MarginContainer/VBoxContainer/HBoxContainer/SelectAnotherInput" to="." method="_on_SelectAnotherInput_pressed"]
-[connection signal="pressed" from="WindowDialog/MarginContainer/VBoxContainer/HBoxContainer/Ok" to="." method="_on_Ok_pressed"]
+[connection signal="pressed" from="Window/MarginContainer/VBoxContainer/HBoxContainer/Cancel" to="." method="_on_Cancel_pressed"]
+[connection signal="pressed" from="Window/MarginContainer/VBoxContainer/HBoxContainer/SelectAnotherInput" to="." method="_on_SelectAnotherInput_pressed"]
+[connection signal="pressed" from="Window/MarginContainer/VBoxContainer/HBoxContainer/Ok" to="." method="_on_Ok_pressed"]

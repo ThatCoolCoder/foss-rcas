@@ -5,7 +5,7 @@ using Tomlet.Attributes;
 
 namespace ContentManagement
 {
-    public class ContentItem
+    public partial class ContentItem
     {
         [TomlProperty("name")] public string Name { get; set; } = "";
 

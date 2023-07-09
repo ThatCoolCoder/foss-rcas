@@ -3,7 +3,7 @@ using System;
 
 namespace Audio
 {
-    public class PrerecordedPropellerNoise : AudioStreamPlayer3D
+    public partial class PrerecordedPropellerNoise : AudioStreamPlayer3D
     {
         [Export] public float DominantFrequency { get; set; }
         [Export] public float DecibelsChange { get; set; } = 40;
@@ -15,10 +15,10 @@ namespace Audio
         public override void _Ready()
         {
             propeller = Utils.GetNodeWithWarnings<Physics.Forcers.Propeller>(this, PropellerPath, "propeller", true);
-            initialUnitDb = UnitDb;
+            initialUnitDb = VolumeDb;
         }
 
-        public override void _Process(float delta)
+        public override void _Process(double delta)
         {
             var rpmInRecording = DominantFrequency / BladeCount * 60;
 
@@ -33,7 +33,7 @@ namespace Audio
                 PitchScale = targetPitchScale;
                 StreamPaused = false;
             }
-            UnitDb = initialUnitDb - (1 - targetPitchScale) * DecibelsChange;
+            VolumeDb = initialUnitDb - (1 - targetPitchScale) * DecibelsChange;
         }
     }
 }

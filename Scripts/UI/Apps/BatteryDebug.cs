@@ -3,7 +3,7 @@ using System;
 
 namespace UI.Apps
 {
-    public class BatteryDebug : AbstractBasicNodeDebug<Aircraft.Battery>
+    public partial class BatteryDebug : AbstractBasicNodeDebug<Aircraft.Battery>
     {
         protected override string GroupName { get; set; } = "Battery";
 
