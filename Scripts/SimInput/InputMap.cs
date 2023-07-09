@@ -176,6 +176,27 @@ namespace SimInput
                     Momentary = true
                 },
             }},
+            {"gameplay/more_slow_motion", new() {
+                new SimInput.SimpleKeyboardControlMapping()
+                {
+                    KeyScancode = (uint) KeyList.Comma,
+                    Momentary = true
+                },
+            }},
+            {"gameplay/less_slow_motion", new() {
+                new SimInput.SimpleKeyboardControlMapping()
+                {
+                    KeyScancode = (uint) KeyList.Period,
+                    Momentary = true
+                },
+            }},
+            {"gameplay/reset_slow_motion", new() {
+                new SimInput.SimpleKeyboardControlMapping()
+                {
+                    KeyScancode = (uint) KeyList.Slash,
+                    Momentary = true
+                },
+            }},
         },
         };
     };

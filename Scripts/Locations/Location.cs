@@ -10,6 +10,9 @@ namespace Locations
         public ContentManagement.Location LocationInfo { get; set; }
         public ContentManagement.AircraftSpawnPosition CrntSpawnPosition { get; set; }
 
+        private const int maxSlowMotion = 64; // as in 1/64 speed
+        private const int minSlowMotion = 1;
+        private int slowMotionAmount = 1; // this becomes a fraction, eg a value of 2 equals 1/2 speed
         private AircraftLauncher launcher;
         private GroundCamera groundCamera;
         private PackedScene orbitCameraScene = ResourceLoader.Load<PackedScene>("res://Scenes/Aircraft/Common/OrbitCamera.tscn");
@@ -32,7 +35,25 @@ namespace Locations
             if (SimInput.Manager.IsActionJustPressed("gameplay/reset")) Reset();
             if (SimInput.Manager.IsActionJustPressed("gameplay/reload_aircraft")) ReloadAircraft();
             if (SimInput.Manager.IsActionJustPressed("gameplay/launch")) launcher.Launch();
-            if (SimInput.Manager.IsActionJustPressed("gameplay/pause")) GetTree().Paused = !GetTree().Paused;
+            if (SimInput.Manager.IsActionJustPressed("gameplay/pause"))
+            {
+                GetTree().Paused = !GetTree().Paused;
+                var text = GetTree().Paused ? "Paused" : "Unpaused";
+                UI.MessageManager.StaticAddMessage(text, "time");
+            }
+
+            if (SimInput.Manager.IsActionJustPressed("gameplay/more_slow_motion")) AdjustSlowMotion(slowMotionAmount * 2);
+            if (SimInput.Manager.IsActionJustPressed("gameplay/less_slow_motion")) AdjustSlowMotion(slowMotionAmount / 2);
+            if (SimInput.Manager.IsActionJustPressed("gameplay/reset_slow_motion")) AdjustSlowMotion(1);
+        }
+
+        private void AdjustSlowMotion(int newSlowMotionAmount)
+        {
+            slowMotionAmount = Mathf.Clamp(newSlowMotionAmount, minSlowMotion, maxSlowMotion);
+            Engine.TimeScale = 1f / slowMotionAmount;
+
+            if (slowMotionAmount == 1) UI.MessageManager.StaticAddMessage("Normal speed", "time");
+            else UI.MessageManager.StaticAddMessage($"1/{slowMotionAmount} speed", "time");
         }
 
         private void SetupAircraft()
@@ -113,8 +134,9 @@ namespace Locations
 
         public override void _ExitTree()
         {
-            // Make sure we unpause, since the menus don't appreciate being paused
+            // Make sure we reset time etc, since the menus don't appreciate being paused
             GetTree().Paused = false;
+            Engine.TimeScale = 1;
         }
     }
 

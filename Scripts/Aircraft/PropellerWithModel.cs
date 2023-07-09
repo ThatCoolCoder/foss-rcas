@@ -56,7 +56,7 @@ namespace Aircraft
 
         private void UpdateModelVisiblities()
         {
-            blurShape.Visible = Mathf.Abs(Rpm) >= minBlurRpm;
+            blurShape.Visible = Mathf.Abs(Rpm) * Engine.TimeScale >= minBlurRpm;
         }
 
         private void _on_Area_body_entered(PhysicsBody _body)

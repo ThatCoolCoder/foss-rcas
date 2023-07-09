@@ -100,7 +100,6 @@ Depending on how much base content is desired and how large the repository gets,
             - currently it has too much aero force to weight ratio
         - Make prop drag based on raw force, not efficiency factor force. This makes it way easier to tune to have the right rpm, current and thrust.
             - Will require retuning all the planes
-    - slow motion
     - Internal combustion engine simulation
         - Should be easier than electrics especially now that all the propeller stuff is done.
         - Just have a rpm/torque curve, then throttle directly controls torque proportion and fuel consumption
@@ -122,6 +121,11 @@ Depending on how much base content is desired and how large the repository gets,
     - Make content creation docs more friendly to non-programmers
     - If we make exotic stuff like quadcopters, create documentation on that
 - Misc bugs/problems
+    - make slow motion only affect aircraft, not cameras.
+        - would be easy if time_scale was inherited like pause_mode
+            - this was proposed but the engine developers decided against it
+        - possibly integrate this into an aircraft-wide system involving also stuff like resetting batteries, etc.
+            - propagate_call looks like it would make this easy, we won't even need interfaces
     - large oval has wrong ground normal
     - thing has a heart attack if it tries loading a content item that doesn't have a scene file
     - Anticlockwise propeller has bad shading due to the scaling by -1

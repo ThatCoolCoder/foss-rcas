@@ -99,6 +99,12 @@ namespace SimInput
                     defaultValue: -1),
                 new InputAction("pause",
                     defaultValue: -1),
+                new InputAction("more_slow_motion",
+                    defaultValue: -1),
+                new InputAction("less_slow_motion",
+                    defaultValue: -1),
+                new InputAction("reset_slow_motion",
+                    defaultValue: -1),
             })
         };
     }

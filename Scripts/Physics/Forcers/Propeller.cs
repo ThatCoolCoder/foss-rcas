@@ -105,11 +105,6 @@ namespace Physics.Forcers
 
             currentTorques = 0;
             currentBrakingTorques = 0;
-        }
-
-        public override void _Process(float delta)
-        {
-            base._Process(delta);
 
             RotateZ(-AngularVelocity * delta); // (In godot a negative rotation along -z is clockwise)
         }

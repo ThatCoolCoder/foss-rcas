@@ -36,6 +36,7 @@ extents = Vector3( 0.103539, 0.089479, 0.739668 )
 extents = Vector3( 0.00659916, 0.209339, 0.0906756 )
 
 [node name="Skater" type="RigidBody"]
+pause_mode = 1
 mass = 5.2
 script = ExtResource( 1 )
 

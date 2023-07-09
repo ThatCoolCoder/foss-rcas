@@ -14,18 +14,21 @@ namespace Aircraft
 
         public Control.IHub ControlHub { get; set; }
         private float trueDeflection = 0;
+        private float targetDeflection = 0;
 
         public override void _Process(float delta)
         {
-            var targetDeflection = ControlHub.ChannelValues[ChannelName];
+            targetDeflection = ControlHub.ChannelValues[ChannelName];
             targetDeflection *= Mathf.Deg2Rad(MaxDeflectionDegrees);
             if (Reversed) targetDeflection *= -1;
 
-            var rotationSpeed = Mathf.Deg2Rad(60.0f / Time60Degrees);
-            trueDeflection = Utils.ConvergeValue(trueDeflection, targetDeflection, rotationSpeed * delta);
-
-            Rotation = Rotation.WithX(targetDeflection);
+            Rotation = Rotation.WithX(trueDeflection);
         }
 
+        public override void _PhysicsProcess(float delta)
+        {
+            var rotationSpeed = Mathf.Deg2Rad(60.0f / Time60Degrees);
+            trueDeflection = Utils.ConvergeValue(trueDeflection, targetDeflection, rotationSpeed * delta);
+        }
     }
 }
