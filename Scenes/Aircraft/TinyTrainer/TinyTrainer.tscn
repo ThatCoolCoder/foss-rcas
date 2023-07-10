@@ -36,6 +36,7 @@ size = Vector3(0.0812936, 0.0379009, 0.0134837)
 
 [node name="TinyTrainer" type="RigidBody3D"]
 mass = 0.45
+center_of_mass_mode = 1
 physics_material_override = SubResource("5")
 can_sleep = false
 angular_damp = 1.0
