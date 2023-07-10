@@ -48,7 +48,11 @@ namespace Physics.Forcers
 
         public override Vector3 CalculateForce(ISpatialFluid fluid, PhysicsDirectBodyState3D state)
         {
-            return Vector3.Zero; // convtodo: enable this forcer
+            if (fluid is Propwash p && p.GetParent() == this)
+            {
+                // Bad things happen when we're affected by own propwash
+                return Vector3.Zero;
+            }
 
             var rps = AngularVelocity / Mathf.Tau;
             var exitSpeed = PitchMetres * rps;
@@ -56,9 +60,10 @@ namespace Physics.Forcers
             var density = fluid.DensityAtPoint(GlobalPosition);
             LastEntryVelocity = fluid.VelocityAtPoint(GlobalPosition);
             var relativeVelocity = state.GetVelocityAtGlobalPosition(target, this) - LastEntryVelocity;
-            var localVelocity = GlobalTransform.Basis.Inverse() * relativeVelocity;
+            var localVelocity = GlobalTransform.Basis.Transposed() * relativeVelocity;
             var entrySpeed = -localVelocity.Z;
             var deltaSpeed = exitSpeed - entrySpeed;
+
 
             LastExitSpeed = deltaSpeed;
 
@@ -71,7 +76,6 @@ namespace Physics.Forcers
 
             // Propellers are roughly half as efficient when being used backwards.
             if (force < 0) force *= 0.5f;
-
 
             force *= EfficiencyFactor;
 
@@ -92,7 +96,7 @@ namespace Physics.Forcers
 
         public override void _PhysicsProcess(double delta)
         {
-            AddConstantTorque(CalculateAirResistance());
+            ApplyTorque(CalculateAirResistance());
             var momentOfInertia = Mass * RadiusMetres * RadiusMetres / 3;
             AngularVelocity += currentTorques / momentOfInertia * (float)delta;
             var brakingAcceleration = currentBrakingTorques / momentOfInertia * (float)delta;
@@ -111,7 +115,7 @@ namespace Physics.Forcers
             RotateZ(-AngularVelocity * (float)delta); // (In godot a negative rotation along -z is clockwise)
         }
 
-        public void AddConstantTorque(float torque)
+        public void ApplyTorque(float torque)
         {
             currentTorques += torque;
         }

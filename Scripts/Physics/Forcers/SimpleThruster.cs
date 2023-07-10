@@ -21,7 +21,7 @@ namespace Physics.Forcers
             var forceMag = Utils.MapNumber(-localVelocity.Z, 0, MaxSpeed, MaxThrust, 0) * ThrustProportion;
             var force = -GlobalTransform.Basis.Z * forceMag;
 
-            state.AddConstantForce(force, GlobalPosition - state.Transform.Origin);
+            state.ApplyForce(force, GlobalPosition - state.Transform.Origin);
         }
     }
 }

@@ -75,7 +75,7 @@ namespace Physics.Forcers
 
         public override void Apply(PhysicsDirectBodyState3D state)
         {
-            return; // convtodo: make this work
+            // return; // convtodo: make this work
             // todo: this is somewhat messy, perhaps this should be split up or part of it moved out of apply into process
 
             // Torques, inertia
@@ -121,9 +121,9 @@ namespace Physics.Forcers
                 var zForce = Pacejka(springForce, zSlip, longitudinalPacejka);
 
                 // Add all the forces
-                state.AddConstantForce(GlobalTransform.Basis.X * xForce, contactPoint);
-                state.AddConstantForce(springForce * rayCast.GetCollisionNormal(), contactPoint);
-                // state.AddForce(-GlobalTransform.Basis.Y * zForce, contactPoint);
+                state.ApplyForce(GlobalTransform.Basis.X * xForce, contactPoint);
+                state.ApplyForce(springForce * rayCast.GetCollisionNormal(), contactPoint);
+                // state.ApplyForce(-GlobalTransform.Basis.Y * zForce, contactPoint);
 
                 prevZForce = -zForce;
                 prevCompression = compression;

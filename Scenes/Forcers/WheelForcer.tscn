@@ -1,19 +1,18 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://bdaloi0aj8bt5"]
 
-[ext_resource path="res://Scripts/Physics/Forcers/WheelForcer.cs" type="Script" id=1]
+[ext_resource type="Script" path="res://Scripts/Physics/Forcers/WheelForcer.cs" id="1"]
 
 [node name="WheelForcer" type="Node3D"]
-transform = Transform3D( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
-script = ExtResource( 1 )
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+script = ExtResource("1")
 LateralPacejkaPath = "res://Resources/LateralPacejka.tres"
 LongitudinalPacejkaPath = "res://Resources/LongitudinalPacejka.tres"
 
 [node name="SpringArm3D" type="SpringArm3D" parent="."]
 
 [node name="RayCast3D" type="RayCast3D" parent="SpringArm3D"]
-transform = Transform3D( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0 )
-enabled = true
-target_position = Vector3( 0, -0.121, 0 )
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+target_position = Vector3(0, -0.121, 0)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="SpringArm3D"]
-transform = Transform3D( 0.0151189, 0, 0, 0, 0.0151189, 0, 0, 0, 0.0151189, 0, 0, 0 )
+transform = Transform3D(0.0151189, 0, 0, 0, 0.0151189, 0, 0, 0, 0.0151189, 0, 0, 0)

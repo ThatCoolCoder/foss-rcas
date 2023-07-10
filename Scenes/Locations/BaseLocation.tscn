@@ -1,131 +1,138 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=19 format=3 uid="uid://wfhfmqv1cl37"]
 
-[ext_resource path="res://Scenes/Locations/Common/GroundCamera.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scripts/Physics/Fluids/SpatialFluidBeacon.cs" type="Script" id=2]
-[ext_resource path="res://Resources/Theme.tres" type="Theme" id=3]
-[ext_resource path="res://Scripts/Physics/Fluids/Air.cs" type="Script" id=4]
-[ext_resource path="res://Scripts/Physics/Fluids/SpatialFluidRepository.cs" type="Script" id=5]
-[ext_resource path="res://Scripts/Locations/Location.cs" type="Script" id=6]
-[ext_resource path="res://Scripts/Locations/AircraftLauncher.cs" type="Script" id=7]
-[ext_resource path="res://Scenes/UI/Misc/BackButton.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Scripts/UI/FpsIndicator.cs" type="Script" id=9]
-[ext_resource path="res://Scripts/Audio/WindNoise.cs" type="Script" id=10]
-[ext_resource path="res://Scripts/Locations/CameraManager.cs" type="Script" id=11]
-[ext_resource path="res://Scripts/UI/FlightUI.cs" type="Script" id=12]
-[ext_resource path="res://addons/MaxSizeContainer/max_size_container.gd" type="Script" id=13]
-[ext_resource path="res://Scripts/UI/MessageManager.cs" type="Script" id=14]
-[ext_resource path="res://Scripts/Locations/FreeCamera.cs" type="Script" id=15]
+[ext_resource type="PackedScene" path="res://Scenes/Locations/Common/GroundCamera.tscn" id="1"]
+[ext_resource type="Script" path="res://Scripts/Physics/Fluids/SpatialFluidBeacon.cs" id="2"]
+[ext_resource type="Theme" uid="uid://bwto58nxsnhtl" path="res://Resources/Theme.tres" id="3"]
+[ext_resource type="Script" path="res://Scripts/Physics/Fluids/Air.cs" id="4"]
+[ext_resource type="Script" path="res://Scripts/Physics/Fluids/SpatialFluidRepository.cs" id="5"]
+[ext_resource type="Script" path="res://Scripts/Locations/Location.cs" id="6"]
+[ext_resource type="Script" path="res://Scripts/Locations/AircraftLauncher.cs" id="7"]
+[ext_resource type="PackedScene" uid="uid://d15nhoxu6om0g" path="res://Scenes/UI/Misc/BackButton.tscn" id="8"]
+[ext_resource type="Script" path="res://Scripts/UI/FpsIndicator.cs" id="9"]
+[ext_resource type="Script" path="res://Scripts/Audio/WindNoise.cs" id="10"]
+[ext_resource type="Script" path="res://Scripts/Locations/CameraManager.cs" id="11"]
+[ext_resource type="Script" path="res://Scripts/UI/FlightUI.cs" id="12"]
+[ext_resource type="Script" path="res://addons/MaxSizeContainer/max_size_container.gd" id="13"]
+[ext_resource type="Script" path="res://Scripts/UI/MessageManager.cs" id="14"]
+[ext_resource type="Script" path="res://Scripts/Locations/FreeCamera.cs" id="15"]
+[ext_resource type="PackedScene" path="res://Scenes/UI/Apps/PropellerDebug.tscn" id="16_hpi0o"]
+[ext_resource type="PackedScene" path="res://Scenes/UI/Apps/BrushlessMotorDebug.tscn" id="17_shl0d"]
+[ext_resource type="PackedScene" path="res://Scenes/UI/Apps/BatteryDebug.tscn" id="18_cacgm"]
 
 [node name="BaseLocation" type="Node3D"]
 process_mode = 3
-script = ExtResource( 6 )
+script = ExtResource("6")
 
 [node name="CameraManager" type="Node3D" parent="."]
 process_mode = 3
-script = ExtResource( 11 )
+script = ExtResource("11")
 
 [node name="SpatialFluidRepository" type="Node3D" parent="."]
-script = ExtResource( 5 )
+script = ExtResource("5")
 
 [node name="Air" type="Node3D" parent="."]
-script = ExtResource( 4 )
+script = ExtResource("4")
 
 [node name="SpatialFluidBeacon" type="Node3D" parent="Air"]
-script = ExtResource( 2 )
+script = ExtResource("2")
 
 [node name="AircraftLauncher" type="Node3D" parent="."]
-script = ExtResource( 7 )
+script = ExtResource("7")
 
-[node name="GroundCamera" parent="." instance=ExtResource( 1 )]
+[node name="GroundCamera" parent="." instance=ExtResource("1")]
 
 [node name="WindNoise" type="AudioStreamPlayer3D" parent="GroundCamera"]
-script = ExtResource( 10 )
+script = ExtResource("10")
 VolumeMultiplier = 0.02
 AirPath = NodePath("../../Air")
 
 [node name="FreeCamera" type="Camera3D" parent="."]
 process_mode = 3
 far = 50000.0
-script = ExtResource( 15 )
+script = ExtResource("15")
 ViewName = "Free"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 process_mode = 3
-script = ExtResource( 12 )
+script = ExtResource("12")
 
 [node name="HUD" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-theme = ExtResource( 3 )
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_top = 10
+theme = ExtResource("3")
 theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="VSplitContainer" type="VSplitContainer" parent="CanvasLayer/HUD"]
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 1270.0
-offset_bottom = 710.0
+layout_mode = 2
 mouse_filter = 2
 
 [node name="TopBar" type="HBoxContainer" parent="CanvasLayer/HUD/VSplitContainer"]
-offset_right = 1260.0
-offset_bottom = 29.0
+layout_mode = 2
 mouse_filter = 2
 
-[node name="BackButton" parent="CanvasLayer/HUD/VSplitContainer/TopBar" instance=ExtResource( 8 )]
-offset_left = 0.0
-offset_top = 0.0
-offset_right = 48.0
-offset_bottom = 29.0
+[node name="BackButton" parent="CanvasLayer/HUD/VSplitContainer/TopBar" instance=ExtResource("8")]
+layout_mode = 2
 ScenePath = "res://Scenes/UI/FlightSettings/FlightSettingsScreen.tscn"
 
 [node name="BottomBar" type="HBoxContainer" parent="CanvasLayer/HUD/VSplitContainer"]
-offset_top = 682.0
-offset_right = 1260.0
-offset_bottom = 700.0
-mouse_filter = 2
+layout_mode = 2
 size_flags_vertical = 8
+mouse_filter = 2
 
 [node name="FpsIndicator" type="Label" parent="CanvasLayer/HUD/VSplitContainer/BottomBar"]
-offset_left = 1226.0
-offset_right = 1260.0
-offset_bottom = 18.0
+layout_mode = 2
 size_flags_horizontal = 10
 size_flags_vertical = 0
 text = "5 FPS"
-script = ExtResource( 9 )
+script = ExtResource("9")
 
 [node name="MaxSizeContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -40.0
 offset_bottom = 40.0
 grow_horizontal = 0
 mouse_filter = 2
-theme_override_constants/margin_right = 0
-theme_override_constants/margin_top = 0
 theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
-script = ExtResource( 13 )
-max_size = Vector2( 200, -1 )
+script = ExtResource("13")
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MaxSizeContainer"]
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 2
 mouse_filter = 2
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_top = 10
 theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
 [node name="NotificationManager" type="VBoxContainer" parent="CanvasLayer/MaxSizeContainer/MarginContainer"]
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 30.0
-offset_bottom = 30.0
+layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 10
-script = ExtResource( 14 )
+script = ExtResource("14")
+
+[node name="PropellerDebug" parent="CanvasLayer" instance=ExtResource("16_hpi0o")]
+offset_left = 25.0
+offset_top = 90.0
+offset_right = 266.0
+offset_bottom = 349.0
+
+[node name="BrushlessMotorDebug" parent="CanvasLayer" instance=ExtResource("17_shl0d")]
+offset_left = 29.0
+offset_top = 644.0
+offset_right = 270.0
+offset_bottom = 903.0
+
+[node name="BatteryDebug" parent="CanvasLayer" instance=ExtResource("18_cacgm")]
+offset_left = 29.0
+offset_top = 365.0
+offset_right = 270.0
+offset_bottom = 624.0

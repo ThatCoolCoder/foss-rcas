@@ -56,7 +56,7 @@ namespace Physics.Forcers
             }
 
             position -= target.GlobalPosition;
-            state.AddConstantForce(totalForce, position);
+            state.ApplyForce(totalForce, position);
 
             debugModeWasActive = DebugModeActive;
         }

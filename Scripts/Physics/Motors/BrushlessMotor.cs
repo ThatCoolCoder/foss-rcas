@@ -47,7 +47,7 @@ namespace Physics.Motors
                 var current = torque / torqueConstant * CurrentMultiplier;
                 current = Mathf.Max(current, 0);
                 battery.Discharge(current, (float)delta);
-                propeller.AddConstantTorque(torque);
+                propeller.ApplyTorque(torque);
 
                 LastCurrent = current;
             }
@@ -62,7 +62,7 @@ namespace Physics.Motors
 
             if (torqueRigidBody != null)
             {
-                // torqueRigidBody.AddConstantTorque(GlobalTransform.Basis.Z * torque); convtodo
+                torqueRigidBody.ApplyTorque(GlobalTransform.Basis.Z * torque);
             }
         }
     }
