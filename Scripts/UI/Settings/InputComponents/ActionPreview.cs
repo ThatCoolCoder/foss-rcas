@@ -78,7 +78,6 @@ namespace UI.Settings.InputComponents
             SettingsScreen.NewSettings.InputMap.GetMappingsForAction(actionPath).Add(mapping);
             UpdateMappings();
 
-
             mappingHolder.GetChildNodeList().Last().EmitSignal("pressed");
         }
     }

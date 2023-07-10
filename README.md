@@ -122,6 +122,7 @@ Depending on how much base content is desired and how large the repository gets,
     - Make content creation docs more friendly to non-programmers
     - If we make exotic stuff like quadcopters, create documentation on that
 - Misc bugs/problems
+    - GODOT BUG: it appears that [Exported] nodes aren't assigned if the exported is a child of a Window that starts out invisible.
     - make slow motion only affect aircraft, not cameras.
         - would be easy if time_scale was inherited like pause_mode
             - this was proposed but the engine developers decided against it
@@ -138,6 +139,7 @@ Depending on how much base content is desired and how large the repository gets,
             - hacky solution: create an InvalidMappingType
     - if it fails to find positions for spawn, game crashes
 - General refactoring/organizing
+    - if input settings screen becomes unperformant, make all the dialogs only be instanced when needed
     - move `Art/Common` -> `Art/Locations/Common`
     - Make all "modules" (EG Propeller, BrushlessMotor, Battery) instanceable scenes? (instead of just scripts)
     - Make more things (forcers, etc) use Utils.GetNodeWithWarnings, and give that method a better name

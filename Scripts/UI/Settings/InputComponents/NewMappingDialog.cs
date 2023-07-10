@@ -22,7 +22,7 @@ namespace UI.Settings.InputComponents
 
         public override void _Ready()
         {
-            mappingTypeSelector = GetNode<OptionButton>("MarginContainer/VBoxContainer/MappingTypeSelector");
+            mappingTypeSelector = GetNode<OptionButton>("MarginContainer/VBoxContainer/Inputs/MappingTypeSelector");
 
             mappingTypeSelector.Clear();
             foreach (var mappingType in mappingTypes.Keys) mappingTypeSelector.AddItem(mappingType);

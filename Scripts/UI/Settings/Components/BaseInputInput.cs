@@ -9,29 +9,33 @@ namespace UI.Settings.Components
     {
         // Base input for inputs (eg key presses)
 
-        [Export] private Label currentValueLabel;
-        [Export] private Label popupText;
-        [Export] private Window dialog;
+        // Godot refuses to populate these if exported (probably due to the class+scene+generics inheritance).
+        // todo: if it's not fixed in 4.2.0 then file a bug report
+        private Label currentValueLabel;
+        private Label popupText;
+        private Window dialog;
 
-        [Export] private Button selectAgainButton;
-        [Export] private Button okButton;
+        private Button selectAgainButton;
+        private Button okButton;
 
         public override void _Ready()
         {
-            GD.Print("ready");
-            GD.Print(currentValueLabel);
+            currentValueLabel = GetNode<Label>("HBoxContainer/CurrentValue");
+            popupText = GetNode<Label>("Popup/MarginContainer/VBoxContainer/PopupText");
+            dialog = GetNode<Window>("Popup");
+            selectAgainButton = GetNode<Button>("Popup/MarginContainer/VBoxContainer/HBoxContainer/SelectAnotherInput");
+            okButton = GetNode<Button>("Popup/MarginContainer/VBoxContainer/HBoxContainer/Ok");
+
             base._Ready();
         }
 
         public override void OnSettingsChanged()
         {
-            GD.Print("set value");
             currentValueLabel.Text = GetCurrentValueText();
         }
 
         private void _on_ChangeInput_pressed()
         {
-            GD.Print(dialog.IsInsideTree());
             dialog.PopupCentered();
             dialog.GrabFocus();
             ClearCandidateValue();

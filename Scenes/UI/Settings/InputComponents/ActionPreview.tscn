@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bynunu2k17eba"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Settings/InputComponents/ActionPreview.cs" id="1"]
-[ext_resource type="PackedScene" uid="uid://brkxpnrwifr87" path="res://Scenes/UI/Settings/InputComponents/NewMappingDialog.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://brkxpnrwifr87" path="res://Scenes/UI/Settings/InputComponents/NewMappingPopup.tscn" id="2"]
 
 [node name="ActionPreview" type="HBoxContainer"]
 offset_right = 529.0
@@ -29,3 +29,4 @@ text = "+"
 visible = false
 
 [connection signal="pressed" from="HBoxContainer/NewMappingButton" to="." method="_on_NewMappingButton_pressed"]
+[connection signal="popup_hide" from="NewMappingDialog" to="." method="_on_NewMappingDialog_popup_hide"]
