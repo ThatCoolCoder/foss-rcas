@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://wfhfmqv1cl37"]
 
-[ext_resource type="PackedScene" path="res://Scenes/Locations/Common/GroundCamera.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://ch51rs1espjbp" path="res://Scenes/Locations/Common/GroundCamera.tscn" id="1"]
 [ext_resource type="Script" path="res://Scripts/Physics/Fluids/SpatialFluidBeacon.cs" id="2"]
 [ext_resource type="Theme" uid="uid://bwto58nxsnhtl" path="res://Resources/Theme.tres" id="3"]
 [ext_resource type="Script" path="res://Scripts/Physics/Fluids/Air.cs" id="4"]

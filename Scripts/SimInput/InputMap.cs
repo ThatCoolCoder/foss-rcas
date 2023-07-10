@@ -128,7 +128,7 @@ namespace SimInput
             {"camera/reset", new() {
                 new SimInput.SimpleKeyboardControlMapping()
                 {
-                    Key = Key.C | (Key) KeyModifierMask.MaskCmdOrCtrl,
+                    Key = Key.C | (Key) KeyModifierMask.MaskAlt,
                     Momentary = true
                 },
             }},
@@ -161,7 +161,7 @@ namespace SimInput
                     Key = Key.R,
                     Momentary = true
                 },
-            }}, // convtodo: it doesn't like keycodes with ctrl
+            }},
             {"gameplay/reload_aircraft", new() {
                 new SimInput.SimpleKeyboardControlMapping()
                 {

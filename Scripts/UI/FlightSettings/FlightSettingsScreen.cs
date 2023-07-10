@@ -38,7 +38,7 @@ namespace UI.FlightSettings
         {
             SimSettings.Settings.Current.Misc.LastLoadedAircraft = aircraftSelector.SelectedItem.LoadedFromWithoutExtension;
             SimSettings.Settings.Current.Misc.LastLoadedLocation = locationSelector.SelectedItem.LoadedFromWithoutExtension;
-            SimSettings.Settings.SaveCurrent(); // convtodo: fix settings and enable this
+            SimSettings.Settings.SaveCurrent();
         }
 
         private void TrySelectFromPath<T>(string lastLoadedPath, AbstractContentSelector<T> selector) where T : ContentManagement.ContentItem

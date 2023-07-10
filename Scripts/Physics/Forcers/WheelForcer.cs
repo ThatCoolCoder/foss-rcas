@@ -48,6 +48,9 @@ namespace Physics.Forcers
 
             displayObject = Utils.GetNodeWithWarnings<Node3D>(this, DisplayObjectPath, "display object");
 
+            Utils.Assert(LongitudinalPacejka != null, "longitudinal pacejka is null", this);
+            Utils.Assert(LateralPacejka != null, "lateral pacejka is null", this);
+
             springArm = GetNode<SpringArm3D>("SpringArm3D");
             rayCast = GetNode<RayCast3D>("SpringArm3D/RayCast3D");
 

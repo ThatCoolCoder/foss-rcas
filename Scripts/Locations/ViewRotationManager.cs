@@ -81,15 +81,17 @@ namespace Locations
                 if (clickEvent.Pressed)
                 {
                     clickStartPos = clickEvent.Position;
+                    return true;
                 }
-                else
+                else if (clickStartPos != null)
                 {
                     crntRotation.X += crntDragRotation.X;
                     crntRotation.Y += crntDragRotation.Y;
                     crntDragRotation = Vector2.Zero;
                     clickStartPos = null;
+                    return true;
                 }
-                return true;
+                return false;
             }
             else if (_event is InputEventMouseMotion motionEvent)
             {

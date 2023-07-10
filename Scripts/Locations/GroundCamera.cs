@@ -8,7 +8,6 @@ namespace Locations
         [Export] public string ViewName { get; set; } = "Ground";
         [Export] public NodePath TargetPath { get; set; }
 
-        private Vector3 localVelocity; // (in local space)
         [Export] public float MaxSpeed { get; set; } = 10;
         [Export] public float Acceleration { get; set; } = 40;
         [Export] public float JumpSpeed { get; set; } = 5;
@@ -102,11 +101,17 @@ namespace Locations
         private void WalkMovement(double delta)
         {
             var fdelta = (float)delta;
+
+            // A note on the way stuff is calculated:
+            // to make damping and stuff dimensional, it's easy to work with local velocity.
+            // So we just convert the velocity into local and then swap it back
+
+            var localVelocity = Velocity.Rotated(Vector3.Up, -camera.GlobalRotation.Y);
+            var origLocalVelocity = localVelocity;
+
             var crntAcceleration = new Vector3(SimInput.Manager.GetActionValue("camera/move_left_right"),
                 0,
                 -SimInput.Manager.GetActionValue("camera/move_backward_forward")) * Acceleration;
-
-            var origLocalVelocity = localVelocity;
 
             localVelocity += crntAcceleration * fdelta;
             var _2dVel = new Vector2(localVelocity.X, localVelocity.Z).LimitLength(MaxSpeed);
@@ -125,9 +130,9 @@ namespace Locations
 
             localVelocity.Y -= 9.8f * fdelta;
 
-            // convtodo: enable moving
-            // var velocity = MoveAndSlide(localVelocity.Rotated(Vector3.Up, camera.GlobalRotation.Y), stopOnSlope: true);
-            // localVelocity = velocity.Rotated(Vector3.Up, -camera.GlobalRotation.Y);
+            Velocity += (localVelocity - origLocalVelocity).Rotated(Vector3.Up, camera.GlobalRotation.Y);
+
+            MoveAndSlide();
         }
 
         public override void _UnhandledInput(InputEvent _event)

@@ -46,14 +46,15 @@ namespace Locations
             var minPos = new Vector3(-size.X / 2, 0, -size.Z / 2);
             var maxPos = new Vector3(size.X / 2, 0, size.Z / 2);
             for (int i = 0; i < trueCount; i++)
-            {
-                var transform = Transform3D.Identity;
-                transform = transform.Rotated(Vector3.Up, GD.Randf() * Mathf.Tau);
 
+            {
                 var heightScale = (float)GD.RandRange(-HeightVariation, HeightVariation) + 1;
                 var widthScale = heightScale * (float)GD.RandRange(1 - WidthRatioVariation, 1 + WidthRatioVariation);
 
-                // transform.Basis.Scale = new Vector3(widthScale, heightScale, widthScale); // convtodo: need to figure out how to set a scale
+                var transform = Transform3D.Identity;
+                transform = transform.Scaled(new Vector3(widthScale, heightScale, widthScale));
+                transform = transform.Rotated(Vector3.Up, GD.Randf() * Mathf.Tau);
+
                 transform.Origin = VectorExtensions.Random(minPos, maxPos).WithY(transform.Basis.Scale.Y * TreeSize.Y / 2);
                 Multimesh.SetInstanceTransform(i, transform);
             };

@@ -15,6 +15,16 @@ public static class Utils
         GD.Print(System.Environment.StackTrace);
     }
 
+    public static void Assert(bool condition, string message, Node node = null)
+    {
+        if (!condition)
+        {
+            if (node == null) GD.PrintErr($"Error: {message}");
+            else GD.PrintErr($"Error: {message} ({node.GetPath().ToString()})");
+            GD.Print(System.Environment.StackTrace);
+        }
+    }
+
     public static T GetNodeWithWarnings<T>(Node node, NodePath nodePath, string itemDescriptor, bool tryParentFirst = false) where T : class
     {
         // Try getting a node and give some descriptive errors if we don't find it

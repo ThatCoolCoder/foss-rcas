@@ -119,7 +119,7 @@ namespace SimInput
             }
             catch (KeyNotFoundException)
             {
-                // Utils.LogError($"Unknown action: {actionPath}"); convtodo: uncomment me
+                Utils.LogError($"Unknown action: {actionPath}");
                 return 0;
             }
         }
@@ -132,7 +132,7 @@ namespace SimInput
             }
             catch (KeyNotFoundException)
             {
-                // Utils.LogError($"Unknown action: {actionPath}"); convtodo: uncomment me
+                Utils.LogError($"Unknown action: {actionPath}");
                 return false;
             }
         }
@@ -144,7 +144,7 @@ namespace SimInput
             }
             catch (KeyNotFoundException)
             {
-                // Utils.LogError($"Unknown action: {actionPath}"); convtodo: uncomment me
+                Utils.LogError($"Unknown action: {actionPath}");
                 return false;
             }
         }
@@ -156,7 +156,7 @@ namespace SimInput
             }
             catch (KeyNotFoundException)
             {
-                // Utils.LogError($"Unknown action: {actionPath}"); convtodo: uncomment me
+                Utils.LogError($"Unknown action: {actionPath}");
                 return false;
             }
         }

@@ -1,19 +1,19 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://ch51rs1espjbp"]
 
-[ext_resource path="res://Scripts/Locations/GroundCamera.cs" type="Script" id=2]
+[ext_resource type="Script" path="res://Scripts/Locations/GroundCamera.cs" id="2"]
 
-[sub_resource type="CapsuleShape3D" id=1]
-radius = 0.3
-height = 0.87
+[sub_resource type="CapsuleShape3D" id="1"]
+radius = 0.4
+height = 1.74
 
 [node name="GroundCamera" type="CharacterBody3D"]
 process_mode = 3
-script = ExtResource( 2 )
+script = ExtResource("2")
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.538299, -0.253268 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.579744, -0.253268)
 far = 5000.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0 )
-shape = SubResource( 1 )
+transform = Transform3D(1, 0, 0, 0, 1, -1.06581e-14, 0, 1.06581e-14, 1, 0, 0, 0)
+shape = SubResource("1")
