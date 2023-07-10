@@ -4,6 +4,7 @@ using System;
 namespace Physics.Forcers
 {
     [Tool]
+    [GlobalClass]
     public partial class AeroValueCube : Resource
     {
         // Lift cube, drag cube, etc

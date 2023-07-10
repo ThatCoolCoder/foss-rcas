@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://vkiwi3wiq46w"]
+[gd_scene load_steps=25 format=3 uid="uid://vkiwi3wiq46w"]
 
 [ext_resource type="PackedScene" uid="uid://0srx2tt3ildf" path="res://Art/Aircraft/Mini3D/Rudder.glb" id="1"]
 [ext_resource type="PackedScene" uid="uid://byq5y0k7me454" path="res://Art/Aircraft/Mini3D/Elevator.glb" id="2"]
@@ -19,6 +19,8 @@
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/PropellerWithModel.tscn" id="18"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Battery.tscn" id="19"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Propwash.tscn" id="20"]
+[ext_resource type="Resource" path="res://Resources/BaseBodyLift.tres" id="20_cfhg1"]
+[ext_resource type="Resource" uid="uid://b861yo7rjlv2c" path="res://Resources/BaseBodyDrag.tres" id="21_sb3gb"]
 
 [sub_resource type="BoxShape3D" id="1"]
 size = Vector3(0.255882, 0.00706543, 0.0695307)
@@ -222,5 +224,5 @@ TargetPath = NodePath("../../..")
 
 [node name="BodyAero" parent="." instance=ExtResource("17")]
 transform = Transform3D(0.0374809, 0, 0, 0, 0.0455745, 0, 0, 0, 0.417441, 0, 0.00942594, 0.071843)
-LiftCubePath = "res://Resources/BaseBodyLift.tres"
-DragCubePath = "res://Resources/BaseBodyDrag.tres"
+LiftCube = ExtResource("20_cfhg1")
+DragCube = ExtResource("21_sb3gb")

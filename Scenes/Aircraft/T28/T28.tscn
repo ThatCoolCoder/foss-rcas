@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cloj42bodefuu"]
+[gd_scene load_steps=23 format=3 uid="uid://cloj42bodefuu"]
 
 [ext_resource type="Script" path="res://Scripts/Physics/SpatialForceable.cs" id="1"]
 [ext_resource type="Script" path="res://Scripts/Aircraft/Servo.cs" id="2"]
@@ -16,7 +16,9 @@
 [ext_resource type="PackedScene" uid="uid://bd51yu0b5ems4" path="res://Scenes/Aircraft/Common/FpvCamera.tscn" id="15"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/ControlledBrushlessMotor.tscn" id="16"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Battery.tscn" id="17"]
+[ext_resource type="Resource" path="res://Resources/BaseBodyLift.tres" id="17_o40d3"]
 [ext_resource type="AudioStream" uid="uid://deys0bnykpb1r" path="res://Art/Aircraft/Common/PropAudio/3S-2304-6x4E.mp3" id="18"]
+[ext_resource type="Resource" uid="uid://b861yo7rjlv2c" path="res://Resources/BaseBodyDrag.tres" id="18_46j1n"]
 
 [sub_resource type="BoxShape3D" id="1"]
 size = Vector3(0.302106, 0.00401939, 0.0608913)
@@ -197,8 +199,8 @@ TargetPath = NodePath("../../..")
 
 [node name="BodyAero" parent="." instance=ExtResource("14")]
 transform = Transform3D(0.0495848, 0, 0, 0, 0.0469194, 0, 0, 0, 0.458425, 0, 0.00942594, 0.071843)
-LiftCubePath = "res://Resources/BaseBodyLift.tres"
-DragCubePath = "res://Scenes/Aircraft/T28/BodyDrag.tres"
+LiftCube = ExtResource("17_o40d3")
+DragCube = ExtResource("18_46j1n")
 
 [node name="TailCamera" parent="." instance=ExtResource("15")]
 transform = Transform3D(1, 0, 0, 0, 0.999597, 0.0283927, 0, -0.0283927, 0.999597, 0, 0.119, 0.292)

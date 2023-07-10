@@ -11,15 +11,11 @@ namespace Physics.Forcers
         // Set cube paths to null to have no effect
         // todo: this is an explorative implementation, could do with some refactoring
 
-        [Export(PropertyHint.File, "*.tres")] public string LiftCubePath { get; set; } = null;
-        [Export(PropertyHint.File, "*.tres")] public string DragCubePath { get; set; } = null;
-        private AeroValueCube liftCube { get; set; }
-        private AeroValueCube dragCube { get; set; }
+        [Export] public AeroValueCube LiftCube { get; set; }
+        [Export] public AeroValueCube DragCube { get; set; }
 
         public override void _Ready()
         {
-            if (LiftCubePath != null) liftCube = ResourceLoader.Load<AeroValueCube>(LiftCubePath);
-            if (DragCubePath != null) dragCube = ResourceLoader.Load<AeroValueCube>(DragCubePath);
             UpdateDebugBoxVisibility();
             onDebugModeChanged += UpdateDebugBoxVisibility;
             base._Ready();
@@ -27,8 +23,6 @@ namespace Physics.Forcers
 
         public override Vector3 CalculateForce(ISpatialFluid fluid, PhysicsDirectBodyState3D state)
         {
-            return Vector3.Zero; // convtodo: enable this forcer
-
             var totalForce = Vector3.Zero;
 
             var density = fluid.DensityAtPoint(GlobalPosition);
@@ -41,20 +35,20 @@ namespace Physics.Forcers
             var size = Scale;
             var sideAreas = new Vector3(size.Y * size.Z, size.X * size.Z, size.X * size.Y);
 
-            if (liftCube != null)
+            if (LiftCube != null)
             {
                 // Calculate force for the 3 axis separately then combine.
 
-                var localLift = new Vector3(GetLiftAlongAxis(localVelocity.X, liftCube.Left, liftCube.Right) * sideAreas.X,
-                    GetLiftAlongAxis(localVelocity.Y, liftCube.Down, liftCube.Up) * sideAreas.Y,
-                    GetLiftAlongAxis(localVelocity.Z, liftCube.Forward, liftCube.Back) * sideAreas.Z);
+                var localLift = new Vector3(GetLiftAlongAxis(localVelocity.X, LiftCube.Left, LiftCube.Right) * sideAreas.X,
+                    GetLiftAlongAxis(localVelocity.Y, LiftCube.Down, LiftCube.Up) * sideAreas.Y,
+                    GetLiftAlongAxis(localVelocity.Z, LiftCube.Forward, LiftCube.Back) * sideAreas.Z);
                 var relativeLift = basis * localLift;
                 totalForce += relativeLift;
             }
-            if (dragCube != null)
+            if (DragCube != null)
             {
                 var frontalArea = InterpolateValueFromCube(localVelocity, AeroValueCube.FromVector3(sideAreas));
-                var coefficient = InterpolateValueFromCube(localVelocity, dragCube);
+                var coefficient = InterpolateValueFromCube(localVelocity, DragCube);
                 float dragMag = 0.5f * coefficient * frontalArea * localVelocity.LengthSquared();
                 totalForce += dragMag * relativeVelocity.Normalized() * -1;
             }

@@ -1,9 +1,9 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" script_class="AeroValueCube" load_steps=2 format=3 uid="uid://b861yo7rjlv2c"]
 
-[ext_resource path="res://Scripts/Physics/Forcers/AeroValueCube.cs" type="Script" id=1]
+[ext_resource type="Script" path="res://Scripts/Physics/Forcers/AeroValueCube.cs" id="1"]
 
 [resource]
-script = ExtResource( 1 )
+script = ExtResource("1")
 Left = 1.5
 Right = 1.5
 Up = 1.5

@@ -2,6 +2,8 @@
 
 FOSS RC Aviation Simulator (in early development)
 
+This is the godot 4 conversion branch.
+
 ## Controls
 
 - space to launch plane if it doesn't have wheels
@@ -104,8 +106,13 @@ Depending on how much base content is desired and how large the repository gets,
     - Internal combustion engine simulation
         - Should be easier than electrics especially now that all the propeller stuff is done.
         - Just have a rpm/torque curve, then throttle directly controls torque proportion and fuel consumption
-    - Potentially create a simulation of FPV inteference - we make a raycast from viewing position to camera, and degrade based on how many intersections.
-        - viewing position is FpvGroundStation, which is attached to the ground camera
+    - FPV
+        - Redo fpv shader
+            - remapping + clipping should only be done on brightness.
+            - should have some sort of chromatic abberation
+            - have hsv-space (or hsl-space) quantisation
+        - Potentially create a simulation of FPV inteference - we make a raycast from viewing position to camera, and degrade based on how many intersections.
+            - viewing position is FpvGroundStation, which is attached to the ground camera
     - prerecorded prop audio needs more control of volume
 - Input
     - Add an input debug UI thing

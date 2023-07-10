@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://dc7to6rwhfehq"]
+[gd_scene load_steps=31 format=3 uid="uid://dc7to6rwhfehq"]
 
 [ext_resource type="PackedScene" uid="uid://bxol07riywk1w" path="res://Art/Aircraft/Bushplane/Rudder.glb" id="1"]
 [ext_resource type="PackedScene" uid="uid://04tje3c4jp4q" path="res://Art/Aircraft/Bushplane/MainBody.glb" id="2"]
@@ -23,6 +23,8 @@
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/PropellerWithModel.tscn" id="22"]
 [ext_resource type="PackedScene" uid="uid://0x2sgnu0ucsv" path="res://Scenes/Forcers/ControlledWheelForcer.tscn" id="23"]
 [ext_resource type="PackedScene" uid="uid://17v4jwdgr8wd" path="res://Art/Aircraft/Bushplane/Wheel.glb" id="24"]
+[ext_resource type="Resource" path="res://Resources/BaseBodyLift.tres" id="24_oulko"]
+[ext_resource type="Resource" uid="uid://b861yo7rjlv2c" path="res://Resources/BaseBodyDrag.tres" id="25_qk0wj"]
 
 [sub_resource type="PhysicsMaterial" id="6"]
 friction = 0.3
@@ -287,5 +289,5 @@ transform = Transform3D(-1, 8.74228e-08, 0, -8.6835e-08, -0.993276, -0.115769, -
 
 [node name="BodyAero" parent="." instance=ExtResource("19")]
 transform = Transform3D(0.0545607, 0, 0, 0, 0.0774784, 0, 0, 0, 0.560043, 0, 0.00374507, 0.101238)
-LiftCubePath = "res://Scenes/Aircraft/TinyTrainer/BodyLift.tres"
-DragCubePath = "res://Resources/BaseBodyDrag.tres"
+LiftCube = ExtResource("24_oulko")
+DragCube = ExtResource("25_qk0wj")
