@@ -5,3 +5,9 @@
 
 [node name="JoystickButtonInput" instance=ExtResource("1")]
 script = ExtResource("2")
+
+[node name="Popup" parent="." index="2"]
+title = "Select joystick button"
+
+[node name="SelectAnotherInput" parent="Popup/MarginContainer/VBoxContainer/HBoxContainer" index="1"]
+text = "Select another button"

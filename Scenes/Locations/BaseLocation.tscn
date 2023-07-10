@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://wfhfmqv1cl37"]
+[gd_scene load_steps=16 format=3 uid="uid://wfhfmqv1cl37"]
 
 [ext_resource type="PackedScene" path="res://Scenes/Locations/Common/GroundCamera.tscn" id="1"]
 [ext_resource type="Script" path="res://Scripts/Physics/Fluids/SpatialFluidBeacon.cs" id="2"]
@@ -15,9 +15,6 @@
 [ext_resource type="Script" path="res://addons/MaxSizeContainer/max_size_container.gd" id="13"]
 [ext_resource type="Script" path="res://Scripts/UI/MessageManager.cs" id="14"]
 [ext_resource type="Script" path="res://Scripts/Locations/FreeCamera.cs" id="15"]
-[ext_resource type="PackedScene" path="res://Scenes/UI/Apps/PropellerDebug.tscn" id="16_hpi0o"]
-[ext_resource type="PackedScene" path="res://Scenes/UI/Apps/BrushlessMotorDebug.tscn" id="17_shl0d"]
-[ext_resource type="PackedScene" path="res://Scenes/UI/Apps/BatteryDebug.tscn" id="18_cacgm"]
 
 [node name="BaseLocation" type="Node3D"]
 process_mode = 3
@@ -118,21 +115,3 @@ layout_mode = 2
 mouse_filter = 2
 theme_override_constants/separation = 10
 script = ExtResource("14")
-
-[node name="PropellerDebug" parent="CanvasLayer" instance=ExtResource("16_hpi0o")]
-offset_left = 25.0
-offset_top = 90.0
-offset_right = 266.0
-offset_bottom = 349.0
-
-[node name="BrushlessMotorDebug" parent="CanvasLayer" instance=ExtResource("17_shl0d")]
-offset_left = 29.0
-offset_top = 644.0
-offset_right = 270.0
-offset_bottom = 903.0
-
-[node name="BatteryDebug" parent="CanvasLayer" instance=ExtResource("18_cacgm")]
-offset_left = 29.0
-offset_top = 365.0
-offset_right = 270.0
-offset_bottom = 624.0

@@ -39,13 +39,13 @@ namespace UI.Settings.Components
         {
             var candidate = GetCandidateValue();
 
-            if (candidate is JoyButton notNull) return $"Button {notNull} selected";
+            if (candidate is JoyButton notNull) return $"Button {(int)notNull} selected";
             else return "Press a button on your controller to select it";
         }
 
         protected override string GetCurrentValueText()
         {
-            return $"Button {read(SettingsScreen.NewSettings)}";
+            return $"Button {(int)read(SettingsScreen.NewSettings)}";
         }
 
         protected override void ClearCandidateValue()

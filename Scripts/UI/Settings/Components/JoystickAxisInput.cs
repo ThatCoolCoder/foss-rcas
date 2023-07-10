@@ -56,12 +56,12 @@ namespace UI.Settings.Components
             var candidate = GetCandidateValue();
 
             if (candidate == null) return "Move an axis to select it...";
-            else return $"Axis {candidate} selected";
+            else return $"Axis {(int)candidate} selected";
         }
 
         protected override string GetCurrentValueText()
         {
-            return $"Axis {read(SettingsScreen.NewSettings)}";
+            return $"Axis {(int)read(SettingsScreen.NewSettings)}";
         }
 
         protected override void ClearCandidateValue()
