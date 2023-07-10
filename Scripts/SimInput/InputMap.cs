@@ -30,44 +30,44 @@ namespace SimInput
         {
             // AIRCRAFT
             {"aircraft/throttle", new() {
-                new SimInput.AxisControlMapping() { Axis = JoyAxis.LeftY }}
+                new SimInput.AxisControlMapping() { Axis = (uint)JoyAxis.LeftY }}
             },
             {"aircraft/aileron", new() {
-                new SimInput.AxisControlMapping() { Axis = JoyAxis.RightX }}
+                new SimInput.AxisControlMapping() { Axis = (uint)JoyAxis.RightX }}
             },
             {"aircraft/elevator", new() {
-                new SimInput.AxisControlMapping() { Axis = JoyAxis.RightY }}
+                new SimInput.AxisControlMapping() { Axis = (uint)JoyAxis.RightY }}
             },
             {"aircraft/rudder", new() {
-                new SimInput.AxisControlMapping() { Axis = JoyAxis.LeftX }}
+                new SimInput.AxisControlMapping() { Axis = (uint)JoyAxis.LeftX }}
             },
             {"aircraft/aux1", new() {
                 new SimInput.ThreePosKeyboardControlMapping()
                 {
-                    Key1Scancode = Key.Key5,
-                    Key2Scancode = Key.Key6,
-                    Key3Scancode = Key.Key7,
+                    Key1Scancode = (uint) Key.Key5,
+                    Key2Scancode = (uint) Key.Key6,
+                    Key3Scancode = (uint) Key.Key7,
                 }}
             },
             {"aircraft/aux2", new() {
                 new SimInput.SimpleKeyboardControlMapping()
                 {
-                    KeyScancode = Key.F,
+                    Key = Key.F,
                     Momentary = true
                 }}
             },
             {"aircraft/aux3", new() {
                 new SimInput.ThreePosKeyboardControlMapping()
                 {
-                    Key1Scancode = Key.Key8,
-                    Key2Scancode = Key.Key9,
-                    Key3Scancode = Key.Key0,
+                    Key1Scancode = (uint) Key.Key8,
+                    Key2Scancode = (uint) Key.Key9,
+                    Key3Scancode = (uint) Key.Key0,
                 }}
             },
             {"aircraft/aux4", new() {
                 new SimInput.SimpleKeyboardControlMapping()
                 {
-                    KeyScancode = Key.G,
+                    Key = Key.G,
                     Momentary = false
                 }}
             },
@@ -77,14 +77,14 @@ namespace SimInput
             {"camera/move_backward", new() {
                 new SimInput.SimpleKeyboardControlMapping()
                 {
-                    KeyScancode = Key.S,
+                    Key = Key.S,
                     Momentary = true
                 },
             }},
             {"camera/move_forward", new() {
                 new SimInput.SimpleKeyboardControlMapping()
                 {
-                    KeyScancode = Key.W,
+                    Key = Key.W,
                     Momentary = true
                 },
             }},
@@ -92,14 +92,14 @@ namespace SimInput
             {"camera/move_left", new() {
                 new SimInput.SimpleKeyboardControlMapping()
                 {
-                    KeyScancode = Key.A,
+                    Key = Key.A,
                     Momentary = true
                 },
             }},
             {"camera/move_right", new() {
                 new SimInput.SimpleKeyboardControlMapping()
                 {
-                    KeyScancode = Key.D,
+                    Key = Key.D,
                     Momentary = true
                 },
             }},
@@ -107,14 +107,14 @@ namespace SimInput
             {"camera/move_down", new() {
                 new SimInput.SimpleKeyboardControlMapping()
                 {
-                    KeyScancode = Key.Q,
+                    Key = Key.Q,
                     Momentary = true
                 },
             }},
             {"camera/move_up", new() {
                 new SimInput.SimpleKeyboardControlMapping()
                 {
-                    KeyScancode = Key.E,
+                    Key = Key.E,
                     Momentary = true
                 },
             }},
@@ -125,24 +125,24 @@ namespace SimInput
             {"camera/tilt_down", new() },
             {"camera/tilt_up", new() },
 
-            // {"camera/reset", new() {
-            //     new SimInput.SimpleKeyboardControlMapping()
-            //     {
-            //         KeyScancode = Key.C | (Key) KeyModifierMask.MaskCmdOrCtrl,
-            //         Momentary = true
-            //     },
-            // }},
-            // {"camera/previous", new() {
-            //     new SimInput.SimpleKeyboardControlMapping()
-            //     {
-            //         KeyScancode = Key.C | (Key) KeyModifierMask.MaskShift,
-            //         Momentary = true
-            //     },
-            // }},
+            {"camera/reset", new() {
+                new SimInput.SimpleKeyboardControlMapping()
+                {
+                    Key = Key.C | (Key) KeyModifierMask.MaskCmdOrCtrl,
+                    Momentary = true
+                },
+            }},
+            {"camera/previous", new() {
+                new SimInput.SimpleKeyboardControlMapping()
+                {
+                    Key = Key.C | (Key) KeyModifierMask.MaskShift,
+                    Momentary = true
+                },
+            }},
             {"camera/next", new() {
                 new SimInput.SimpleKeyboardControlMapping()
                 {
-                    KeyScancode = Key.C,
+                    Key = Key.C,
                     Momentary = true
                 },
             }},
@@ -151,49 +151,49 @@ namespace SimInput
             {"gameplay/launch", new() {
                 new SimInput.SimpleKeyboardControlMapping()
                 {
-                    KeyScancode = Key.Space,
+                    Key = Key.Space,
                     Momentary = true
                 },
             }},
             {"gameplay/reset", new() {
                 new SimInput.SimpleKeyboardControlMapping()
                 {
-                    KeyScancode = Key.R,
+                    Key = Key.R,
                     Momentary = true
                 },
             }}, // convtodo: it doesn't like keycodes with ctrl
-            // {"gameplay/reload_aircraft", new() {
-            //     new SimInput.SimpleKeyboardControlMapping()
-            //     {
-            //         KeyScancode = Key.R | (Key) KeyModifierMask.MaskCmdOrCtrl,
-            //         Momentary = true
-            //     },
-            // }},
+            {"gameplay/reload_aircraft", new() {
+                new SimInput.SimpleKeyboardControlMapping()
+                {
+                    Key = Key.R | (Key) KeyModifierMask.MaskCmdOrCtrl,
+                    Momentary = true
+                },
+            }},
             {"gameplay/pause", new() {
                 new SimInput.SimpleKeyboardControlMapping()
                 {
-                    KeyScancode = Key.P,
+                    Key = Key.P,
                     Momentary = true
                 },
             }},
             {"gameplay/more_slow_motion", new() {
                 new SimInput.SimpleKeyboardControlMapping()
                 {
-                    KeyScancode = Key.Comma,
+                    Key = Key.Comma,
                     Momentary = true
                 },
             }},
             {"gameplay/less_slow_motion", new() {
                 new SimInput.SimpleKeyboardControlMapping()
                 {
-                    KeyScancode = Key.Period,
+                    Key = Key.Period,
                     Momentary = true
                 },
             }},
             {"gameplay/reset_slow_motion", new() {
                 new SimInput.SimpleKeyboardControlMapping()
                 {
-                    KeyScancode = Key.Slash,
+                    Key = Key.Slash,
                     Momentary = true
                 },
             }},

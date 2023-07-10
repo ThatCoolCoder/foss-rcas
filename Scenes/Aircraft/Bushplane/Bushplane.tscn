@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://dc7to6rwhfehq"]
+[gd_scene load_steps=32 format=3 uid="uid://dc7to6rwhfehq"]
 
 [ext_resource type="PackedScene" uid="uid://bxol07riywk1w" path="res://Art/Aircraft/Bushplane/Rudder.glb" id="1"]
 [ext_resource type="PackedScene" uid="uid://04tje3c4jp4q" path="res://Art/Aircraft/Bushplane/MainBody.glb" id="2"]
@@ -24,7 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://0x2sgnu0ucsv" path="res://Scenes/Forcers/ControlledWheelForcer.tscn" id="23"]
 [ext_resource type="PackedScene" uid="uid://17v4jwdgr8wd" path="res://Art/Aircraft/Bushplane/Wheel.glb" id="24"]
 [ext_resource type="Resource" path="res://Resources/BaseBodyLift.tres" id="24_oulko"]
-[ext_resource type="Resource" uid="uid://b861yo7rjlv2c" path="res://Resources/BaseBodyDrag.tres" id="25_qk0wj"]
+[ext_resource type="Script" path="res://Scripts/Physics/Forcers/AeroValueCube.cs" id="25_ttgjb"]
 
 [sub_resource type="PhysicsMaterial" id="6"]
 friction = 0.3
@@ -40,6 +40,15 @@ size = Vector3(0.820967, 0.0082743, 0.13964)
 
 [sub_resource type="BoxShape3D" id="5"]
 size = Vector3(0.173506, 0.047209, 0.0245659)
+
+[sub_resource type="Resource" id="Resource_nuyxj"]
+script = ExtResource("25_ttgjb")
+Left = 1.5
+Right = 1.5
+Up = 1.5
+Down = 1.5
+Forward = 0.0
+Back = 0.7
 
 [node name="Bushplane" type="RigidBody3D"]
 mass = 0.49
@@ -288,6 +297,6 @@ TargetPath = NodePath("../..")
 transform = Transform3D(-1, 8.74228e-08, 0, -8.6835e-08, -0.993276, -0.115769, -1.01209e-08, -0.115769, 0.993276, -0.0010891, -0.000733249, 0.0150639)
 
 [node name="BodyAero" parent="." instance=ExtResource("19")]
-transform = Transform3D(0.0545607, 0, 0, 0, 0.0774784, 0, 0, 0, 0.560043, 0, 0.00374507, 0.101238)
+transform = Transform3D(0.0545607, 0, 0, 0, 0.0723074, 0, 0, 0, 0.560043, 0, 0.00294334, 0.101238)
 LiftCube = ExtResource("24_oulko")
-DragCube = ExtResource("25_qk0wj")
+DragCube = SubResource("Resource_nuyxj")

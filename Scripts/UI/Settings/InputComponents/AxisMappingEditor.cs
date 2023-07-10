@@ -33,8 +33,8 @@ namespace UI.Settings.InputComponents
                 .OnSettingsChanged();
 
             holder.GetNode<JoystickAxisInput>("JoystickAxisInput").Config(null, "Selected axis",
-                s => controlMapping.Axis,
-                (s, v) => controlMapping.Axis = v)
+                s => (JoyAxis)controlMapping.Axis,
+                (s, v) => controlMapping.Axis = (uint)v)
                 .OnSettingsChanged();
 
             holder.GetNode<NumericSliderInput>("Sensitivity").Config(null, "Sensitivity",

@@ -27,8 +27,8 @@ namespace UI.Settings.InputComponents
             var holder = GetMainItemHolder();
 
             holder.GetNode<JoystickButtonInput>("JoystickButtonInput").Config(null, "Button",
-                s => controlMapping.ButtonIndex,
-                (s, v) => controlMapping.ButtonIndex = v)
+                s => (JoyButton)controlMapping.ButtonIndex,
+                (s, v) => controlMapping.ButtonIndex = (uint)v)
                 .OnSettingsChanged();
 
             holder.GetNode<BooleanInput>("MomentaryInput").Config(null, "Momentary",

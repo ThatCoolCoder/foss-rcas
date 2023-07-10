@@ -9,7 +9,6 @@ script = ExtResource("2")
 [node name="Popup" parent="." index="2"]
 title = "Select joystick axis..."
 size = Vector2i(360, 100)
-visible = true
 
 [node name="SelectAnotherInput" parent="Popup/MarginContainer/VBoxContainer/HBoxContainer" index="1"]
 text = "Select another axis"

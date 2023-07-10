@@ -44,12 +44,12 @@ namespace UI.Settings.InputComponents
             if (controlMapping is ButtonControlMapping bm) return $"But {(int)bm.ButtonIndex}";
             if (controlMapping is SimpleKeyboardControlMapping skm)
             {
-                if (skm.Momentary) return $"Key - {OS.GetKeycodeString(skm.KeyScancode)}";
-                else return $"Key - {OS.GetKeycodeString(skm.KeyScancode)}";
+                if (skm.Momentary) return $"Key - {OS.GetKeycodeString((Key)skm.KeyScancode)}";
+                else return $"Key - {OS.GetKeycodeString((Key)skm.KeyScancode)}";
             }
             if (controlMapping is ThreePosKeyboardControlMapping tpkm)
                 return $"Key - " +
-                $"{OS.GetKeycodeString(tpkm.Key1Scancode)}, {OS.GetKeycodeString(tpkm.Key2Scancode)}, {OS.GetKeycodeString(tpkm.Key3Scancode)}";
+                $"{OS.GetKeycodeString((Key)tpkm.Key1Scancode)}, {OS.GetKeycodeString((Key)tpkm.Key2Scancode)}, {OS.GetKeycodeString((Key)tpkm.Key3Scancode)}";
 
             Utils.LogError($"Unknown control type: {controlMapping.GetType().FullName}", this);
             return "Unknown mapping type";

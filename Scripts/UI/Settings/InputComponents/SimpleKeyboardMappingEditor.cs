@@ -27,8 +27,8 @@ namespace UI.Settings.InputComponents
             var holder = GetMainItemHolder();
 
             holder.GetNode<KeyInput>("KeyInput").Config(null, "Key",
-                s => controlMapping.KeyScancode,
-                (s, v) => controlMapping.KeyScancode = v).OnSettingsChanged();
+                s => (Key)controlMapping.KeyScancode,
+                (s, v) => controlMapping.KeyScancode = (uint)v).OnSettingsChanged();
 
             holder.GetNode<BooleanInput>("MomentaryInput").Config(null, "Momentary",
                 s => controlMapping.Momentary,

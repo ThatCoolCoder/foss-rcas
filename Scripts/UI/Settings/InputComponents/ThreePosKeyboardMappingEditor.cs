@@ -27,16 +27,16 @@ namespace UI.Settings.InputComponents
             var holder = GetMainItemHolder();
 
             holder.GetNode<KeyInput>("KeyInput1").Config(null, "Position 1",
-                s => controlMapping.Key1Scancode,
-                (s, v) => controlMapping.Key1Scancode = v)
+                s => (Key)controlMapping.Key1Scancode,
+                (s, v) => controlMapping.Key1Scancode = (uint)v)
                 .OnSettingsChanged();
             holder.GetNode<KeyInput>("KeyInput2").Config(null, "Position 2",
-                s => controlMapping.Key2Scancode,
-                (s, v) => controlMapping.Key2Scancode = v)
+                s => (Key)controlMapping.Key2Scancode,
+                (s, v) => controlMapping.Key2Scancode = (uint)v)
                 .OnSettingsChanged();
             holder.GetNode<KeyInput>("KeyInput3").Config(null, "Position 3",
-                s => controlMapping.Key3Scancode,
-                (s, v) => controlMapping.Key3Scancode = v)
+                s => (Key)controlMapping.Key3Scancode,
+                (s, v) => controlMapping.Key3Scancode = (uint)v)
                 .OnSettingsChanged();
         }
     }
