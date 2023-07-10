@@ -1,40 +1,32 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://bd51yu0b5ems4"]
 
-[ext_resource path="res://Resources/FpvNoise.gdshader" type="Shader" id=1]
-[ext_resource path="res://Scripts/Aircraft/FpvCamera.cs" type="Script" id=2]
+[ext_resource type="Shader" path="res://Resources/FpvNoise.gdshader" id="1"]
+[ext_resource type="Script" path="res://Scripts/Aircraft/FpvCamera.cs" id="2"]
 
-[sub_resource type="FastNoiseLite" id=1]
-fractal_octaves = 4
-period = 0.1
-persistence = 0.747
-lacunarity = 4.0
-
-[sub_resource type="NoiseTexture" id=2]
-seamless = true
-as_normal_map = true
-noise = SubResource( 1 )
-
-[sub_resource type="ShaderMaterial" id=3]
-shader = ExtResource( 1 )
-shader_param/time_multiplier = 2.564
-shader_param/blur_size = 0.001
-shader_param/color_quantize_amount = 0.025
-shader_param/color_clip_max = 0.9
-shader_param/color_clip_min = 0.1
-shader_param/noise_add_multiplier = 0.1
-shader_param/noise = SubResource( 2 )
+[sub_resource type="ShaderMaterial" id="3"]
+shader = ExtResource("1")
+shader_parameter/time_multiplier = 0.001
+shader_parameter/blur_size = 0.001
+shader_parameter/hotspot_chance = 0.001
+shader_parameter/color_quantize_amount = 0.01
+shader_parameter/color_clip_max = 0.8
+shader_parameter/color_clip_min = 0.1
+shader_parameter/color_remap_max = 0.7
+shader_parameter/color_remap_min = 0.15
+shader_parameter/noise_add_multiplier = 0.1
+shader_parameter/noise_scale = 32.234
 
 [node name="FpvCamera" type="Camera3D"]
 fov = 55.0
 far = 50000.0
-script = ExtResource( 2 )
+script = ExtResource("2")
 ViewName = "FPV"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
-material = SubResource( 3 )
+material = SubResource("3")
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2

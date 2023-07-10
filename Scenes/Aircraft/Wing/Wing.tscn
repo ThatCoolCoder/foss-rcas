@@ -11,7 +11,7 @@
 [ext_resource type="Curve" path="res://Resources/AeroCurves/FlatPlateLiftCoefficient.tres" id="10"]
 [ext_resource type="Curve" path="res://Resources/AeroCurves/DeltaWingLiftCoefficient.tres" id="11"]
 [ext_resource type="PackedScene" uid="uid://dkaj0oai3nj3f" path="res://Art/Aircraft/Wing/LeftElevon.glb" id="12"]
-[ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/FpvCamera.tscn" id="13"]
+[ext_resource type="PackedScene" uid="uid://bd51yu0b5ems4" path="res://Scenes/Aircraft/Common/FpvCamera.tscn" id="13"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/PropellerWithModel.tscn" id="14"]
 [ext_resource type="Script" path="res://Scripts/Audio/PrerecordedPropellerNoise.cs" id="15"]
 [ext_resource type="AudioStream" uid="uid://deys0bnykpb1r" path="res://Art/Aircraft/Common/PropAudio/3S-2304-6x4E.mp3" id="16"]
