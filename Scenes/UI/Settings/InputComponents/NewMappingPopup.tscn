@@ -49,5 +49,6 @@ text = "Cancel"
 layout_mode = 2
 text = "Ok"
 
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/Inputs/MappingTypeSelector" to="." method="_on_MappingTypeSelector_item_selected"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/Cancel" to="." method="_on_Cancel_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/Ok" to="." method="_on_Ok_pressed"]
