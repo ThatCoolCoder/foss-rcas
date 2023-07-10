@@ -4,30 +4,37 @@
 [ext_resource type="PackedScene" path="res://Scenes/UI/Misc/AccordionMenu.tscn" id="2"]
 [ext_resource type="PackedScene" path="res://Scenes/UI/Misc/CustomConfirmationDialog.tscn" id="3"]
 
-[node name="InputTab" type="ScrollContainer"]
+[node name="InputTab" type="ScrollContainer" node_paths=PackedStringArray("ConfirmationDialog", "Holder")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_horizontal = 3
 script = ExtResource("1")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 20
-
-[node name="AccordionMenu" parent="VBoxContainer" instance=ExtResource("2")]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/separation = 20
-
-[node name="Reset" type="Button" parent="VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-text = "Reset input settings"
+ConfirmationDialog = NodePath("CustomConfirmationDialog")
+Holder = NodePath("MarginContainer/VBoxContainer/AccordionMenu")
 
 [node name="CustomConfirmationDialog" parent="." instance=ExtResource("3")]
 dialog_text = "Are you sure you want to reset the input map? All custom bindings will be lost."
 
-[connection signal="pressed" from="VBoxContainer/Reset" to="." method="_on_Reset_pressed"]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"SettingsMargin"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 20
+
+[node name="AccordionMenu" parent="MarginContainer/VBoxContainer" instance=ExtResource("2")]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 20
+
+[node name="Reset" type="Button" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+text = "Reset input settings"
+
 [connection signal="confirmed" from="CustomConfirmationDialog" to="." method="_on_ConfirmationDialog_confirmed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Reset" to="." method="_on_Reset_pressed"]

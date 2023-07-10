@@ -1,23 +1,21 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://r4pl5cs86j1j"]
 
-[ext_resource path="res://Resources/Fonts/Heading1.tres" type="FontFile" id=1]
-[ext_resource path="res://Scripts/UI/Misc/Heading.cs" type="Script" id=2]
+[ext_resource type="Script" path="res://Scripts/UI/Misc/Heading.cs" id="2"]
 
-[node name="Heading" type="CenterContainer"]
+[node name="Heading" type="MarginContainer"]
+anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 35.0
+offset_bottom = 38.0
+grow_horizontal = 2
 mouse_filter = 2
-script = ExtResource( 2 )
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+script = ExtResource("2")
 
 [node name="Label" type="Label" parent="."]
-offset_left = 590.0
-offset_right = 690.0
-offset_bottom = 35.0
-grow_horizontal = 2
-size_flags_horizontal = 0
-theme_override_fonts/font = ExtResource( 1 )
+layout_mode = 2
+size_flags_horizontal = 4
+theme_type_variation = &"Heading1"
 text = "Heading"
-align = 1
-__meta__ = {
-"_editor_description_": ""
-}

@@ -1,127 +1,99 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=3 uid="uid://bqbllk68fj7uu"]
 
-[ext_resource path="res://Resources/Fonts/Heading2.tres" type="FontFile" id=1]
-[ext_resource path="res://Scenes/UI/Misc/BackButton.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/UI/Misc/Heading.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scripts/UI/Settings/SettingsScreen.cs" type="Script" id=4]
-[ext_resource path="res://Scenes/UI/Settings/ViewTab.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Scenes/UI/Settings/MiscTab.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Scenes/UI/Settings/InputTab.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Scenes/UI/Settings/GraphicsTab.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Scenes/UI/Misc/CustomConfirmationDialog.tscn" type="PackedScene" id=9]
+[ext_resource type="FontFile" path="res://Resources/Fonts/Heading2.tres" id="1"]
+[ext_resource type="PackedScene" uid="uid://r4pl5cs86j1j" path="res://Scenes/UI/Misc/Heading.tscn" id="3"]
+[ext_resource type="Script" path="res://Scripts/UI/Settings/SettingsScreen.cs" id="4"]
+[ext_resource type="PackedScene" uid="uid://doovbahw2div2" path="res://Scenes/UI/Settings/ViewTab.tscn" id="5"]
+[ext_resource type="PackedScene" uid="uid://bqp8bbn7oxbv4" path="res://Scenes/UI/Settings/MiscTab.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://dc3q42v0qakpf" path="res://Scenes/UI/Settings/InputTab.tscn" id="7"]
+[ext_resource type="PackedScene" uid="uid://cqtbr0iuvr5fa" path="res://Scenes/UI/Settings/GraphicsTab.tscn" id="8"]
+[ext_resource type="PackedScene" path="res://Scenes/UI/Misc/CustomConfirmationDialog.tscn" id="9"]
 
 [node name="SettingsScreen" type="MarginContainer"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-pivot_offset = Vector2( -483, -148 )
-theme_override_constants/margin_right = 50
+pivot_offset = Vector2(-483, -148)
 theme_override_constants/margin_left = 50
+theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 20
-script = ExtResource( 4 )
+script = ExtResource("4")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-offset_left = 50.0
-offset_right = 1230.0
-offset_bottom = 700.0
+layout_mode = 2
 
-[node name="Heading" parent="VBoxContainer" instance=ExtResource( 3 )]
-anchor_right = 0.0
-offset_right = 1180.0
+[node name="Heading" parent="VBoxContainer" instance=ExtResource("3")]
+layout_mode = 2
 Text = "Settings"
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
-offset_top = 39.0
-offset_right = 1180.0
-offset_bottom = 667.0
+layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/margin_right = 0
-theme_override_constants/margin_top = 20
 theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 20
 
 [node name="MainTabs" type="TabContainer" parent="VBoxContainer/MarginContainer"]
-offset_top = 20.0
-offset_right = 1180.0
-offset_bottom = 608.0
+layout_mode = 2
 size_flags_vertical = 3
-theme_override_constants/top_margin = 0
 theme_override_constants/side_margin = 0
-tab_alignment = 0
 
-[node name="Graphics" parent="VBoxContainer/MarginContainer/MainTabs" instance=ExtResource( 8 )]
-offset_left = 4.0
-offset_top = 36.0
-offset_right = -4.0
-offset_bottom = -4.0
+[node name="Graphics" parent="VBoxContainer/MarginContainer/MainTabs" instance=ExtResource("8")]
+layout_mode = 2
 
-[node name="View" parent="VBoxContainer/MarginContainer/MainTabs" instance=ExtResource( 5 )]
+[node name="View" parent="VBoxContainer/MarginContainer/MainTabs" instance=ExtResource("5")]
 visible = false
-offset_left = 4.0
-offset_top = 36.0
-offset_right = -4.0
-offset_bottom = -4.0
+layout_mode = 2
 
-[node name="Input Map" parent="VBoxContainer/MarginContainer/MainTabs" instance=ExtResource( 7 )]
+[node name="Input Map" parent="VBoxContainer/MarginContainer/MainTabs" instance=ExtResource("7")]
 visible = false
+layout_mode = 2
 
-[node name="Misc" parent="VBoxContainer/MarginContainer/MainTabs" instance=ExtResource( 6 )]
+[node name="Misc" parent="VBoxContainer/MarginContainer/MainTabs" instance=ExtResource("6")]
 visible = false
+layout_mode = 2
 
 [node name="Buttons" type="HBoxContainer" parent="VBoxContainer"]
-offset_top = 671.0
-offset_right = 1180.0
-offset_bottom = 700.0
+layout_mode = 2
 theme_override_constants/separation = 10
 alignment = 2
 
 [node name="Reset" type="Button" parent="VBoxContainer/Buttons"]
-offset_left = 841.0
-offset_right = 895.0
-offset_bottom = 29.0
+layout_mode = 2
 tooltip_text = "Reset the settings to their defaults"
-theme_override_fonts/font = ExtResource( 1 )
+theme_override_fonts/font = ExtResource("1")
 text = "Reset"
 
-[node name="Cancel" parent="VBoxContainer/Buttons" instance=ExtResource( 2 )]
-offset_left = 905.0
-offset_top = 0.0
-offset_right = 968.0
-offset_bottom = 29.0
-tooltip_text = "Undo changes and leave"
+[node name="Cancel" type="Button" parent="VBoxContainer/Buttons"]
+layout_mode = 2
+tooltip_text = "Reset the settings to their defaults"
+theme_override_fonts/font = ExtResource("1")
 text = "Cancel"
-ScenePath = "res://Scenes/UI/StartScreen.tscn"
 
 [node name="Revert" type="Button" parent="VBoxContainer/Buttons"]
-offset_left = 978.0
-offset_right = 1040.0
-offset_bottom = 29.0
+layout_mode = 2
 tooltip_text = "Undo changes"
-theme_override_fonts/font = ExtResource( 1 )
+theme_override_fonts/font = ExtResource("1")
 text = "Revert"
 
 [node name="Apply" type="Button" parent="VBoxContainer/Buttons"]
-offset_left = 1050.0
-offset_right = 1106.0
-offset_bottom = 29.0
+layout_mode = 2
 tooltip_text = "Apply settings but do not leave"
-theme_override_fonts/font = ExtResource( 1 )
+theme_override_fonts/font = ExtResource("1")
 text = "Apply"
 
 [node name="Accept" type="Button" parent="VBoxContainer/Buttons"]
-offset_left = 1116.0
-offset_right = 1180.0
-offset_bottom = 29.0
+layout_mode = 2
 tooltip_text = "Apply settings and leave"
-theme_override_fonts/font = ExtResource( 1 )
+theme_override_fonts/font = ExtResource("1")
 text = "Accept"
 
-[node name="CustomConfirmationDialog" parent="." instance=ExtResource( 9 )]
-offset_left = 50.0
-offset_right = 1230.0
-offset_bottom = 700.0
+[node name="CustomConfirmationDialog" parent="." instance=ExtResource("9")]
 dialog_text = "Are you sure you want to completely reset your settings?"
 
 [connection signal="pressed" from="VBoxContainer/Buttons/Reset" to="." method="_on_Reset_pressed"]
+[connection signal="pressed" from="VBoxContainer/Buttons/Cancel" to="." method="_on_Cancel_pressed"]
 [connection signal="pressed" from="VBoxContainer/Buttons/Revert" to="." method="_on_Revert_pressed"]
 [connection signal="pressed" from="VBoxContainer/Buttons/Apply" to="." method="_on_Apply_pressed"]
 [connection signal="pressed" from="VBoxContainer/Buttons/Accept" to="." method="_on_Accept_pressed"]

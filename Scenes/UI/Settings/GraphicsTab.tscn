@@ -1,28 +1,24 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://cqtbr0iuvr5fa"]
 
-[ext_resource path="res://Scenes/UI/Settings/BaseSettingsTab.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scripts/UI/Settings/GraphicsTab.cs" type="Script" id=2]
+[ext_resource type="PackedScene" uid="uid://10lx2yg7frfy" path="res://Scenes/UI/Settings/BaseSettingsTab.tscn" id="1"]
+[ext_resource type="Script" path="res://Scripts/UI/Settings/GraphicsTab.cs" id="2"]
 
-[node name="GraphicsTab" instance=ExtResource( 1 )]
-script = ExtResource( 2 )
+[node name="GraphicsTab" node_paths=PackedStringArray("Holder", "PresetHolder") instance=ExtResource("1")]
+script = ExtResource("2")
+Holder = NodePath("MarginContainer/VBoxContainer")
+PresetHolder = NodePath("MarginContainer/VBoxContainer/Presets")
 
-[node name="MaxSizeContainer" parent="." index="0"]
-offset_bottom = 40.0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="MaxSizeContainer" index="0"]
-offset_right = 1200.0
-offset_bottom = 40.0
-custom_minimum_size = Vector2( 0, 40 )
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" index="0"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Presets" type="HBoxContainer" parent="MaxSizeContainer/VBoxContainer" index="0"]
-offset_right = 1200.0
-offset_bottom = 40.0
-custom_minimum_size = Vector2( 0, 40 )
+[node name="Presets" type="HBoxContainer" parent="MarginContainer/VBoxContainer" index="0"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="Label" type="Label" parent="MaxSizeContainer/VBoxContainer/Presets" index="0"]
-offset_right = 47.0
-offset_bottom = 18.0
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Presets" index="0"]
+layout_mode = 2
 size_flags_vertical = 0
 text = "Presets:"

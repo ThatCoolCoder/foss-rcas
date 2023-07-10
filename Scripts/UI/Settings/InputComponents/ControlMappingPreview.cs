@@ -40,8 +40,8 @@ namespace UI.Settings.InputComponents
                 Utils.LogError("Control mapping is null", this);
                 return "Null";
             }
-            if (controlMapping is AxisControlMapping am) return $"Axis {am.Axis}";
-            if (controlMapping is ButtonControlMapping bm) return $"But {bm.ButtonIndex}";
+            if (controlMapping is AxisControlMapping am) return $"Axis {(int)am.Axis}";
+            if (controlMapping is ButtonControlMapping bm) return $"But {(int)bm.ButtonIndex}";
             if (controlMapping is SimpleKeyboardControlMapping skm)
             {
                 if (skm.Momentary) return $"Key - {OS.GetKeycodeString(skm.KeyScancode)}";

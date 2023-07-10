@@ -18,9 +18,9 @@ namespace UI.FlightSettings
         private static Vector2 expectedTextureSize = new Vector2(1280, 720);
         private static Texture2D noThumbnailTexture = ResourceLoader.Load<Texture2D>("res://Art/NoThumbnail.png");
 
-        private OptionButton selector;
-        private TextureRect thumbnail;
-        private RichTextLabel mainText;
+        [Export] private OptionButton selector;
+        [Export] private TextureRect thumbnail;
+        [Export] private RichTextLabel mainText;
         public List<T> AvailableItems
         {
             get
@@ -39,11 +39,9 @@ namespace UI.FlightSettings
 
         public override void _Ready()
         {
-            selector = GetNode<OptionButton>("VBoxContainer/OptionButton");
-            thumbnail = GetNode<TextureRect>("VBoxContainer/Image");
-            mainText = GetNode<RichTextLabel>("VBoxContainer/RichTextLabel");
             _on_OptionButton_item_selected(0);
         }
+
         public void _on_OptionButton_item_selected(int index)
         {
             if (0 <= index && index < AvailableItems.Count)

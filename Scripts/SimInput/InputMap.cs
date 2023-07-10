@@ -161,7 +161,7 @@ namespace SimInput
                     KeyScancode = Key.R,
                     Momentary = true
                 },
-            }},
+            }}, // convtodo: it doesn't like keycodes with ctrl
             // {"gameplay/reload_aircraft", new() {
             //     new SimInput.SimpleKeyboardControlMapping()
             //     {

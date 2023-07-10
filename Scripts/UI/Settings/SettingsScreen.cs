@@ -20,16 +20,21 @@ namespace UI.Settings
             OnSettingsChanged(); // update all inputs
         }
 
-        private void _on_Reset_pressed()
-        {
-            GetNode<Misc.CustomConfirmationDialogue>("CustomConfirmationDialog").AskToConfirm();
-        }
-
         private void _on_ConfirmationDialog_confirmed()
         {
             NewSettings = new Settings();
 
             _on_Apply_pressed();
+        }
+
+        private void _on_Reset_pressed()
+        {
+            GetNode<Misc.CustomConfirmationDialogue>("CustomConfirmationDialog").AskToConfirm();
+        }
+
+        private void _on_cancel_pressed()
+        {
+            GetTree().ChangeSceneToFile("res://Scenes/StartScreen.tscn");
         }
 
         private void _on_Revert_pressed()

@@ -8,13 +8,13 @@ namespace UI.Settings
 
     public partial class MiscTab : Control
     {
+        [Export] public Control Holder { get; set; }
 
         public override void _Ready()
         {
-            var holder = GetNode<Control>("MaxSizeContainer/VBoxContainer");
 
             NumericInput.Scene.Instantiate<NumericInput>().Config(
-                holder,
+                Holder,
                 "Physics FPS",
                 s => s.Misc.PhysicsFps,
                 (s, v) => s.Misc.PhysicsFps = (int)v,
@@ -22,7 +22,7 @@ namespace UI.Settings
                 toolTip: "Higher values give a more accurate simulation but may cause poor performance on lower-end hardware");
 
             FileInput.Scene.Instantiate<FileInput>().Config(
-                holder,
+                Holder,
                 "Add on directory",
                 s => s.Misc.AddonRepositoryPath,
                 (s, v) => s.Misc.AddonRepositoryPath = v,

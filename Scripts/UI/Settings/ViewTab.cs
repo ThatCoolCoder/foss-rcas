@@ -7,19 +7,19 @@ namespace UI.Settings
     public partial class ViewTab : Control
     {
 
+        [Export] public Control Holder { get; set; }
+
         public override void _Ready()
         {
-            var holder = GetNode<VBoxContainer>("MaxSizeContainer/VBoxContainer/MainList");
-
             NumericInput.Scene.Instantiate<NumericInput>().Config(
-                holder,
+                Holder,
                 "Field of view (degrees)",
                 s => s.GroundCameraZoom.BaseFov,
                 (s, v) => s.GroundCameraZoom.BaseFov = v,
                 min: 10, max: 130, step: 1);
 
             BooleanInput.Scene.Instantiate<BooleanInput>().Config(
-                holder,
+                Holder,
                 "Zoom enabled",
                 s => s.GroundCameraZoom.Enabled,
                 (s, v) => s.GroundCameraZoom.Enabled = v,
@@ -27,14 +27,14 @@ namespace UI.Settings
 
 
             NumericInput.Scene.Instantiate<NumericInput>().Config(
-                holder,
+                Holder,
                 "Zoom start distance",
                 s => s.GroundCameraZoom.StartDist,
                 (s, v) => s.GroundCameraZoom.StartDist = v,
                 min: 1, max: 1000, step: 1, toolTip: "Distance at which the camera starts zooming in");
 
             NumericInput.Scene.Instantiate<NumericInput>().Config(
-                holder,
+                Holder,
                 "Zoom factor",
                 s => s.GroundCameraZoom.Factor,
                 (s, v) => s.GroundCameraZoom.Factor = v,

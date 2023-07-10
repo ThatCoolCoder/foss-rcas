@@ -7,6 +7,24 @@ bg_color = Color(0.215686, 0.215686, 0.215686, 1)
 
 [resource]
 default_font = ExtResource("1")
+ButtonHeading2/base_type = &"Button"
+ButtonHeading2/font_sizes/font_size = 18
+Heading0/base_type = &"Label"
+Heading0/font_sizes/font_size = 48
+Heading1/base_type = &"Label"
+Heading1/font_sizes/font_size = 28
+Heading2/base_type = &"Label"
+Heading2/font_sizes/font_size = 18
 ListRowDark/base_type = &"PanelContainer"
 ListRowDark/styles/panel = SubResource("1")
 ListRowLight/base_type = &"PanelContainer"
+MainMargin/base_type = &"MarginContainer"
+MainMargin/constants/margin_bottom = 20
+MainMargin/constants/margin_left = 20
+MainMargin/constants/margin_right = 20
+MainMargin/constants/margin_top = 20
+SettingsMargin/base_type = &"MarginContainer"
+SettingsMargin/constants/margin_bottom = 10
+SettingsMargin/constants/margin_left = 10
+SettingsMargin/constants/margin_right = 10
+SettingsMargin/constants/margin_top = 10
