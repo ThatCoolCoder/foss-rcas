@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://doweai1rwhdaf"]
+[gd_scene load_steps=32 format=3 uid="uid://doweai1rwhdaf"]
 
 [ext_resource type="Script" path="res://Scripts/Physics/SpatialForceable.cs" id="1"]
 [ext_resource type="Script" path="res://Scripts/Aircraft/Servo.cs" id="2"]
@@ -26,6 +26,8 @@
 [ext_resource type="PackedScene" uid="uid://0x2sgnu0ucsv" path="res://Scenes/Forcers/ControlledWheelForcer.tscn" id="24"]
 [ext_resource type="Resource" path="res://Scenes/Aircraft/Skater/BodyDrag.tres" id="24_twm50"]
 [ext_resource type="Curve" path="res://Resources/AeroCurves/naca0015_2m.tres" id="25"]
+[ext_resource type="Resource" uid="uid://bcrou7xntx2gi" path="res://Resources/LateralPacejka.tres" id="26_e87j4"]
+[ext_resource type="Resource" uid="uid://duqmo5a7lnon1" path="res://Resources/LongitudinalPacejka.tres" id="27_xcj8i"]
 
 [sub_resource type="BoxShape3D" id="1"]
 size = Vector3(1.898, 0.036, 0.406)
@@ -250,6 +252,8 @@ SuspensionTravel = 0.1
 SuspensionStrength = 300.0
 SuspensionDamping = 50.0
 WheelMass = 0.04
+LateralPacejka = ExtResource("26_e87j4")
+LongitudinalPacejka = ExtResource("27_xcj8i")
 TargetPath = NodePath("..")
 
 [node name="Model" parent="RightWheel" instance=ExtResource("5")]
@@ -264,6 +268,8 @@ SuspensionTravel = 0.1
 SuspensionStrength = 300.0
 SuspensionDamping = 50.0
 WheelMass = 0.04
+LateralPacejka = ExtResource("26_e87j4")
+LongitudinalPacejka = ExtResource("27_xcj8i")
 TargetPath = NodePath("..")
 
 [node name="Model" parent="LeftWheel" instance=ExtResource("5")]

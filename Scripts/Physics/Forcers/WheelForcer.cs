@@ -20,10 +20,8 @@ namespace Physics.Forcers
         [Export] public float WheelBrakeTorque { get; set; } = 1;
         public float WheelBrakeFactor { get; set; } = 0;
 
-        [Export(PropertyHint.File, "*.tres")] public string LateralPacejkaPath { get; set; } = null;
-        private PacejkaSettings lateralPacejka;
-        [Export(PropertyHint.File, "*.tres")] public string LongitudinalPacejkaPath { get; set; } = null;
-        private PacejkaSettings longitudinalPacejka;
+        [Export] public PacejkaSettings LateralPacejka;
+        [Export] public PacejkaSettings LongitudinalPacejka;
 
         // Nodes
         private SpringArm3D springArm;
@@ -47,9 +45,6 @@ namespace Physics.Forcers
             base._Ready();
 
             GetNode<Node3D>("SpringArm3D/CSGBox3D").QueueFree(); // delete visual widget
-
-            if (LateralPacejkaPath != null) lateralPacejka = ResourceLoader.Load<PacejkaSettings>(LateralPacejkaPath);
-            if (LongitudinalPacejkaPath != null) longitudinalPacejka = ResourceLoader.Load<PacejkaSettings>(LongitudinalPacejkaPath);
 
             displayObject = Utils.GetNodeWithWarnings<Node3D>(this, DisplayObjectPath, "display object");
 
@@ -113,12 +108,12 @@ namespace Physics.Forcers
                 prevPosition = GlobalPosition;
 
                 var xSlip = Mathf.Asin(Mathf.Clamp(-directionVector.X, -1, 1));
-                var xForce = Pacejka(springForce, xSlip, lateralPacejka);
+                var xForce = Pacejka(springForce, xSlip, LateralPacejka);
 
                 float zSlip = 0;
                 if (zVel != 0) zSlip = (WheelRadius * angularVelocity - zVel) / Mathf.Abs(zVel);
 
-                var zForce = Pacejka(springForce, zSlip, longitudinalPacejka);
+                var zForce = Pacejka(springForce, zSlip, LongitudinalPacejka);
 
                 // Add all the forces
                 state.ApplyForce(GlobalTransform.Basis.X * xForce, contactPoint);
@@ -138,7 +133,7 @@ namespace Physics.Forcers
         private float Pacejka(float normalForce, float slip, PacejkaSettings s)
         {
             // Pacejka tire formula
-            return normalForce * s.Peak * Mathf.Sin(s.Shape3D * Mathf.Atan(s.Stiff * slip - s.Curve * s.Stiff * slip - Mathf.Atan(s.Stiff * slip)));
+            return normalForce * s.Peak * Mathf.Sin(s.Shape * Mathf.Atan(s.Stiff * slip - s.Curve * s.Stiff * slip - Mathf.Atan(s.Stiff * slip)));
         }
     }
 }

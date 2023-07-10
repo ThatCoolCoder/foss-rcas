@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://dc7to6rwhfehq"]
+[gd_scene load_steps=34 format=3 uid="uid://dc7to6rwhfehq"]
 
 [ext_resource type="PackedScene" uid="uid://bxol07riywk1w" path="res://Art/Aircraft/Bushplane/Rudder.glb" id="1"]
 [ext_resource type="PackedScene" uid="uid://04tje3c4jp4q" path="res://Art/Aircraft/Bushplane/MainBody.glb" id="2"]
@@ -10,7 +10,9 @@
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/ControlledBrushlessMotor.tscn" id="8"]
 [ext_resource type="Script" path="res://Scripts/Audio/PrerecordedPropellerNoise.cs" id="9"]
 [ext_resource type="Script" path="res://Scripts/Aircraft/Servo.cs" id="11"]
+[ext_resource type="Resource" uid="uid://bcrou7xntx2gi" path="res://Resources/LateralPacejka.tres" id="11_3ym0y"]
 [ext_resource type="Curve" path="res://Resources/AeroCurves/WingLiftCoefficient.tres" id="12"]
+[ext_resource type="Resource" uid="uid://duqmo5a7lnon1" path="res://Resources/LongitudinalPacejka.tres" id="12_r6inc"]
 [ext_resource type="Curve" path="res://Resources/AeroCurves/FlatPlateLiftCoefficient.tres" id="13"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Mirror.tscn" id="14"]
 [ext_resource type="Curve" path="res://Resources/AeroCurves/WingDragCoefficient.tres" id="15"]
@@ -127,6 +129,8 @@ WheelRadius = 0.03
 WheelFrictionTorque = 0.0
 WheelDriveTorque = 20.0
 WheelBrakeTorque = 0.0
+LateralPacejka = ExtResource("11_3ym0y")
+LongitudinalPacejka = ExtResource("12_r6inc")
 TargetPath = NodePath("..")
 
 [node name="Wheel" parent="LeftWheel" instance=ExtResource("24")]
@@ -145,6 +149,8 @@ WheelRadius = 0.03
 WheelFrictionTorque = 0.0
 WheelDriveTorque = 20.0
 WheelBrakeTorque = 0.0
+LateralPacejka = ExtResource("11_3ym0y")
+LongitudinalPacejka = ExtResource("12_r6inc")
 TargetPath = NodePath("..")
 
 [node name="Wheel" parent="RightWheel" instance=ExtResource("24")]

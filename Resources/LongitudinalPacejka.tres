@@ -1,10 +1,10 @@
-[gd_resource type="Resource" load_steps=2 format=2]
+[gd_resource type="Resource" script_class="PacejkaSettings" load_steps=2 format=3 uid="uid://duqmo5a7lnon1"]
 
-[ext_resource path="res://Scripts/Physics/Forcers/PacejkaSettings.cs" type="Script" id=1]
+[ext_resource type="Script" path="res://Scripts/Physics/Forcers/PacejkaSettings.cs" id="1"]
 
 [resource]
-script = ExtResource( 1 )
+script = ExtResource("1")
 Peak = 0.5
-Shape3D = 1.35
+Shape = 1.35
 Stiff = 10.0
 Curve = 0.0

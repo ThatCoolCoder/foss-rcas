@@ -136,6 +136,7 @@ Depending on how much base content is desired and how large the repository gets,
         - possibly integrate this into an aircraft-wide system involving also stuff like resetting batteries, etc.
             - propagate_call looks like it would make this easy, we won't even need interfaces
     - large oval has wrong ground normal
+    - border-tree-planes in badgerfield have only collision from one direction (3 -> 4 artifact)
     - thing has a heart attack if it tries loading a content item that doesn't have a scene file
     - Anticlockwise propeller has bad shading due to the scaling by -1
     - settings toml file is technically incorrect with slashes in keys, should hopefully be a tomlet update to fix this soon.
