@@ -1,20 +1,34 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://cl6heqw5uexei"]
 
-[ext_resource path="res://Scenes/UI/Settings/Components/KeyInput.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scenes/UI/Settings/InputComponents/BaseControlMappingEditor.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scripts/UI/Settings/InputComponents/ThreePosKeyboardMappingEditor.cs" type="Script" id=3]
+[ext_resource type="PackedScene" uid="uid://dcx1tkd8lan8m" path="res://Scenes/UI/Settings/Components/KeyInput.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://cak5716oeutxt" path="res://Scenes/UI/Settings/InputComponents/BaseControlMappingEditor.tscn" id="2"]
+[ext_resource type="Script" path="res://Scripts/UI/Settings/InputComponents/ThreePosKeyboardMappingEditor.cs" id="3"]
 
-[node name="ThreePosKeyboardMappingEditor" instance=ExtResource( 2 )]
-script = ExtResource( 3 )
+[node name="ThreePosKeyboardMappingEditor" instance=ExtResource("2")]
+title = "Edit keyboard mapping"
+size = Vector2i(284, 144)
+script = ExtResource("3")
 
-[node name="KeyInput1" parent="MarginContainer/VBoxContainer" index="0" instance=ExtResource( 1 )]
-offset_right = 361.0
-offset_bottom = 24.0
+[node name="KeyInput1" parent="MarginContainer/VBoxContainer" index="0" node_paths=PackedStringArray("currentValueLabel", "popupText", "dialog", "selectAgainButton", "okButton") instance=ExtResource("1")]
+layout_mode = 2
+currentValueLabel = NodePath("")
+popupText = NodePath("")
+dialog = NodePath("")
+selectAgainButton = NodePath("")
+okButton = NodePath("")
 
-[node name="KeyInput2" parent="MarginContainer/VBoxContainer" index="1" instance=ExtResource( 1 )]
-offset_right = 361.0
-offset_bottom = 24.0
+[node name="KeyInput2" parent="MarginContainer/VBoxContainer" index="1" node_paths=PackedStringArray("currentValueLabel", "popupText", "dialog", "selectAgainButton", "okButton") instance=ExtResource("1")]
+layout_mode = 2
+currentValueLabel = NodePath("")
+popupText = NodePath("")
+dialog = NodePath("")
+selectAgainButton = NodePath("")
+okButton = NodePath("")
 
-[node name="KeyInput3" parent="MarginContainer/VBoxContainer" index="2" instance=ExtResource( 1 )]
-offset_right = 361.0
-offset_bottom = 24.0
+[node name="KeyInput3" parent="MarginContainer/VBoxContainer" index="2" node_paths=PackedStringArray("currentValueLabel", "popupText", "dialog", "selectAgainButton", "okButton") instance=ExtResource("1")]
+layout_mode = 2
+currentValueLabel = NodePath("")
+popupText = NodePath("")
+dialog = NodePath("")
+selectAgainButton = NodePath("")
+okButton = NodePath("")

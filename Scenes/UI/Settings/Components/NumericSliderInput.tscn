@@ -1,30 +1,26 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://br5k0hdt71k71"]
 
-[ext_resource path="res://Scenes/UI/Settings/Components/SettingsRow.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scripts/UI/Settings/Components/NumericSliderInput.cs" type="Script" id=2]
+[ext_resource type="PackedScene" path="res://Scenes/UI/Settings/Components/SettingsRow.tscn" id="1"]
+[ext_resource type="Script" path="res://Scripts/UI/Settings/Components/NumericSliderInput.cs" id="2"]
 
-[node name="NumericSliderInput" instance=ExtResource( 1 )]
+[node name="NumericSliderInput" instance=ExtResource("1")]
 offset_right = 304.0
-script = ExtResource( 2 )
+script = ExtResource("2")
+
+[node name="Label" parent="." index="0"]
+layout_mode = 2
 
 [node name="HSplitContainer" type="HSplitContainer" parent="." index="1"]
-offset_left = 92.0
-offset_right = 327.0
-offset_bottom = 40.0
+layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="HSlider" type="HSlider" parent="HSplitContainer" index="0"]
-offset_top = 12.0
-offset_right = 200.0
-offset_bottom = 28.0
-custom_minimum_size = Vector2( 200, 0 )
+layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 4
 
 [node name="ValueLabel" type="Label" parent="HSplitContainer" index="1"]
-offset_left = 212.0
-offset_top = 11.0
-offset_right = 235.0
-offset_bottom = 29.0
+layout_mode = 2
 text = "5.12"
 
 [connection signal="drag_ended" from="HSplitContainer/HSlider" to="." method="_on_HSlider_drag_ended"]

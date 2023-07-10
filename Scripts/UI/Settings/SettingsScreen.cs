@@ -32,9 +32,9 @@ namespace UI.Settings
             GetNode<Misc.CustomConfirmationDialogue>("CustomConfirmationDialog").AskToConfirm();
         }
 
-        private void _on_cancel_pressed()
+        private void _on_Cancel_pressed()
         {
-            GetTree().ChangeSceneToFile("res://Scenes/StartScreen.tscn");
+            GetTree().ChangeSceneToFile("res://Scenes/UI/StartScreen.tscn");
         }
 
         private void _on_Revert_pressed()

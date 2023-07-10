@@ -9,29 +9,29 @@ namespace UI.Settings.Components
     {
         // Base input for inputs (eg key presses)
 
-        private Label currentValueLabel;
-        private Label popupText;
-        private Window dialog;
+        [Export] private Label currentValueLabel;
+        [Export] private Label popupText;
+        [Export] private Window dialog;
 
-        private Button selectAgainButton;
-        private Button okButton;
+        [Export] private Button selectAgainButton;
+        [Export] private Button okButton;
 
         public override void _Ready()
         {
-            currentValueLabel = GetNode<Label>("HBoxContainer/CurrentValue");
-            popupText = GetNode<Label>("Window/MarginContainer/VBoxContainer/PopupText");
-            dialog = GetNode<Window>("Window");
-            selectAgainButton = GetNode<Button>("Window/MarginContainer/VBoxContainer/HBoxContainer/SelectAnotherInput");
-            okButton = GetNode<Button>("Window/MarginContainer/VBoxContainer/HBoxContainer/Ok");
+            GD.Print("ready");
+            GD.Print(currentValueLabel);
+            base._Ready();
         }
 
         public override void OnSettingsChanged()
         {
+            GD.Print("set value");
             currentValueLabel.Text = GetCurrentValueText();
         }
 
         private void _on_ChangeInput_pressed()
         {
+            GD.Print(dialog.IsInsideTree());
             dialog.PopupCentered();
             dialog.GrabFocus();
             ClearCandidateValue();
@@ -77,9 +77,10 @@ namespace UI.Settings.Components
         protected abstract void ClearCandidateValue(); // text to show when not popped up
 
 
-        public override void _Input(InputEvent _event)
+        private void _on_Window_window_input(InputEvent _event)
         {
-            if (dialog?.Visible ?? false) OnInputWhenOpen(_event);
+            // We need to bind to the window_input or events are blocked
+            OnInputWhenOpen(_event);
         }
 
         protected virtual void OnInputWhenOpen(InputEvent _event)

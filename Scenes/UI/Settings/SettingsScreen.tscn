@@ -67,7 +67,7 @@ text = "Reset"
 
 [node name="Cancel" type="Button" parent="VBoxContainer/Buttons"]
 layout_mode = 2
-tooltip_text = "Reset the settings to their defaults"
+tooltip_text = "Undo changes and leave"
 theme_override_fonts/font = ExtResource("1")
 text = "Cancel"
 

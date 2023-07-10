@@ -6,6 +6,9 @@
 [node name="KeyInput" instance=ExtResource("1")]
 script = ExtResource("2")
 
+[node name="Window" parent="." index="2"]
+title = "Select key..."
+
 [node name="MarginContainer" parent="Window" index="0"]
 grow_horizontal = 2
 grow_vertical = 2
