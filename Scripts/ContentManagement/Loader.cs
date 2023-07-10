@@ -59,6 +59,7 @@ namespace ContentManagement
         {
             // Prevent loading addons when in editor.
             // That is because loading resource packs from editor causes the res:// tree to become deleted or something (it's weird)
+            // todo: see if that was fixed in godot 4.0 (need to wait for godotpcktool to support the new pck format)
             var isInEditor = !OS.HasFeature("standalone");
 
             Utils.GetItemsInDirectory(

@@ -36,11 +36,15 @@ Channel directions:
 
 ## Addons
 
-It's not recommended to make or distribute addons currently as various formats haven't been stabilised yet. However, in future it's planned to create a site for hosting addons and possibly a downloader integrated into the game.
+This simulator is designed to be driven by community content in the form of addons. It's not recommended to make or distribute addons currently as various formats haven't been stabilised yet. However, in future it's hoped that we can create a site for hosting addons and possibly a downloader integrated into the sim.
 
 For help on installing addons, read [doesn't exist yet]
 
 Information on creating addons can be found in [Docs/ContentCreation](Docs/ContentCreation/Index.md), although this information is incomplete and sometimes out of date.
+
+## Versioning
+
+Due to the large reliance on addons, it is important to have a robust means of ensuring addons work 
 
 ## Contributing
 
@@ -114,6 +118,7 @@ Depending on how much base content is desired and how large the repository gets,
         - Potentially create a simulation of FPV inteference - we make a raycast from viewing position to camera, and degrade based on how many intersections.
             - viewing position is FpvGroundStation, which is attached to the ground camera
     - prerecorded prop audio needs more control of volume
+    - Make plane support being deleted so that we can add plane spawning in location if we target multiplayer for 1.0
 - Input
     - Add an input debug UI thing
     - Add a preview for all the inputs so we can check direction etc without flying (requires poking SimInput.Manager to give it a custom inputmap)
@@ -124,10 +129,8 @@ Depending on how much base content is desired and how large the repository gets,
         - Somehow add support for this in the mixer. I'd rather not have to mix every channel separately on every plane, and I also don't want to add special-case channels.
         - Potentially this can be implemented as part of a flight modes system.
 - Docs
-    - Rewrite aircraft creation
-    - Write about content creation in general
-    - Make content creation docs more friendly to non-programmers
-    - If we make exotic stuff like quadcopters, create documentation on that
+    - Write about content creation, make these docs as friendly as possible to non-coders
+    - If we get exotic stuff like quadcopters or cars working, create documentation on that
 - Misc bugs/problems
     - GODOT BUG: it appears that [Exported] nodes aren't assigned if the exported is a child of a Window that starts out invisible.
     - make slow motion only affect aircraft, not cameras.
@@ -178,6 +181,16 @@ Depending on how much base content is desired and how large the repository gets,
     - Stabilise various formats, create compatibility fields
         - Thing saying what version of content file is used?
         - Thing saying what game versions are supported?
+        - What does dev game do, does it just ignore compatibility and maybe show a warning
+            - don't tie it to editor but make the game know it's version:
+                - struct with major/minor/patch/subpatch + flags: (subpatch is used for rc number for instance)
+                    - dev
+                        - should this imply that it's based on the version numbering bits
+                        - or should this be totally wild since with branches we may have no idea what anything is based on
+                    - alpha
+                    - beta
+                    - release candidate (rc)
+                - make the struct a static somewhere. Possibly can have some python generating it if needed
     - make thumbnails for all the scenes, at the correct resolution
     - Create an EDF with retracts and flaps
     - Create a bushplane about 1.1-1.3kg size
@@ -189,6 +202,7 @@ Depending on how much base content is desired and how large the repository gets,
     - Make a content repository and download system (that doesn't sound like a nightmare at all)
 - Settings for what cameras are active and what order they switch through
     - requires addition of a camera ID property so that we can remember them
+    - store available cameras in a tres somewhere
 - Graphics
     - Grass overhaul again
         - Somehow make grass not jump around when camera moves, only appear/disappear.
@@ -211,5 +225,17 @@ Depending on how much base content is desired and how large the repository gets,
         - Perhaps have a semantic versioning system with with the ability to use wildcards (similar to how npm dependencies are specified).
         - Requires the game knowing its version
 - make settings fileinput lineedit editable?
-- update to godot 4?
-    - wait until it has opengl support or whatever important thing it was missing
+- Add multiplayer?
+    - will probably require some rearchitecting & breaking changes for mods so if we don't do it before 1.0 we have to wait until 2.0
+    - Looks like godot has pretty good multiplayer support that won't require totally rebuilding the game
+    - Should have the option of both client-hosted and dedicated servers (godot supports it)
+    - If we had code-loading from mods we could do cool stuff like gamemodes, moderation and challenges on servers.
+        - But it's been decided that code-loading is beyond the scope of this project, at least for 1.0
+    - What things are synced:
+        - rb pos/vel/angle/angvel
+    - Options for handling addons (note: as server is always one location, if that is allowed to be an addon then it is specified by server):
+        - No addons (that's boring and sad)
+        - Addons are specified by server & you're locked to that (it will install them if you don't have it)
+            - if there's a repo it can contain link repo version in addition to raw pck downloads
+        - Addons are specified by server but you can use others, it will show up as a default model if peer's don't have it
+        - No specification, you can use whatever and just hope everyone has it
