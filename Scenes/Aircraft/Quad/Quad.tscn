@@ -9,7 +9,7 @@
 [ext_resource type="Script" path="res://Scripts/Audio/PrerecordedPropellerNoise.cs" id="8"]
 
 [sub_resource type="BoxShape3D" id="1"]
-size = Vector3(0.1, 0.0199523, 0.1)
+size = Vector3(0.264434, 0.0578584, 0.280455)
 
 [node name="Quad" type="RigidBody3D"]
 mass = 0.19

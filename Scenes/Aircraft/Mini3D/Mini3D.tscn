@@ -23,13 +23,13 @@
 [ext_resource type="Resource" uid="uid://b861yo7rjlv2c" path="res://Resources/BaseBodyDrag.tres" id="21_sb3gb"]
 
 [sub_resource type="BoxShape3D" id="1"]
-size = Vector3(0.255882, 0.00706543, 0.0695307)
+size = Vector3(0.510326, 0.00706543, 0.13464)
 
 [sub_resource type="BoxShape3D" id="2"]
-size = Vector3(0.0223422, 0.0269287, 0.217489)
+size = Vector3(0.0387203, 0.046962, 0.408527)
 
 [sub_resource type="BoxShape3D" id="3"]
-size = Vector3(0.0142921, 0.0352546, 0.0370362)
+size = Vector3(0.0142921, 0.0705351, 0.0370362)
 
 [node name="Mini3D" type="RigidBody3D"]
 mass = 0.18
@@ -45,15 +45,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0132061, -0.046349)
 MixesFile = "res://Scenes/Aircraft/Mini3D/Mixes.toml"
 
 [node name="WingCollider" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0101161, -0.000105562)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0101161, 0.00601313)
 shape = SubResource("1")
 
 [node name="BodyCollider" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00951467, 0.0790916)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.00951467, 0.0688743)
 shape = SubResource("2")
 
 [node name="RudderCollider" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0690117, 0.251658)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0690117, 0.272385)
 shape = SubResource("3")
 
 [node name="Electrics" type="Node3D" parent="."]

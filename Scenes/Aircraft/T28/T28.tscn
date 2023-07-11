@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cloj42bodefuu"]
+[gd_scene load_steps=24 format=3 uid="uid://cloj42bodefuu"]
 
 [ext_resource type="Script" path="res://Scripts/Aircraft/Aircraft.cs" id="1_dd3lv"]
 [ext_resource type="Script" path="res://Scripts/Aircraft/Servo.cs" id="2"]
@@ -21,13 +21,18 @@
 [ext_resource type="Resource" uid="uid://b861yo7rjlv2c" path="res://Resources/BaseBodyDrag.tres" id="18_46j1n"]
 
 [sub_resource type="BoxShape3D" id="1"]
-size = Vector3(0.302106, 0.00401939, 0.0608913)
+size = Vector3(0.302106, 0.00401939, 0.10277)
 
-[sub_resource type="BoxShape3D" id="2"]
-size = Vector3(0.0390047, 0.0417708, 0.236533)
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_duuat"]
+height = 0.216123
+radius = 0.0448242
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_qumbd"]
+height = 0.216123
+radius = 0.038549
 
 [sub_resource type="BoxShape3D" id="3"]
-size = Vector3(0.00659916, 0.0569142, 0.0438869)
+size = Vector3(0.00659916, 0.116521, 0.0503232)
 
 [node name="T28" type="RigidBody3D"]
 mass = 0.45
@@ -41,16 +46,24 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -5.099
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.00465697)
 MixesFile = "res://Scenes/Aircraft/T28/Mixes.toml"
 
-[node name="WingCollider" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.10001e-05, 0.00760274, -0.00845097)
+[node name="LeftWingCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.990319, 0.13881, 0, -0.13881, 0.990319, 0, 0, 0, 1, -0.160477, -0.00482048, 0.00800285)
 shape = SubResource("1")
 
-[node name="BodyCollider" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.09922e-05, 0.00324128, 0.0817951)
-shape = SubResource("2")
+[node name="RightWingCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.990268, -0.139173, 0, 0.139173, 0.990268, 0, 0, 0, 1, 0.16, -0.005, 0.00770206)
+shape = SubResource("1")
+
+[node name="ForwardBodyCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 2.98023e-08, 1, 0, -1, 2.98023e-08, -5.09922e-05, 0.00826562, -0.036844)
+shape = SubResource("CylinderShape3D_duuat")
+
+[node name="AftBodyCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 2.98023e-08, 1, 0, -1, 2.98023e-08, -5.09922e-05, 0.00826562, 0.178818)
+shape = SubResource("CylinderShape3D_qumbd")
 
 [node name="TailCollider" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.09748e-05, 0.054837, 0.28141)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.09748e-05, 0.054837, 0.303747)
 shape = SubResource("3")
 
 [node name="Electrics" type="Node3D" parent="."]

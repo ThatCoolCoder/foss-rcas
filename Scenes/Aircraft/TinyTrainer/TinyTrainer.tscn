@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://bwr61hdp5b3v1"]
+[gd_scene load_steps=34 format=3 uid="uid://bwr61hdp5b3v1"]
 
 [ext_resource type="Script" path="res://Scripts/Aircraft/Aircraft.cs" id="1_w3gm1"]
 [ext_resource type="PackedScene" uid="uid://csgmaf2piqj3e" path="res://Art/Aircraft/TinyTrainer/TinyTrainer.glb" id="2"]
@@ -28,17 +28,20 @@
 [sub_resource type="PhysicsMaterial" id="5"]
 friction = 0.33
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_t77j7"]
+size = Vector3(0.485987, 0.005, 0.128194)
+
 [sub_resource type="BoxShape3D" id="2"]
-size = Vector3(0.4762, 0.00401939, 0.0608913)
+size = Vector3(0.228506, 0.005, 0.130386)
 
 [sub_resource type="BoxShape3D" id="6"]
-size = Vector3(0.0256219, 0.0238448, 0.319271)
+size = Vector3(0.0572394, 0.0544012, 0.638779)
 
 [sub_resource type="BoxShape3D" id="1"]
-size = Vector3(0.00659916, 0.0569142, 0.0494842)
+size = Vector3(0.00659916, 0.129688, 0.0844254)
 
 [sub_resource type="BoxShape3D" id="4"]
-size = Vector3(0.0812936, 0.0379009, 0.0134837)
+size = Vector3(0.105015, 0.0379009, 0.0344807)
 
 [sub_resource type="Resource" id="Resource_v054e"]
 script = ExtResource("11_4joe0")
@@ -70,7 +73,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0201254, -0.105241)
 MixesFile = "res://Scenes/Aircraft/TinyTrainer/Mixes.toml"
 
 [node name="WingCollider" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0325681, 0.0364668)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0233528, 0.00864027)
+shape = SubResource("BoxShape3D_t77j7")
+
+[node name="LeftWingTipCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.977783, 0.209619, 0, -0.209619, 0.977783, 0, 0, 0, 1, -0.362, 0.048, 0.01)
+shape = SubResource("2")
+
+[node name="RightWingTipCollider" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.977907, -0.209038, 0, 0.209038, 0.977907, 0, 0, 0, 1, 0.361584, 0.0479772, 0.00982683)
 shape = SubResource("2")
 
 [node name="BodyCollider" type="CollisionShape3D" parent="."]
@@ -78,11 +89,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00115113, 0.102788)
 shape = SubResource("6")
 
 [node name="TailCollider" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.062407, 0.372542)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.062407, 0.3631)
 shape = SubResource("1")
 
 [node name="LandingGearCollider" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0746566, -0.10092)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0962487, -0.10092)
 shape = SubResource("4")
 
 [node name="Electrics" type="Node3D" parent="."]
