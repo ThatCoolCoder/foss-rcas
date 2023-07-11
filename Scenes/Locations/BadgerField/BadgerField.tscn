@@ -1,19 +1,19 @@
 [gd_scene load_steps=20 format=3 uid="uid://c4lnwayphj5t2"]
 
-[ext_resource type="PackedScene" path="res://Scenes/Locations/BaseLocation.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://wfhfmqv1cl37" path="res://Scenes/Locations/BaseLocation.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://boicgaslj3qqk" path="res://Art/Locations/BadgerField/BadgerField.glb" id="2"]
 [ext_resource type="Texture2D" uid="uid://b6qjkmy76qbah" path="res://Art/SkyOnlyHDRI048_4K-TONEMAPPED.jpg" id="3"]
 [ext_resource type="Script" path="res://Scripts/Locations/SpawnAlongPath.cs" id="4"]
 [ext_resource type="PackedScene" path="res://Scenes/Locations/BadgerField/ImpostorPine.tscn" id="5"]
-[ext_resource type="PackedScene" path="res://Scenes/Locations/Common/TreeScatter.tscn" id="6"]
+[ext_resource type="PackedScene" uid="uid://riadj4pa5sfk" path="res://Scenes/Locations/Common/TreeScatter.tscn" id="6"]
 [ext_resource type="Texture2D" uid="uid://qs8i37h44tn1" path="res://Art/Common/Trees/PineV2/Render/Pine0.png" id="7"]
-[ext_resource type="PackedScene" path="res://Scenes/Locations/Common/GrassScatter.tscn" id="8"]
+[ext_resource type="PackedScene" uid="uid://d053ptahqolmv" path="res://Scenes/Locations/Common/GrassScatter.tscn" id="8"]
 [ext_resource type="Texture2D" uid="uid://cwf1r2t16nxyy" path="res://Art/Common/GrassV2Normal.png" id="9"]
 [ext_resource type="Texture2D" uid="uid://cyvexhh7k4x4j" path="res://Art/Locations/BadgerField/GrassMask.png" id="11"]
 [ext_resource type="Texture2D" uid="uid://cokid8ftn0iil" path="res://Art/Common/Bushes/Basic/BasicBush0.png" id="12"]
 [ext_resource type="Texture2D" uid="uid://ch0elub6u0tsv" path="res://Art/Common/Bushes/Basic/BasicBush240.png" id="13"]
 [ext_resource type="Texture2D" uid="uid://cfdb7t3s6du7u" path="res://Art/Common/Bushes/Basic/BasicBush120.png" id="14"]
-[ext_resource type="PackedScene" path="res://Scenes/Locations/Common/ImpostorBasicBush.tscn" id="15"]
+[ext_resource type="PackedScene" uid="uid://chkect5bdsq6q" path="res://Scenes/Locations/Common/ImpostorBasicBush.tscn" id="15"]
 
 [sub_resource type="Curve3D" id="3"]
 _data = {
@@ -63,31 +63,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.9925, 1.10245, 17.9634)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.3525, 2.0807, 18.2569)
 
 [node name="HUD" parent="CanvasLayer" index="0"]
-anchors_preset = 15
-
-[node name="VSplitContainer" parent="CanvasLayer/HUD" index="0"]
-layout_mode = 2
-
-[node name="TopBar" parent="CanvasLayer/HUD/VSplitContainer" index="0"]
-layout_mode = 2
-
-[node name="BackButton" parent="CanvasLayer/HUD/VSplitContainer/TopBar" index="0"]
-layout_mode = 2
-
-[node name="BottomBar" parent="CanvasLayer/HUD/VSplitContainer" index="1"]
-layout_mode = 2
-
-[node name="FpsIndicator" parent="CanvasLayer/HUD/VSplitContainer/BottomBar" index="0"]
-layout_mode = 2
-
-[node name="MaxSizeContainer" parent="CanvasLayer" index="1"]
-anchors_preset = 1
-
-[node name="MarginContainer" parent="CanvasLayer/MaxSizeContainer" index="0"]
-layout_mode = 2
-
-[node name="NotificationManager" parent="CanvasLayer/MaxSizeContainer/MarginContainer" index="0"]
-layout_mode = 2
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Positions" type="Node3D" parent="." index="8"]
 
@@ -119,7 +96,7 @@ NumInstances = 200
 ScaleVariation = 0.7
 
 [node name="TreeScatter" parent="Trees" index="1" instance=ExtResource("6")]
-transform = Transform3D(-3.13294e-06, 0, -111.063, 0, 1, 0, 71.6732, 0, -4.85472e-06, -239.991, 0, 0)
+transform = Transform3D(-3.13294e-06, 0, -111.063, 0, 1, 0, 71.6732, 0, -4.85472e-06, -226.409, 0.530396, -4.28326)
 Count = 600
 UseNearScaling = false
 Texture2D = ExtResource("7")
@@ -127,7 +104,7 @@ TreeSize = Vector2(10, 15)
 WidthRatioVariation = 0.2
 
 [node name="TreeScatter2" parent="Trees" index="2" instance=ExtResource("6")]
-transform = Transform3D(210.775, 0, 0, 0, 1, 0, 0, 0, 96.6668, -118.466, 0, -173.419)
+transform = Transform3D(210.775, 0, 0, 0, 1, 0, 0, 0, 96.6668, -118.466, 0.530396, -173.419)
 Count = 1200
 UseNearScaling = false
 Texture2D = ExtResource("7")
@@ -135,7 +112,7 @@ TreeSize = Vector2(10, 15)
 WidthRatioVariation = 0.2
 
 [node name="TreeScatter3" parent="Trees" index="3" instance=ExtResource("6")]
-transform = Transform3D(81.5221, 0, -13.0163, 0, 1, 0, 7.09068, 0, 149.649, 179.577, 0, 122.461)
+transform = Transform3D(81.5221, 0, -13.0163, 0, 1, 0, 7.09068, 0, 149.649, 179.577, 0.530396, 122.461)
 Count = 480
 UseNearScaling = false
 Texture2D = ExtResource("7")
@@ -143,7 +120,7 @@ TreeSize = Vector2(10, 15)
 WidthRatioVariation = 0.2
 
 [node name="TreeScatter4" parent="Trees" index="4" instance=ExtResource("6")]
-transform = Transform3D(207.63, 0, -16.9377, 0, 1, 0, 31.4604, 0, 111.784, -137.64, 0, 152.741)
+transform = Transform3D(207.63, 0, -16.9377, 0, 1, 0, 31.4604, 0, 111.784, -137.64, 0.530396, 152.741)
 Count = 1200
 UseNearScaling = false
 Texture2D = ExtResource("7")
@@ -151,7 +128,7 @@ TreeSize = Vector2(10, 15)
 WidthRatioVariation = 0.2
 
 [node name="TreeScatter5" parent="Trees" index="5" instance=ExtResource("6")]
-transform = Transform3D(73.185, 0, -27.2844, 0, 1, 0, 15.5946, 0, 128.045, 195.668, 0, -138.339)
+transform = Transform3D(73.185, 0, -27.2844, 0, 1, 0, 15.5946, 0, 128.045, 195.668, 0.530396, -138.339)
 Count = 480
 UseNearScaling = false
 Texture2D = ExtResource("7")
@@ -218,6 +195,7 @@ transform = Transform3D(1.38264, 0, 0, 0, 1.04986, 0, 0, 0, 1.38264, 66.1298, 0,
 transform = Transform3D(0.296678, 0, -0.647822, 0, 0.712524, 0, 0.647822, 0, 0.296678, 71.3858, 0, 25.6699)
 
 [node name="GrassScatter" parent="." index="10" instance=ExtResource("8")]
+transform = Transform3D(213.348, 0, 0, 0, 1.023, 0, 0, 0, 135.522, -9.4665, 0.29859, -5.88435)
 InstanceCount = 15000
 Mask = ExtResource("11")
 NormalMap = ExtResource("9")

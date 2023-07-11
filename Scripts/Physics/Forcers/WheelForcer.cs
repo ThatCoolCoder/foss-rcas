@@ -73,7 +73,6 @@ namespace Physics.Forcers
 
         public override void Apply(PhysicsDirectBodyState3D state)
         {
-            // return; // convtodo: make this work
             // todo: this is somewhat messy, perhaps this should be split up or part of it moved out of apply into process
 
             // Torques, inertia

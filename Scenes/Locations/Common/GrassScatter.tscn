@@ -1,17 +1,18 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://d053ptahqolmv"]
 
-[ext_resource path="res://Art/Common/GrassV2.png" type="Texture2D" id=1]
-[ext_resource path="res://Art/Common/EnvironmentPreviewMaterial.tres" type="Material" id=3]
-[ext_resource path="res://Scripts/Locations/GrassScatter.cs" type="Script" id=4]
+[ext_resource type="Texture2D" uid="uid://csynsveq6j13s" path="res://Art/Common/GrassV2.png" id="1"]
+[ext_resource type="Material" path="res://Art/Common/EnvironmentPreviewMaterial.tres" id="3"]
+[ext_resource type="Script" path="res://Scripts/Locations/GrassScatter.cs" id="4"]
 
 [node name="GrassScatter" type="MultiMeshInstance3D"]
-transform = Transform3D( 106.674, 0, 0, 0, 1.02261, 0, 0, 0, 67.761, -9.4665, 0.297844, -5.88435 )
-script = ExtResource( 4 )
+transform = Transform3D(106.674, 0, 0, 0, 1.02261, 0, 0, 0, 67.761, -9.467, 0, -5.884)
+script = ExtResource("4")
 FalloffMaxDistance = 50.0
 InstanceCount = 20000
-Texture2D = ExtResource( 1 )
-GrassSize = Vector2( 1.5, 0.2 )
+Texture2D = ExtResource("1")
+GrassSize = Vector2(1.5, 0.2)
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
-height = 1.09147
-material = ExtResource( 3 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+size = Vector3(1, 0.2, 1)
+material = ExtResource("3")

@@ -56,7 +56,7 @@ namespace Locations
             // Clean up the editor visualisations
             GetNode<Node3D>("CSGBox3D").Visible = false;
 
-            size = Scale * 2;
+            size = Scale;
             GetNode<Node3D>("CSGBox3D").Scale = Scale;
             Scale = Vector3.One;
         }
@@ -69,6 +69,7 @@ namespace Locations
             var mesh = new QuadMesh();
             mesh.Size = GrassSize;
             multimesh.Mesh = mesh;
+            multimesh.UseColors = true;
 
             var material = new StandardMaterial3D();
             material.AlbedoTexture = Texture2D;
@@ -99,17 +100,21 @@ namespace Locations
                 // Calculcate rotation + scale
                 var transform = Transform3D.Identity;
                 var pos = positions[i];
+
+                Func<float, float, float, float> getAxisScale =
+                    (float x, float z, float variation) => 1 + (SemiRandomFloat(x + z * 1.52f) - .5f) * 2 * variation;
+                transform = transform.Scaled(new Vector3(
+                    getAxisScale(pos.X, pos.Z, GrassSizeVariation.X),
+                    getAxisScale(pos.X, pos.Z, GrassSizeVariation.Y),
+                    getAxisScale(pos.X, pos.Z, GrassSizeVariation.X)
+                ));
+
                 transform = transform.Rotated(Vector3.Up, SemiRandomFloat(pos.X + pos.Z) * Mathf.Tau);
-                Func<float, float, float, float> getAxisScale = (float x, float z, float variation) => 1 + (SemiRandomFloat(x + z * 1.52f) - .5f) * 2 * variation;
-                // transform.Basis.Scale = new Vector3( // convtodo: this needs a scale!
-                //     getAxisScale(pos.X, pos.Z, GrassSizeVariation.X),
-                //     getAxisScale(pos.X, pos.Z, GrassSizeVariation.Y),
-                //     getAxisScale(pos.X, pos.Z, GrassSizeVariation.X)
-                // );
 
                 // Adjust position then save
                 transform.Origin = pos.WithY(transform.Basis.Scale.Y * GrassSize.Y / 2);
                 multimesh.SetInstanceTransform(i, transform);
+                multimesh.SetInstanceColor(i, Colors.Red);
             }
 
             Multimesh = multimesh;
@@ -281,13 +286,14 @@ namespace Locations
         private void GenerateGrassOnThread()
         {
             // Generate the grass on a thread separate from the main game loop, preventing lag spikes
-            if (generateGrassThread == null || !generateGrassThread.IsAlive())
-            {
-                if (generateGrassThread != null) generateGrassThread.WaitToFinish();
-                crntCameraPos = GetViewport().GetCamera3D().GlobalPosition;
-                generateGrassThread = new GodotThread();
-                // generateGrassThread.Start(new Callable(this, MethodName.GenerateGrass)); // convtodo: fix threading and enable crass
-            }
+            // if (generateGrassThread == null || !generateGrassThread.IsAlive())
+            // {
+            //     if (generateGrassThread != null) generateGrassThread.WaitToFinish();
+            crntCameraPos = GetViewport().GetCamera3D().GlobalPosition;
+            GenerateGrass();
+            //     generateGrassThread = new GodotThread();
+            //     // generateGrassThread.Start(new Callable(this, MethodName.GenerateGrass)); // convtodo: fix threading and enable crass
+            // }
         }
 
         private Vector3 GetCameraPos()
