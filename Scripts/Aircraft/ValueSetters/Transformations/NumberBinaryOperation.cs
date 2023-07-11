@@ -26,7 +26,7 @@ public partial class NumberBinaryOperation : AbstractValueTransformation
         if (Operation == OperationType.Add) return value + OtherNumber;
         if (Operation == OperationType.Sub) return value - OtherNumber;
         if (Operation == OperationType.SubFrom) return OtherNumber - value;
-        if (Operation == OperationType.Mul) return value / OtherNumber;
+        if (Operation == OperationType.Mul) return value * OtherNumber;
         if (Operation == OperationType.InverseDiv) return OtherNumber / value;
         if (Operation == OperationType.PowerConstBase) return Mathf.Pow(OtherNumber, value);
         if (Operation == OperationType.PowerConstExponent) return Mathf.Pow(value, OtherNumber);

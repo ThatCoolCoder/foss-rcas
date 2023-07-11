@@ -6,5 +6,5 @@ namespace Aircraft.ValueSetters.Sources;
 [GlobalClass]
 public abstract partial class AbstractValueSource : Resource
 {
-    public abstract dynamic GetValue();
+    public abstract dynamic GetValue(Node valueSetter);
 }

@@ -6,11 +6,11 @@ namespace Aircraft.ValueSetters.Sources;
 [GlobalClass]
 public partial class SingleOutput : AbstractValueSetterOutput
 {
-    [Export] public Node Node { get; set; }
+    [Export] public NodePath TargetNodePath { get; set; }
     [Export] public string Property { get; set; }
 
-    public override void Apply(dynamic value)
+    public override void Apply(dynamic value, Node valueSetter)
     {
-        Node.Set(Property, value);
+        valueSetter.GetNode(TargetNodePath).Set(Property, value);
     }
 }

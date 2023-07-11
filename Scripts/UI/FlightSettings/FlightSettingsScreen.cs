@@ -69,7 +69,6 @@ public partial class FlightSettingsScreen : Control
         {
             {"mass", 1}
         };
-        GD.Print("Set");
 
         location.AddChild(aircraft);
         location.Aircraft = aircraft;

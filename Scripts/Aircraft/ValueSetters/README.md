@@ -1,0 +1,3 @@
+# Some notes on ValueSetters
+
+It turns out you can't export a node reference directly from a resource (well you can but it doesn't get saved to the scene properly). So instead all the times that a node reference is needed in one of the resources, we export a node path and pass the parent ValueSetter into the relevant func of the resource. todo: should we file a bug report? I couldn't find an existing bug regarding this.

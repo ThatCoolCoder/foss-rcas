@@ -6,12 +6,11 @@ namespace Aircraft.ValueSetters.Sources;
 [GlobalClass]
 public partial class AircraftConfigSource : AbstractValueSource
 {
-    [Export] public Aircraft Aircraft { get; set; }
+    [Export] public NodePath AircraftPath { get; set; }
     [Export] public string Property { get; set; }
 
-    public override dynamic GetValue()
+    public override dynamic GetValue(Node valueSetter)
     {
-        // GD.Print(Tomlet.TomletMain.TomlStringFrom(ACConfig));
-        return Aircraft.Config[Property];
+        return valueSetter.GetNode<Aircraft>(AircraftPath).Config[Property];
     }
 }

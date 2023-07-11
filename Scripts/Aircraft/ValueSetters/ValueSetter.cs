@@ -42,8 +42,8 @@ public partial class ValueSetter : Node3D
 
     private void Update()
     {
-        var value = Source.GetValue();
+        var value = Source.GetValue(this);
         foreach (var transformation in Transformations) value = transformation.Apply(value);
-        Output.Apply(value);
+        Output.Apply(value, this);
     }
 }
