@@ -3,57 +3,56 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace UI.Settings.Components
+namespace UI.Settings.Components;
+
+public partial class KeyInput : BaseInputInput<Key, Key?>
 {
-    public partial class KeyInput : BaseInputInput<Key, Key?>
+    private Key? lastPressedKey;
+
+    public static PackedScene Scene = ResourceLoader.Load<PackedScene>("res://Scenes/UI/Settings/Components/KeyInput.tscn");
+
+    public new KeyInput Config(Node parent, string name, SettingReader<Key> read, SettingWriter<Key> write, string toolTip = "")
     {
-        private Key? lastPressedKey;
+        base.Config(parent, name, read, write, toolTip);
 
-        public static PackedScene Scene = ResourceLoader.Load<PackedScene>("res://Scenes/UI/Settings/Components/KeyInput.tscn");
+        return this;
+    }
 
-        public new KeyInput Config(Node parent, string name, SettingReader<Key> read, SettingWriter<Key> write, string toolTip = "")
+    protected override void OnInputWhenOpen(InputEvent _event)
+    {
+        if (_event is InputEventKey keyEvent && keyEvent.Pressed && !keyEvent.Echo)
         {
-            base.Config(parent, name, read, write, toolTip);
+            lastPressedKey = keyEvent.GetKeycodeWithModifiers();
 
-            return this;
+            UpdatePopup();
         }
+    }
 
-        protected override void OnInputWhenOpen(InputEvent _event)
-        {
-            if (_event is InputEventKey keyEvent && keyEvent.Pressed && !keyEvent.Echo)
-            {
-                lastPressedKey = keyEvent.GetKeycodeWithModifiers();
+    protected override Key? GetCandidateValue()
+    {
+        return lastPressedKey;
+    }
 
-                UpdatePopup();
-            }
-        }
+    protected override string GetPopupText()
+    {
+        var candidate = GetCandidateValue();
 
-        protected override Key? GetCandidateValue()
-        {
-            return lastPressedKey;
-        }
+        if (candidate is Key notNull) return $"{OS.GetKeycodeString(notNull)} selected";
+        else return "Press a key or key combination to select it...";
+    }
 
-        protected override string GetPopupText()
-        {
-            var candidate = GetCandidateValue();
+    protected override string GetCurrentValueText()
+    {
+        return OS.GetKeycodeString(read(SettingsScreen.NewSettings));
+    }
 
-            if (candidate is Key notNull) return $"{OS.GetKeycodeString(notNull)} selected";
-            else return "Press a key or key combination to select it...";
-        }
+    protected override void ClearCandidateValue()
+    {
+        lastPressedKey = null;
+    }
 
-        protected override string GetCurrentValueText()
-        {
-            return OS.GetKeycodeString(read(SettingsScreen.NewSettings));
-        }
-
-        protected override void ClearCandidateValue()
-        {
-            lastPressedKey = null;
-        }
-
-        protected override bool ShouldShowSelectAgainButton()
-        {
-            return false;
-        }
+    protected override bool ShouldShowSelectAgainButton()
+    {
+        return false;
     }
 }

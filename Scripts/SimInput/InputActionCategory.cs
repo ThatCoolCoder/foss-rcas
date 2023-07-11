@@ -2,25 +2,23 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-namespace SimInput
+namespace SimInput;
+
+public partial class InputActionCategory
 {
+    public string Name { get; set; } = "";
+    public string DisplayName { get; set; } = ""; // should not be capitalised
+    public List<InputAction> Actions { get; set; } = new();
 
-    public partial class InputActionCategory
+    public InputActionCategory()
     {
-        public string Name { get; set; } = "";
-        public string DisplayName { get; set; } = ""; // should not be capitalised
-        public List<InputAction> Actions { get; set; } = new();
 
-        public InputActionCategory()
-        {
+    }
 
-        }
-
-        public InputActionCategory(string name, string displayName, List<InputAction> actions)
-        {
-            Name = name;
-            DisplayName = displayName;
-            Actions = actions;
-        }
+    public InputActionCategory(string name, string displayName, List<InputAction> actions)
+    {
+        Name = name;
+        DisplayName = displayName;
+        Actions = actions;
     }
 }

@@ -2,26 +2,25 @@ using Godot;
 using Physics.Fluids;
 using System;
 
-namespace Physics.Forcers
+namespace Physics.Forcers;
+
+public partial class SimpleThruster : AbstractSpatialForcer
 {
-    public partial class SimpleThruster : AbstractSpatialForcer
+    [Export] public float MaxThrust { get; set; } = 10;
+    [Export] public float MaxSpeed { get; set; } = 30; // thrust decays to 0 at this speed
+
+    [Export] public float ThrustProportion { get; set; } = 0; // public so people can mess with it in content creation tutorial before learning about control
+
+    public override void Apply(PhysicsDirectBodyState3D state)
     {
-        [Export] public float MaxThrust { get; set; } = 10;
-        [Export] public float MaxSpeed { get; set; } = 30; // thrust decays to 0 at this speed
+        ThrustProportion = Mathf.Clamp(ThrustProportion, -1, 1);
 
-        [Export] public float ThrustProportion { get; set; } = 0; // public so people can mess with it in content creation tutorial before learning about control
+        var relativeVelocity = state.GetVelocityAtGlobalPosition(target, this);
+        var localVelocity = GlobalTransform.Basis.Inverse() * relativeVelocity;
 
-        public override void Apply(PhysicsDirectBodyState3D state)
-        {
-            ThrustProportion = Mathf.Clamp(ThrustProportion, -1, 1);
+        var forceMag = Utils.MapNumber(-localVelocity.Z, 0, MaxSpeed, MaxThrust, 0) * ThrustProportion;
+        var force = -GlobalTransform.Basis.Z * forceMag;
 
-            var relativeVelocity = state.GetVelocityAtGlobalPosition(target, this);
-            var localVelocity = GlobalTransform.Basis.Inverse() * relativeVelocity;
-
-            var forceMag = Utils.MapNumber(-localVelocity.Z, 0, MaxSpeed, MaxThrust, 0) * ThrustProportion;
-            var force = -GlobalTransform.Basis.Z * forceMag;
-
-            state.ApplyForce(force, GlobalPosition - state.Transform.Origin);
-        }
+        state.ApplyForce(force, GlobalPosition - state.Transform.Origin);
     }
 }

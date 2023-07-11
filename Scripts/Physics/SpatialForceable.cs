@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 
 
-namespace Physics
-{
+namespace Physics;
+
 	public partial class SpatialForceable : RigidBody3D
 	{
 		// Spatial thing that can be forced
@@ -34,4 +34,3 @@ namespace Physics
 		}
 
 	}
-}

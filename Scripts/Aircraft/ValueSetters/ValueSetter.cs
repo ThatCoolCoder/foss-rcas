@@ -1,11 +1,10 @@
 using Godot;
 using System;
 
-namespace Aircraft.ValueSetters
+namespace Aircraft.ValueSetters;
+
+public partial class ValueSetter : Node3D
 {
-    public partial class ValueSetter : Node3D
-    {
-        [Export] public Sources.AbstractValueSource Source { get; set; }
-        [Export] public Sources.AbstractValueSetterOutput Output { get; set; }
-    }
+    [Export] public Sources.AbstractValueSource Source { get; set; }
+    [Export] public Sources.AbstractValueSetterOutput Output { get; set; }
 }

@@ -1,10 +1,9 @@
 using Godot;
 using System;
 
-namespace Audio.Primitives
+namespace Audio.Primitives;
+
+public partial class SquareOscillator : AbstractOscillator
 {
-    public partial class SquareOscillator : AbstractOscillator
-    {
-        protected override float OscillatorValue(float phase) => phase < 0.5f ? -1 : 1;
-    }
+    protected override float OscillatorValue(float phase) => phase < 0.5f ? -1 : 1;
 }

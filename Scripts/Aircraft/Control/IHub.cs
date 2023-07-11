@@ -3,10 +3,9 @@ using System;
 using System.Collections.Generic;
 
 
-namespace Aircraft.Control
+namespace Aircraft.Control;
+
+public interface IHub
 {
-    public interface IHub
-    {
-        public Dictionary<string, float> ChannelValues { get; set; }
-    }
+    public Dictionary<string, float> ChannelValues { get; set; }
 }

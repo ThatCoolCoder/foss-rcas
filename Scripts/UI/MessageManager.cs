@@ -2,69 +2,67 @@ using Godot;
 using System;
 using System.Linq;
 
-namespace UI
+namespace UI;
+
+public partial class MessageManager : Control
 {
+    public static MessageManager Instance { get; private set; }
+    private PackedScene messageBoxScene = ResourceLoader.Load<PackedScene>("res://Scenes/UI/MessageBox.tscn");
 
-    public partial class MessageManager : Control
+    public void AddMessage(Message message)
     {
-        public static MessageManager Instance { get; private set; }
-        private PackedScene messageBoxScene = ResourceLoader.Load<PackedScene>("res://Scenes/UI/MessageBox.tscn");
+        // Check if there is already a message in this category
+        var existingNodes = this.GetChildNodeList()
+            .Where(x => x is MessageBox)
+            .Select(x => x as MessageBox);
+        var existingNodeInCategory = existingNodes.FirstOrDefault(x => x.Message.Category == message.Category);
 
-        public void AddMessage(Message message)
+        // If there is no node, create one
+        if (existingNodeInCategory == null)
         {
-            // Check if there is already a message in this category
-            var existingNodes = this.GetChildNodeList()
-                .Where(x => x is MessageBox)
-                .Select(x => x as MessageBox);
-            var existingNodeInCategory = existingNodes.FirstOrDefault(x => x.Message.Category == message.Category);
-
-            // If there is no node, create one
-            if (existingNodeInCategory == null)
-            {
-                var instance = messageBoxScene.Instantiate<MessageBox>();
-                AddChild(instance);
-                instance.SetMessage(message);
-            }
-            else
-            {
-                existingNodeInCategory.SetMessage(message);
-            }
+            var instance = messageBoxScene.Instantiate<MessageBox>();
+            AddChild(instance);
+            instance.SetMessage(message);
         }
-
-        public override void _EnterTree()
+        else
         {
-            Instance = this;
-        }
-
-        public override void _ExitTree()
-        {
-            Instance = null;
-        }
-
-        public static void StaticAddMessage(Message notification)
-        {
-            if (Instance != null) Instance.AddMessage(notification);
-        }
-
-        public static void StaticAddMessage(string content, string category = null, float? timeDisplayed = null)
-        {
-            if (Instance != null) Instance.AddMessage(new Message(content, category, timeDisplayed));
+            existingNodeInCategory.SetMessage(message);
         }
     }
 
-    public partial class Message
+    public override void _EnterTree()
     {
-        public string Category { get; set; } = Guid.NewGuid().ToString(); // used to group notifications
-        public string Content { get; set; } = "No content provided!";
-        public float TimeDisplayed { get; set; } = 5;
+        Instance = this;
+    }
 
-        public Message() { }
+    public override void _ExitTree()
+    {
+        Instance = null;
+    }
 
-        public Message(string content, string category = null, float? timeDisplayed = null)
-        {
-            Content = content;
-            if (category != null) Category = category;
-            if (timeDisplayed != null) TimeDisplayed = (float)timeDisplayed;
-        }
+    public static void StaticAddMessage(Message notification)
+    {
+        if (Instance != null) Instance.AddMessage(notification);
+    }
+
+    public static void StaticAddMessage(string content, string category = null, float? timeDisplayed = null)
+    {
+        if (Instance != null) Instance.AddMessage(new Message(content, category, timeDisplayed));
+    }
+}
+
+public partial class Message
+{
+    public string Category { get; set; } = Guid.NewGuid().ToString(); // used to group notifications
+    public string Content { get; set; } = "No content provided!";
+    public float TimeDisplayed { get; set; } = 5;
+
+    public Message() { }
+
+    public Message(string content, string category = null, float? timeDisplayed = null)
+    {
+        Content = content;
+        if (category != null) Category = category;
+        if (timeDisplayed != null) TimeDisplayed = (float)timeDisplayed;
     }
 }

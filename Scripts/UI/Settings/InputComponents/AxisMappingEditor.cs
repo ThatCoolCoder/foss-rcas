@@ -1,59 +1,58 @@
 using Godot;
 using System;
 
-namespace UI.Settings.InputComponents
+namespace UI.Settings.InputComponents;
+
+using Components;
+
+public partial class AxisMappingEditor : BaseControlMappingEditor
 {
-    using Components;
+    // It was decided to not make this a smart control using readers and writers, and simply regenerate them every time the settings change.
+    // The performance should still be fine and this makes it SO much easier to code.
 
-    public partial class AxisMappingEditor : BaseControlMappingEditor
+    private SimInput.AxisControlMapping controlMapping;
+
+    public static PackedScene Scene = ResourceLoader.Load<PackedScene>("res://Scenes/UI/Settings/InputComponents/AxisMappingEditor.tscn");
+
+    public AxisMappingEditor Config(Node parent, SimInput.AxisControlMapping _controlMapping)
     {
-        // It was decided to not make this a smart control using readers and writers, and simply regenerate them every time the settings change.
-        // The performance should still be fine and this makes it SO much easier to code.
+        controlMapping = _controlMapping;
+        if (parent != null) parent.AddChild(this);
 
-        private SimInput.AxisControlMapping controlMapping;
+        return this;
+    }
 
-        public static PackedScene Scene = ResourceLoader.Load<PackedScene>("res://Scenes/UI/Settings/InputComponents/AxisMappingEditor.tscn");
+    public override void _Ready()
+    {
+        Func<float, string> percentageDisplayFunc = x => Utils.RoundToPlaces(x * 100, 0).ToString() + "%";
 
-        public AxisMappingEditor Config(Node parent, SimInput.AxisControlMapping _controlMapping)
-        {
-            controlMapping = _controlMapping;
-            if (parent != null) parent.AddChild(this);
+        var holder = GetMainItemHolder();
+        holder.GetNode<BooleanInput>("InvertedInput").Config(null, "Inverted",
+            s => controlMapping.Inverted,
+            (s, v) => controlMapping.Inverted = v)
+            .OnSettingsChanged();
 
-            return this;
-        }
+        holder.GetNode<JoystickAxisInput>("JoystickAxisInput").Config(null, "Selected axis",
+            s => (JoyAxis)controlMapping.Axis,
+            (s, v) => controlMapping.Axis = (uint)v)
+            .OnSettingsChanged();
 
-        public override void _Ready()
-        {
-            Func<float, string> percentageDisplayFunc = x => Utils.RoundToPlaces(x * 100, 0).ToString() + "%";
+        holder.GetNode<NumericSliderInput>("Sensitivity").Config(null, "Sensitivity",
+            s => controlMapping.Multiplier,
+            (s, v) => controlMapping.Multiplier = v,
+            min: 0, max: 2, step: 0.01f, _customDisplayFunc: percentageDisplayFunc)
+            .OnSettingsChanged();
 
-            var holder = GetMainItemHolder();
-            holder.GetNode<BooleanInput>("InvertedInput").Config(null, "Inverted",
-                s => controlMapping.Inverted,
-                (s, v) => controlMapping.Inverted = v)
-                .OnSettingsChanged();
+        holder.GetNode<NumericSliderInput>("DeadzoneRest").Config(null, "Deadzone (rest)",
+            s => controlMapping.DeadzoneRest,
+            (s, v) => controlMapping.DeadzoneRest = v,
+            min: 0, max: 2, step: 0.01f, _customDisplayFunc: percentageDisplayFunc)
+            .OnSettingsChanged();
 
-            holder.GetNode<JoystickAxisInput>("JoystickAxisInput").Config(null, "Selected axis",
-                s => (JoyAxis)controlMapping.Axis,
-                (s, v) => controlMapping.Axis = (uint)v)
-                .OnSettingsChanged();
-
-            holder.GetNode<NumericSliderInput>("Sensitivity").Config(null, "Sensitivity",
-                s => controlMapping.Multiplier,
-                (s, v) => controlMapping.Multiplier = v,
-                min: 0, max: 2, step: 0.01f, _customDisplayFunc: percentageDisplayFunc)
-                .OnSettingsChanged();
-
-            holder.GetNode<NumericSliderInput>("DeadzoneRest").Config(null, "Deadzone (rest)",
-                s => controlMapping.DeadzoneRest,
-                (s, v) => controlMapping.DeadzoneRest = v,
-                min: 0, max: 2, step: 0.01f, _customDisplayFunc: percentageDisplayFunc)
-                .OnSettingsChanged();
-
-            holder.GetNode<NumericSliderInput>("DeadzoneEnd").Config(null, "Deadzone (end)",
-                s => controlMapping.DeadzoneEnd,
-                (s, v) => controlMapping.DeadzoneEnd = v,
-                min: 0, max: 2, step: 0.01f, _customDisplayFunc: percentageDisplayFunc)
-                .OnSettingsChanged();
-        }
+        holder.GetNode<NumericSliderInput>("DeadzoneEnd").Config(null, "Deadzone (end)",
+            s => controlMapping.DeadzoneEnd,
+            (s, v) => controlMapping.DeadzoneEnd = v,
+            min: 0, max: 2, step: 0.01f, _customDisplayFunc: percentageDisplayFunc)
+            .OnSettingsChanged();
     }
 }

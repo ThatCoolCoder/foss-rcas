@@ -4,33 +4,32 @@ using System.Collections.Generic;
 
 using ContentManagement;
 
-namespace UI.FlightSettings
+namespace UI.FlightSettings;
+
+public partial class AircraftSelector : AbstractContentSelector<ContentManagement.Aircraft>
 {
-    public partial class AircraftSelector : AbstractContentSelector<ContentManagement.Aircraft>
+    private static readonly Dictionary<AircraftPowerType, string> PowerTypeNames = new()
     {
-        private static readonly Dictionary<AircraftPowerType, string> PowerTypeNames = new()
-        {
-            {AircraftPowerType.ElectricPropeller, "Electric propeller"},
-            {AircraftPowerType.ElectricDuctedFan, "EDF"},
-            {AircraftPowerType.InternalCombustion, "Internal combustion"},
-            {AircraftPowerType.Turbine, "Turbine"},
-            {AircraftPowerType.Other, "Other"},
-        };
+        {AircraftPowerType.ElectricPropeller, "Electric propeller"},
+        {AircraftPowerType.ElectricDuctedFan, "EDF"},
+        {AircraftPowerType.InternalCombustion, "Internal combustion"},
+        {AircraftPowerType.Turbine, "Turbine"},
+        {AircraftPowerType.Other, "Other"},
+    };
 
-        protected override string FormatCustomInfo()
-        {
-            var needsLauncherText = SelectedItem.NeedsLauncher ? "yes" : "no";
-            var formattedPowerType = SelectedItem.CustomPowerType == null
-                ? PowerTypeNames[SelectedItem.PowerType]
-                : SelectedItem.CustomPowerType;
+    protected override string FormatCustomInfo()
+    {
+        var needsLauncherText = SelectedItem.NeedsLauncher ? "yes" : "no";
+        var formattedPowerType = SelectedItem.CustomPowerType == null
+            ? PowerTypeNames[SelectedItem.PowerType]
+            : SelectedItem.CustomPowerType;
 
-            return
+        return
 $@"Wingspan: {SelectedItem.WingSpan * 1000:0}mm
 Length: {SelectedItem.Length * 1000:0}mm
 Weight: {SelectedItem.Weight:0.000}kg
 Power type: {formattedPowerType}
 Number of channels: {SelectedItem.ChannelCount}
 Hand launched: {needsLauncherText}";
-        }
     }
 }

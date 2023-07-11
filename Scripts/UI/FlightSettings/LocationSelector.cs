@@ -1,14 +1,13 @@
 using Godot;
 using System;
 
-namespace UI.FlightSettings
+namespace UI.FlightSettings;
+
+public partial class LocationSelector : AbstractContentSelector<ContentManagement.Location>
 {
-    public partial class LocationSelector : AbstractContentSelector<ContentManagement.Location>
+    protected override string FormatCustomInfo()
     {
-        protected override string FormatCustomInfo()
-        {
-            return $"Location: {SelectedItem.LocationInWorld}\n" +
-                $"Elevation: {SelectedItem.Elevation}m ASL";
-        }
+        return $"Location: {SelectedItem.LocationInWorld}\n" +
+            $"Elevation: {SelectedItem.Elevation}m ASL";
     }
 }

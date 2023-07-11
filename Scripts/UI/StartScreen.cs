@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using Tomlet;
 
-namespace UI
-{
+namespace UI;
+
 	public partial class StartScreen : Control
 	{
 		public override void _Ready()
@@ -17,4 +17,3 @@ namespace UI
 			OS.ShellOpen("https://github.com/ThatCoolCoder/foss-rcas");
 		}
 	}
-}

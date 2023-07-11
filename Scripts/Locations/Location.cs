@@ -1,8 +1,8 @@
 using Godot;
 using System;
 
-namespace Locations
-{
+namespace Locations;
+
 	public partial class Location : Node3D
 	{
 		public RigidBody3D Aircraft { get; set; }
@@ -140,4 +140,3 @@ namespace Locations
 		}
 	}
 
-}

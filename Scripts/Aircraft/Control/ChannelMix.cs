@@ -2,47 +2,46 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-namespace Aircraft.Control
+namespace Aircraft.Control;
+
+public partial class ChannelMix
 {
-    public partial class ChannelMix
+    public string InputChannelName { get; set; }
+    public string OutputChannelName { get; set; }
+    public float Weight { get; set; } = 1;
+    public float Expo { get; set; } = 0;
+    public float Offset { get; set; } = 0;
+    public float SpeedUp { get; set; } = 0; // % of movement per second when value is increasing. EG with a value of 0.5 it will take two seconds to go from 0 to 1. Value of 0 means instant.
+    public float SpeedDown { get; set; } = 0;
+    public ChannelMixMode Mode { get; set; } = ChannelMixMode.Add;
+
+    private float currentValue = 0;
+
+    public float Apply(float inputValue, float channelValue, float delta)
     {
-        public string InputChannelName { get; set; }
-        public string OutputChannelName { get; set; }
-        public float Weight { get; set; } = 1;
-        public float Expo { get; set; } = 0;
-        public float Offset { get; set; } = 0;
-        public float SpeedUp { get; set; } = 0; // % of movement per second when value is increasing. EG with a value of 0.5 it will take two seconds to go from 0 to 1. Value of 0 means instant.
-        public float SpeedDown { get; set; } = 0;
-        public ChannelMixMode Mode { get; set; } = ChannelMixMode.Add;
+        // Apply this mix to the existing channel value.
+        // Note that there is some state stored within the ChannelMix so don't go creating new ones too often
 
-        private float currentValue = 0;
+        var targetValue = inputValue;
 
-        public float Apply(float inputValue, float channelValue, float delta)
-        {
-            // Apply this mix to the existing channel value.
-            // Note that there is some state stored within the ChannelMix so don't go creating new ones too often
+        targetValue = CalculateExpo(targetValue, Expo);
+        targetValue *= Weight;
 
-            var targetValue = inputValue;
+        targetValue += Offset;
 
-            targetValue = CalculateExpo(targetValue, Expo);
-            targetValue *= Weight;
+        var speed = currentValue > targetValue ? SpeedDown : SpeedUp;
+        currentValue = speed == 0 ? targetValue : Utils.ConvergeValue(currentValue, targetValue, speed * delta);
 
-            targetValue += Offset;
+        if (Mode == ChannelMixMode.Add) channelValue += currentValue;
+        else if (Mode == ChannelMixMode.Multiply) channelValue *= currentValue;
+        else if (Mode == ChannelMixMode.Replace) channelValue = currentValue;
 
-            var speed = currentValue > targetValue ? SpeedDown : SpeedUp;
-            currentValue = speed == 0 ? targetValue : Utils.ConvergeValue(currentValue, targetValue, speed * delta);
+        return channelValue;
+    }
 
-            if (Mode == ChannelMixMode.Add) channelValue += currentValue;
-            else if (Mode == ChannelMixMode.Multiply) channelValue *= currentValue;
-            else if (Mode == ChannelMixMode.Replace) channelValue = currentValue;
-
-            return channelValue;
-        }
-
-        public static float CalculateExpo(float inputValue, float expo)
-        {
-            // Exponential controls. This should match the expo calculation used by open/edge tx
-            return expo * Mathf.Pow(inputValue, 3) + (1 - expo) * inputValue;
-        }
+    public static float CalculateExpo(float inputValue, float expo)
+    {
+        // Exponential controls. This should match the expo calculation used by open/edge tx
+        return expo * Mathf.Pow(inputValue, 3) + (1 - expo) * inputValue;
     }
 }

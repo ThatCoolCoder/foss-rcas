@@ -12,7 +12,7 @@
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/PropellerWithModel.tscn" id="10"]
 [ext_resource type="Script" path="res://Scripts/Aircraft/ValueSetters/ValueSetter.cs" id="10_ox7fh"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/ControlledBrushlessMotor.tscn" id="11"]
-[ext_resource type="Script" path="res://Scripts/Aircraft/ValueSetters/Sources/AircraftConfigSource.cs" id="11_4joe0"]
+[ext_resource type="Script" path="res://Scripts/Aircraft/ValueSetters/Sources/AbstractValueSource.cs" id="11_wsvxw"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Control/MixerControlHub.tscn" id="12"]
 [ext_resource type="PackedScene" path="res://Scenes/Forcers/AeroObject.tscn" id="14"]
 [ext_resource type="PackedScene" uid="uid://xyhg32rkcics" path="res://Art/Aircraft/TinyTrainer/Elevator.glb" id="15"]
@@ -38,8 +38,8 @@ size = Vector3(0.00659916, 0.0569142, 0.0494842)
 [sub_resource type="BoxShape3D" id="4"]
 size = Vector3(0.0812936, 0.0379009, 0.0134837)
 
-[sub_resource type="Resource" id="Resource_blvoj"]
-script = ExtResource("11_4joe0")
+[sub_resource type="Resource" id="Resource_6746c"]
+script = ExtResource("11_wsvxw")
 
 [node name="TinyTrainer" type="RigidBody3D"]
 mass = 0.45
@@ -74,7 +74,6 @@ shape = SubResource("4")
 [node name="Electrics" type="Node3D" parent="."]
 
 [node name="ControlledBrushlessMotor" parent="Electrics" instance=ExtResource("11")]
-Reversible = null
 ControlHubPath = NodePath("../../MixerControlHub")
 BatteryPath = NodePath("../Battery")
 PropellerPath = NodePath("PropellerWithModel")
@@ -83,32 +82,14 @@ KV = 1850.0
 PeakTorque = 0.074
 TorqueAdjustment = 1.5
 CurrentMultiplier = 1.8
-Clockwise = null
 
 [node name="PropellerWithModel" parent="Electrics/ControlledBrushlessMotor" instance=ExtResource("10")]
-TargetPath = NodePath("../../..")
-target = null
-autoCheckInsideFluid = true
-debugModeWasActive = false
 DiameterInches = 6.0
 PitchInches = 4.0
 EfficiencyFactor = 0.55
 LiftToDrag = 4.5
 Mass = 0.005
-AngularVelocity = 0.0
-LastExitSpeed = 0.0
-LastEntryVelocity = Vector3(0, 0, 0)
-LastThrustMagnitude = 0.0
-currentTorques = 0.0
-currentBrakingTorques = 0.0
-blurShape = Object(Node3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","transform":Transform3D(0.0762, 0, 0, 0, 0.0762, 0, 0, 0, 0.10353, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":null)
-
-actualModel = Object(Node3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","transform":Transform3D(-0.0762, 0, -1.56327e-08, 0, 0.0762, 0, 1.15059e-08, 0, -0.10353, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":null)
-
-collider = Object(CollisionShape3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"shape":null,"disabled":false,"script":null)
-
-minBlurRpm = 2000.0
-collidingBodies = 0.0
+TargetPath = NodePath("../../..")
 
 [node name="PrerecordedPropellerNoise" type="AudioStreamPlayer3D" parent="Electrics/ControlledBrushlessMotor/PropellerWithModel"]
 stream = ExtResource("17")
@@ -118,27 +99,17 @@ autoplay = true
 doppler_tracking = 1
 script = ExtResource("18")
 DominantFrequency = 460.0
-DecibelsChange = null
-BladeCount = null
 
 [node name="Propwash" parent="Electrics/ControlledBrushlessMotor/PropellerWithModel" instance=ExtResource("19")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.007337)
-MaxDistance = null
-SpreadAngleDegrees = null
 
 [node name="Battery" parent="Electrics" instance=ExtResource("3")]
-CellCount = null
-ChargedCellVoltage = null
-FlatCellVoltage = null
-CellInternalResistance = null
-DischargeCurve = null
-MaxCapacity = null
 
 [node name="ValueSetters" type="Node3D" parent="."]
 
 [node name="CgValueSetter" type="Node3D" parent="ValueSetters"]
 script = ExtResource("10_ox7fh")
-Source = SubResource("Resource_blvoj")
+Source = SubResource("Resource_6746c")
 
 [node name="Wing" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0203834, -0.0246674)
@@ -152,9 +123,7 @@ TotalLiftCoefficient = ExtResource("6")
 ParasiticDragCoefficient = ExtResource("4")
 AreaMultiplier = 0.6
 Thickness = 0.005
-ForLiquid = null
 TargetPath = NodePath("../..")
-Enabled = null
 
 [node name="Section2" parent="Wing" instance=ExtResource("5")]
 transform = Transform3D(0.114225, 0.21649, 0, -0.0253294, 0.976285, 0, 0, 0, 0.13, -0.297631, 0.0107418, 0)
@@ -162,9 +131,7 @@ TotalLiftCoefficient = ExtResource("6")
 ParasiticDragCoefficient = ExtResource("4")
 AreaMultiplier = 0.6
 Thickness = 0.005
-ForLiquid = null
 TargetPath = NodePath("../..")
-Enabled = null
 
 [node name="Section3" parent="Wing" instance=ExtResource("5")]
 transform = Transform3D(0.117, -3.7343e-07, 0, 4.36913e-08, 1, 0, 0, 0, 0.13, -0.179908, 6.70552e-08, 0)
@@ -172,9 +139,7 @@ TotalLiftCoefficient = ExtResource("6")
 ParasiticDragCoefficient = ExtResource("4")
 AreaMultiplier = 0.6
 Thickness = 0.005
-ForLiquid = null
 TargetPath = NodePath("../..")
-Enabled = null
 
 [node name="Section4" parent="Wing" instance=ExtResource("5")]
 transform = Transform3D(0.117, -3.7343e-07, 0, 4.36913e-08, 1, 0, 0, 0, 0.13, -0.062185, 2.23517e-08, 0)
@@ -182,9 +147,7 @@ TotalLiftCoefficient = ExtResource("6")
 ParasiticDragCoefficient = ExtResource("4")
 AreaMultiplier = 0.6
 Thickness = 0.005
-ForLiquid = null
 TargetPath = NodePath("../..")
-Enabled = null
 
 [node name="HorizontalStabiliser" parent="." instance=ExtResource("5")]
 transform = Transform3D(0.294853, -3.73431e-07, 0, 1.10107e-07, 1, 0, 0, 0, 0.0965894, 0, -0.0142816, 0.333117)
@@ -192,8 +155,6 @@ TotalLiftCoefficient = ExtResource("9")
 ParasiticDragCoefficient = ExtResource("4")
 AreaMultiplier = 0.6
 Thickness = 0.005
-ForLiquid = null
-Enabled = null
 
 [node name="ElevatorHolder" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 0.998657, 0.0518131, 0, -0.0518131, 0.998657, 0, -0.0109794, 0.398341)
@@ -201,21 +162,14 @@ transform = Transform3D(1, 0, 0, 0, 0.998657, 0.0518131, 0, -0.0518131, 0.998657
 [node name="Elevator" type="Node3D" parent="ElevatorHolder"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.00011377, -0.0169004)
 script = ExtResource("7")
-MaxDeflectionDegrees = null
-Reversed = null
 ChannelName = "elevator"
-Time60Degrees = null
 ControlHubPath = NodePath("../../MixerControlHub")
 
 [node name="AeroSurface" parent="ElevatorHolder/Elevator" instance=ExtResource("5")]
 transform = Transform3D(0.294853, -3.73431e-07, 0, 1.10175e-07, 1.00062, -0.000476888, -1.3184e-09, -0.0119738, 0.0490193, 0, -0.00230037, 0.0237533)
 TotalLiftCoefficient = ExtResource("9")
 ParasiticDragCoefficient = ExtResource("4")
-AreaMultiplier = null
-Thickness = null
-ForLiquid = null
 TargetPath = NodePath("../../..")
-Enabled = null
 
 [node name="Elevator" parent="ElevatorHolder/Elevator" instance=ExtResource("15")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.032, -0.486)
@@ -226,9 +180,7 @@ TotalLiftCoefficient = ExtResource("9")
 ParasiticDragCoefficient = ExtResource("4")
 AreaMultiplier = 0.5
 Thickness = 0.005
-ForLiquid = null
 TargetPath = NodePath("..")
-Enabled = null
 
 [node name="RudderHolder" type="Node3D" parent="."]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -4.53532e-10, 0.00470001, 0.379543)
@@ -237,9 +189,7 @@ transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -4.535
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.051, -0.003, 0.000999987)
 script = ExtResource("7")
 MaxDeflectionDegrees = 35.0
-Reversed = null
 ChannelName = "rudder"
-Time60Degrees = null
 ControlHubPath = NodePath("../../MixerControlHub")
 
 [node name="AeroSurface" parent="RudderHolder/Rudder" instance=ExtResource("5")]
@@ -248,9 +198,7 @@ TotalLiftCoefficient = ExtResource("9")
 ParasiticDragCoefficient = ExtResource("4")
 AreaMultiplier = 0.75
 Thickness = 0.005
-ForLiquid = null
 TargetPath = NodePath("../../..")
-Enabled = null
 
 [node name="Rudder" parent="RudderHolder/Rudder" instance=ExtResource("16")]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.036, 0.003, -0.486)
@@ -259,5 +207,3 @@ transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.036
 transform = Transform3D(0.0457539, 0, 0, 0, 0.0626957, 0, 0, 0, 0.639938, 0, -0.00533309, 0.104188)
 LiftCube = ExtResource("19_hgre0")
 DragCube = ExtResource("20_l1lq0")
-ForLiquid = null
-Enabled = null

@@ -1,14 +1,13 @@
 using Godot;
 using System;
 
-namespace ContentManagement
+namespace ContentManagement;
+
+public enum AircraftPowerType
 {
-    public enum AircraftPowerType
-    {
-        ElectricPropeller = 0,
-        ElectricDuctedFan = 1,
-        InternalCombustion = 2,
-        Turbine = 3,
-        Other = 4
-    }
+    ElectricPropeller = 0,
+    ElectricDuctedFan = 1,
+    InternalCombustion = 2,
+    Turbine = 3,
+    Other = 4
 }

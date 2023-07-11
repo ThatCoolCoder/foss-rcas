@@ -2,50 +2,49 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-namespace UI.Settings.InputComponents
+namespace UI.Settings.InputComponents;
+
+using SimInput;
+
+public partial class ActionCategoryEditor : Misc.CollapsibleMenu
 {
-    using SimInput;
+    public static PackedScene Scene = ResourceLoader.Load<PackedScene>("res://Scenes/UI/Settings/InputComponents/ActionCategoryEditor.tscn");
 
-    public partial class ActionCategoryEditor : Misc.CollapsibleMenu
+    private InputActionCategory category;
+
+    public ActionCategoryEditor Config(Node parent, string name, InputActionCategory _category)
     {
-        public static PackedScene Scene = ResourceLoader.Load<PackedScene>("res://Scenes/UI/Settings/InputComponents/ActionCategoryEditor.tscn");
+        if (parent != null) parent.AddChild(this);
 
-        private InputActionCategory category;
+        Title = name;
 
-        public ActionCategoryEditor Config(Node parent, string name, InputActionCategory _category)
+        category = _category;
+
+        SettingsScreen.OnSettingsChanged += OnSettingsChanged;
+
+        return this;
+    }
+
+    private void OnSettingsChanged()
+    {
+        UpdateChildren();
+    }
+
+    private void UpdateChildren()
+    {
+        var holder = GetNode<Control>("MarginContainer/VBoxContainer/ActionList");
+
+        foreach (var child in holder.GetChildNodeList()) child.QueueFree();
+
+        foreach (var action in category.Actions)
         {
-            if (parent != null) parent.AddChild(this);
-
-            Title = name;
-
-            category = _category;
-
-            SettingsScreen.OnSettingsChanged += OnSettingsChanged;
-
-            return this;
+            ActionPreview.Scene.Instantiate<ActionPreview>().Config(holder, action, category.Name + "/" + action.Name);
         }
+        UpdateLayout();
+    }
 
-        private void OnSettingsChanged()
-        {
-            UpdateChildren();
-        }
-
-        private void UpdateChildren()
-        {
-            var holder = GetNode<Control>("MarginContainer/VBoxContainer/ActionList");
-
-            foreach (var child in holder.GetChildNodeList()) child.QueueFree();
-
-            foreach (var action in category.Actions)
-            {
-                ActionPreview.Scene.Instantiate<ActionPreview>().Config(holder, action, category.Name + "/" + action.Name);
-            }
-            UpdateLayout();
-        }
-
-        public override void _ExitTree()
-        {
-            SettingsScreen.OnSettingsChanged -= OnSettingsChanged;
-        }
+    public override void _ExitTree()
+    {
+        SettingsScreen.OnSettingsChanged -= OnSettingsChanged;
     }
 }
