@@ -6,10 +6,12 @@ namespace Aircraft.ValueSetters.Sources;
 [GlobalClass]
 public partial class AircraftConfigSource : AbstractValueSource
 {
-    [Export] public RigidBody3D Aircraft { get; set; }
+    [Export] public Aircraft Aircraft { get; set; }
+    [Export] public string Property { get; set; }
 
     public override dynamic GetValue()
     {
-        return 42;
+        // GD.Print(Tomlet.TomletMain.TomlStringFrom(ACConfig));
+        return Aircraft.Config[Property];
     }
 }

@@ -16,9 +16,11 @@
 [ext_resource type="Script" path="res://Scripts/UI/MessageManager.cs" id="14"]
 [ext_resource type="Script" path="res://Scripts/Locations/FreeCamera.cs" id="15"]
 
-[node name="BaseLocation" type="Node3D"]
+[node name="BaseLocation" type="Node3D" node_paths=PackedStringArray("launcher", "groundCamera")]
 process_mode = 3
 script = ExtResource("6")
+launcher = NodePath("AircraftLauncher")
+groundCamera = NodePath("GroundCamera")
 
 [node name="CameraManager" type="Node3D" parent="."]
 process_mode = 3

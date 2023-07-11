@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://cql1kjv75ied"]
 
-[ext_resource type="Script" path="res://Scripts/Physics/SpatialForceable.cs" id="1"]
+[ext_resource type="Script" path="res://Scripts/Aircraft/Aircraft.cs" id="1_cbetr"]
 [ext_resource type="PackedScene" uid="uid://ieb4aqqkj2d7" path="res://Art/Aircraft/Wing/Wing.glb" id="2"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Control/MixerControlHub.tscn" id="3"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Battery.tscn" id="4"]
@@ -21,7 +21,7 @@
 mass = 0.3
 center_of_mass_mode = 1
 can_sleep = false
-script = ExtResource("1")
+script = ExtResource("1_cbetr")
 
 [node name="Wing" parent="." instance=ExtResource("2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.0237953)

@@ -1,9 +1,9 @@
 [gd_scene load_steps=25 format=3 uid="uid://vkiwi3wiq46w"]
 
 [ext_resource type="PackedScene" uid="uid://0srx2tt3ildf" path="res://Art/Aircraft/Mini3D/Rudder.glb" id="1"]
+[ext_resource type="Script" path="res://Scripts/Aircraft/Aircraft.cs" id="1_jpbbh"]
 [ext_resource type="PackedScene" uid="uid://byq5y0k7me454" path="res://Art/Aircraft/Mini3D/Elevator.glb" id="2"]
 [ext_resource type="PackedScene" uid="uid://b68bljj21yhht" path="res://Art/Aircraft/Mini3D/Aileron.glb" id="3"]
-[ext_resource type="Script" path="res://Scripts/Physics/SpatialForceable.cs" id="4"]
 [ext_resource type="PackedScene" uid="uid://drj5lruu6ok7n" path="res://Art/Aircraft/Mini3D/Mini3D.glb" id="5"]
 [ext_resource type="Script" path="res://Scripts/Aircraft/Servo.cs" id="6"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Control/MixerControlHub.tscn" id="7"]
@@ -35,7 +35,7 @@ size = Vector3(0.0142921, 0.0352546, 0.0370362)
 mass = 0.18
 center_of_mass_mode = 1
 can_sleep = false
-script = ExtResource("4")
+script = ExtResource("1_jpbbh")
 
 [node name="Model" parent="." instance=ExtResource("5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0308417, -0.046349)

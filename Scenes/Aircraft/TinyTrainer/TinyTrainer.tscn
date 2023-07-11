@@ -1,6 +1,6 @@
-[gd_scene load_steps=29 format=3 uid="uid://bwr61hdp5b3v1"]
+[gd_scene load_steps=31 format=3 uid="uid://bwr61hdp5b3v1"]
 
-[ext_resource type="Script" path="res://Scripts/Physics/SpatialForceable.cs" id="1"]
+[ext_resource type="Script" path="res://Scripts/Aircraft/Aircraft.cs" id="1_w3gm1"]
 [ext_resource type="PackedScene" uid="uid://csgmaf2piqj3e" path="res://Art/Aircraft/TinyTrainer/TinyTrainer.glb" id="2"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Battery.tscn" id="3"]
 [ext_resource type="Curve" path="res://Resources/AeroCurves/WingDragCoefficient.tres" id="4"]
@@ -12,8 +12,9 @@
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/PropellerWithModel.tscn" id="10"]
 [ext_resource type="Script" path="res://Scripts/Aircraft/ValueSetters/ValueSetter.cs" id="10_ox7fh"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/ControlledBrushlessMotor.tscn" id="11"]
-[ext_resource type="Script" path="res://Scripts/Aircraft/ValueSetters/Sources/AbstractValueSource.cs" id="11_wsvxw"]
+[ext_resource type="Script" path="res://Scripts/Aircraft/ValueSetters/Sources/AircraftConfigSource.cs" id="11_4joe0"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Control/MixerControlHub.tscn" id="12"]
+[ext_resource type="Script" path="res://Scripts/Aircraft/ValueSetters/Outputs/SingleOutput.cs" id="13_fe2rb"]
 [ext_resource type="PackedScene" path="res://Scenes/Forcers/AeroObject.tscn" id="14"]
 [ext_resource type="PackedScene" uid="uid://xyhg32rkcics" path="res://Art/Aircraft/TinyTrainer/Elevator.glb" id="15"]
 [ext_resource type="PackedScene" uid="uid://cta8nbpcw7xlm" path="res://Art/Aircraft/TinyTrainer/Rudder.glb" id="16"]
@@ -38,8 +39,17 @@ size = Vector3(0.00659916, 0.0569142, 0.0494842)
 [sub_resource type="BoxShape3D" id="4"]
 size = Vector3(0.0812936, 0.0379009, 0.0134837)
 
-[sub_resource type="Resource" id="Resource_6746c"]
-script = ExtResource("11_wsvxw")
+[sub_resource type="Resource" id="Resource_v054e"]
+script = ExtResource("11_4joe0")
+Aircraft = Object(RigidBody3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"disable_mode":0,"collision_layer":1,"collision_mask":1,"collision_priority":1.0,"input_ray_pickable":true,"input_capture_on_drag":false,"axis_lock_linear_x":false,"axis_lock_linear_y":false,"axis_lock_linear_z":false,"axis_lock_angular_x":false,"axis_lock_angular_y":false,"axis_lock_angular_z":false,"mass":0.45,"inertia":Vector3(0, 0, 0),"center_of_mass_mode":1,"center_of_mass":Vector3(0, 0, 0),"physics_material_override":SubResource("5"),"gravity_scale":1.0,"custom_integrator":false,"continuous_cd":false,"max_contacts_reported":0,"contact_monitor":false,"sleeping":false,"can_sleep":false,"lock_rotation":false,"freeze":false,"freeze_mode":0,"linear_velocity":Vector3(0, 0, 0),"linear_damp_mode":0,"linear_damp":0.0,"angular_velocity":Vector3(0, 0, 0),"angular_damp_mode":0,"angular_damp":1.0,"constant_force":Vector3(0, 0, 0),"constant_torque":Vector3(0, 0, 0),"script":ExtResource("1_w3gm1"))
+
+Property = "mass"
+
+[sub_resource type="Resource" id="Resource_xkdkn"]
+script = ExtResource("13_fe2rb")
+Node = Object(RigidBody3D,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"disable_mode":0,"collision_layer":1,"collision_mask":1,"collision_priority":1.0,"input_ray_pickable":true,"input_capture_on_drag":false,"axis_lock_linear_x":false,"axis_lock_linear_y":false,"axis_lock_linear_z":false,"axis_lock_angular_x":false,"axis_lock_angular_y":false,"axis_lock_angular_z":false,"mass":0.45,"inertia":Vector3(0, 0, 0),"center_of_mass_mode":1,"center_of_mass":Vector3(0, 0, 0),"physics_material_override":SubResource("5"),"gravity_scale":1.0,"custom_integrator":false,"continuous_cd":false,"max_contacts_reported":0,"contact_monitor":false,"sleeping":false,"can_sleep":false,"lock_rotation":false,"freeze":false,"freeze_mode":0,"linear_velocity":Vector3(0, 0, 0),"linear_damp_mode":0,"linear_damp":0.0,"angular_velocity":Vector3(0, 0, 0),"angular_damp_mode":0,"angular_damp":1.0,"constant_force":Vector3(0, 0, 0),"constant_torque":Vector3(0, 0, 0),"script":ExtResource("1_w3gm1"))
+
+Property = "mass"
 
 [node name="TinyTrainer" type="RigidBody3D"]
 mass = 0.45
@@ -47,7 +57,7 @@ center_of_mass_mode = 1
 physics_material_override = SubResource("5")
 can_sleep = false
 angular_damp = 1.0
-script = ExtResource("1")
+script = ExtResource("1_w3gm1")
 
 [node name="AircraftModel" parent="." instance=ExtResource("2")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0201254, -0.105241)
@@ -107,9 +117,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.007337)
 
 [node name="ValueSetters" type="Node3D" parent="."]
 
-[node name="CgValueSetter" type="Node3D" parent="ValueSetters"]
+[node name="MassValueSetter" type="Node3D" parent="ValueSetters"]
 script = ExtResource("10_ox7fh")
-Source = SubResource("Resource_6746c")
+UpdateMode = 0
+Source = SubResource("Resource_v054e")
+Transformations = Array[Object]([])
+Output = SubResource("Resource_xkdkn")
 
 [node name="Wing" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0203834, -0.0246674)

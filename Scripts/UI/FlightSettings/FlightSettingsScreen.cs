@@ -62,13 +62,18 @@ public partial class FlightSettingsScreen : Control
         var location = ResourceLoader.Load<PackedScene>(locationSelector.SelectedItem.GetScenePath()).Instantiate<Locations.Location>();
         location.LocationInfo = locationSelector.SelectedItem;
 
-        var aircraft = ResourceLoader.Load<PackedScene>(aircraftSelector.SelectedItem.GetScenePath()).Instantiate<RigidBody3D>();
+        var aircraft = ResourceLoader.Load<PackedScene>(aircraftSelector.SelectedItem.GetScenePath()).Instantiate<Aircraft.Aircraft>();
         location.AircraftInfo = aircraftSelector.SelectedItem;
+        // todo: remove this
+        aircraft.Config = new()
+        {
+            {"mass", 1}
+        };
+        GD.Print("Set");
 
         location.AddChild(aircraft);
         location.Aircraft = aircraft;
         location.CrntSpawnPosition = locationSelector.SelectedItem.SpawnPositions.First();
-        GD.Print(location.CrntSpawnPosition.Name);
 
         // switch scenes, done manually because we needed to set the values above
         var root = GetTree().Root;

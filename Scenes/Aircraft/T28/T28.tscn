@@ -1,6 +1,6 @@
 [gd_scene load_steps=23 format=3 uid="uid://cloj42bodefuu"]
 
-[ext_resource type="Script" path="res://Scripts/Physics/SpatialForceable.cs" id="1"]
+[ext_resource type="Script" path="res://Scripts/Aircraft/Aircraft.cs" id="1_dd3lv"]
 [ext_resource type="Script" path="res://Scripts/Aircraft/Servo.cs" id="2"]
 [ext_resource type="PackedScene" uid="uid://px77cy4geupc" path="res://Art/Aircraft/T28/T28.glb" id="3"]
 [ext_resource type="Curve" path="res://Resources/AeroCurves/FlatPlateLiftCoefficient.tres" id="4"]
@@ -32,7 +32,7 @@ size = Vector3(0.00659916, 0.0569142, 0.0438869)
 [node name="T28" type="RigidBody3D"]
 mass = 0.45
 center_of_mass_mode = 1
-script = ExtResource("1")
+script = ExtResource("1_dd3lv")
 
 [node name="AircraftModel" parent="." instance=ExtResource("3")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -5.09905e-05, -0.0190726, 0.101265)

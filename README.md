@@ -132,6 +132,7 @@ Depending on how much base content is desired and how large the repository gets,
     - Write about content creation, make these docs as friendly as possible to non-coders
     - If we get exotic stuff like quadcopters or cars working, create documentation on that
 - Misc bugs/problems
+    - fix sizes of colliders in tinytrainer and others
     - GODOT BUG: it appears that [Exported] nodes aren't assigned if the exported is a child of a Window that starts out invisible.
     - make slow motion only affect aircraft, not cameras.
         - would be easy if time_scale was inherited like pause_mode

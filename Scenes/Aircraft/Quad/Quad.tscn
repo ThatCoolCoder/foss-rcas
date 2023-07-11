@@ -1,125 +1,125 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=9 format=3 uid="uid://bxpxiilkpltcb"]
 
-[ext_resource path="res://Scripts/Physics/SpatialForceable.cs" type="Script" id=1]
-[ext_resource path="res://Scripts/Aircraft/Control/GyroHub.cs" type="Script" id=2]
-[ext_resource path="res://Scenes/Aircraft/Common/ControlledBrushlessMotor.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scenes/Aircraft/Common/PropellerWithModel.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Scenes/Aircraft/Common/Battery.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Art/Aircraft/Common/PropAudio/3S-2304-6x4E.mp3" type="AudioStream" id=7]
-[ext_resource path="res://Scripts/Audio/PrerecordedPropellerNoise.cs" type="Script" id=8]
+[ext_resource type="Script" path="res://Scripts/Aircraft/Aircraft.cs" id="1_do251"]
+[ext_resource type="Script" path="res://Scripts/Aircraft/Control/GyroHub.cs" id="2"]
+[ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/ControlledBrushlessMotor.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/PropellerWithModel.tscn" id="5"]
+[ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Battery.tscn" id="6"]
+[ext_resource type="AudioStream" uid="uid://deys0bnykpb1r" path="res://Art/Aircraft/Common/PropAudio/3S-2304-6x4E.mp3" id="7"]
+[ext_resource type="Script" path="res://Scripts/Audio/PrerecordedPropellerNoise.cs" id="8"]
 
-[sub_resource type="BoxShape3D" id=1]
-size = Vector3( 0.1, 0.0199523, 0.1 )
+[sub_resource type="BoxShape3D" id="1"]
+size = Vector3(0.1, 0.0199523, 0.1)
 
 [node name="Quad" type="RigidBody3D"]
 mass = 0.19
-script = ExtResource( 1 )
+script = ExtResource("1_do251")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0357741, -0.00626558 )
-shape = SubResource( 1 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0357741, -0.00626558)
+shape = SubResource("1")
 
 [node name="GyroHub" type="Node3D" parent="."]
-script = ExtResource( 2 )
-MixesFile = "res://Scenes/Aircraft/Quad/Mixes.toml"
+script = ExtResource("2")
 GyroSettingsFile = "res://Scenes/Aircraft/Quad/GyroSettings.toml"
+MixesFile = "res://Scenes/Aircraft/Quad/Mixes.toml"
 
 [node name="Timer" type="Timer" parent="GyroHub"]
 one_shot = true
 autostart = true
 
-[node name="FL" parent="." instance=ExtResource( 3 )]
-transform = Transform3D( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.1, 0.01, -0.1 )
-BatteryPath = NodePath("../Battery")
-PropellerPath = NodePath("PropellerWithModel")
-TorqueRigidBodyPath = NodePath("..")
-KV = 5300.0
-PeakTorque = 0.01
+[node name="FL" parent="." instance=ExtResource("3")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.1, 0.01, -0.1)
 ThrottleActionName = "fl"
 ControlHubPath = NodePath("../GyroHub")
+BatteryPath = NodePath("../Battery")
+PropellerPath = NodePath("PropellerWithModel")
+TorqueRigidBodyPath = NodePath("..")
+KV = 5300.0
+PeakTorque = 0.01
 
-[node name="PropellerWithModel" parent="FL" instance=ExtResource( 5 )]
-TargetPath = NodePath("../..")
+[node name="PropellerWithModel" parent="FL" instance=ExtResource("5")]
 DiameterInches = 2.5
 PitchInches = 2.5
 EfficiencyFactor = 0.75
 Mass = 0.001
+TargetPath = NodePath("../..")
 
 [node name="PrerecordedPropellerNoise" type="AudioStreamPlayer3D" parent="FL/PropellerWithModel"]
-stream = ExtResource( 7 )
+stream = ExtResource("7")
 unit_size = 5.0
 max_db = 6.0
 autoplay = true
 doppler_tracking = 1
-script = ExtResource( 8 )
+script = ExtResource("8")
 DominantFrequency = 460.0
 
-[node name="FR" parent="." instance=ExtResource( 3 )]
-transform = Transform3D( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.1, 0.01, -0.1 )
-BatteryPath = NodePath("../Battery")
-PropellerPath = NodePath("PropellerWithModel")
-TorqueRigidBodyPath = NodePath("..")
-KV = 5300.0
-PeakTorque = 0.01
-Clockwise = false
+[node name="FR" parent="." instance=ExtResource("3")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.1, 0.01, -0.1)
 ThrottleActionName = "fr"
 ControlHubPath = NodePath("../GyroHub")
-
-[node name="PropellerWithModel" parent="FR" instance=ExtResource( 5 )]
-TargetPath = NodePath("../..")
-DiameterInches = 2.5
-PitchInches = 2.5
-Clockwise = false
-EfficiencyFactor = 0.75
-Mass = 0.001
-
-[node name="BL" parent="." instance=ExtResource( 3 )]
-transform = Transform3D( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.1, 0.01, 0.1 )
 BatteryPath = NodePath("../Battery")
 PropellerPath = NodePath("PropellerWithModel")
 TorqueRigidBodyPath = NodePath("..")
 KV = 5300.0
 PeakTorque = 0.01
 Clockwise = false
-ThrottleActionName = "bl"
-ControlHubPath = NodePath("../GyroHub")
 
-[node name="PropellerWithModel" parent="BL" instance=ExtResource( 5 )]
-TargetPath = NodePath("../..")
+[node name="PropellerWithModel" parent="FR" instance=ExtResource("5")]
 DiameterInches = 2.5
 PitchInches = 2.5
 Clockwise = false
 EfficiencyFactor = 0.75
 Mass = 0.001
+TargetPath = NodePath("../..")
+
+[node name="BL" parent="." instance=ExtResource("3")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.1, 0.01, 0.1)
+ThrottleActionName = "bl"
+ControlHubPath = NodePath("../GyroHub")
+BatteryPath = NodePath("../Battery")
+PropellerPath = NodePath("PropellerWithModel")
+TorqueRigidBodyPath = NodePath("..")
+KV = 5300.0
+PeakTorque = 0.01
+Clockwise = false
+
+[node name="PropellerWithModel" parent="BL" instance=ExtResource("5")]
+DiameterInches = 2.5
+PitchInches = 2.5
+Clockwise = false
+EfficiencyFactor = 0.75
+Mass = 0.001
+TargetPath = NodePath("../..")
 
 [node name="PrerecordedPropellerNoise" type="AudioStreamPlayer3D" parent="BL/PropellerWithModel"]
-stream = ExtResource( 7 )
+stream = ExtResource("7")
 unit_size = 5.0
 max_db = 6.0
 autoplay = true
 doppler_tracking = 1
-script = ExtResource( 8 )
+script = ExtResource("8")
 DominantFrequency = 460.0
 
-[node name="BR" parent="." instance=ExtResource( 3 )]
-transform = Transform3D( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.1, 0.01, 0.1 )
+[node name="BR" parent="." instance=ExtResource("3")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.1, 0.01, 0.1)
+ThrottleActionName = "br"
+ControlHubPath = NodePath("../GyroHub")
 BatteryPath = NodePath("../Battery")
 PropellerPath = NodePath("PropellerWithModel")
 TorqueRigidBodyPath = NodePath("..")
 KV = 5300.0
 PeakTorque = 0.01
-ThrottleActionName = "br"
-ControlHubPath = NodePath("../GyroHub")
 
-[node name="PropellerWithModel" parent="BR" instance=ExtResource( 5 )]
-TargetPath = NodePath("../..")
+[node name="PropellerWithModel" parent="BR" instance=ExtResource("5")]
 DiameterInches = 2.5
 PitchInches = 2.5
 EfficiencyFactor = 0.75
 Mass = 0.001
+TargetPath = NodePath("../..")
 
-[node name="Battery" parent="." instance=ExtResource( 6 )]
+[node name="Battery" parent="." instance=ExtResource("6")]
 CellInternalResistance = 0.0
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D( 0.0340534, 0, 0, 0, 0.0340534, 0, 0, 0, 0.0340534, 0, 0, -0.110127 )
+transform = Transform3D(0.0340534, 0, 0, 0, 0.0340534, 0, 0, 0, 0.0340534, 0, 0, -0.110127)

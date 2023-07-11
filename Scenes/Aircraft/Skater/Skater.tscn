@@ -1,6 +1,6 @@
 [gd_scene load_steps=32 format=3 uid="uid://doweai1rwhdaf"]
 
-[ext_resource type="Script" path="res://Scripts/Physics/SpatialForceable.cs" id="1"]
+[ext_resource type="Script" path="res://Scripts/Aircraft/Aircraft.cs" id="1_m1bxi"]
 [ext_resource type="Script" path="res://Scripts/Aircraft/Servo.cs" id="2"]
 [ext_resource type="Curve" path="res://Resources/AeroCurves/FlatPlateLiftCoefficient.tres" id="3"]
 [ext_resource type="Curve" path="res://Resources/AeroCurves/WingDragCoefficient.tres" id="4"]
@@ -42,7 +42,7 @@ size = Vector3(0.014, 0.418, 0.182)
 process_mode = 1
 mass = 5.2
 center_of_mass_mode = 1
-script = ExtResource("1")
+script = ExtResource("1_m1bxi")
 
 [node name="SkaterBody" parent="." instance=ExtResource("17")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.110448)

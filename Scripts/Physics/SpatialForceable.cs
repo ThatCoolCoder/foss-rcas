@@ -5,32 +5,32 @@ using System.Collections.Generic;
 
 namespace Physics;
 
-	public partial class SpatialForceable : RigidBody3D
-	{
-		// Spatial thing that can be forced
-		// This class used to do more, now it is a bit empty but it still does a little so let's not get rid of it
+public partial class SpatialForceable : RigidBody3D
+{
+    // Spatial thing that can be forced
+    // This class used to do more, now it is a bit empty but it still does a little so let's not get rid of it
 
-		private List<Forcers.AbstractSpatialForcer> registeredForcers = new();
+    private List<Forcers.AbstractSpatialForcer> registeredForcers = new();
 
-		public override void _IntegrateForces(PhysicsDirectBodyState3D state)
-		{
-			foreach (var forcer in registeredForcers)
-			{
-				if (forcer.Enabled)
-				{
-					forcer.Apply(state);
-				}
-			}
-		}
+    public override void _IntegrateForces(PhysicsDirectBodyState3D state)
+    {
+        foreach (var forcer in registeredForcers)
+        {
+            if (forcer.Enabled)
+            {
+                forcer.Apply(state);
+            }
+        }
+    }
 
-		public void RegisterForcer(Forcers.AbstractSpatialForcer forcer)
-		{
-			registeredForcers.Add(forcer);
-		}
+    public void RegisterForcer(Forcers.AbstractSpatialForcer forcer)
+    {
+        registeredForcers.Add(forcer);
+    }
 
-		public void UnregisterForcer(Forcers.AbstractSpatialForcer forcer)
-		{
-			registeredForcers.Remove(forcer);
-		}
+    public void UnregisterForcer(Forcers.AbstractSpatialForcer forcer)
+    {
+        registeredForcers.Remove(forcer);
+    }
 
-	}
+}
