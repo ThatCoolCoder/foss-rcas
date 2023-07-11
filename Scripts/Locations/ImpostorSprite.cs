@@ -1,42 +1,72 @@
 using Godot;
 using System;
-using System.Linq;
-using System.Collections.Generic;
 
 namespace Locations
 {
-
     [Tool]
-    public partial class ImpostorSprite : Sprite3D
+    public partial class ImpostorSprite : MeshInstance3D
     {
-        // Sprite for an impostor tree, randomly chooses an image on Ready
+        // todo: add billboard functionality
 
-        [Export] public Godot.Collections.Array<Texture2D> Textures { get; set; } = new();
+        [Export]
+        public Texture2D Texture
+        {
+            get { return texture; }
+            set
+            {
+                texture = value;
+                if (Mesh is QuadMesh qm && qm.Material is StandardMaterial3D sm)
+                {
+                    sm.AlbedoTexture = value;
+                }
+            }
+        }
+        private Texture2D texture;
 
-        private int lastTexCount = 0;
+        [Export]
+        public Texture2D NormalTexture
+        {
+            get { return normalTexture; }
+            set
+            {
+                normalTexture = value;
+                if (Mesh is QuadMesh qm && qm.Material is StandardMaterial3D sm)
+                {
+                    sm.NormalTexture = value;
+                    sm.NormalEnabled = NormalTexture != null;
+                }
+            }
+        }
+        private Texture2D normalTexture;
+
+        [Export]
+        public Vector2 Size
+        {
+            get { return size; }
+            set
+            {
+                size = value;
+                if (Mesh is QuadMesh qm) qm.Size = value;
+            }
+        }
+        private Vector2 size;
 
         public override void _Ready()
         {
-            PickTexture();
-            AlphaCut = SimSettings.Settings.Current.Graphics.ImpostorShadowsEnabled ? AlphaCutMode.OpaquePrepass : AlphaCutMode.Disabled;
-        }
-
-        private void PickTexture()
-        {
-            if (Textures.Count > 0) Texture = Utils.RandomItem(Textures);
-            else Texture = null;
-        }
-
-        public override void _Process(double delta)
-        {
-            if (Engine.IsEditorHint() && Engine.GetFramesDrawn() % 60 == 0)
+            var quadMesh = new QuadMesh()
             {
-                if (Textures.Where(x => x != null).Count() != lastTexCount)
-                {
-                    lastTexCount = Textures.Where(x => x != null).Count();
-                    PickTexture();
-                }
-            }
+                Size = Size
+            };
+
+            quadMesh.Material = new StandardMaterial3D()
+            {
+                AlbedoTexture = Texture,
+                NormalEnabled = NormalTexture != null,
+                NormalTexture = NormalTexture,
+                CullMode = BaseMaterial3D.CullModeEnum.Disabled,
+                Transparency = BaseMaterial3D.TransparencyEnum.AlphaDepthPrePass
+            };
+            Mesh = quadMesh;
         }
     }
 }

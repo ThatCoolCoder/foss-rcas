@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ch0elub6u0tsv"
-path.s3tc="res://.godot/imported/BasicBush240.png-4efbb72660932bc6396afc0fb33f2527.s3tc.ctex"
+uid="uid://ja5mx2y16cik"
+path.s3tc="res://.godot/imported/BasicBushNormal120.png-5619c2ed64ea1c9a5d533830e5bc2c73.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Art/Common/Bushes/Basic/BasicBush240.png"
-dest_files=["res://.godot/imported/BasicBush240.png-4efbb72660932bc6396afc0fb33f2527.s3tc.ctex"]
+source_file="res://Art/Common/Bushes/Basic/BasicBushNormal120.png"
+dest_files=["res://.godot/imported/BasicBushNormal120.png-5619c2ed64ea1c9a5d533830e5bc2c73.s3tc.ctex"]
 
 [params]
 
@@ -20,12 +20,12 @@ compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/normal_map=0
+compress/normal_map=1
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
-roughness/mode=0
-roughness/src_normal=""
+roughness/mode=1
+roughness/src_normal="res://Art/Common/Bushes/Basic/BasicBushNormal120.png"
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false

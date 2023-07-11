@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://boicgaslj3qqk" path="res://Art/Locations/BadgerField/BadgerField.glb" id="2"]
 [ext_resource type="Texture2D" uid="uid://b6qjkmy76qbah" path="res://Art/SkyOnlyHDRI048_4K-TONEMAPPED.jpg" id="3"]
 [ext_resource type="Script" path="res://Scripts/Locations/SpawnAlongPath.cs" id="4"]
-[ext_resource type="PackedScene" path="res://Scenes/Locations/BadgerField/ImpostorPine.tscn" id="5"]
+[ext_resource type="PackedScene" uid="uid://eitklmq0pnow" path="res://Scenes/Locations/BadgerField/ImpostorPine.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://riadj4pa5sfk" path="res://Scenes/Locations/Common/TreeScatter.tscn" id="6"]
 [ext_resource type="Texture2D" uid="uid://qs8i37h44tn1" path="res://Art/Common/Trees/PineV2/Render/Pine0.png" id="7"]
 [ext_resource type="PackedScene" uid="uid://d053ptahqolmv" path="res://Scenes/Locations/Common/GrassScatter.tscn" id="8"]
