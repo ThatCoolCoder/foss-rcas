@@ -56,7 +56,7 @@ There is a list of these, each one uses the value of the previous. There's a lot
 - math:
     - add/sub/mult/div: num -> num
     - takefrom: num -> num (like sub but the left hand value is constant)
-    - map: numx5 -> num
+    - map: num -> num
     - sqrt: num -> num
     - topower: num -> num (this rases value to fixed power)
     - nthpower: num -> num (this raises fixed base to variable power)
