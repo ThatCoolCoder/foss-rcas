@@ -67,7 +67,7 @@ public partial class FlightSettingsScreen : Control
         // todo: remove this
         aircraft.Config = new()
         {
-            {"mass", 1}
+            {"heavy", 1}
         };
 
         location.AddChild(aircraft);

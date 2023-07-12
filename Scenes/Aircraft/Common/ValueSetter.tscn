@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://diynlfwl8wayv"]
+
+[ext_resource type="Script" path="res://Scripts/Aircraft/ValueSetters/ValueSetter.cs" id="1_g2bvn"]
+
+[node name="ValueSetter" type="Node3D"]
+script = ExtResource("1_g2bvn")
+UpdateMode = 0

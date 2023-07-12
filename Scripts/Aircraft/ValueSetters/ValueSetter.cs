@@ -1,22 +1,17 @@
 using Godot;
 using System;
-using System.Linq;
+using System.Collections.Generic;
 
 namespace Aircraft.ValueSetters;
 
 public partial class ValueSetter : Node3D
 {
-    // [ExportGroup("Update settings")]
     [Export] public bool Enabled { get; set; } = true;
     [Export] public UpdateModeEnum UpdateMode { get; set; } = UpdateModeEnum.Process;
     [Export] public float UpdateInterval { get; set; } = 1;
+    [Export] public Godot.Collections.Array<Operations.AbstractValueSetterOperation> Operations { get; set; }
 
-    // [ExportGroup("Source")]
-    [Export] public Sources.AbstractValueSource Source { get; set; }
-    // [ExportGroup("Transformations")]
-    [Export] public Godot.Collections.Array<Transformations.AbstractValueTransformation> Transformations { get; set; }
-    // [ExportGroup("Output")]
-    [Export] public Sources.AbstractValueSetterOutput Output { get; set; }
+    private Dictionary<string, dynamic> variables = new();
 
     public enum UpdateModeEnum
     {
@@ -27,7 +22,7 @@ public partial class ValueSetter : Node3D
 
     public override void _Ready()
     {
-        CallDeferred("Update");
+        if (Enabled) CallDeferred("Update");
     }
 
     public override void _Process(double delta)
@@ -42,8 +37,18 @@ public partial class ValueSetter : Node3D
 
     private void Update()
     {
-        var value = Source.GetValue(this);
-        foreach (var transformation in Transformations) value = transformation.Apply(value);
-        Output.Apply(value, this);
+        variables = new();
+        foreach (var operation in Operations) operation.Execute(this);
+    }
+
+    public dynamic GetVariable(string name)
+    {
+        // todo: make error checking
+        return variables[name];
+    }
+
+    public void SetVariable(string name, dynamic value)
+    {
+        variables[name] = value;
     }
 }

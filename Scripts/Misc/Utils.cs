@@ -139,4 +139,83 @@ public static class Utils
         var mode = caseSensitive ? StringComparison.CurrentCulture : StringComparison.CurrentCultureIgnoreCase;
         return String.Join(".", lastSections).Equals(extension, mode);
     }
+
+    public static object GetPropertyOrField(object obj, string name)
+    {
+        var member = obj.GetType().GetMember(name).FirstOrDefault((System.Reflection.MemberInfo)null);
+        if (member is System.Reflection.FieldInfo fi) return fi.GetValue(obj);
+        else if (member is System.Reflection.PropertyInfo pi) return pi.GetValue(obj, null);
+        else throw new Exception("Didn't find property");
+    }
+
+    public static void SetPropertyOrField(object obj, string name, object value)
+    {
+        var member = obj.GetType().GetMember(name).FirstOrDefault((System.Reflection.MemberInfo)null);
+        if (member is System.Reflection.FieldInfo fi) fi.SetValue(obj, value);
+        else if (member is System.Reflection.PropertyInfo pi) pi.SetValue(obj, value);
+        else if (member is null) throw new Exception("Member was not found");
+        else throw new Exception("Cannot set this type of member");
+    }
+
+    public static object GetValueNested(object obj, string propertyName)
+    {
+        return GetValueNested(obj, propertyName.Split("."));
+    }
+
+    public static object GetValueNested(object obj, IEnumerable<string> propertySections)
+    {
+        var last = obj;
+        foreach (var section in propertySections)
+        {
+            last = GetPropertyOrField(last, section);
+        }
+        return last;
+    }
+
+    public static void SetValueNested(object obj, string propertyName, object value)
+    {
+        SetValueNested(obj, propertyName.Split("."), value);
+    }
+
+    public static void SetValueNested(object obj, IEnumerable<string> propertySections, object value)
+    {
+        // Set value nested, if it finds a struct then it reassigns the struct so that the value actually saves
+
+        var last = obj;
+        var foundStruct = false;
+        var withinStructAndParent = new List<object>(); // tree within the struct, plus the one level above the struct
+        foreach (var section in propertySections.Take(propertySections.Count() - 1))
+        {
+            var next = GetPropertyOrField(last, section);
+            if (!next.GetType().IsClass) foundStruct = true;
+            if (foundStruct) withinStructAndParent.Add(last);
+            last = next;
+        }
+        if (foundStruct) withinStructAndParent.Add(last);
+
+        var member = last.GetType().GetMember(propertySections.Last()).FirstOrDefault((System.Reflection.MemberInfo)null);
+        if (member is System.Reflection.FieldInfo fi) fi.SetValue(last, value);
+        else if (member is System.Reflection.PropertyInfo pi) pi.SetValue(last, value);
+        else if (member is null) throw new Exception("Property was not found");
+        else throw new Exception("Cannot set this type of property");
+
+        if (foundStruct)
+        {
+            // Lazily go reassigning things back up the tree. Not super efficient but meh
+            for (int i = withinStructAndParent.Count() - 1; i >= 1; i--)
+            {
+                var childVal = withinStructAndParent[i];
+                var parentVal = withinStructAndParent[i - 1];
+
+                SetPropertyOrField(parentVal, propertySections.ToList()[i - 1], childVal);
+            }
+        }
+
+    }
+
+    public static void SetValueNested2(object obj, IEnumerable<string> propertySections, object value)
+    {
+        if (propertySections.Count() == 1) SetPropertyOrField(obj, propertySections.First(), value);
+        else SetValueNested(GetPropertyOrField(obj, propertySections.First()), propertySections.Skip(1), value);
+    }
 }
