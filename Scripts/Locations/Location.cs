@@ -6,6 +6,7 @@ namespace Locations;
 
 public partial class Location : Node3D
 {
+    [Export] public UI.Apps.Management.AppManager UIAppManager { get; set; }
     public Aircraft.Aircraft Aircraft { get; set; }
     public ContentManagement.Aircraft AircraftInfo { get; set; }
     public ContentManagement.Location LocationInfo { get; set; }
@@ -25,6 +26,8 @@ public partial class Location : Node3D
 
         groundCamera.CurrentZoomSettings = SimSettings.Settings.Current.GroundCameraZoom;
         groundCamera.Target = Aircraft;
+
+        UIAppManager.SetAvailableProfiles(SimSettings.Settings.Current.UIAppProfiles);
 
         SetupAircraft();
         Reset();

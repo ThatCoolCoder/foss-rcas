@@ -30,6 +30,8 @@ public partial class UserResize : Control
         dragger = GetNode<Control>("Dragger");
         cornerTexture = GetNode<TextureRect>("CornerTexture");
 
+        CustomMinimumSize = MinDragSize;
+
         if (Engine.IsEditorHint()) return;
 
         if (BackgroundNode != null)
@@ -98,11 +100,11 @@ public partial class UserResize : Control
                         parentSize = control.Size;
                     }
 
-                    AnchorLeft = SelectAnchorPosition(Position.X, parentSize.X);
-                    AnchorRight = SelectAnchorPosition(Position.X + selfSize.X, parentSize.X);
+                    AnchorLeft = SelectAnchorPosition(Position.X + selfSize.X / 2, parentSize.X);
+                    AnchorRight = AnchorLeft;
 
-                    AnchorTop = SelectAnchorPosition(Position.Y, parentSize.Y);
-                    AnchorBottom = SelectAnchorPosition(Position.Y + selfSize.Y, parentSize.Y);
+                    AnchorTop = SelectAnchorPosition(Position.Y + selfSize.Y / 2, parentSize.Y);
+                    AnchorBottom = AnchorTop;
 
                     Size = selfSize;
                 }
@@ -110,7 +112,7 @@ public partial class UserResize : Control
         }
     }
 
-    private float SelectAnchorPosition(float position, float parentSize, float middleProportion = 0.4f)
+    private float SelectAnchorPosition(float position, float parentSize, float middleProportion = 0.2f)
     {
         var proportion = position / parentSize;
         if (proportion < 0.5f - middleProportion / 2) return 0;

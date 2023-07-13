@@ -163,7 +163,8 @@ Depending on how much base content is desired and how large the repository gets,
     - can link motor sound to an advanced motor simulation? (rpm, air disturbance factor, air disturbance shape)
 - UI
     - UI Apps system
-        - (worked on currently)
+        - basic input debug can only be grabbed by the top
+        - make button do delete app
         - apps to make
             - decent input debug (with little tx picture)
             - mixing debug

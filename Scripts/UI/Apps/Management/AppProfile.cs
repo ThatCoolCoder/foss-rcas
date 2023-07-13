@@ -9,6 +9,14 @@ public class AppProfile
     public string Name { get; set; } = "Unnamed profile";
     public bool IsDefault { get; set; } = false;
     public List<AppLayoutInfo> Apps { get; set; } = new();
+
+    // todo: have a sensible default
+    public static AppProfile Default = new()
+    {
+        Name = "Default",
+        IsDefault = true,
+        Apps = { }
+    };
 }
 
 public class AppLayoutInfo

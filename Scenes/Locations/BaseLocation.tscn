@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://wfhfmqv1cl37"]
+[gd_scene load_steps=16 format=3 uid="uid://wfhfmqv1cl37"]
 
 [ext_resource type="PackedScene" uid="uid://ch51rs1espjbp" path="res://Scenes/Locations/Common/GroundCamera.tscn" id="1"]
 [ext_resource type="Script" path="res://Scripts/Physics/Fluids/SpatialFluidBeacon.cs" id="2"]
@@ -14,13 +14,12 @@
 [ext_resource type="Script" path="res://addons/MaxSizeContainer/max_size_container.gd" id="13"]
 [ext_resource type="Script" path="res://Scripts/UI/MessageManager.cs" id="14"]
 [ext_resource type="Script" path="res://Scripts/Locations/FreeCamera.cs" id="15"]
-[ext_resource type="PackedScene" uid="uid://cggcyv0c1g0xj" path="res://Scenes/UI/Misc/UserResize.tscn" id="16_wncxj"]
 [ext_resource type="PackedScene" uid="uid://cq2yly44bwd0s" path="res://Scenes/UI/Apps/UIAppManager.tscn" id="17_s1ygv"]
-[ext_resource type="Texture2D" uid="uid://dmtm8kn3v0ysc" path="res://icon.png" id="17_s2kvp"]
 
-[node name="BaseLocation" type="Node3D" node_paths=PackedStringArray("launcher", "groundCamera")]
+[node name="BaseLocation" type="Node3D" node_paths=PackedStringArray("UIAppManager", "launcher", "groundCamera")]
 process_mode = 3
 script = ExtResource("6")
+UIAppManager = NodePath("CanvasLayer/UIAppManager")
 launcher = NodePath("AircraftLauncher")
 groundCamera = NodePath("GroundCamera")
 
@@ -99,27 +98,5 @@ size_flags_horizontal = 10
 size_flags_vertical = 0
 text = "5 FPS"
 script = ExtResource("9")
-
-[node name="UserResize" parent="CanvasLayer" node_paths=PackedStringArray("BackgroundNode") instance=ExtResource("16_wncxj")]
-custom_minimum_size = Vector2(100, 100)
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-offset_left = 22.0
-offset_top = 134.0
-offset_right = 163.0
-offset_bottom = 412.0
-grow_horizontal = 1
-grow_vertical = 1
-BackgroundNode = NodePath("Panel")
-NormalCornerTexture = ExtResource("17_s2kvp")
-
-[node name="Panel" type="Panel" parent="CanvasLayer/UserResize"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
 
 [node name="UIAppManager" parent="CanvasLayer" instance=ExtResource("17_s1ygv")]

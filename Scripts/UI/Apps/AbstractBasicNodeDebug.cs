@@ -9,7 +9,7 @@ public abstract partial class AbstractBasicNodeDebug<T> : Misc.UserResize where 
 {
     // Simple base debugger for items like motors or batteries
 
-    [Export] public int RescanFrequency = 240;
+    [Export] public int RescanInterval = 240;
     protected abstract string GroupName { get; set; } // name of group containing items
     private Label label;
     private SpinBox nodeIndexSelector;
@@ -18,15 +18,17 @@ public abstract partial class AbstractBasicNodeDebug<T> : Misc.UserResize where 
 
     public override void _Ready()
     {
-        label = GetNode<Label>("MarginContainer/VBoxContainer/Output");
-        nodeIndexSelector = GetNode<SpinBox>("MarginContainer/VBoxContainer/HBoxContainer/SpinBox");
+        label = GetNode<Label>("Panel/MarginContainer/VBoxContainer/Output");
+        nodeIndexSelector = GetNode<SpinBox>("Panel/MarginContainer/VBoxContainer/HBoxContainer/SpinBox");
 
         ScanForNode();
+
+        base._Ready();
     }
 
     public override void _Process(double delta)
     {
-        if (Engine.GetFramesDrawn() % RescanFrequency == 0) ScanForNode();
+        if (Engine.GetFramesDrawn() % RescanInterval == 0) ScanForNode();
 
         var text = "Not found";
         if (currentNodePath != null)
@@ -35,6 +37,8 @@ public abstract partial class AbstractBasicNodeDebug<T> : Misc.UserResize where 
             if (node != null) text = GenerateText(node);
         }
         label.Text = text;
+
+        base._Process(delta);
     }
 
     protected abstract string GenerateText(T node);

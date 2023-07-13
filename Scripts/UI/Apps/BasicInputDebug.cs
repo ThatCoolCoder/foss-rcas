@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace UI.Apps;
 
-public partial class BasicInputDebug : Control
+public partial class BasicInputDebug : Misc.UserResize
 {
     // Basic implementation just visually displaying values of the aircraft channels.
     // todo: in future, create a version with a little tx that has sticks that move around, and visual indications for switches
@@ -17,6 +17,8 @@ public partial class BasicInputDebug : Control
     {
         label = GetNode<RichTextLabel>("Panel/MarginContainer/VBoxContainer/RichTextLabel");
         label.BbcodeEnabled = true;
+
+        base._Ready();
     }
 
     public override void _Process(double delta)
@@ -30,5 +32,7 @@ public partial class BasicInputDebug : Control
         }));
 
         label.Text = text;
+
+        base._Process(delta);
     }
 }

@@ -1,9 +1,9 @@
 [gd_scene load_steps=3 format=3 uid="uid://cq2yly44bwd0s"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Apps/Management/AppManager.cs" id="1_eken2"]
-[ext_resource type="Resource" uid="uid://b4q8da2otd0f2" path="res://Resources/AvailableUIApps.tres" id="2_dqj5u"]
+[ext_resource type="PackedScene" uid="uid://45esw4qygda6" path="res://Scenes/UI/Apps/NewAppSelector.tscn" id="2_8futa"]
 
-[node name="UIAppManager" type="Control" node_paths=PackedStringArray("editButton", "editMenu", "profileSelector", "deleteProfileButton", "appHolder")]
+[node name="UIAppManager" type="Control" node_paths=PackedStringArray("editButton", "editMenu", "profileSelector", "deleteProfileButton", "appHolder", "newAppSelector")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,12 +12,12 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_eken2")
-AvailableApps = ExtResource("2_dqj5u")
 editButton = NodePath("HBoxContainer/EditButton")
 editMenu = NodePath("HBoxContainer/EditMenu")
 profileSelector = NodePath("HBoxContainer/EditMenu/ProfileSelector")
 deleteProfileButton = NodePath("HBoxContainer/EditMenu/DeleteProfile")
 appHolder = NodePath("AppHolder")
+newAppSelector = NodePath("NewAppSelector")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 0
@@ -81,7 +81,12 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
+[node name="NewAppSelector" parent="." instance=ExtResource("2_8futa")]
+visible = false
+
 [connection signal="pressed" from="HBoxContainer/EditButton" to="." method="ToggleEdit"]
 [connection signal="item_selected" from="HBoxContainer/EditMenu/ProfileSelector" to="." method="SelectProfile"]
 [connection signal="pressed" from="HBoxContainer/EditMenu/DeleteProfile" to="." method="_on_DeleteProfile_pressed"]
+[connection signal="pressed" from="HBoxContainer/EditMenu/NewApp" to="." method="_on_NewApp_pressed"]
 [connection signal="pressed" from="HBoxContainer/EditMenu/Done" to="." method="ToggleEdit"]
+[connection signal="popup_hide" from="NewAppSelector" to="." method="_on_NewAppSelector_popup_hide"]

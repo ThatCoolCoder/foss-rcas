@@ -1,0 +1,62 @@
+[gd_scene load_steps=3 format=3 uid="uid://45esw4qygda6"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Apps/Management/NewAppSelector.cs" id="1_e5fho"]
+[ext_resource type="Resource" uid="uid://b4q8da2otd0f2" path="res://Resources/AvailableUIApps.tres" id="2_2515c"]
+
+[node name="NewAppSelector" type="Popup" node_paths=PackedStringArray("appSelector", "description")]
+title = "Add UI app"
+initial_position = 2
+size = Vector2i(324, 200)
+visible = true
+borderless = false
+script = ExtResource("1_e5fho")
+AvailableApps = ExtResource("2_2515c")
+appSelector = NodePath("MarginContainer/VBoxContainer/AppSelector")
+description = NodePath("MarginContainer/VBoxContainer/ScrollContainer/Description")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"PopupMargin"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="AppSelector" type="OptionButton" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+item_count = 1
+selected = 0
+popup/item_0/text = "Dummy item"
+popup/item_0/id = 0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="Description" type="Label" parent="MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+autowrap_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Cancel" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Cancel"
+
+[node name="Add" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Add"
+
+[connection signal="about_to_popup" from="." to="." method="_on_about_to_popup"]
+[connection signal="item_selected" from="MarginContainer/VBoxContainer/AppSelector" to="." method="_on_AppSelector_item_selected"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Cancel" to="." method="_on_Cancel_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Add" to="." method="_on_Add_pressed"]

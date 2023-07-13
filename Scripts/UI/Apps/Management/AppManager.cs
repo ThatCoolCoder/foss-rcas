@@ -8,13 +8,12 @@ public partial class AppManager : Control
 {
     // todo: this is a prototyping implementation. please add error checking and such
 
-    [Export] public UIAppInfoList AvailableApps { get; set; }
-
     [Export] private Control editButton;
     [Export] private Control editMenu;
     [Export] private OptionButton profileSelector;
     [Export] private Button deleteProfileButton;
     [Export] private Control appHolder;
+    [Export] private NewAppSelector newAppSelector;
 
     private List<AppProfile> appProfiles;
     private AppProfile crntAppProfile;
@@ -35,7 +34,7 @@ public partial class AppManager : Control
         {
             profileSelector.AddItem(item.Name);
         }
-        profileSelector.Select(0);
+        SelectProfile(0);
     }
 
     private void SelectProfile(int index)
@@ -49,20 +48,28 @@ public partial class AppManager : Control
 
         foreach (var appInfo in crntAppProfile.Apps)
         {
-            // if this gets slow, add a scene cache
-            var instance = ResourceLoader.Load<PackedScene>(appInfo.ScenePath).Instantiate<Control>();
-            appHolder.AddChild(instance);
-
-            instance.AnchorLeft = appInfo.AnchorLeft;
-            instance.AnchorRight = appInfo.AnchorRight;
-            instance.AnchorTop = appInfo.AnchorTop;
-            instance.AnchorBottom = appInfo.AnchorBottom;
-
-            instance.Position = appInfo.Position;
-            instance.Size = appInfo.Size;
-
-            crntApps[appInfo] = instance.GetPath();
+            InstanceApp(appInfo);
         }
+    }
+
+    private void InstanceApp(AppLayoutInfo appInfo)
+    {
+        // if this gets slow, add a scene cache
+        var instance = ResourceLoader.Load<PackedScene>(appInfo.ScenePath).Instantiate<Misc.UserResize>();
+        appHolder.AddChild(instance);
+
+        instance.AnchorLeft = appInfo.AnchorLeft;
+        instance.AnchorRight = appInfo.AnchorRight;
+        instance.AnchorTop = appInfo.AnchorTop;
+        instance.AnchorBottom = appInfo.AnchorBottom;
+
+        instance.Size = appInfo.Size;
+        instance.Position = appInfo.Position;
+
+        crntApps[appInfo] = instance.GetPath();
+
+        instance.Resizable = editing;
+        instance.Movable = editing;
     }
 
     private void ToggleEdit()
@@ -89,5 +96,30 @@ public partial class AppManager : Control
             appProfiles.Remove(crntAppProfile);
             profileSelector.Select(0);
         }
+    }
+
+    private void _on_NewApp_pressed()
+    {
+        newAppSelector.Popup();
+    }
+
+    private void _on_NewAppSelector_popup_hide()
+    {
+        if (newAppSelector.SelectedApp == null) return;
+
+        var appInfo = new AppLayoutInfo()
+        {
+            ScenePath = newAppSelector.SelectedApp.ScenePath,
+            Size = new Vector2(200, 300), // todo: should add default size field
+            Position = GetViewportRect().Size / 2 - new Vector2(100, 150),
+            AnchorLeft = .5f,
+            AnchorRight = .5f,
+            AnchorTop = .5f,
+            AnchorBottom = .5f,
+        };
+
+        InstanceApp(appInfo);
+
+        crntAppProfile.Apps.Add(appInfo);
     }
 }
