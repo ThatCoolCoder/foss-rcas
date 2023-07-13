@@ -2,8 +2,6 @@
 
 FOSS RC Aviation Simulator (in early development)
 
-This is the godot 4 conversion branch.
-
 ## Controls
 
 - space to launch plane if it doesn't have wheels
