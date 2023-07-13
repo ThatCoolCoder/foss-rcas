@@ -27,7 +27,7 @@ public partial class GraphicsTab : Control
             "Impostor distance",
             s => s.Graphics.ImpostorDistance,
             (s, v) => s.Graphics.ImpostorDistance = (int)v,
-            0, 1000, step: 1,
+            0, 1000, step: 1, _formatString: "#",
             toolTip: "Distance at which to show impostors");
 
         BooleanInput.Scene.Instantiate<BooleanInput>().Config(
@@ -49,7 +49,7 @@ public partial class GraphicsTab : Control
             "Vegetation multiplier (near)",
             s => s.Graphics.NearVegetationMultiplier,
             (s, v) => s.Graphics.NearVegetationMultiplier = v,
-            0, 3, step: .05f,
+            0, 3, step: .05f, _formatString: "0.00",
             toolTip: "Amount of nearby vegetation (trees & bushes)");
 
         NumericSliderInput.Scene.Instantiate<NumericSliderInput>().Config(
@@ -57,7 +57,7 @@ public partial class GraphicsTab : Control
             "Vegetation multiplier (far)",
             s => s.Graphics.FarVegetationMultiplier,
             (s, v) => s.Graphics.FarVegetationMultiplier = v,
-            0, 3, step: .05f,
+            0, 3, step: .05f, _formatString: "0.00",
             toolTip: "Amount of far away vegetation (trees & bushes)");
 
         NumericSliderInput.Scene.Instantiate<NumericSliderInput>().Config(
@@ -65,7 +65,7 @@ public partial class GraphicsTab : Control
             "Grass multiplier",
             s => s.Graphics.GrassMultiplier,
             (s, v) => s.Graphics.GrassMultiplier = v,
-            0, 3, step: .05f,
+            0, 3, step: .05f, _formatString: "0.00",
             toolTip: "Amount of grass");
 
         NumericSliderInput.Scene.Instantiate<NumericSliderInput>().Config(
@@ -73,7 +73,7 @@ public partial class GraphicsTab : Control
             "Grass distance multiplier",
             s => s.Graphics.GrassDistanceMultiplier,
             (s, v) => s.Graphics.GrassDistanceMultiplier = v,
-            .1f, 3, step: .05f,
+            .1f, 3, step: .05f, _formatString: "0.00",
             toolTip: "Max distance for spawning grass");
 
         NumericSliderInput.Scene.Instantiate<NumericSliderInput>().Config(
