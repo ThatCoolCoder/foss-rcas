@@ -11,7 +11,8 @@ public partial class Settings
     public Locations.GroundCamera.ZoomSettings GroundCameraZoom { get; set; } = new();
     public GraphicsSettings Graphics { get; set; } = new();
     public MiscSettings Misc { get; set; } = new();
-    // At the end so that manual editing of the settings file isn't cluttered by this
+    // At the end so that manual editing of the settings file isn't cluttered by these
+    public List<UI.Apps.Management.AppProfile> UIAppProfiles { get; set; } = new();
     public SimInput.InputMap InputMap { get; set; } = SimInput.InputMap.DefaultMap;
 
     public void Apply()
