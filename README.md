@@ -163,11 +163,15 @@ Depending on how much base content is desired and how large the repository gets,
     - can link motor sound to an advanced motor simulation? (rpm, air disturbance factor, air disturbance shape)
 - UI
     - UI Apps system
-        - Somewhat complex, we need:
-            - app code itself
-            - ui for creating apps, moving apps around, deciding which side they dock to, deleting apps
-                - the docking part might be really easy because godot has the anchor property of controls designed for exactly this
-            - code & format for saving + loading apps, and associated error checking
+        - (worked on currently)
+        - apps to make
+            - decent input debug (with little tx picture)
+            - mixing debug
+            - move fps counter to an app?
+            - wheel debug?
+            - wind info & basic settings (or maybe a popup for all settings. Can reuse component from flightsettingsscreen)
+            - aircraft info (altitude, height, groundspeed, airspeed, verticalspeed, direction)
+                - should probably split this up into a ton of individual things so you can build your own OSD
     - redo flightsettingscreen so that we can change stuff like spawn position and wind
         - total visual redesign, perhaps a vertical tab menu with icons
     - make a map thing that you can switch to and

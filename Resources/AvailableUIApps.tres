@@ -1,0 +1,32 @@
+[gd_resource type="Resource" script_class="UIAppInfoList" load_steps=7 format=3 uid="uid://b4q8da2otd0f2"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Apps/Management/UIAppInfo.cs" id="1_aa44p"]
+[ext_resource type="Script" path="res://Scripts/UI/Apps/Management/UIAppInfoList.cs" id="1_dyn57"]
+
+[sub_resource type="Resource" id="Resource_yri72"]
+script = ExtResource("1_aa44p")
+Name = "Propeller debug"
+ScenePath = "res://Scenes/UI/Apps/PropellerDebug.tscn"
+Description = "Shows info about the thrust a propeller is producing, essential for tuning all types of power systems."
+
+[sub_resource type="Resource" id="Resource_bungh"]
+script = ExtResource("1_aa44p")
+Name = "Battery debug"
+ScenePath = "res://Scenes/UI/Apps/BatteryDebug.tscn"
+Description = "Shows info about a battery, helpful for tuning an electric system."
+
+[sub_resource type="Resource" id="Resource_gbyos"]
+script = ExtResource("1_aa44p")
+Name = "Brushless motor debug"
+ScenePath = "res://Scenes/UI/Apps/BrushlessMotorDebug.tscn"
+Description = "Shows various information about a brushless motor, essential for tuning an electric power system."
+
+[sub_resource type="Resource" id="Resource_qjwwl"]
+script = ExtResource("1_aa44p")
+Name = "Input debug (raw)"
+ScenePath = "res://Scenes/UI/Apps/BasicInputDebug.tscn"
+Description = "Shows the raw input values for all the aircraft channels. Mostly useful for developers."
+
+[resource]
+script = ExtResource("1_dyn57")
+Apps = Array[Object]([SubResource("Resource_yri72"), SubResource("Resource_bungh"), SubResource("Resource_gbyos"), SubResource("Resource_qjwwl")])

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace UI.Apps;
 
-public abstract partial class AbstractBasicNodeDebug<T> : Control where T : Node
+public abstract partial class AbstractBasicNodeDebug<T> : Misc.UserResize where T : Node
 {
     // Simple base debugger for items like motors or batteries
 

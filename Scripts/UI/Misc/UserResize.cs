@@ -4,6 +4,7 @@ using System;
 namespace UI.Misc;
 
 [Tool]
+[GlobalClass]
 public partial class UserResize : Control
 {
     // Control that can be moved and resized by user.

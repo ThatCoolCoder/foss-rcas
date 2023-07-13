@@ -2,7 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://ch51rs1espjbp" path="res://Scenes/Locations/Common/GroundCamera.tscn" id="1"]
 [ext_resource type="Script" path="res://Scripts/Physics/Fluids/SpatialFluidBeacon.cs" id="2"]
-[ext_resource type="Theme" uid="uid://bwto58nxsnhtl" path="res://Resources/Theme.tres" id="3"]
 [ext_resource type="Script" path="res://Scripts/Physics/Fluids/Air.cs" id="4"]
 [ext_resource type="Script" path="res://Scripts/Physics/Fluids/SpatialFluidRepository.cs" id="5"]
 [ext_resource type="Script" path="res://Scripts/Locations/Location.cs" id="6"]
@@ -16,6 +15,7 @@
 [ext_resource type="Script" path="res://Scripts/UI/MessageManager.cs" id="14"]
 [ext_resource type="Script" path="res://Scripts/Locations/FreeCamera.cs" id="15"]
 [ext_resource type="PackedScene" uid="uid://cggcyv0c1g0xj" path="res://Scenes/UI/Misc/UserResize.tscn" id="16_wncxj"]
+[ext_resource type="PackedScene" uid="uid://cq2yly44bwd0s" path="res://Scenes/UI/Apps/UIAppManager.tscn" id="17_s1ygv"]
 [ext_resource type="Texture2D" uid="uid://dmtm8kn3v0ysc" path="res://icon.png" id="17_s2kvp"]
 
 [node name="BaseLocation" type="Node3D" node_paths=PackedStringArray("launcher", "groundCamera")]
@@ -57,42 +57,10 @@ ViewName = "Free"
 process_mode = 3
 script = ExtResource("12")
 
-[node name="HUD" type="MarginContainer" parent="CanvasLayer"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme = ExtResource("3")
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="VSplitContainer" type="VSplitContainer" parent="CanvasLayer/HUD"]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="TopBar" type="HBoxContainer" parent="CanvasLayer/HUD/VSplitContainer"]
-layout_mode = 2
-mouse_filter = 2
-
-[node name="BackButton" parent="CanvasLayer/HUD/VSplitContainer/TopBar" instance=ExtResource("8")]
-layout_mode = 2
+[node name="BackButton" parent="CanvasLayer" instance=ExtResource("8")]
+offset_right = 50.0
+offset_bottom = 38.0
 ScenePath = "res://Scenes/UI/FlightSettings/FlightSettingsScreen.tscn"
-
-[node name="BottomBar" type="HBoxContainer" parent="CanvasLayer/HUD/VSplitContainer"]
-layout_mode = 2
-size_flags_vertical = 8
-mouse_filter = 2
-
-[node name="FpsIndicator" type="Label" parent="CanvasLayer/HUD/VSplitContainer/BottomBar"]
-layout_mode = 2
-size_flags_horizontal = 10
-size_flags_vertical = 0
-text = "5 FPS"
-script = ExtResource("9")
 
 [node name="MaxSizeContainer" type="MarginContainer" parent="CanvasLayer"]
 anchors_preset = 1
@@ -122,6 +90,16 @@ mouse_filter = 2
 theme_override_constants/separation = 10
 script = ExtResource("14")
 
+[node name="FpsIndicator" type="Label" parent="CanvasLayer"]
+offset_left = 1230.0
+offset_top = 687.0
+offset_right = 1270.0
+offset_bottom = 710.0
+size_flags_horizontal = 10
+size_flags_vertical = 0
+text = "5 FPS"
+script = ExtResource("9")
+
 [node name="UserResize" parent="CanvasLayer" node_paths=PackedStringArray("BackgroundNode") instance=ExtResource("16_wncxj")]
 custom_minimum_size = Vector2(100, 100)
 anchors_preset = 0
@@ -143,3 +121,5 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="UIAppManager" parent="CanvasLayer" instance=ExtResource("17_s1ygv")]

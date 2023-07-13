@@ -1,0 +1,87 @@
+[gd_scene load_steps=3 format=3 uid="uid://cq2yly44bwd0s"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Apps/Management/AppManager.cs" id="1_eken2"]
+[ext_resource type="Resource" uid="uid://b4q8da2otd0f2" path="res://Resources/AvailableUIApps.tres" id="2_dqj5u"]
+
+[node name="UIAppManager" type="Control" node_paths=PackedStringArray("editButton", "editMenu", "profileSelector", "deleteProfileButton", "appHolder")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_eken2")
+AvailableApps = ExtResource("2_dqj5u")
+editButton = NodePath("HBoxContainer/EditButton")
+editMenu = NodePath("HBoxContainer/EditMenu")
+profileSelector = NodePath("HBoxContainer/EditMenu/ProfileSelector")
+deleteProfileButton = NodePath("HBoxContainer/EditMenu/DeleteProfile")
+appHolder = NodePath("AppHolder")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 9.0
+offset_right = 413.0
+offset_bottom = 40.0
+
+[node name="EditButton" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Edit UI"
+
+[node name="EditMenu" type="HBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Profile" type="Label" parent="HBoxContainer/EditMenu"]
+layout_mode = 2
+text = "Profile:"
+
+[node name="ProfileSelector" type="OptionButton" parent="HBoxContainer/EditMenu"]
+layout_mode = 2
+size_flags_vertical = 4
+item_count = 1
+selected = 0
+popup/item_0/text = "Dummy item"
+popup/item_0/id = 0
+
+[node name="AddProfile" type="Button" parent="HBoxContainer/EditMenu"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "+"
+
+[node name="DeleteProfile" type="Button" parent="HBoxContainer/EditMenu"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Bin"
+
+[node name="Spacer" type="Control" parent="HBoxContainer/EditMenu"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="NewApp" type="Button" parent="HBoxContainer/EditMenu"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "+"
+
+[node name="Done" type="Button" parent="HBoxContainer/EditMenu"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "<Tick>"
+
+[node name="AppHolder" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[connection signal="pressed" from="HBoxContainer/EditButton" to="." method="ToggleEdit"]
+[connection signal="item_selected" from="HBoxContainer/EditMenu/ProfileSelector" to="." method="SelectProfile"]
+[connection signal="pressed" from="HBoxContainer/EditMenu/DeleteProfile" to="." method="_on_DeleteProfile_pressed"]
+[connection signal="pressed" from="HBoxContainer/EditMenu/Done" to="." method="ToggleEdit"]
