@@ -173,6 +173,7 @@ Depending on how much base content is desired and how large the repository gets,
         - apps to make
             - decent input debug (with little tx picture)
             - mixing debug
+            - move notifications to an app? (mainly a means of justifying existence of default layout in the first place)
             - move fps counter to an app?
             - wheel debug?
             - wind info & basic settings (or maybe a popup for all settings. Can reuse component from flightsettingsscreen)

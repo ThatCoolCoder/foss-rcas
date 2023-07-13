@@ -52,12 +52,14 @@ popup/item_0/id = 0
 [node name="AddProfile" type="Button" parent="HBoxContainer/EditMenu"]
 layout_mode = 2
 size_flags_vertical = 4
+tooltip_text = "Create a new profile"
 text = "+"
 
 [node name="DeleteProfile" type="Button" parent="HBoxContainer/EditMenu"]
 layout_mode = 2
 size_flags_vertical = 4
-text = "Bin"
+tooltip_text = "Delete the current profile"
+text = "<Bin>"
 
 [node name="Spacer" type="Control" parent="HBoxContainer/EditMenu"]
 custom_minimum_size = Vector2(50, 0)
@@ -67,11 +69,13 @@ size_flags_vertical = 4
 [node name="NewApp" type="Button" parent="HBoxContainer/EditMenu"]
 layout_mode = 2
 size_flags_vertical = 4
+tooltip_text = "Add a new app to the current profile"
 text = "+"
 
 [node name="Done" type="Button" parent="HBoxContainer/EditMenu"]
 layout_mode = 2
 size_flags_vertical = 4
+tooltip_text = "Leave"
 text = "<Tick>"
 
 [node name="AppHolder" type="Control" parent="."]
