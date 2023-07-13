@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=3 uid="uid://clgvr254tisf"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Apps/Management/ProfileNameSelector.cs" id="1_h2cee"]
+
+[node name="ProfileNameSelector" type="Popup" node_paths=PackedStringArray("lineEdit")]
+title = "Create new app profile"
+initial_position = 2
+size = Vector2i(298, 100)
+visible = true
+borderless = false
+script = ExtResource("1_h2cee")
+lineEdit = NodePath("MarginContainer/VBoxContainer/LineEdit")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -48.0
+offset_right = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"PopupMargin"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+placeholder_text = "Enter name"
+expand_to_text_length = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Cancel" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Cancel"
+
+[node name="Add" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "Add"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Cancel" to="." method="_on_Cancel_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Add" to="." method="_on_Add_pressed"]

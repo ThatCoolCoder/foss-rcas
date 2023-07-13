@@ -11,6 +11,7 @@ public partial class AppManager : Control
     [Export] private Control editButton;
     [Export] private Control editMenu;
     [Export] private OptionButton profileSelector;
+    [Export] private ProfileNameSelector profileNameSelector;
     [Export] private Button deleteProfileButton;
     [Export] private Control appHolder;
     [Export] private NewAppSelector newAppSelector;
@@ -28,13 +29,17 @@ public partial class AppManager : Control
     public void SetAvailableProfiles(List<AppProfile> newProfiles)
     {
         appProfiles = newProfiles;
+        UpdateProfileSelector();
+        SelectProfile(0);
+    }
 
+    private void UpdateProfileSelector()
+    {
         profileSelector.Clear();
         foreach (var item in appProfiles)
         {
             profileSelector.AddItem(item.Name);
         }
-        SelectProfile(0);
     }
 
     private void SelectProfile(int index)
@@ -89,12 +94,30 @@ public partial class AppManager : Control
         }
     }
 
+    private void _on_AddProfile_pressed()
+    {
+        profileNameSelector.Popup();
+    }
+
+    private void _on_ProfileNameSelector_popup_hide()
+    {
+        if (profileNameSelector.SelectedName != null)
+        {
+            appProfiles.Add(new() { Name = profileNameSelector.SelectedName });
+            UpdateProfileSelector();
+            profileSelector.Select(appProfiles.Count - 1);
+            SelectProfile(profileSelector.Selected);
+        }
+    }
+
     private void _on_DeleteProfile_pressed()
     {
         if (!crntAppProfile.IsDefault)
         {
             appProfiles.Remove(crntAppProfile);
+            UpdateProfileSelector();
             profileSelector.Select(0);
+            SelectProfile(0);
         }
     }
 

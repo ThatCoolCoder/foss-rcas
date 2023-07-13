@@ -148,10 +148,13 @@ Depending on how much base content is desired and how large the repository gets,
             - hacky solution: create an InvalidMappingType
     - if it fails to find positions for spawn, game crashes
 - General refactoring/organizing
+    - rename `UserResize` -> `UserManipulate` and add a delete button
     - add some error checking for the value setter system
+    - give the value setter system a cool name
     - if input settings screen becomes unperformant, make all the dialogs only be instanced when needed
     - move `Art/Common` -> `Art/Locations/Common`
     - Make all "modules" (EG Propeller, BrushlessMotor, Battery) instanceable scenes? (instead of just scripts)
+        - Instead make them into [GlobalClass]es so they can be found in the hierarchy?
     - Make more things (forcers, etc) use Utils.GetNodeWithWarnings, and give that method a better name
     - Reorganize stuff, currently we have aircraft stuff strewn everywhere.
         - Maybe make a simulation directory/namespace, then within have electrics, fluid dynamics
@@ -164,7 +167,9 @@ Depending on how much base content is desired and how large the repository gets,
 - UI
     - UI Apps system
         - basic input debug can only be grabbed by the top
-        - make button do delete app
+        - make button to delete app
+        - it doesn't save the adjusted layout and size after performing a move
+        - it doesn't save the settings after changing the apps (solution: add a general save on exit)
         - apps to make
             - decent input debug (with little tx picture)
             - mixing debug
