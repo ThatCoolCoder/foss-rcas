@@ -46,13 +46,13 @@ public partial class AxisMappingEditor : BaseControlMappingEditor
         holder.GetNode<NumericSliderInput>("DeadzoneRest").Config(null, "Deadzone (rest)",
             s => controlMapping.DeadzoneRest,
             (s, v) => controlMapping.DeadzoneRest = v,
-            min: 0, max: 2, step: 0.01f, _customDisplayFunc: percentageDisplayFunc)
+            min: 0, max: 1, step: 0.01f, _customDisplayFunc: percentageDisplayFunc)
             .OnSettingsChanged();
 
         holder.GetNode<NumericSliderInput>("DeadzoneEnd").Config(null, "Deadzone (end)",
             s => controlMapping.DeadzoneEnd,
             (s, v) => controlMapping.DeadzoneEnd = v,
-            min: 0, max: 2, step: 0.01f, _customDisplayFunc: percentageDisplayFunc)
+            min: 0, max: 1, step: 0.01f, _customDisplayFunc: percentageDisplayFunc)
             .OnSettingsChanged();
     }
 }
