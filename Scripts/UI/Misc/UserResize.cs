@@ -10,6 +10,7 @@ public partial class UserResize : Control
 
     [Export] public bool Resizable { get; set; } = true;
     [Export] public bool Movable { get; set; } = true;
+    [Export] public bool AutoAdjustAnchors { get; set; } = true;
     [Export] public Control BackgroundNode { get; set; }
     [Export] public int DraggerSize { get; set; } = 16;
     [Export] public Texture2D NormalCornerTexture { get; set; }
@@ -33,7 +34,7 @@ public partial class UserResize : Control
         if (BackgroundNode != null)
         {
             BackgroundNode.MouseFilter = MouseFilterEnum.Pass;
-            MoveChild(BackgroundNode, 0); // needs to be behind others for input and view
+            MoveChild(BackgroundNode, 0); // needs to be behind others for input and appearance
         }
     }
 
@@ -85,7 +86,34 @@ public partial class UserResize : Control
             if (clickStartPos != null)
             {
                 Position = GetGlobalMousePosition() - (Vector2)clickStartPos + selfPosAtClickStart;
+
+                if (AutoAdjustAnchors)
+                {
+
+                    var selfSize = Size;
+                    var parentSize = GetViewportRect().Size;
+                    if (GetParent() is Control control)
+                    {
+                        parentSize = control.Size;
+                    }
+
+                    AnchorLeft = SelectAnchorPosition(Position.X, parentSize.X);
+                    AnchorRight = SelectAnchorPosition(Position.X + selfSize.X, parentSize.X);
+
+                    AnchorTop = SelectAnchorPosition(Position.Y, parentSize.Y);
+                    AnchorBottom = SelectAnchorPosition(Position.Y + selfSize.Y, parentSize.Y);
+
+                    Size = selfSize;
+                }
             }
         }
+    }
+
+    private float SelectAnchorPosition(float position, float parentSize, float middleProportion = 0.4f)
+    {
+        var proportion = position / parentSize;
+        if (proportion < 0.5f - middleProportion / 2) return 0;
+        else if (proportion < 0.5f + middleProportion / 2) return 0.5f;
+        else return 1;
     }
 }
