@@ -1,8 +1,5 @@
-[gd_scene load_steps=6 format=3 uid="uid://3qmhab7b18xw"]
+[gd_scene load_steps=3 format=3 uid="uid://3qmhab7b18xw"]
 
-[ext_resource type="FontFile" path="res://Resources/Fonts/Heading0.tres" id="2"]
-[ext_resource type="FontFile" path="res://Resources/Fonts/Heading2.tres" id="3"]
-[ext_resource type="FontFile" path="res://Resources/Fonts/Heading1.tres" id="4"]
 [ext_resource type="Script" path="res://Scripts/UI/StartScreen.cs" id="5"]
 [ext_resource type="PackedScene" path="res://Scenes/UI/Misc/SceneOpenerButton.tscn" id="7"]
 
@@ -26,14 +23,12 @@ alignment = 1
 layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"Heading0"
-theme_override_fonts/font = ExtResource("2")
 text = "FossRCAS"
 
 [node name="Label" type="Label" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 theme_type_variation = &"Heading1"
-theme_override_fonts/font = ExtResource("4")
 text = "Free and open source RC aviation simulator"
 
 [node name="Spacer" type="Control" parent="VBoxContainer"]
@@ -47,27 +42,23 @@ alignment = 1
 [node name="PlayButton" parent="VBoxContainer/ButtonsHolder" instance=ExtResource("7")]
 layout_mode = 2
 theme_type_variation = &"ButtonHeading2"
-theme_override_fonts/font = ExtResource("3")
 text = "Play"
 ScenePath = "res://Scenes/UI/FlightSettings/FlightSettingsScreen.tscn"
 
 [node name="SettingsButton" parent="VBoxContainer/ButtonsHolder" instance=ExtResource("7")]
 layout_mode = 2
 theme_type_variation = &"ButtonHeading2"
-theme_override_fonts/font = ExtResource("3")
 text = "Settings"
 ScenePath = "res://Scenes/UI/Settings/SettingsScreen.tscn"
 
 [node name="AboutButton" type="Button" parent="VBoxContainer/ButtonsHolder"]
 layout_mode = 2
 theme_type_variation = &"ButtonHeading2"
-theme_override_fonts/font = ExtResource("3")
 text = "About"
 
 [node name="CreditsButton" parent="VBoxContainer/ButtonsHolder" instance=ExtResource("7")]
 layout_mode = 2
 theme_type_variation = &"ButtonHeading2"
-theme_override_fonts/font = ExtResource("3")
 text = "Credits"
 ScenePath = "res://Scenes/UI/Credits.tscn"
 

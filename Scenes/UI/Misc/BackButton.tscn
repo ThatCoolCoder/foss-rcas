@@ -1,6 +1,5 @@
-[gd_scene load_steps=3 format=3 uid="uid://d15nhoxu6om0g"]
+[gd_scene load_steps=2 format=3 uid="uid://d15nhoxu6om0g"]
 
-[ext_resource type="FontFile" path="res://Resources/Fonts/Heading2.tres" id="1"]
 [ext_resource type="Script" path="res://Scenes/UI/Misc/BackButton.cs" id="1_heybm"]
 
 [node name="BackButton" type="MarginContainer"]
@@ -17,7 +16,6 @@ ScenePath = null
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_fonts/font = ExtResource("1")
 text = "Back"
 
 [connection signal="pressed" from="Button" to="." method="_on_Button_pressed"]

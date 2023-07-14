@@ -1,6 +1,5 @@
-[gd_scene load_steps=9 format=3 uid="uid://bqbllk68fj7uu"]
+[gd_scene load_steps=8 format=3 uid="uid://bqbllk68fj7uu"]
 
-[ext_resource type="FontFile" path="res://Resources/Fonts/Heading2.tres" id="1"]
 [ext_resource type="PackedScene" uid="uid://r4pl5cs86j1j" path="res://Scenes/UI/Misc/Heading.tscn" id="3"]
 [ext_resource type="Script" path="res://Scripts/UI/Settings/SettingsScreen.cs" id="4"]
 [ext_resource type="PackedScene" uid="uid://doovbahw2div2" path="res://Scenes/UI/Settings/ViewTab.tscn" id="5"]
@@ -62,31 +61,31 @@ alignment = 2
 [node name="Reset" type="Button" parent="VBoxContainer/Buttons"]
 layout_mode = 2
 tooltip_text = "Reset the settings to their defaults"
-theme_override_fonts/font = ExtResource("1")
+theme_type_variation = &"ButtonHeading2"
 text = "Reset"
 
 [node name="Cancel" type="Button" parent="VBoxContainer/Buttons"]
 layout_mode = 2
 tooltip_text = "Undo changes and leave"
-theme_override_fonts/font = ExtResource("1")
+theme_type_variation = &"ButtonHeading2"
 text = "Cancel"
 
 [node name="Revert" type="Button" parent="VBoxContainer/Buttons"]
 layout_mode = 2
 tooltip_text = "Undo changes"
-theme_override_fonts/font = ExtResource("1")
+theme_type_variation = &"ButtonHeading2"
 text = "Revert"
 
 [node name="Apply" type="Button" parent="VBoxContainer/Buttons"]
 layout_mode = 2
 tooltip_text = "Apply settings but do not leave"
-theme_override_fonts/font = ExtResource("1")
+theme_type_variation = &"ButtonHeading2"
 text = "Apply"
 
 [node name="Accept" type="Button" parent="VBoxContainer/Buttons"]
 layout_mode = 2
 tooltip_text = "Apply settings and leave"
-theme_override_fonts/font = ExtResource("1")
+theme_type_variation = &"ButtonHeading2"
 text = "Accept"
 
 [node name="CustomConfirmationDialog" parent="." instance=ExtResource("9")]
