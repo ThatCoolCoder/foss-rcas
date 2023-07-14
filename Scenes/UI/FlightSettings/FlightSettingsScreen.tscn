@@ -1,9 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://c7e82kjwuwpl"]
+[gd_scene load_steps=6 format=3 uid="uid://c7e82kjwuwpl"]
 
 [ext_resource type="Script" path="res://Scripts/UI/FlightSettings/FlightSettingsScreen.cs" id="1"]
 [ext_resource type="PackedScene" path="res://Scenes/UI/FlightSettings/AircraftSelector.tscn" id="3"]
 [ext_resource type="PackedScene" uid="uid://ct24hx2k4xd3w" path="res://Scenes/UI/FlightSettings/LocationSelector.tscn" id="5"]
-[ext_resource type="FontFile" path="res://Resources/Fonts/Heading2.tres" id="6"]
 [ext_resource type="PackedScene" uid="uid://d15nhoxu6om0g" path="res://Scenes/UI/Misc/BackButton.tscn" id="7"]
 
 [sub_resource type="Shortcut" id="2"]
@@ -59,7 +58,7 @@ alignment = 2
 
 [node name="PlayButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("6")
+theme_type_variation = &"Heading2"
 shortcut = SubResource("2")
 text = "Go!"
 

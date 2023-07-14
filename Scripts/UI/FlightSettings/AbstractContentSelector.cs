@@ -58,7 +58,7 @@ public abstract partial class AbstractContentSelector<T> : Control where T : Con
             var formattedDateUpdated = SelectedItem.DateUpdated.ToString("dd MMMM yyyy");
             var sections = new List<string>()
             {
-                $" By {SelectedItem.Author}\tVersion {SelectedItem.Version}\tCreated {formattedDateCreated}\tUpdated {formattedDateUpdated}",
+                $" By {SelectedItem.Author}    Version {SelectedItem.Version}    Created {formattedDateCreated}    Updated {formattedDateUpdated}",
                 SelectedItem.Description,
                 customInfo,
                 formattedCredits

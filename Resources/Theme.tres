@@ -1,12 +1,24 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://bwto58nxsnhtl"]
+[gd_resource type="Theme" load_steps=7 format=3 uid="uid://bwto58nxsnhtl"]
 
-[ext_resource type="FontFile" uid="uid://chfqod407x2uu" path="res://Resources/Fonts/Default.tres" id="1"]
+[ext_resource type="FontFile" uid="uid://d360qkb4yqisg" path="res://Resources/Fonts/Cabin-VariableFont.ttf" id="1_s7qdi"]
+[ext_resource type="FontFile" uid="uid://8ln5uxp0bm2t" path="res://Resources/Fonts/Cabin-Italic-VariableFont.ttf" id="2_q66yu"]
 
 [sub_resource type="StyleBoxFlat" id="1"]
 bg_color = Color(0.215686, 0.215686, 0.215686, 1)
 
+[sub_resource type="FontVariation" id="FontVariation_vkrvh"]
+base_font = ExtResource("1_s7qdi")
+variation_embolden = 1.0
+
+[sub_resource type="FontVariation" id="FontVariation_g730h"]
+base_font = ExtResource("2_q66yu")
+variation_embolden = 1.0
+
+[sub_resource type="FontVariation" id="FontVariation_hi7oy"]
+base_font = ExtResource("2_q66yu")
+
 [resource]
-default_font = ExtResource("1")
+default_font = ExtResource("1_s7qdi")
 ButtonHeading2/base_type = &"Button"
 ButtonHeading2/font_sizes/font_size = 18
 Heading0/base_type = &"Label"
@@ -28,6 +40,9 @@ PopupMargin/constants/margin_bottom = 5
 PopupMargin/constants/margin_left = 5
 PopupMargin/constants/margin_right = 5
 PopupMargin/constants/margin_top = 5
+RichTextLabel/fonts/bold_font = SubResource("FontVariation_vkrvh")
+RichTextLabel/fonts/bold_italics_font = SubResource("FontVariation_g730h")
+RichTextLabel/fonts/italics_font = SubResource("FontVariation_hi7oy")
 SettingsMargin/base_type = &"MarginContainer"
 SettingsMargin/constants/margin_bottom = 10
 SettingsMargin/constants/margin_left = 10

@@ -46,10 +46,9 @@ stretch_mode = 5
 [node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
+bbcode_enabled = true
 text = "By Mr X	Version 1.0.0	1/1/2000
-Description
-
-Custom Info
+Description yes some more words blablabla
 
 Credits:
 John Doe: art"
