@@ -15,10 +15,11 @@ public partial class AppManager : Control
     [Export] private Button deleteProfileButton;
     [Export] private Control appHolder;
     [Export] private NewAppSelector newAppSelector;
+    [Signal] public delegate void ChangesSavedEventHandler();
 
     private List<AppProfile> appProfiles;
     private AppProfile crntAppProfile;
-    private Dictionary<AppLayoutInfo, NodePath> crntApps;
+    private Dictionary<NodePath, AppLayoutInfo> nodeToApp;
     private bool editing = false;
 
     public override void _Ready()
@@ -45,10 +46,11 @@ public partial class AppManager : Control
     private void SelectProfile(int index)
     {
         crntAppProfile = appProfiles[index];
-        crntApps = new();
+        nodeToApp = new();
 
         deleteProfileButton.Disabled = crntAppProfile.IsDefault;
 
+        SaveCurrentLayout();
         foreach (var node in appHolder.GetChildren()) node.QueueFree();
 
         foreach (var appInfo in crntAppProfile.Apps)
@@ -57,10 +59,31 @@ public partial class AppManager : Control
         }
     }
 
+    private void SaveCurrentLayout()
+    {
+        foreach (var kvp in nodeToApp)
+        {
+            var node = GetNode<Control>(kvp.Key);
+            var appInfo = kvp.Value;
+
+            appInfo.AnchorLeft = node.AnchorLeft;
+            appInfo.AnchorRight = node.AnchorRight;
+            appInfo.AnchorTop = node.AnchorTop;
+            appInfo.AnchorBottom = node.AnchorBottom;
+
+            appInfo.SizeX = node.Size.X;
+            appInfo.SizeY = node.Size.Y;
+            appInfo.PositionX = node.Position.X;
+            appInfo.PositionY = node.Position.Y;
+        }
+
+
+    }
+
     private void InstanceApp(AppLayoutInfo appInfo)
     {
         // if this gets slow, add a scene cache
-        var instance = ResourceLoader.Load<PackedScene>(appInfo.ScenePath).Instantiate<Misc.UserResize>();
+        var instance = ResourceLoader.Load<PackedScene>(appInfo.ScenePath).Instantiate<Misc.UserManipulate>();
         appHolder.AddChild(instance);
 
         instance.AnchorLeft = appInfo.AnchorLeft;
@@ -68,13 +91,20 @@ public partial class AppManager : Control
         instance.AnchorTop = appInfo.AnchorTop;
         instance.AnchorBottom = appInfo.AnchorBottom;
 
-        instance.Size = appInfo.Size;
-        instance.Position = appInfo.Position;
+        instance.Size = new Vector2(appInfo.SizeX, appInfo.SizeY);
+        instance.Position = new Vector2(appInfo.PositionX, appInfo.PositionY);
 
-        crntApps[appInfo] = instance.GetPath();
+        instance.AnchorLeft = appInfo.AnchorLeft;
+        instance.AnchorRight = appInfo.AnchorRight;
+        instance.AnchorTop = appInfo.AnchorTop;
+        instance.AnchorBottom = appInfo.AnchorBottom;
+
+        nodeToApp[instance.GetPath()] = appInfo;
+        instance.OnDeleted += DeleteApp;
 
         instance.Resizable = editing;
         instance.Movable = editing;
+        instance.Deletable = editing;
     }
 
     private void ToggleEdit()
@@ -83,14 +113,21 @@ public partial class AppManager : Control
         editButton.Visible = !editing;
         editMenu.Visible = editing;
 
-        if (crntApps != null)
+        if (nodeToApp != null)
         {
-            foreach (var nodePath in crntApps.Values)
+            foreach (var nodePath in nodeToApp.Keys)
             {
-                var node = GetNode<Misc.UserResize>(nodePath);
+                var node = GetNode<Misc.UserManipulate>(nodePath);
                 node.Resizable = editing;
                 node.Movable = editing;
+                node.Deletable = editing;
             }
+        }
+
+        if (!editing)
+        {
+            SaveCurrentLayout();
+            EmitSignal(SignalName.ChangesSaved);
         }
     }
 
@@ -130,11 +167,15 @@ public partial class AppManager : Control
     {
         if (newAppSelector.SelectedApp == null) return;
 
+        var position = GetViewportRect().Size / 2 - new Vector2(100, 150);
+
         var appInfo = new AppLayoutInfo()
         {
             ScenePath = newAppSelector.SelectedApp.ScenePath,
-            Size = new Vector2(200, 300), // todo: should add default size field
-            Position = GetViewportRect().Size / 2 - new Vector2(100, 150),
+            SizeX = 200,
+            SizeY = 300, // todo: should add default size field
+            PositionX = position.X,
+            PositionY = position.Y,
             AnchorLeft = .5f,
             AnchorRight = .5f,
             AnchorTop = .5f,
@@ -144,5 +185,14 @@ public partial class AppManager : Control
         InstanceApp(appInfo);
 
         crntAppProfile.Apps.Add(appInfo);
+    }
+
+    private void DeleteApp(Misc.UserManipulate app)
+    {
+        var path = app.GetPath();
+        var appLayoutInfo = nodeToApp[path];
+        nodeToApp.Remove(path);
+
+        crntAppProfile.Apps.Remove(appLayoutInfo);
     }
 }

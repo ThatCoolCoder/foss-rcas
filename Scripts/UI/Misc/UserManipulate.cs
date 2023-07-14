@@ -5,30 +5,33 @@ namespace UI.Misc;
 
 [Tool]
 [GlobalClass]
-public partial class UserResize : Control
+public partial class UserManipulate : Control
 {
     // Control that can be moved and resized by user.
 
     [Export] public bool Resizable { get; set; } = true;
     [Export] public bool Movable { get; set; } = true;
+    [Export] public bool Deletable { get; set; } = true;
     [Export] public bool AutoAdjustAnchors { get; set; } = true;
     [Export] public Control BackgroundNode { get; set; }
-    [Export] public int DraggerSize { get; set; } = 16;
-    [Export] public Texture2D NormalCornerTexture { get; set; }
-    [Export] public Texture2D LockedCornerTexture { get; set; }
-    [Export] public Vector2I CornerTextureSize { get; set; }
+    [Export] public int CornerButtonSize { get; set; } = 16;
+    [Export] public Texture2D ResizeButtonTexture { get; set; }
+    [Export] public Texture2D DeleteButtonTexture { get; set; }
     [Export] public Vector2I MinDragSize { get; set; } = Vector2I.One * 100;
+    [Signal] public delegate void OnDeletedEventHandler(UserManipulate userManipulate);
 
-    private Control dragger;
-    private TextureRect cornerTexture;
+    private Control resizeArea;
+    private TextureRect resizeTexture;
     private Vector2? clickStartPos;
     private Vector2 selfPosAtClickStart;
+    private TextureButton deleteButton;
 
     public override void _Ready()
     {
-        // not gotten through direct node exports as then it will show
-        dragger = GetNode<Control>("Dragger");
-        cornerTexture = GetNode<TextureRect>("CornerTexture");
+        // not gotten through direct node exports as this is internal and 
+        resizeArea = GetNode<Control>("ResizeArea");
+        resizeTexture = GetNode<TextureRect>("ResizeTexture");
+        deleteButton = GetNode<TextureButton>("DeleteButton");
 
         CustomMinimumSize = MinDragSize;
 
@@ -45,17 +48,24 @@ public partial class UserResize : Control
     {
         if (Engine.IsEditorHint())
         {
-            cornerTexture.Size = Vector2I.One * DraggerSize;
-            cornerTexture.OffsetLeft = -DraggerSize;
-            cornerTexture.OffsetTop = -DraggerSize;
+            resizeTexture.Size = Vector2I.One * CornerButtonSize;
+            resizeTexture.OffsetLeft = -CornerButtonSize;
+            resizeTexture.OffsetTop = -CornerButtonSize;
 
-            dragger.Size = Vector2I.One * DraggerSize;
-            dragger.OffsetLeft = -DraggerSize;
-            dragger.OffsetTop = -DraggerSize;
+            resizeArea.Size = Vector2I.One * CornerButtonSize;
+            resizeArea.OffsetLeft = -CornerButtonSize;
+            resizeArea.OffsetTop = -CornerButtonSize;
+            resizeTexture.Texture = Resizable ? ResizeButtonTexture : null;
+
+            deleteButton.Size = Vector2I.One * CornerButtonSize;
+            deleteButton.OffsetLeft = -CornerButtonSize;
+            deleteButton.OffsetBottom = CornerButtonSize;
+            deleteButton.TextureNormal = DeleteButtonTexture;
         }
 
-        dragger.MouseDefaultCursorShape = Resizable ? CursorShape.Fdiagsize : CursorShape.Arrow;
-        cornerTexture.Texture = Resizable ? NormalCornerTexture : LockedCornerTexture;
+        resizeArea.MouseDefaultCursorShape = Resizable ? CursorShape.Fdiagsize : CursorShape.Arrow;
+        resizeTexture.Visible = Resizable;
+        deleteButton.Visible = Deletable;
     }
 
     public void _on_Dragger_gui_input(InputEvent _event)
@@ -110,6 +120,12 @@ public partial class UserResize : Control
                 }
             }
         }
+    }
+
+    private void _on_DeleteButton_pressed()
+    {
+        EmitSignal(SignalName.OnDeleted, this);
+        QueueFree();
     }
 
     private float SelectAnchorPosition(float position, float parentSize, float middleProportion = 0.2f)

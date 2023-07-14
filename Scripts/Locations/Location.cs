@@ -141,5 +141,10 @@ public partial class Location : Node3D
         GetTree().Paused = false;
         Engine.TimeScale = 1;
     }
-}
 
+    private void _on_UIAppManager_ChangesSaved()
+    {
+        // (everything is a reference type in there, so no assigning needs to be done)
+        SimSettings.Settings.SaveCurrent();
+    }
+}

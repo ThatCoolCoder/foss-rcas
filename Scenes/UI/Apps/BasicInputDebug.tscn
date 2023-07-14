@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://b1xdosgj7588x"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Apps/BasicInputDebug.cs" id="1"]
-[ext_resource type="PackedScene" uid="uid://cggcyv0c1g0xj" path="res://Scenes/UI/Misc/UserResize.tscn" id="1_ef0bg"]
+[ext_resource type="PackedScene" uid="uid://cggcyv0c1g0xj" path="res://Scenes/UI/Misc/UserManipulate.tscn" id="1_ef0bg"]
 
 [node name="BasicInputDebug" node_paths=PackedStringArray("BackgroundNode") instance=ExtResource("1_ef0bg")]
 offset_right = -1101.0

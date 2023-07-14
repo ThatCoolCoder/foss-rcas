@@ -28,6 +28,9 @@ public class AppLayoutInfo
     public float AnchorTop { get; set; }
     public float AnchorBottom { get; set; }
 
-    public Vector2 Position { get; set; }
-    public Vector2 Size { get; set; }
+    // tomlet really doesn't appreciate godot vectors so after 1 1/2 hours I declare that this is good enough
+    public float PositionX { get; set; }
+    public float PositionY { get; set; }
+    public float SizeX { get; set; }
+    public float SizeY { get; set; }
 }

@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace UI.Apps;
 
-public partial class BasicInputDebug : Misc.UserResize
+public partial class BasicInputDebug : Misc.UserManipulate
 {
     // Basic implementation just visually displaying values of the aircraft channels.
     // todo: in future, create a version with a little tx that has sticks that move around, and visual indications for switches

@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://duy8nviufab48"]
+
+[ext_resource type="PackedScene" uid="uid://cggcyv0c1g0xj" path="res://Scenes/UI/Misc/UserManipulate.tscn" id="1_1uyi3"]
+
+[node name="BaseUIApp" instance=ExtResource("1_1uyi3")]

@@ -148,7 +148,6 @@ Depending on how much base content is desired and how large the repository gets,
             - hacky solution: create an InvalidMappingType
     - if it fails to find positions for spawn, game crashes
 - General refactoring/organizing
-    - rename `UserResize` -> `UserManipulate` and add a delete button
     - add some error checking for the value setter system
     - give the value setter system a cool name
     - if input settings screen becomes unperformant, make all the dialogs only be instanced when needed

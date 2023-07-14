@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=3 uid="uid://cggcyv0c1g0xj"]
 
-[ext_resource type="Script" path="res://Scripts/UI/Misc/UserResize.cs" id="1_c6t6k"]
+[ext_resource type="Script" path="res://Scripts/UI/Misc/UserManipulate.cs" id="1_c6t6k"]
 
-[node name="UserResize" type="Control"]
+[node name="UserManipulate" type="Control"]
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 3
 anchors_preset = 15
@@ -14,7 +14,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_c6t6k")
 
-[node name="CornerTexture" type="TextureRect" parent="."]
+[node name="ResizeTexture" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 1.0
@@ -27,7 +27,7 @@ grow_horizontal = 0
 grow_vertical = 0
 expand_mode = 1
 
-[node name="Dragger" type="Control" parent="."]
+[node name="ResizeArea" type="Control" parent="."]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -41,4 +41,13 @@ grow_vertical = 0
 pivot_offset = Vector2(4, 4)
 mouse_default_cursor_shape = 12
 
-[connection signal="gui_input" from="Dragger" to="." method="_on_Dragger_gui_input"]
+[node name="DeleteButton" type="TextureButton" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -16.0
+offset_bottom = 16.0
+
+[connection signal="gui_input" from="ResizeArea" to="." method="_on_Dragger_gui_input"]
+[connection signal="pressed" from="DeleteButton" to="." method="_on_DeleteButton_pressed"]

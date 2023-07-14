@@ -1,15 +1,15 @@
 [gd_scene load_steps=2 format=3 uid="uid://bu5jj2eye3i05"]
 
-[ext_resource type="PackedScene" uid="uid://cggcyv0c1g0xj" path="res://Scenes/UI/Misc/UserResize.tscn" id="1_xli5x"]
+[ext_resource type="PackedScene" uid="uid://duy8nviufab48" path="res://Scenes/UI/Apps/BaseUIApp.tscn" id="1_abtr5"]
 
-[node name="AbstractBasicNodeDebug" node_paths=PackedStringArray("BackgroundNode") instance=ExtResource("1_xli5x")]
+[node name="AbstractBasicNodeDebug" node_paths=PackedStringArray("BackgroundNode") instance=ExtResource("1_abtr5")]
 custom_minimum_size = Vector2(250, 150)
-offset_right = -1042.0
-offset_bottom = -531.0
+offset_right = -1015.0
+offset_bottom = -552.0
 BackgroundNode = NodePath("Panel")
 MinDragSize = Vector2i(250, 150)
 
-[node name="Panel" type="Panel" parent="." index="2"]
+[node name="Panel" type="Panel" parent="." index="3"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0

@@ -100,3 +100,5 @@ size_flags_horizontal = 10
 size_flags_vertical = 0
 text = "5 FPS"
 script = ExtResource("9")
+
+[connection signal="ChangesSaved" from="CanvasLayer/UIAppManager" to="." method="_on_UIAppManager_ChangesSaved"]
