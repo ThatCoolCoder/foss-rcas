@@ -14,6 +14,9 @@ public partial class ControlMappingPreview : Button
 
     private IControlMapping controlMapping;
     private Action<IControlMapping> deleteFunc;
+    private static readonly Texture2D axisIcon = ResourceLoader.Load<Texture2D>("res://Art/Icons/joystick.png");
+    private static readonly Texture2D buttonIcon = ResourceLoader.Load<Texture2D>("res://Art/Icons/button.png");
+    private static readonly Texture2D keyboardIcon = ResourceLoader.Load<Texture2D>("res://Art/Icons/keyboard.png");
 
     public ControlMappingPreview Config(Node parent, SimInput.IControlMapping _controlMapping, Action<IControlMapping> _deleteFunc)
     {
@@ -26,10 +29,12 @@ public partial class ControlMappingPreview : Button
 
     public override void _Ready()
     {
-        Text = CreateControlMappingText();
+        var (text, icon) = CreateButtonContent();
+        Text = text;
+        Icon = icon;
     }
 
-    private string CreateControlMappingText()
+    private (string, Texture2D) CreateButtonContent()
     {
         // todo: perhaps there is a better way to do this than a bunch of ifs?
         // Trouble with lambdas is we need a specific type in the lambda but a dict of lamdas would have unspecific type
@@ -38,21 +43,20 @@ public partial class ControlMappingPreview : Button
         if (controlMapping == null)
         {
             Utils.LogError("Control mapping is null", this);
-            return "Null";
+            return ("Null", null);
         }
-        if (controlMapping is AxisControlMapping am) return $"Axis {(int)am.Axis}";
-        if (controlMapping is ButtonControlMapping bm) return $"But {(int)bm.ButtonIndex}";
+        if (controlMapping is AxisControlMapping am) return ($"{(int)am.Axis}", axisIcon);
+        if (controlMapping is ButtonControlMapping bm) return ($"{(int)bm.ButtonIndex}", buttonIcon);
         if (controlMapping is SimpleKeyboardControlMapping skm)
         {
-            if (skm.Momentary) return $"Key - {OS.GetKeycodeString((Key)skm.KeyScancode)}";
-            else return $"Key - {OS.GetKeycodeString((Key)skm.KeyScancode)}";
+            return (OS.GetKeycodeString((Key)skm.KeyScancode), keyboardIcon);
         }
         if (controlMapping is ThreePosKeyboardControlMapping tpkm)
-            return $"Key - " +
-            $"{OS.GetKeycodeString((Key)tpkm.Key1Scancode)}, {OS.GetKeycodeString((Key)tpkm.Key2Scancode)}, {OS.GetKeycodeString((Key)tpkm.Key3Scancode)}";
+            return ($"{OS.GetKeycodeString((Key)tpkm.Key1Scancode)}, {OS.GetKeycodeString((Key)tpkm.Key2Scancode)}, {OS.GetKeycodeString((Key)tpkm.Key3Scancode)}",
+                keyboardIcon);
 
         Utils.LogError($"Unknown control type: {controlMapping.GetType().FullName}", this);
-        return "Unknown mapping type";
+        return ("?", null);
     }
 
     private BaseControlMappingEditor CreateEditor()

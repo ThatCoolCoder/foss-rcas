@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://d15nhoxu6om0g"]
 
-[ext_resource type="Script" path="res://Scenes/UI/Misc/BackButton.cs" id="1_heybm"]
+[ext_resource type="Script" path="res://Scripts/UI/Misc/BackButton.cs" id="1_2eem4"]
 
 [node name="BackButton" type="MarginContainer"]
 offset_right = 40.0
@@ -9,7 +9,7 @@ theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
-script = ExtResource("1_heybm")
+script = ExtResource("1_2eem4")
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 2

@@ -1,8 +1,12 @@
-[gd_scene load_steps=4 format=3 uid="uid://cq2yly44bwd0s"]
+[gd_scene load_steps=8 format=3 uid="uid://cq2yly44bwd0s"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Apps/Management/AppManager.cs" id="1_eken2"]
+[ext_resource type="Texture2D" uid="uid://bgrmrgts3nohi" path="res://Art/Icons/pencil.png" id="2_0iu56"]
 [ext_resource type="PackedScene" uid="uid://45esw4qygda6" path="res://Scenes/UI/Apps/NewAppSelector.tscn" id="2_8futa"]
+[ext_resource type="Texture2D" uid="uid://dubgiuinalegf" path="res://Art/Icons/plus.png" id="2_hlm32"]
 [ext_resource type="PackedScene" uid="uid://clgvr254tisf" path="res://Scenes/UI/Apps/ProfileNameSelector.tscn" id="3_1fuk2"]
+[ext_resource type="Texture2D" uid="uid://b558eiutjry5n" path="res://Art/Icons/bin.png" id="3_ax3iy"]
+[ext_resource type="Texture2D" uid="uid://b4ojqw20hc478" path="res://Art/Icons/tick.png" id="4_m7wy3"]
 
 [node name="UIAppManager" type="Control" node_paths=PackedStringArray("editButton", "editMenu", "profileSelector", "profileNameSelector", "deleteProfileButton", "appHolder", "newAppSelector")]
 layout_mode = 3
@@ -31,7 +35,8 @@ offset_bottom = 40.0
 [node name="EditButton" type="Button" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 4
-text = "Edit UI"
+tooltip_text = "Edit UI"
+icon = ExtResource("2_0iu56")
 
 [node name="EditMenu" type="HBoxContainer" parent="HBoxContainer"]
 layout_mode = 2
@@ -53,13 +58,13 @@ popup/item_0/id = 0
 layout_mode = 2
 size_flags_vertical = 4
 tooltip_text = "Create a new profile"
-text = "+"
+icon = ExtResource("2_hlm32")
 
 [node name="DeleteProfile" type="Button" parent="HBoxContainer/EditMenu"]
 layout_mode = 2
 size_flags_vertical = 4
 tooltip_text = "Delete the current profile"
-text = "<Bin>"
+icon = ExtResource("3_ax3iy")
 
 [node name="Spacer" type="Control" parent="HBoxContainer/EditMenu"]
 custom_minimum_size = Vector2(50, 0)
@@ -70,13 +75,13 @@ size_flags_vertical = 4
 layout_mode = 2
 size_flags_vertical = 4
 tooltip_text = "Add a new app to the current profile"
-text = "+"
+icon = ExtResource("2_hlm32")
 
 [node name="Done" type="Button" parent="HBoxContainer/EditMenu"]
 layout_mode = 2
 size_flags_vertical = 4
 tooltip_text = "Leave"
-text = "<Tick>"
+icon = ExtResource("4_m7wy3")
 
 [node name="AppHolder" type="Control" parent="."]
 layout_mode = 1

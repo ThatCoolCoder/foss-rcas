@@ -42,6 +42,9 @@ public partial class CollapsibleMenu : Control
 
     public event Action<CollapsibleMenu, bool> OnToggleOpen;
 
+    private static Texture2D openIcon = ResourceLoader.Load<Texture2D>("res://Art/Icons/up.png");
+    private static Texture2D closedIcon = ResourceLoader.Load<Texture2D>("res://Art/Icons/down.png");
+
     public override void _Ready()
     {
         titleLabel = GetNode<Label>("Header/HBoxContainer/Title");
@@ -64,7 +67,7 @@ public partial class CollapsibleMenu : Control
     {
         if (toggleButton == null) return;
 
-        toggleButton.Text = IsOpen ? "-" : "+";
+        toggleButton.Icon = IsOpen ? openIcon : closedIcon;
         // Start at 1 so we never affect the header
         for (int i = 1; i < GetChildCount(); i++)
         {

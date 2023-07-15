@@ -1,36 +1,29 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://d0jjcoqkonvym"]
 
-[ext_resource path="res://Scripts/UI/Misc/CollapsibleMenu.cs" type="Script" id=1]
+[ext_resource type="Script" path="res://Scripts/UI/Misc/CollapsibleMenu.cs" id="1"]
+[ext_resource type="Texture2D" uid="uid://cmsv5gh1wy7co" path="res://Art/Icons/down.png" id="2_sn87x"]
 
 [node name="CollapsibleMenu" type="VBoxContainer"]
 offset_right = 338.0
 offset_bottom = 59.0
-script = ExtResource( 1 )
+script = ExtResource("1")
 
 [node name="Header" type="VBoxContainer" parent="."]
-offset_right = 338.0
-offset_bottom = 32.0
+layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Header"]
-offset_right = 338.0
-offset_bottom = 24.0
+layout_mode = 2
 theme_override_constants/separation = 10
 
 [node name="Button" type="Button" parent="Header/HBoxContainer"]
-offset_right = 18.0
-offset_bottom = 24.0
-text = "+"
+layout_mode = 2
+icon = ExtResource("2_sn87x")
 
 [node name="Title" type="Label" parent="Header/HBoxContainer"]
-offset_left = 28.0
-offset_top = 3.0
-offset_right = 93.0
-offset_bottom = 21.0
+layout_mode = 2
 text = "Collapsible"
 
 [node name="HSeparator" type="HSeparator" parent="Header"]
-offset_top = 28.0
-offset_right = 338.0
-offset_bottom = 32.0
+layout_mode = 2
 
 [connection signal="pressed" from="Header/HBoxContainer/Button" to="." method="_on_Button_pressed"]
