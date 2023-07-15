@@ -11,7 +11,7 @@ public static class Loader
 {
     public static readonly string AddonContentDirectory = "res://AddonContent/";
 
-    public static (List<Aircraft>, List<Location>) FindContent(string path)
+    public static (List<Aircraft> Aircraft, List<Location> Locations, Dictionary<string, List<ContentProblem>> Problems) FindContent(string path)
     {
         var aircraftList = new List<Aircraft>();
         var locationList = new List<Location>();
@@ -26,33 +26,77 @@ public static class Loader
             return content;
         });
 
+        var allProblems = new Dictionary<string, List<ContentProblem>>();
 
         foreach (var pair in fileMap)
         {
             var filePath = pair.Key;
             var tomlString = pair.Value;
 
-            var document = new TomlParser().Parse(tomlString);
+            var crntProblems = new List<ContentProblem>();
+
+            Tomlet.Models.TomlDocument document;
+            try
+            {
+                document = new TomlParser().Parse(tomlString);
+            }
+            catch (Exception e)
+            {
+                crntProblems.Add(new($"Failed loading toml: {e.Message}", ProblemType.Error));
+                goto SaveProblems;
+            }
+
+            var contentItemFindProblems = (ContentItem item) =>
+            {
+                var newProblems = item.FindProblems();
+                crntProblems.AddRange(newProblems);
+                return newProblems.Where(x => x.Type == ProblemType.Error).Count() > 0;
+            };
+
             if (document.ContainsKey("aircraft"))
             {
-                var aircraft = TomletMain.To<Aircraft>(tomlString);
-                aircraft.LoadedFromWithoutExtension = filePath.ReplaceLast(".content.toml", "");
-                aircraft.NeedsLauncher = document.ContainsKey("aircraft.launcher");
-                aircraftList.Add(aircraft);
+                try
+                {
+                    var aircraft = TomletMain.To<Aircraft>(tomlString);
+                    aircraft.LoadedFromWithoutExtension = filePath.ReplaceLast(".content.toml", "");
+                    aircraft.NeedsLauncher = document.ContainsKey("aircraft.launcher");
+
+                    if (contentItemFindProblems(aircraft)) goto SaveProblems;
+                    aircraftList.Add(aircraft);
+                }
+                catch (Exception e)
+                {
+                    crntProblems.Add(new($"Failed parsing aircraft: {e.Message}", ProblemType.Error));
+                    goto SaveProblems;
+                }
             }
             else if (document.ContainsKey("location"))
             {
-                var location = TomletMain.To<Location>(tomlString);
-                location.LoadedFromWithoutExtension = filePath.ReplaceLast(".content.toml", "");
-                locationList.Add(location);
+                try
+                {
+                    var location = TomletMain.To<Location>(tomlString);
+                    location.LoadedFromWithoutExtension = filePath.ReplaceLast(".content.toml", "");
+
+                    if (contentItemFindProblems(location)) goto SaveProblems;
+                    locationList.Add(location);
+                }
+                catch (Exception e)
+                {
+                    crntProblems.Add(new($"Failed parsing location: {e.Message}", ProblemType.Error));
+                    goto SaveProblems;
+                }
             }
             else
             {
-                Utils.LogError($"Failed parsing {filePath}: no aircraft or location section was present");
+                crntProblems.Add(new($"No aircraft or location section was present", ProblemType.Error));
+                goto SaveProblems;
             }
+
+        SaveProblems:
+            if (crntProblems.Count > 0) allProblems[filePath] = crntProblems;
         }
 
-        return (aircraftList, locationList);
+        return (aircraftList, locationList, allProblems);
     }
 
     public static void SearchForAddons(string path)

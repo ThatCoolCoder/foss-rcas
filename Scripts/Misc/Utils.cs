@@ -140,6 +140,11 @@ public static class Utils
         return String.Join(".", lastSections).Equals(extension, mode);
     }
 
+    public static string Pluralize(int count, string singular, string plural)
+    {
+        return count == 1 ? singular : plural;
+    }
+
     public static object GetPropertyOrField(object obj, string name)
     {
         var member = obj.GetType().GetMember(name).FirstOrDefault((System.Reflection.MemberInfo)null);
@@ -211,11 +216,5 @@ public static class Utils
             }
         }
 
-    }
-
-    public static void SetValueNested2(object obj, IEnumerable<string> propertySections, object value)
-    {
-        if (propertySections.Count() == 1) SetPropertyOrField(obj, propertySections.First(), value);
-        else SetValueNested(GetPropertyOrField(obj, propertySections.First()), propertySections.Skip(1), value);
     }
 }

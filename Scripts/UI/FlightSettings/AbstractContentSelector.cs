@@ -51,9 +51,6 @@ public abstract partial class AbstractContentSelector<T> : Control where T : Con
             thumbnail.Texture = LoadThumbnail();
             var customInfo = FormatCustomInfo();
 
-            var formattedCredits = SelectedItem.Credits.Trim();
-            if (formattedCredits != "") formattedCredits = "Credits:\n" + formattedCredits;
-
             var formattedDateCreated = SelectedItem.DateCreated.ToString("dd MMMM yyyy");
             var formattedDateUpdated = SelectedItem.DateUpdated.ToString("dd MMMM yyyy");
             var sections = new List<string>()
@@ -61,7 +58,6 @@ public abstract partial class AbstractContentSelector<T> : Control where T : Con
                 $" By {SelectedItem.Author}    Version {SelectedItem.Version}    Created {formattedDateCreated}    Updated {formattedDateUpdated}",
                 SelectedItem.Description,
                 customInfo,
-                formattedCredits
             };
 
             mainText.Text = String.Join("\n\n", sections.Select(x => x.Trim()).Where(x => x != ""));

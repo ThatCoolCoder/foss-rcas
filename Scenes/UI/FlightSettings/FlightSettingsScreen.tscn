@@ -1,13 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://c7e82kjwuwpl"]
+[gd_scene load_steps=8 format=3 uid="uid://c7e82kjwuwpl"]
 
 [ext_resource type="Script" path="res://Scripts/UI/FlightSettings/FlightSettingsScreen.cs" id="1"]
 [ext_resource type="PackedScene" path="res://Scenes/UI/FlightSettings/AircraftSelector.tscn" id="3"]
 [ext_resource type="PackedScene" uid="uid://ct24hx2k4xd3w" path="res://Scenes/UI/FlightSettings/LocationSelector.tscn" id="5"]
+[ext_resource type="Texture2D" uid="uid://djmgvuhdf5kq8" path="res://Art/Icons/exclamation.png" id="5_fqgov"]
+[ext_resource type="Texture2D" uid="uid://b2a4jkt5yj1jq" path="res://Art/Icons/cross.png" id="6_i7ec7"]
 [ext_resource type="PackedScene" uid="uid://d15nhoxu6om0g" path="res://Scenes/UI/Misc/BackButton.tscn" id="7"]
 
 [sub_resource type="Shortcut" id="2"]
 
-[node name="FlightSettingsScreen" type="Control"]
+[node name="FlightSettingsScreen" type="Control" node_paths=PackedStringArray("aircraftSelector", "locationSelector", "failedLoadingInfoButton", "failedLoadingPopup", "failedLoadingInfo")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -15,6 +17,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1")
+aircraftSelector = NodePath("MarginContainer/VBoxContainer/HSplitContainer/AircraftSelector")
+locationSelector = NodePath("MarginContainer/VBoxContainer/HSplitContainer/LocationSelector")
+failedLoadingInfoButton = NodePath("FailedLoadingInfoButton")
+failedLoadingPopup = NodePath("FailedLoadingPopup")
+failedLoadingInfo = NodePath("FailedLoadingPopup/MarginContainer/ScrollContainer/RichTextLabel")
 
 [node name="BackButton" parent="." instance=ExtResource("7")]
 layout_mode = 0
@@ -62,4 +69,78 @@ theme_type_variation = &"Heading2"
 shortcut = SubResource("2")
 text = "Go!"
 
+[node name="FailedLoadingInfoButton" type="Button" parent="."]
+z_index = 1
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 107.0
+offset_top = -95.0
+offset_right = -107.0
+offset_bottom = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Failed loading x items. Click for more information"
+icon = ExtResource("5_fqgov")
+flat = true
+alignment = 0
+
+[node name="Panel" type="Panel" parent="FailedLoadingInfoButton"]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Close" type="Button" parent="FailedLoadingInfoButton"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+text = " "
+icon = ExtResource("6_i7ec7")
+flat = true
+
+[node name="FailedLoadingPopup" type="Popup" parent="."]
+title = "Content loading errors"
+initial_position = 2
+size = Vector2i(500, 400)
+unresizable = false
+borderless = false
+
+[node name="MarginContainer" type="MarginContainer" parent="FailedLoadingPopup"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_type_variation = &"PopupMargin"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="FailedLoadingPopup/MarginContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="FailedLoadingPopup/MarginContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "42 errors:
+
+[b]res://my/plane.content.toml[/b]
+missing field: author
+
+[b]res://my/location.content.toml[/b]
+there is no start position silly
+"
+fit_content = true
+
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/PlayButton" to="." method="_on_PlayButton_pressed"]
+[connection signal="pressed" from="FailedLoadingInfoButton" to="." method="_on_FailedLoadingInfoButton_pressed"]
+[connection signal="pressed" from="FailedLoadingInfoButton/Close" to="." method="_on_FailedLoadingInfoClose_pressed"]

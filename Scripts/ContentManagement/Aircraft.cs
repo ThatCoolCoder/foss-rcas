@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 using Tomlet.Attributes;
 
 namespace ContentManagement;
@@ -25,5 +26,16 @@ public partial class Aircraft : ContentItem
         public PropNameAttribute(string mapFrom) : base("aircraft." + mapFrom)
         {
         }
+    }
+
+    protected override List<ContentProblem> InnerFindProblems()
+    {
+        var problems = new List<ContentProblem>();
+
+        if (WingSpan == 0) problems.Add(new("Wingspan is zero"));
+        if (Length == 0) problems.Add(new("Length is zero"));
+        if (Weight == 0) problems.Add(new("Weight is zero"));
+
+        return problems;
     }
 }

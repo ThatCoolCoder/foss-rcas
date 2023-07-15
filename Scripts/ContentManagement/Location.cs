@@ -18,4 +18,14 @@ public partial class Location : ContentItem
         {
         }
     }
+
+    protected override List<ContentProblem> InnerFindProblems()
+    {
+        var problems = new List<ContentProblem>();
+
+        if (LocationInWorld.StripEdges().Length == 0) problems.Add(new("Location in world was not provided"));
+        if (SpawnPositions.Count == 0) problems.Add(new("No spawn positions were listed", ProblemType.Error));
+
+        return problems;
+    }
 }

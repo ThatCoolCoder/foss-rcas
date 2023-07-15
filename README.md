@@ -145,7 +145,6 @@ Depending on how much base content is desired and how large the repository gets,
     - if there is a non-permitted class found when loading the input map, the entire game crashes. Instead it should just skip that item
         - problem: tomlet doesn't appreciate returning null from a converter function, which is the place where we do the checks
             - hacky solution: create an InvalidMappingType
-    - if it fails to find positions for spawn, game crashes
 - General refactoring/organizing
     - add some error checking for the value setter system
     - give the value setter system a cool name
