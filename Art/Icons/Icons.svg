@@ -24,9 +24,9 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="6.5241652"
-     inkscape:cx="650.3514"
-     inkscape:cy="10.499428"
+     inkscape:zoom="3.2620826"
+     inkscape:cx="586.43518"
+     inkscape:cy="27.43646"
      inkscape:window-width="2560"
      inkscape:window-height="1366"
      inkscape:window-x="0"
@@ -128,7 +128,10 @@
        y="0"
        width="8.4666595"
        height="8.4666662"
-       id="page1764" />
+       id="page1764"
+       inkscape:export-filename="./pencil.png"
+       inkscape:export-xdpi="48.000004"
+       inkscape:export-ydpi="48.000004" />
     <inkscape:page
        x="203.13327"
        y="0"
@@ -217,7 +220,7 @@
     <linearGradient
        id="Main"
        inkscape:swatch="solid"
-       gradientTransform="matrix(-0.006483,0,0,-0.04138177,19.925055,-17.625677)">
+       gradientTransform="matrix(0,-0.00385507,4.0421701e-4,0,3940.1032,-3419.1899)">
       <stop
          style="stop-color:#ffffff;stop-opacity:1;"
          offset="0"
@@ -462,5 +465,34 @@
        transform="matrix(0.9787608,0,0,1,2.8500476,7.747242)"
        inkscape:path-effect="#path-effect881-0"
        class="UnoptimicedTransforms" />
+    <rect
+       style="fill:url(#Main);stroke:url(#Main);stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+       id="rect1961"
+       width="2.0646162"
+       height="1.2864337"
+       x="142.68289"
+       y="-142.21698"
+       ry="0.36807185"
+       transform="rotate(44.999999)" />
+    <rect
+       style="fill:url(#Main);stroke:url(#Main);stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+       id="rect1963"
+       width="2.0646155"
+       height="4.3525076"
+       x="142.68289"
+       y="-140.30458"
+       transform="rotate(44.999999)" />
+    <path
+       style="fill:url(#Main);stroke:url(#Main);stroke-width:0.265;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
+       d="m 196.59066,5.4515419 -0.73798,1.939804 1.9398,-0.7379781 -1.20182,-1.2018259"
+       id="path1969" />
+    <rect
+       style="fill:url(#Main);stroke:url(#Main);stroke-width:0;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:none"
+       id="rect1971"
+       width="2.0646155"
+       height="0.64321685"
+       x="142.68289"
+       y="-141.57376"
+       transform="rotate(44.999999)" />
   </g>
 </svg>
