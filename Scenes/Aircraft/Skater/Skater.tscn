@@ -41,6 +41,7 @@ size = Vector3(0.014, 0.418, 0.182)
 [node name="Skater" type="RigidBody3D"]
 process_mode = 1
 mass = 5.2
+inertia = Vector3(0, 0, 0.1)
 center_of_mass_mode = 1
 script = ExtResource("1_m1bxi")
 
@@ -86,12 +87,15 @@ TargetPath = NodePath("../../..")
 [node name="PrerecordedPropellerNoise" type="AudioStreamPlayer3D" parent="Electrics/ControlledBrushlessMotor/PropellerWithModel"]
 stream = ExtResource("7")
 volume_db = 6.0
+unit_size = 5.0
 max_db = 6.0
 autoplay = true
 doppler_tracking = 1
 script = ExtResource("6")
-DominantFrequency = 460.0
-DecibelsChange = 0.0
+DominantFrequencyInRecording = 400.0
+InitialVolume = 10.0
+RpmOfInitialVolume = 7000.0
+DecibelsChangePer1000Rpm = -1.5
 
 [node name="Propwash" parent="Electrics/ControlledBrushlessMotor/PropellerWithModel" instance=ExtResource("11")]
 MaxDistance = 4.0

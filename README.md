@@ -115,7 +115,6 @@ Depending on how much base content is desired and how large the repository gets,
             - have hsv-space (or hsl-space) quantisation
         - Potentially create a simulation of FPV inteference - we make a raycast from viewing position to camera, and degrade based on how many intersections.
             - viewing position is FpvGroundStation, which is attached to the ground camera
-    - prerecorded prop audio needs more control of volume
     - Make plane support being deleted so that we can add plane spawning in location if we target multiplayer for 1.0
 - Input
     - Add an input debug UI thing
@@ -163,6 +162,11 @@ Depending on how much base content is desired and how large the repository gets,
 - audio
     - procedural?
     - can link motor sound to an advanced motor simulation? (rpm, air disturbance factor, air disturbance shape)
+    - enhance prop+motor audio simulation
+        - prop: change sound (or add additional layer) when in high-power, low-speed conditions (this seems to make a coarser louder sound)
+        - add sound of electric motor, somehow taking into account both throttle and rpm
+        - add sounds for IC engines when they are made - at the very least a base sound and a throttle sound will be needed
+    - add audio for hitting things (perhaps through oncolliderenter or whatever)
 - UI
     - UI Apps system
         - basic input debug can only be grabbed by the top

@@ -84,7 +84,8 @@ max_db = 6.0
 autoplay = true
 doppler_tracking = 1
 script = ExtResource("15")
-DominantFrequency = 460.0
+DominantFrequencyInRecording = 400.0
+RpmOfInitialVolume = 12000.0
 
 [node name="Propwash" parent="Electrics/ControlledBrushlessMotor/PropellerWithModel" instance=ExtResource("20")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.007337)

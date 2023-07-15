@@ -5,8 +5,10 @@ namespace Audio;
 
 public partial class PrerecordedPropellerNoise : AudioStreamPlayer3D
 {
-    [Export] public float DominantFrequency { get; set; }
-    [Export] public float DecibelsChange { get; set; } = 40;
+    [Export] public float DominantFrequencyInRecording { get; set; } = 345;
+    [Export] public float InitialVolume { get; set; } = 0;
+    [Export] public float RpmOfInitialVolume { get; set; } = 12345;
+    [Export] public float DecibelsChangePer1000Rpm { get; set; } = -2;
     [Export] public int BladeCount { get; set; } = 2;
     [Export] public NodePath PropellerPath { get; set; }
     private Physics.Forcers.Propeller propeller { get; set; }
@@ -14,13 +16,13 @@ public partial class PrerecordedPropellerNoise : AudioStreamPlayer3D
 
     public override void _Ready()
     {
+        StreamPaused = true;
         propeller = Utils.GetNodeWithWarnings<Physics.Forcers.Propeller>(this, PropellerPath, "propeller", true);
-        initialUnitDb = VolumeDb;
     }
 
     public override void _Process(double delta)
     {
-        var rpmInRecording = DominantFrequency / BladeCount * 60;
+        var rpmInRecording = DominantFrequencyInRecording / BladeCount * 60;
 
         var targetPitchScale = Mathf.Abs(propeller.Rpm) / rpmInRecording;
         if (targetPitchScale <= 0)
@@ -33,6 +35,7 @@ public partial class PrerecordedPropellerNoise : AudioStreamPlayer3D
             PitchScale = targetPitchScale;
             StreamPaused = false;
         }
-        VolumeDb = initialUnitDb - (1 - targetPitchScale) * DecibelsChange;
+        var volumeOffset = (RpmOfInitialVolume - propeller.Rpm) / 1000 * DecibelsChangePer1000Rpm;
+        VolumeDb = InitialVolume + volumeOffset;
     }
 }
