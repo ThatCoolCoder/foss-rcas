@@ -7,13 +7,13 @@
 [ext_resource type="Texture2D" uid="uid://gt5fqjnsjcca" path="res://Art/Common/Trees/PineV2/Render/Pine120.png" id="6"]
 [ext_resource type="Texture2D" uid="uid://qs8i37h44tn1" path="res://Art/Common/Trees/PineV2/Render/Pine0.png" id="7"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dassk"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1x5su"]
 transparency = 4
 cull_mode = 2
 albedo_texture = ExtResource("6")
 
-[sub_resource type="QuadMesh" id="QuadMesh_m5ij8"]
-material = SubResource("StandardMaterial3D_dassk")
+[sub_resource type="QuadMesh" id="QuadMesh_llxpc"]
+material = SubResource("StandardMaterial3D_1x5su")
 size = Vector2(4.9, 11.27)
 
 [node name="ImpostorPine" type="Node3D"]
@@ -24,7 +24,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.379182)
 
 [node name="Sprite" type="MeshInstance3D" parent="Impostor"]
 transform = Transform3D(1.384, 0, 0, 0, 1.384, 0, 0, 0, 1.384, 0.0732747, 7.68157, -0.333741)
-mesh = SubResource("QuadMesh_m5ij8")
+mesh = SubResource("QuadMesh_llxpc")
 script = ExtResource("4")
 Textures = [ExtResource("7"), ExtResource("6"), ExtResource("3")]
 Texture = ExtResource("6")

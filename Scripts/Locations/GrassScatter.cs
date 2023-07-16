@@ -15,7 +15,7 @@ public partial class GrassScatter : MultiMeshInstance3D
     // todo: Is a bit hacky, could do with some refactoring
 
     [Export] public float FalloffMaxDistance { get; set; } = 100;
-    [Export] public float CameraMoveDistBeforeUpdate { get; set; } = 20; // Update grass falloff when camera moves this far
+    [Export] public float CameraMoveDistBeforeUpdate { get; set; } = 10; // Update grass falloff when camera moves this far
     [Export] public int InstanceCount { get; set; } = 100;
     [Export] public Texture2D Mask { get; set; } // Only on white regions of this texture is grass spawned. If you leave it out then it's just everywhere
     [Export] public Texture2D Texture2D { get; set; }
@@ -26,7 +26,7 @@ public partial class GrassScatter : MultiMeshInstance3D
 
     // If we fail to find a position that satisfies the mask in this many tries, give up.
     // Try reducing this if grass takes too long to generate
-    [Export] public int MaxMaskTries { get; set; } = 100;
+    [Export] public int MaxMaskTries { get; set; } = 10;
 
     public int trueInstanceCount
     {
@@ -73,7 +73,7 @@ public partial class GrassScatter : MultiMeshInstance3D
 
         var material = new StandardMaterial3D();
         material.AlbedoTexture = Texture2D;
-        material.Transparency = BaseMaterial3D.TransparencyEnum.Alpha;
+        material.Transparency = BaseMaterial3D.TransparencyEnum.AlphaDepthPrePass;
         mesh.Material = material;
         material.CullMode = BaseMaterial3D.CullModeEnum.Disabled;
 

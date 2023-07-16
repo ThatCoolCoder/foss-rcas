@@ -1,18 +1,29 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=3 uid="uid://dhi1kcf2pjrok"]
 
-[ext_resource path="res://Scripts/Locations/ImpostorTree.cs" type="Script" id=1]
-[ext_resource path="res://Art/Common/Trees/GumTree/Tree.glb" type="PackedScene" id=2]
-[ext_resource path="res://Art/Common/Trees/GumTree/Impostor.png" type="Texture2D" id=3]
+[ext_resource type="Script" path="res://Scripts/Locations/ImpostorTree.cs" id="1"]
+[ext_resource type="PackedScene" uid="uid://bwwjqe8lhxjp8" path="res://Art/Common/Trees/GumTree/Tree.glb" id="2"]
+[ext_resource type="Texture2D" uid="uid://feamooc0pfx3" path="res://Art/Common/Trees/GumTree/Impostor.png" id="3"]
+[ext_resource type="Script" path="res://Scripts/Locations/ImpostorSprite.cs" id="3_nju2c"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v8xg8"]
+transparency = 4
+cull_mode = 2
+albedo_texture = ExtResource("3")
+
+[sub_resource type="QuadMesh" id="QuadMesh_tr7k4"]
+material = SubResource("StandardMaterial3D_v8xg8")
+size = Vector2(7.5, 7.5)
 
 [node name="ImpostorTree" type="Node3D"]
-script = ExtResource( 1 )
+script = ExtResource("1")
 
-[node name="RealNode" parent="." instance=ExtResource( 2 )]
+[node name="RealNode" parent="." instance=ExtResource("2")]
 
 [node name="Impostor" type="Node3D" parent="."]
 
-[node name="Sprite3D" type="Sprite3D" parent="Impostor"]
-transform = Transform3D( 0.61259, 0, 0, 0, 0.61259, 0, 0, 0, 0.61259, 0, 3.08695, 0 )
-billboard = 2
-alpha_cut = 2
-texture = ExtResource( 3 )
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Impostor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.72983, 0)
+mesh = SubResource("QuadMesh_tr7k4")
+script = ExtResource("3_nju2c")
+Texture = ExtResource("3")
+Size = Vector2(7.5, 7.5)
