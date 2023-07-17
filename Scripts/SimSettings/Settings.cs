@@ -8,7 +8,7 @@ namespace SimSettings;
 
 public partial class Settings
 {
-    public Locations.GroundCamera.ZoomSettings GroundCameraZoom { get; set; } = new();
+    public ViewSettings View { get; set; } = new();
     public GraphicsSettings Graphics { get; set; } = new();
     public MiscSettings Misc { get; set; } = new();
     // At the end so that manual editing of the settings file isn't cluttered by these

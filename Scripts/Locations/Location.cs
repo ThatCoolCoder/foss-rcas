@@ -24,7 +24,9 @@ public partial class Location : Node3D
         SimSettings.Settings.Current.ApplyToViewport(GetViewport() as SubViewport);
         SimInput.Manager.Instance.LoadInputMap(SimSettings.Settings.Current.InputMap);
 
-        groundCamera.CurrentZoomSettings = SimSettings.Settings.Current.GroundCameraZoom;
+        var zoomSettings = SimSettings.Settings.CloneCurrent().View.GroundCameraZoom; // todo: this could be neater than cloning the whole settings
+        if (SimSettings.Settings.Current.View.AdjustZoomForAircraftSize) zoomSettings.StartDist *= AircraftInfo.WingSpan;
+        groundCamera.CurrentZoomSettings = zoomSettings;
         groundCamera.Target = Aircraft;
 
         UIAppManager.SetAvailableProfiles(SimSettings.Settings.Current.UIAppProfiles);
