@@ -277,6 +277,10 @@ public partial class GrassScatter : MultiMeshInstance3D
         // By having a consistent density, we can counterinituitively have a much higher blade count,
         // because it turns out that the intersecting blades in the center of the other places are what slowed it down.
 
+        // Don't even bother trying if we're far enough away
+        var maxPos = size / 2 + trueFalloffMaxDistance * Vector3.One;
+        if (Mathf.Abs(center.X) > maxPos.X || Mathf.Abs(center.Z) > maxPos.Z) return new();
+
         var g = SimSettings.Settings.Current.Graphics;
         int targetInstanceCount = (int)(InstanceCount * g.GrassMultiplier * g.GrassDistanceMultiplier * g.GrassDistanceMultiplier);
         var gridSize = Mathf.Sqrt(targetInstanceCount);
