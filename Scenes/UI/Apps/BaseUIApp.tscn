@@ -12,4 +12,5 @@ DeleteButtonTexture = ExtResource("2_byaml")
 texture = ExtResource("2_l4lqr")
 
 [node name="DeleteButton" parent="." index="2"]
+mouse_default_cursor_shape = 2
 texture_normal = ExtResource("2_byaml")

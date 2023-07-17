@@ -169,9 +169,6 @@ Depending on how much base content is desired and how large the repository gets,
 - UI
     - UI Apps system
         - basic input debug can only be grabbed by the top
-        - make button to delete app
-        - it doesn't save the adjusted layout and size after performing a move
-        - it doesn't save the settings after changing the apps (solution: add a general save on exit)
         - apps to make
             - decent input debug (with little tx picture)
             - mixing debug

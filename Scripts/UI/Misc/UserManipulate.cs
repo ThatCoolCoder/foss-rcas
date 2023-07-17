@@ -99,7 +99,8 @@ public partial class UserManipulate : Control
         {
             if (clickStartPos != null)
             {
-                Position = GetGlobalMousePosition() - (Vector2)clickStartPos + selfPosAtClickStart;
+                var targetPosition = GetGlobalMousePosition() - (Vector2)clickStartPos + selfPosAtClickStart;
+                Position = targetPosition.Clamp(Vector2.Zero, GetViewportRect().Size - Size);
 
                 if (AutoAdjustAnchors)
                 {
