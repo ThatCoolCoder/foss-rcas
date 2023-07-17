@@ -8,10 +8,12 @@ public partial class BasicFlightCamera : Camera3D, IFlightCamera
     // Camera used for flying the plane - EG on the ground or FPV
 
     [Export] public string ViewName { get; set; } = "Unnamed";
+    [Export] public bool UseDefaultFov { get; set; } = true;
 
     public override void _Ready()
     {
         CameraManager.instance.AddCamera(this);
+        if (UseDefaultFov) Fov = SimSettings.Settings.Current.View.Fov;
     }
 
     public override void _ExitTree()

@@ -21,6 +21,7 @@ public partial class OrbitCamera : Node3D, Locations.IFlightCamera
     {
         camera = GetNode<Camera3D>("Camera3D");
         camera.Position = new Vector3(0, 0, OrbitRadius);
+        camera.Fov = SimSettings.Settings.Current.View.Fov;
         if (!RotateWithAircraft) RotateY(GetParent<Node3D>().GlobalRotation.Y);
         Locations.CameraManager.instance.AddCamera(this);
 

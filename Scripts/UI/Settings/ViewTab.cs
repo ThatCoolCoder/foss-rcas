@@ -39,6 +39,14 @@ public partial class ViewTab : Control
             (s, v) => s.View.GroundCameraZoom.Factor = v,
             min: 0, max: 2, step: 0.01f, toolTip: "Controls how much the camera zooms into the aircraft.\nA value of 1 results in the aircraft remaining a constant size regardless of distance.\nValues above 1 are not recommended.");
 
+
+        NumericInput.Scene.Instantiate<NumericInput>().Config(
+            Holder,
+            "Minimum FOV",
+            s => s.View.GroundCameraZoom.MinFov,
+            (s, v) => s.View.GroundCameraZoom.MinFov = v,
+            min: 1, max: 130, step: 1f, toolTip: "FOV at which the camera stops zooming");
+
         BooleanInput.Scene.Instantiate<BooleanInput>().Config(
             Holder,
             "Adjust zoom for aircraft size",

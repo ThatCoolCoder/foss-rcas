@@ -81,7 +81,7 @@ public partial class GroundCamera : CharacterBody3D, IFlightCamera
                 var distance = Target.GlobalPosition.DistanceTo(GlobalPosition);
                 var angle = Mathf.Atan(1 / (distance * CurrentZoomSettings.Factor)) / fovProportion;
                 angle = Mathf.RadToDeg(angle);
-                angle = Mathf.Clamp(angle, 1, CurrentZoomSettings.BaseFov);
+                angle = Mathf.Clamp(angle, CurrentZoomSettings.MinFov, CurrentZoomSettings.BaseFov);
 
                 camera.Fov = angle;
             }
@@ -147,6 +147,7 @@ public partial class GroundCamera : CharacterBody3D, IFlightCamera
     {
         public bool Enabled { get; set; } = true;
         public float BaseFov { get; set; } = 70;
+        public float MinFov { get; set; } = 10;
         public float StartDist { get; set; } = 25; // Maximum distance that plane can still be seen with base FOV
 
         // Rate of zoom compared to the "perfect rate". If this wasn't present, it would zoom perfectly and keep the plane the same size forever.
