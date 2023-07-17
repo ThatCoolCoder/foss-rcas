@@ -1,17 +1,15 @@
 [gd_scene load_steps=3 format=3 uid="uid://b1xdosgj7588x"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Apps/BasicInputDebug.cs" id="1"]
-[ext_resource type="PackedScene" uid="uid://cggcyv0c1g0xj" path="res://Scenes/UI/Misc/UserManipulate.tscn" id="1_ef0bg"]
+[ext_resource type="PackedScene" uid="uid://duy8nviufab48" path="res://Scenes/UI/Apps/BaseUIApp.tscn" id="1_54yb8"]
 
-[node name="BasicInputDebug" node_paths=PackedStringArray("BackgroundNode") instance=ExtResource("1_ef0bg")]
-offset_right = -1101.0
-offset_bottom = -463.0
+[node name="BasicInputDebug" node_paths=PackedStringArray("BackgroundNode") instance=ExtResource("1_54yb8")]
 script = ExtResource("1")
 ChannelNames = Array[String](["throttle", "aileron", "elevator", "rudder", "aux1", "aux2", "aux3", "aux4"])
 BackgroundNode = NodePath("Panel")
 MinDragSize = Vector2i(200, 250)
 
-[node name="Panel" type="Panel" parent="." index="2"]
+[node name="Panel" type="Panel" parent="." index="3"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -23,6 +21,7 @@ grow_vertical = 2
 layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
+mouse_filter = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
@@ -31,6 +30,7 @@ theme_override_constants/margin_bottom = 5
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer" index="0"]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 2
 
 [node name="Title" type="Label" parent="Panel/MarginContainer/VBoxContainer" index="0"]
 layout_mode = 2
@@ -39,3 +39,4 @@ text = "Input Debug"
 [node name="RichTextLabel" type="RichTextLabel" parent="Panel/MarginContainer/VBoxContainer" index="1"]
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 2

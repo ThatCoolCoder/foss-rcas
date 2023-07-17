@@ -168,7 +168,6 @@ Depending on how much base content is desired and how large the repository gets,
     - add audio for hitting things (perhaps through oncolliderenter or whatever)
 - UI
     - UI Apps system
-        - basic input debug can only be grabbed by the top
         - apps to make
             - decent input debug (with little tx picture)
             - mixing debug
