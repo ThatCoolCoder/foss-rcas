@@ -1,5 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://duy8nviufab48"]
+[gd_scene load_steps=4 format=3 uid="uid://duy8nviufab48"]
 
 [ext_resource type="PackedScene" uid="uid://cggcyv0c1g0xj" path="res://Scenes/UI/Misc/UserManipulate.tscn" id="1_1uyi3"]
+[ext_resource type="Texture2D" uid="uid://b2a4jkt5yj1jq" path="res://Art/Icons/cross.png" id="2_byaml"]
+[ext_resource type="Texture2D" uid="uid://c7qf01bylklbr" path="res://Art/Icons/resizable.png" id="2_l4lqr"]
 
 [node name="BaseUIApp" instance=ExtResource("1_1uyi3")]
+ResizeButtonTexture = ExtResource("2_l4lqr")
+DeleteButtonTexture = ExtResource("2_byaml")
+
+[node name="ResizeTexture" parent="." index="0"]
+texture = ExtResource("2_l4lqr")
+
+[node name="DeleteButton" parent="." index="2"]
+texture_normal = ExtResource("2_byaml")

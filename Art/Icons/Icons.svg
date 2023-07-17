@@ -24,9 +24,9 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="36.906252"
-     inkscape:cx="783.74256"
-     inkscape:cy="15.999999"
+     inkscape:zoom="6.5241653"
+     inkscape:cx="824.32001"
+     inkscape:cy="-18.316519"
      inkscape:window-width="2560"
      inkscape:window-height="1366"
      inkscape:window-x="0"
@@ -141,6 +141,15 @@
        inkscape:export-filename="./exclamation.png"
        inkscape:export-xdpi="48.000004"
        inkscape:export-ydpi="48.000004" />
+    <inkscape:page
+       x="221.59993"
+       y="0"
+       width="8.4666662"
+       height="8.4666662"
+       id="page388"
+       inkscape:export-filename="./resizable.png"
+       inkscape:export-xdpi="48.000004"
+       inkscape:export-ydpi="48.000004" />
   </sodipodi:namedview>
   <defs
      id="defs2">
@@ -252,7 +261,7 @@
     <linearGradient
        id="Main"
        inkscape:swatch="solid"
-       gradientTransform="matrix(0,-8.7695427e-5,7.3293336e-6,0,38.595242,-80.730264)">
+       gradientTransform="matrix(0,-1.074259e-4,1.9048997e-6,0,-169.66962,-728.57209)">
       <stop
          style="stop-color:#ffffff;stop-opacity:1;"
          offset="0"
@@ -549,5 +558,32 @@
        d="m 216.9655,5.1850547 -0.42355,-3.8563472 h 2.0003 l -0.43649,3.8950599 z"
        id="path1230"
        sodipodi:nodetypes="ccccc" />
+    <rect
+       style="fill:url(#Main);stroke:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
+       id="rect541"
+       width="6.7504659"
+       height="0.98363924"
+       x="160.7079"
+       y="171.10847"
+       ry="0.35768521"
+       transform="rotate(-45)" />
+    <rect
+       style="fill:url(#Main);stroke:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"
+       id="rect1367"
+       width="3.2465708"
+       height="0.98363924"
+       x="162.45985"
+       y="173.01451"
+       ry="0.35768521"
+       transform="rotate(-45)" />
+    <rect
+       style="fill:url(#Main);stroke:none;stroke-width:2.00001;stroke-linecap:round;stroke-linejoin:round"
+       id="rect1371"
+       width="10.254363"
+       height="0.98363924"
+       x="158.98178"
+       y="169.13875"
+       ry="0.35768521"
+       transform="rotate(-45)" />
   </g>
 </svg>

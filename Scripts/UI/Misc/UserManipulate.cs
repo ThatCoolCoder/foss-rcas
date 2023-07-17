@@ -65,6 +65,7 @@ public partial class UserManipulate : Control
 
         resizeArea.MouseDefaultCursorShape = Resizable ? CursorShape.Fdiagsize : CursorShape.Arrow;
         resizeTexture.Visible = Resizable;
+        deleteButton.MouseDefaultCursorShape = Deletable ? CursorShape.PointingHand : CursorShape.Arrow;
         deleteButton.Visible = Deletable;
     }
 
