@@ -63,6 +63,7 @@ public partial class GrassScatter : MultiMeshInstance3D
 
     private void GenerateGrass()
     {
+        GodotThread.SetThreadSafetyChecksEnabled(false);
         // todo: probably we could move some of this code to ready()
         MultiMesh multimesh = new();
         multimesh.TransformFormat = MultiMesh.TransformFormatEnum.Transform3D;
@@ -73,13 +74,13 @@ public partial class GrassScatter : MultiMeshInstance3D
 
         var material = new StandardMaterial3D();
         material.AlbedoTexture = Texture2D;
-        material.Transparency = BaseMaterial3D.TransparencyEnum.AlphaDepthPrePass;
+        material.Transparency = BaseMaterial3D.TransparencyEnum.AlphaScissor;
         mesh.Material = material;
         material.CullMode = BaseMaterial3D.CullModeEnum.Disabled;
 
-        material.DistanceFadeMaxDistance = 0;
+        material.DistanceFadeMaxDistance = Mathf.Sqrt(trueFalloffMaxDistance);
         material.DistanceFadeMinDistance = trueFalloffMaxDistance;
-        material.DistanceFadeMode = StandardMaterial3D.DistanceFadeModeEnum.PixelAlpha;
+        material.DistanceFadeMode = StandardMaterial3D.DistanceFadeModeEnum.PixelDither;
 
         if (NormalMap == null) material.NormalEnabled = false;
         else
@@ -91,7 +92,7 @@ public partial class GrassScatter : MultiMeshInstance3D
 
         var cameraPos = crntCameraPos;
         lastUpdatePos = cameraPos;
-        var positions = GenerateGrassPositionsV3(cameraPos);
+        var positions = GenerateGrassPositionsV4(cameraPos);
 
         multimesh.InstanceCount = positions.Count;
 
@@ -130,7 +131,6 @@ public partial class GrassScatter : MultiMeshInstance3D
         int targetInstanceCount = trueInstanceCount;
 
         var maskImage = Mask == null ? null : Mask.GetImage();
-        // if (maskImage != null) maskImage.Lock();
 
         var positions = new List<Vector3>();
 
@@ -158,9 +158,6 @@ public partial class GrassScatter : MultiMeshInstance3D
             }
         };
 
-        // var culledPositions = 
-
-        // if (maskImage != null) maskImage.Unlock();
 
         return positions;
     }
@@ -181,7 +178,6 @@ public partial class GrassScatter : MultiMeshInstance3D
         var gridSpacing = 2 * trueFalloffMaxDistance / Mathf.Sqrt(preCullInstanceCount);
 
         var maskImage = Mask == null ? null : Mask.GetImage();
-        // if (maskImage != null) maskImage.Lock();
 
         var initialPositions = new List<Vector3>();
 
@@ -212,7 +208,6 @@ public partial class GrassScatter : MultiMeshInstance3D
             }
         };
 
-        // if (maskImage != null) maskImage.Unlock();
         return initialPositions;
     }
 
@@ -232,7 +227,6 @@ public partial class GrassScatter : MultiMeshInstance3D
         var gridSpacing = 2 * trueFalloffMaxDistance / Mathf.Sqrt(targetInstanceCount);
 
         var maskImage = Mask == null ? null : Mask.GetImage();
-        // if (maskImage != null) maskImage.Lock();
 
         var positions = new List<Vector3>();
 
@@ -270,7 +264,62 @@ public partial class GrassScatter : MultiMeshInstance3D
             }
         };
 
-        // if (maskImage != null) maskImage.Unlock();
+        return positions;
+    }
+
+    private List<Vector3> GenerateGrassPositionsV4(Vector3 center)
+    {
+        // Make square grid around camera
+        // jiggle points deterministically
+        // check mask and bounds
+        // done.
+
+        // By having a consistent density, we can counterinituitively have a much higher blade count,
+        // because it turns out that the intersecting blades in the center of the other places are what slowed it down.
+
+        var g = SimSettings.Settings.Current.Graphics;
+        int targetInstanceCount = (int)(InstanceCount * g.GrassMultiplier * g.GrassDistanceMultiplier * g.GrassDistanceMultiplier);
+        var gridSize = Mathf.Sqrt(targetInstanceCount);
+        var gridSpacing = 2 * trueFalloffMaxDistance / gridSize;
+
+        var offset = ToLocal(center) - new Vector3(trueFalloffMaxDistance, 0, trueFalloffMaxDistance);
+
+        var maskImage = Mask == null ? null : Mask.GetImage();
+
+        var positions = new List<Vector3>();
+
+        for (int i = 0; i < targetInstanceCount; i++)
+        {
+            for (int attemptNum = 0; attemptNum < MaxMaskTries; attemptNum++)
+            {
+                var pos = offset + new Vector3(i % gridSize, 0, i / gridSize) * gridSpacing;
+
+                // Snap to grid
+                pos = new Vector3(Utils.RoundTo(pos.X, gridSpacing), 0, Utils.RoundTo(pos.Z, gridSpacing));
+
+                // Jiggle
+                var jiggle = new Vector3(
+                    SemiRandomFloat(pos.X + 3 * pos.Z) * gridSpacing,
+                    0,
+                    SemiRandomFloat(3 * pos.X + pos.Z) * gridSpacing);
+                var finalPos = pos + jiggle;
+
+                // Check if within bounds
+                if (Mathf.Abs(finalPos.X) > (size.X / 2) || Mathf.Abs(finalPos.Z) > (size.Z / 2)) continue;
+
+                // Check if within mask
+                if (Mask != null)
+                {
+                    var x = (finalPos.X / size.X + 0.5f) * Mask.GetWidth();
+                    var y = (finalPos.Z / size.Z + 0.5f) * Mask.GetHeight();
+                    if (maskImage.GetPixel((int)x, (int)y).R < 0.5f) continue;
+                }
+
+                positions.Add(finalPos);
+                break;
+            }
+        };
+
 
         return positions;
     }
@@ -286,14 +335,13 @@ public partial class GrassScatter : MultiMeshInstance3D
     private void GenerateGrassOnThread()
     {
         // Generate the grass on a thread separate from the main game loop, preventing lag spikes
-        // if (generateGrassThread == null || !generateGrassThread.IsAlive())
-        // {
-        //     if (generateGrassThread != null) generateGrassThread.WaitToFinish();
-        crntCameraPos = GetViewport().GetCamera3D().GlobalPosition;
-        GenerateGrass();
-        //     generateGrassThread = new GodotThread();
-        //     // generateGrassThread.Start(new Callable(this, MethodName.GenerateGrass)); // convtodo: fix threading and enable crass
-        // }
+        if (generateGrassThread == null || !generateGrassThread.IsAlive())
+        {
+            if (generateGrassThread != null) generateGrassThread.WaitToFinish();
+            crntCameraPos = GetViewport().GetCamera3D().GlobalPosition;
+            generateGrassThread = new GodotThread();
+            generateGrassThread.Start(new Callable(this, MethodName.GenerateGrass)); // convtodo: fix threading and enable crass
+        }
     }
 
     private Vector3 GetCameraPos()

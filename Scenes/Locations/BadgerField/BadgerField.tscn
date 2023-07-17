@@ -65,7 +65,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.3525, 2.0807, 18.2569)
 [node name="Positions" type="Node3D" parent="." index="8"]
 
 [node name="RunwayWest" type="Marker3D" parent="Positions" index="0"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -42.4019, 0.650588, 0)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -42.4019, 0.318147, 0)
 
 [node name="BehindFenceWest" type="Marker3D" parent="Positions" index="1"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -23.5901, 0.650588, 18.2121)
@@ -192,7 +192,7 @@ transform = Transform3D(0.296678, 0, -0.647822, 0, 0.712524, 0, 0.647822, 0, 0.2
 
 [node name="GrassScatter" parent="." index="10" instance=ExtResource("8")]
 transform = Transform3D(213.348, 0, 0, 0, 1.023, 0, 0, 0, 135.522, -9.4665, 0.29859, -5.88435)
-InstanceCount = 15000
+InstanceCount = 100000
 Mask = ExtResource("11")
 NormalMap = ExtResource("9")
 NormalStrength = 2.0

@@ -15,3 +15,8 @@ length = 0.6
 weight = 0.45
 power_type = 0
 channels = 3
+
+[aircraft.position_offset]
+X = 0
+Y = 0.2
+Z = 0

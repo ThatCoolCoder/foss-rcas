@@ -49,6 +49,7 @@ public partial class BrushlessMotor : Node3D
             battery.Discharge(current, (float)delta);
             propeller.ApplyTorque(torque);
 
+            LastTorque = torque;
             LastCurrent = current;
         }
         else
@@ -60,7 +61,7 @@ public partial class BrushlessMotor : Node3D
             LastCurrent = 0;
         }
 
-        if (torqueRigidBody != null)
+        if (torqueRigidBody != null && !torqueRigidBody.Freeze)
         {
             torqueRigidBody.ApplyTorque(GlobalTransform.Basis.Z * torque);
         }

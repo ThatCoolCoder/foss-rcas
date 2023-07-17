@@ -127,7 +127,9 @@ public partial class GraphicsTab : Control
 
     private void ApplyPreset(GraphicsPreset preset)
     {
+        var showFps = SettingsScreen.NewSettings.Graphics.ShowFps; // hacky way to persist this setting
         SettingsScreen.NewSettings.Graphics = GraphicsPreset.Clone(preset);
+        SettingsScreen.NewSettings.Graphics.ShowFps = showFps;
         SettingsScreen.ChangeSettings();
     }
 

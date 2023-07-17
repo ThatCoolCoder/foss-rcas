@@ -39,7 +39,7 @@ public partial class GraphicsPreset : SimSettings.GraphicsSettings
         },
         new()
         {
-            // target: hd 3000
+            // target: hd 3000 gets 60fps @ 720p
             Name = "Very Low",
             Description = "For computers with very old, weak hardware - for example integrated graphics 10 years old",
 
@@ -60,7 +60,7 @@ public partial class GraphicsPreset : SimSettings.GraphicsSettings
         },
         new()
         {
-            // target: uhd 630
+            // target: uhd 630 gets 60fps @ 1080p
             Name = "Low",
             Description = "For computers with modern integrated graphics or older discrete GPUs",
 
@@ -81,12 +81,12 @@ public partial class GraphicsPreset : SimSettings.GraphicsSettings
         },
         new()
         {
-            // Target 
+            // Target: rx 6500xt gets 60hz @ 1080p? 
             Name = "Medium",
             Description = "For computers with modern budget GPUs, or older mid-range GPUs",
 
             UseImpostors = true,
-            ImpostorDistance = 0,
+            ImpostorDistance = 30,
             ImpostorShadowsEnabled = false,
             FarVegetationMultiplier = 0.1f,
             NearVegetationMultiplier = 0.2f,
@@ -102,12 +102,12 @@ public partial class GraphicsPreset : SimSettings.GraphicsSettings
         },
         new()
         {
-            // Target: rx6600
+            // Target: rx6600 gets 144hz @ 1440p
             Name = "High",
             Description = "For computers with relatively modern mid-range GPUs",
 
             UseImpostors = true,
-            ImpostorDistance = 40,
+            ImpostorDistance = 80,
             ImpostorShadowsEnabled = true,
             FarVegetationMultiplier = 1f,
             NearVegetationMultiplier = 1f,
@@ -123,6 +123,7 @@ public partial class GraphicsPreset : SimSettings.GraphicsSettings
         },
         new()
         {
+            // Target 3070/6700xt or anything newer gets 144hz @ 1440p
             Name = "Very High",
             Description = "For computers with modern high-end GPUs, or mid-range GPUs at lower resolutions and refresh rates",
 

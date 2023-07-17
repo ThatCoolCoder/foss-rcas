@@ -5,13 +5,13 @@
 [ext_resource type="Texture2D" uid="uid://feamooc0pfx3" path="res://Art/Common/Trees/GumTree/Impostor.png" id="3"]
 [ext_resource type="Script" path="res://Scripts/Locations/ImpostorSprite.cs" id="3_nju2c"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v8xg8"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fc75p"]
 transparency = 4
 cull_mode = 2
 albedo_texture = ExtResource("3")
 
-[sub_resource type="QuadMesh" id="QuadMesh_tr7k4"]
-material = SubResource("StandardMaterial3D_v8xg8")
+[sub_resource type="QuadMesh" id="QuadMesh_cuvht"]
+material = SubResource("StandardMaterial3D_fc75p")
 size = Vector2(7.5, 7.5)
 
 [node name="ImpostorTree" type="Node3D"]
@@ -23,7 +23,7 @@ script = ExtResource("1")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Impostor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.72983, 0)
-mesh = SubResource("QuadMesh_tr7k4")
+mesh = SubResource("QuadMesh_cuvht")
 script = ExtResource("3_nju2c")
 Texture = ExtResource("3")
 Size = Vector2(7.5, 7.5)

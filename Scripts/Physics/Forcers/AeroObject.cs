@@ -39,6 +39,7 @@ public partial class AeroObject : AbstractSpatialFluidForcer
         {
             // Calculate force for the 3 axis separately then combine.
 
+            // todo: this doesn't work! it makes drag! this is why the planes are all so slow
             var localLift = new Vector3(GetLiftAlongAxis(localVelocity.X, LiftCube.Left, LiftCube.Right) * sideAreas.X,
                 GetLiftAlongAxis(localVelocity.Y, LiftCube.Down, LiftCube.Up) * sideAreas.Y,
                 GetLiftAlongAxis(localVelocity.Z, LiftCube.Forward, LiftCube.Back) * sideAreas.Z);

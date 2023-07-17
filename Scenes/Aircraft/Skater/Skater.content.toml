@@ -17,6 +17,6 @@ power_type = 0
 channels = 4
 
 [aircraft.position_offset]
-x = 0
-y = 0.2
-z = -1
+X = 0
+Y = 0.4
+Z = -1
