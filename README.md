@@ -168,8 +168,9 @@ Depending on how much base content is desired and how large the repository gets,
     - add audio for hitting things (perhaps through oncolliderenter or whatever)
 - UI
     - UI Apps system
+        - it is not saving the position correctly, there are a bunch that have moved offscreen
+        - add default size field to availableuiapps
         - apps to make
-            - decent input debug (with little tx picture)
             - mixing debug
             - move notifications to an app? (mainly a means of justifying existence of default layout in the first place)
             - move fps counter to an app?

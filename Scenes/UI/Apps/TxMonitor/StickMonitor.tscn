@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dg6sfy3smy2id"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Apps/TxMonitor/StickMonitor.cs" id="1_5vxnq"]
+[ext_resource type="Texture2D" uid="uid://b1cl67l5akykm" path="res://Art/TxMonitor/Stick.png" id="2_dl2ra"]
+
+[node name="StickMonitor" type="Node2D"]
+script = ExtResource("1_5vxnq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_dl2ra")

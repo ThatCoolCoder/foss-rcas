@@ -1,0 +1,99 @@
+[gd_scene load_steps=6 format=3 uid="uid://dfs2x25k8agrt"]
+
+[ext_resource type="PackedScene" uid="uid://duy8nviufab48" path="res://Scenes/UI/Apps/BaseUIApp.tscn" id="1_c7wcw"]
+[ext_resource type="Script" path="res://Scripts/UI/Apps/TxMonitor/TxMonitor.cs" id="2_qrlf3"]
+[ext_resource type="PackedScene" uid="uid://dg6sfy3smy2id" path="res://Scenes/UI/Apps/TxMonitor/StickMonitor.tscn" id="3_0evgd"]
+[ext_resource type="Texture2D" uid="uid://c4uck5r3jmn3y" path="res://Art/TxMonitor/Transmitter.png" id="3_08i83"]
+[ext_resource type="PackedScene" uid="uid://jungpdnkcc5x" path="res://Scenes/UI/Apps/TxMonitor/AuxMonitor.tscn" id="5_3x05k"]
+
+[node name="TxMonitor" node_paths=PackedStringArray("container", "viewport", "viewportRootNode") instance=ExtResource("1_c7wcw")]
+offset_right = -797.0
+offset_bottom = -521.0
+script = ExtResource("2_qrlf3")
+container = NodePath("HBoxContainer/SubViewportContainer")
+viewport = NodePath("HBoxContainer/SubViewportContainer/SubViewport")
+viewportRootNode = NodePath("HBoxContainer/SubViewportContainer/SubViewport/Node2D")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." index="3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="HBoxContainer" index="0"]
+custom_minimum_size = Vector2(199, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+mouse_filter = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="HBoxContainer/SubViewportContainer" index="0"]
+disable_3d = true
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(199, 199)
+render_target_update_mode = 4
+
+[node name="Node2D" type="Node2D" parent="HBoxContainer/SubViewportContainer/SubViewport" index="0"]
+scale = Vector2(0.777344, 0.777344)
+
+[node name="Tx" type="Sprite2D" parent="HBoxContainer/SubViewportContainer/SubViewport/Node2D" index="0"]
+position = Vector2(128, 128)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("3_08i83")
+
+[node name="LeftStickMonitor" parent="HBoxContainer/SubViewportContainer/SubViewport/Node2D/Tx" index="0" instance=ExtResource("3_0evgd")]
+position = Vector2(-108, -8.979)
+HalfMovementDistance = 25.0
+
+[node name="RightStickMonitor" parent="HBoxContainer/SubViewportContainer/SubViewport/Node2D/Tx" index="1" instance=ExtResource("3_0evgd")]
+position = Vector2(107.5, -8.979)
+VerticalChannelName = "elevator"
+HorizontalChannelName = "aileron"
+HalfMovementDistance = 25.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer" index="1"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.0
+mouse_filter = 2
+alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="HBoxContainer/VBoxContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+mouse_filter = 2
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 20
+columns = 2
+
+[node name="AuxMonitor" parent="HBoxContainer/VBoxContainer/GridContainer" index="0" instance=ExtResource("5_3x05k")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="AuxMonitor2" parent="HBoxContainer/VBoxContainer/GridContainer" index="1" instance=ExtResource("5_3x05k")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+ChannelName = "aux2"
+
+[node name="AuxMonitor3" parent="HBoxContainer/VBoxContainer/GridContainer" index="2" instance=ExtResource("5_3x05k")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+ChannelName = "aux3"
+
+[node name="AuxMonitor4" parent="HBoxContainer/VBoxContainer/GridContainer" index="3" instance=ExtResource("5_3x05k")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+ChannelName = "aux4"

@@ -340,7 +340,7 @@ public partial class GrassScatter : MultiMeshInstance3D
             if (generateGrassThread != null) generateGrassThread.WaitToFinish();
             crntCameraPos = GetViewport().GetCamera3D().GlobalPosition;
             generateGrassThread = new GodotThread();
-            generateGrassThread.Start(new Callable(this, MethodName.GenerateGrass)); // convtodo: fix threading and enable crass
+            generateGrassThread.Start(new Callable(this, MethodName.GenerateGrass));
         }
     }
 
