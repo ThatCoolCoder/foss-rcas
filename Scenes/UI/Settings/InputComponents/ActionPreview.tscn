@@ -26,8 +26,8 @@ layout_mode = 2
 tooltip_text = "Create new mapping"
 icon = ExtResource("2_pvdah")
 
-[node name="NewMappingDialog" parent="." instance=ExtResource("2")]
+[node name="NewMappingPopup" parent="." instance=ExtResource("2")]
 visible = false
 
 [connection signal="pressed" from="HBoxContainer/NewMappingButton" to="." method="_on_NewMappingButton_pressed"]
-[connection signal="popup_hide" from="NewMappingDialog" to="." method="_on_NewMappingDialog_popup_hide"]
+[connection signal="popup_hide" from="NewMappingPopup" to="." method="_on_NewMappingDialog_popup_hide"]

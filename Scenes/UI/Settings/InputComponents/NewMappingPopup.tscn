@@ -1,14 +1,14 @@
 [gd_scene load_steps=2 format=3 uid="uid://brkxpnrwifr87"]
 
-[ext_resource type="Script" path="res://Scripts/UI/Settings/InputComponents/NewMappingDialog.cs" id="1"]
+[ext_resource type="Script" path="res://Scripts/UI/Settings/InputComponents/NewMappingPopup.cs" id="1_4trtg"]
 
 [node name="NewMappingPopup" type="Popup"]
 title = "Create mapping"
 initial_position = 2
-size = Vector2i(300, 103)
+size = Vector2i(346, 103)
 visible = true
 borderless = false
-script = ExtResource("1")
+script = ExtResource("1_4trtg")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 anchors_preset = 15
@@ -24,31 +24,29 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Inputs" type="HSplitContainer" parent="MarginContainer/VBoxContainer"]
+[node name="InfoLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-dragger_visibility = 1
+text = "Press/move an input to select it..."
+horizontal_alignment = 1
 
-[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Inputs"]
-layout_mode = 2
-text = "Mapping type: "
-
-[node name="MappingTypeSelector" type="OptionButton" parent="MarginContainer/VBoxContainer/Inputs"]
-layout_mode = 2
-
-[node name="Buttons" type="HSplitContainer" parent="MarginContainer/VBoxContainer"]
+[node name="Buttons" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 10
-dragger_visibility = 1
 
 [node name="Cancel" type="Button" parent="MarginContainer/VBoxContainer/Buttons"]
 layout_mode = 2
 text = "Cancel"
 
+[node name="SelectAnotherInput" type="Button" parent="MarginContainer/VBoxContainer/Buttons"]
+layout_mode = 2
+text = "Select another input"
+
 [node name="Ok" type="Button" parent="MarginContainer/VBoxContainer/Buttons"]
 layout_mode = 2
 text = "Ok"
 
-[connection signal="item_selected" from="MarginContainer/VBoxContainer/Inputs/MappingTypeSelector" to="." method="_on_MappingTypeSelector_item_selected"]
+[connection signal="about_to_popup" from="." to="." method="_on_about_to_popup"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/Cancel" to="." method="_on_Cancel_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/SelectAnotherInput" to="." method="_on_SelectAnotherInput_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/Buttons/Ok" to="." method="_on_Ok_pressed"]

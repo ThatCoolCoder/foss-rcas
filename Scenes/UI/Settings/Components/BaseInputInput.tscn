@@ -28,7 +28,7 @@ text = "Change"
 [node name="Popup" type="Popup" parent="." index="2"]
 title = "Change title"
 initial_position = 2
-size = Vector2i(300, 100)
+size = Vector2i(358, 100)
 exclusive = true
 borderless = false
 

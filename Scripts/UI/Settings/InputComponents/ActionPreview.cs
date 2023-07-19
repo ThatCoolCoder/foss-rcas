@@ -14,7 +14,7 @@ public partial class ActionPreview : Control
     private SimInput.InputAction action;
     private string actionPath;
     private HBoxContainer mappingHolder;
-    private NewMappingDialog newMappingDialog;
+    private NewMappingPopup newMappingDialog;
 
     public ActionPreview Config(Node parent, SimInput.InputAction _action, string _actionPath)
     {
@@ -31,7 +31,7 @@ public partial class ActionPreview : Control
         if (action.Description is not null or "") name += action.Description;
         GetNode<Label>("Label").Text = name;
         mappingHolder = GetNode<HBoxContainer>("HBoxContainer/MappingHolder");
-        newMappingDialog = GetNode<NewMappingDialog>("NewMappingDialog");
+        newMappingDialog = GetNode<NewMappingPopup>("NewMappingPopup");
 
         UpdateMappings();
 
@@ -72,10 +72,9 @@ public partial class ActionPreview : Control
 
     private void _on_NewMappingDialog_popup_hide()
     {
-        if (newMappingDialog.SelectedMappingType == null) return;
+        if (newMappingDialog.NewMapping == null) return;
 
-        var mapping = (IControlMapping)Activator.CreateInstance(newMappingDialog.SelectedMappingType);
-        SettingsScreen.NewSettings.InputMap.GetMappingsForAction(actionPath).Add(mapping);
+        SettingsScreen.NewSettings.InputMap.GetMappingsForAction(actionPath).Add(newMappingDialog.NewMapping);
         UpdateMappings();
 
         mappingHolder.GetChildNodeList().Last().EmitSignal("pressed");
