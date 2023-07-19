@@ -8,7 +8,7 @@ public partial class AeroObject : AbstractSpatialFluidForcer
 {
     // Like an AeroSurface but for other aerodynamic entities - Body, landing gear, etc.
     // Stuff that generally produces more drag than lift
-    // Set cube paths to null to have no effect
+    // Set cubes to null to have no effect
     // todo: this is an explorative implementation, could do with some refactoring
 
     [Export] public AeroValueCube LiftCube { get; set; }
@@ -39,12 +39,12 @@ public partial class AeroObject : AbstractSpatialFluidForcer
         {
             // Calculate force for the 3 axis separately then combine.
 
-            // todo: this doesn't work! it makes drag! this is why the planes are all so slow
-            var localLift = new Vector3(GetLiftAlongAxis(localVelocity.X, LiftCube.Left, LiftCube.Right) * sideAreas.X,
-                GetLiftAlongAxis(localVelocity.Y, LiftCube.Down, LiftCube.Up) * sideAreas.Y,
-                GetLiftAlongAxis(localVelocity.Z, LiftCube.Forward, LiftCube.Back) * sideAreas.Z);
+            var localLift = new Vector3(
+                GetLiftAlongAxis(localVelocity.X, localVelocity.Z, localVelocity.Y, LiftCube.Left, LiftCube.Right) * sideAreas.X,
+                GetLiftAlongAxis(localVelocity.Y, localVelocity.X, localVelocity.Z, LiftCube.Down, LiftCube.Up) * sideAreas.Y,
+                GetLiftAlongAxis(localVelocity.Z, localVelocity.X, localVelocity.Y, LiftCube.Forward, LiftCube.Back) * sideAreas.Z);
             var relativeLift = basis * localLift;
-            totalForce += relativeLift;
+            totalForce += relativeLift * 0.2f; // for some reason the lift is way strong so let's just cut it down here
         }
         if (DragCube != null)
         {
@@ -56,9 +56,15 @@ public partial class AeroObject : AbstractSpatialFluidForcer
         return totalForce * density;
     }
 
-    private float GetLiftAlongAxis(float velocity, float negativeCoefficient, float positiveCoefficient)
+    private float GetLiftAlongAxis(float perpendicularVelocity, float acrossVelocity1, float acrossVelocity2, float negativeCoefficient, float positiveCoefficient)
     {
-        return velocity * velocity * (velocity > 0 ? positiveCoefficient : negativeCoefficient) * Mathf.Sign(velocity) * -1;
+        // Across velocity 1 and 2 are the two components of the velocity across the face. EG if perpendicular is the Z then across1 is x and 2 is y
+
+        var across2d = new Vector2(acrossVelocity1, acrossVelocity2);
+        var alpha = Mathf.RadToDeg(Mathf.Atan(Mathf.Abs(perpendicularVelocity) / across2d.Length()));
+        var aoaMult = alpha < 30 ? Utils.MapNumber(alpha, 0, 30, 0, 1) : Utils.MapNumber(alpha, 30, 90, 1, 0);
+        var direction = Mathf.Sign(perpendicularVelocity) * -1;
+        return across2d.LengthSquared() * (perpendicularVelocity > 0 ? positiveCoefficient : negativeCoefficient) * aoaMult * direction;
     }
 
     private float InterpolateValueFromCube(Vector3 localVelocity, AeroValueCube aeroValueCube)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://bwr61hdp5b3v1"]
+[gd_scene load_steps=43 format=3 uid="uid://bwr61hdp5b3v1"]
 
 [ext_resource type="Script" path="res://Scripts/Aircraft/Aircraft.cs" id="1_w3gm1"]
 [ext_resource type="PackedScene" uid="uid://csgmaf2piqj3e" path="res://Art/Aircraft/TinyTrainer/TinyTrainer.glb" id="2"]
@@ -25,8 +25,8 @@
 [ext_resource type="PackedScene" uid="uid://diynlfwl8wayv" path="res://Scenes/Aircraft/Common/ValueSetter.tscn" id="17_xnghx"]
 [ext_resource type="Script" path="res://Scripts/Audio/PrerecordedPropellerNoise.cs" id="18"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Propwash.tscn" id="19"]
-[ext_resource type="Resource" path="res://Scenes/Aircraft/TinyTrainer/BodyLift.tres" id="19_hgre0"]
 [ext_resource type="Resource" uid="uid://b861yo7rjlv2c" path="res://Resources/BaseBodyDrag.tres" id="20_l1lq0"]
+[ext_resource type="Script" path="res://Scripts/Physics/Forcers/AeroValueCube.cs" id="26_hlkfe"]
 
 [sub_resource type="PhysicsMaterial" id="5"]
 friction = 0.33
@@ -85,6 +85,15 @@ Property = "CenterOfMass.X"
 script = ExtResource("13_uahxl")
 Input = SubResource("Resource_x4rg5")
 Output = SubResource("Resource_oi7lh")
+
+[sub_resource type="Resource" id="Resource_5svxq"]
+script = ExtResource("26_hlkfe")
+Left = 0.6
+Right = 0.6
+Up = 0.6
+Down = 0.6
+Forward = 0.0
+Back = 0.0
 
 [node name="TinyTrainer" type="RigidBody3D"]
 mass = 0.45
@@ -253,10 +262,10 @@ ChannelName = "rudder"
 ControlHubPath = NodePath("../../MixerControlHub")
 
 [node name="AeroSurface" parent="RudderHolder/Rudder" instance=ExtResource("5")]
-transform = Transform3D(0.138905, -4.78299e-07, 0, 4.02311e-08, 1, 0, 0, 0, 0.0536885, 0.00444882, 0.003, 0.0269877)
+transform = Transform3D(0.138905, -4.78299e-07, 0, 4.02311e-08, 1, 0, 0, 0, 0.0536885, -0.0159387, 0.003, 0.0269877)
 TotalLiftCoefficient = ExtResource("9")
 ParasiticDragCoefficient = ExtResource("4")
-AreaMultiplier = 0.75
+AreaMultiplier = 1.2
 Thickness = 0.005
 TargetPath = NodePath("../../..")
 
@@ -265,5 +274,5 @@ transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -0.036
 
 [node name="BodyAero" parent="." instance=ExtResource("14")]
 transform = Transform3D(0.0457539, 0, 0, 0, 0.0626957, 0, 0, 0, 0.639938, 0, -0.00533309, 0.104188)
-LiftCube = ExtResource("19_hgre0")
+LiftCube = SubResource("Resource_5svxq")
 DragCube = ExtResource("20_l1lq0")

@@ -4,9 +4,9 @@
 
 [resource]
 script = ExtResource("1")
-Left = 1.5
-Right = 1.5
-Up = 1.5
-Down = 1.5
-Forward = 1.0
-Back = 1.0
+Left = 0.4
+Right = 0.4
+Up = 0.4
+Down = 0.4
+Forward = 0.0
+Back = 0.0

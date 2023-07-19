@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://doweai1rwhdaf"]
+[gd_scene load_steps=31 format=3 uid="uid://doweai1rwhdaf"]
 
 [ext_resource type="Script" path="res://Scripts/Aircraft/Aircraft.cs" id="1_m1bxi"]
 [ext_resource type="Script" path="res://Scripts/Aircraft/Servo.cs" id="2"]
@@ -8,7 +8,6 @@
 [ext_resource type="Script" path="res://Scripts/Audio/PrerecordedPropellerNoise.cs" id="6"]
 [ext_resource type="AudioStream" uid="uid://deys0bnykpb1r" path="res://Art/Aircraft/Common/PropAudio/3S-2304-6x4E.mp3" id="7"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/ControlledBrushlessMotor.tscn" id="8"]
-[ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Propwash.tscn" id="11"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Control/MixerControlHub.tscn" id="12"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/PropellerWithModel.tscn" id="13"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Mirror.tscn" id="14"]
@@ -95,10 +94,6 @@ DominantFrequencyInRecording = 400.0
 InitialVolume = 10.0
 RpmOfInitialVolume = 7000.0
 DecibelsChangePer1000Rpm = -1.5
-
-[node name="Propwash" parent="Electrics/ControlledBrushlessMotor/PropellerWithModel" instance=ExtResource("11")]
-MaxDistance = 4.0
-SpreadAngleDegrees = 20.0
 
 [node name="Battery" parent="Electrics" instance=ExtResource("18")]
 CellCount = 10

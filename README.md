@@ -12,7 +12,7 @@ FOSS RC Aviation Simulator (in early development)
 - ctrl+d to toggle debug mode
 - ctrl+shift+r to restart entire program
 
-The main aircraft controls can be seen and configured through `Settings>Input Map`
+The main controls can be seen and configured through `Settings>Input Map`
 
 ## Misc info
 
@@ -93,10 +93,6 @@ Depending on how much base content is desired and how large the repository gets,
             - does it actually, though?
             - this may have changed with the new propeller simulation.
     - make location altitude actually change air pressure (not very useful, but why not?)
-    - AeroObject: needs some way of toggling on off so things like landing gear can stop being draggy
-        - also would be nice to be able to do this with AeroSurfaces
-        - tie it to a control input? I'd rather be able to tie it to a servo
-        - need some way of expressing conditions without creating a turing-complete language?
     - PropellerWithModel needs a way of fading between the two models instead of simply hiding/showing (hard to do because import from gltf)
     - Electrics simulation
         - revamp motor sim to blend between power torque and stopping force instead of sudden cutoff
@@ -117,7 +113,6 @@ Depending on how much base content is desired and how large the repository gets,
             - viewing position is FpvGroundStation, which is attached to the ground camera
     - Make plane support being deleted so that we can add plane spawning in location if we target multiplayer for 1.0
 - Input
-    - Add an input debug UI thing
     - Add a preview for all the inputs so we can check direction etc without flying (requires poking SimInput.Manager to give it a custom inputmap)
     - set the default controls to work on a ps/xbox controller without configuration
     - Um add a thing that checks the name of the controller so you can have different bindings for different controllers
@@ -135,7 +130,6 @@ Depending on how much base content is desired and how large the repository gets,
             - this was proposed but the engine developers decided against it
         - possibly integrate this into an aircraft-wide system involving also stuff like resetting batteries, etc.
             - propagate_call looks like it would make this easy, we won't even need interfaces
-    - large oval has wrong ground normal
     - border-tree-planes in badgerfield have only collision from one direction (3 -> 4 artifact)
     - thing has a heart attack if it tries loading a content item that doesn't have a scene file
     - Anticlockwise propeller has bad shading due to the scaling by -1
