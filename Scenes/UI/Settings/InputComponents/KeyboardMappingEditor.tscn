@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://b7168pw4ffj0m"]
+
+[ext_resource type="PackedScene" uid="uid://cak5716oeutxt" path="res://Scenes/UI/Settings/InputComponents/BaseControlMappingEditor.tscn" id="1"]
+[ext_resource type="Script" path="res://Scripts/UI/Settings/InputComponents/KeyboardMappingEditor.cs" id="2"]
+[ext_resource type="PackedScene" uid="uid://dcx1tkd8lan8m" path="res://Scenes/UI/Settings/Components/KeyInput.tscn" id="3"]
+[ext_resource type="PackedScene" path="res://Scenes/UI/Settings/Components/EnumInput.tscn" id="4_irkdw"]
+
+[node name="MomentaryKeyboardMappingEditor" instance=ExtResource("1")]
+title = "Edit keyboard mapping"
+size = Vector2i(284, 171)
+script = ExtResource("2")
+
+[node name="MarginContainer" parent="." index="0"]
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="KeyInput" parent="MarginContainer/VBoxContainer" index="0" instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="TypeInput" parent="MarginContainer/VBoxContainer" index="1" instance=ExtResource("4_irkdw")]
+layout_mode = 2
+
+[node name="Key2Input" parent="MarginContainer/VBoxContainer" index="2" instance=ExtResource("3")]
+layout_mode = 2
+
+[node name="Key3Input" parent="MarginContainer/VBoxContainer" index="3" instance=ExtResource("3")]
+layout_mode = 2

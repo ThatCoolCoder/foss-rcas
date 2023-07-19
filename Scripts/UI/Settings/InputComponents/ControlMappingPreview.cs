@@ -47,13 +47,13 @@ public partial class ControlMappingPreview : Button
         }
         if (controlMapping is AxisControlMapping am) return ($"{(int)am.Axis}", axisIcon);
         if (controlMapping is ButtonControlMapping bm) return ($"{(int)bm.ButtonIndex}", buttonIcon);
-        if (controlMapping is SimpleKeyboardControlMapping skm)
+        if (controlMapping is KeyboardControlMapping km)
         {
-            return (OS.GetKeycodeString((Key)skm.KeyScancode), keyboardIcon);
+            var text = OS.GetKeycodeString((Key)km.KeyScancode);
+            if (km.MappingType == SimInput.KeyboardControlMapping.MappingTypeEnum.ThreePosition)
+                text = $"{OS.GetKeycodeString((Key)km.KeyScancode)}, {OS.GetKeycodeString((Key)km.Key2Scancode)}, {OS.GetKeycodeString((Key)km.Key3Scancode)}";
+            return (text, keyboardIcon);
         }
-        if (controlMapping is ThreePosKeyboardControlMapping tpkm)
-            return ($"{OS.GetKeycodeString((Key)tpkm.Key1Scancode)}, {OS.GetKeycodeString((Key)tpkm.Key2Scancode)}, {OS.GetKeycodeString((Key)tpkm.Key3Scancode)}",
-                keyboardIcon);
 
         Utils.LogError($"Unknown control type: {controlMapping.GetType().FullName}", this);
         return ("?", null);
@@ -64,10 +64,8 @@ public partial class ControlMappingPreview : Button
         if (controlMapping == null) Utils.LogError("Control mapping is null", this);
         if (controlMapping is AxisControlMapping am) return AxisMappingEditor.Scene.Instantiate<AxisMappingEditor>().Config(this, am);
         if (controlMapping is ButtonControlMapping bm) return ButtonMappingEditor.Scene.Instantiate<ButtonMappingEditor>().Config(this, bm);
-        if (controlMapping is SimpleKeyboardControlMapping skm)
-            return SimpleKeyboardMappingEditor.Scene.Instantiate<SimpleKeyboardMappingEditor>().Config(this, skm);
-        if (controlMapping is ThreePosKeyboardControlMapping tpkm)
-            return ThreePosKeyboardMappingEditor.Scene.Instantiate<ThreePosKeyboardMappingEditor>().Config(this, tpkm);
+        if (controlMapping is KeyboardControlMapping km)
+            return KeyboardMappingEditor.Scene.Instantiate<KeyboardMappingEditor>().Config(this, km);
         return null;
     }
 

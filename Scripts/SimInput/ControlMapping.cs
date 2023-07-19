@@ -19,37 +19,26 @@ public abstract partial class IControlMapping
     static IControlMapping()
     {
         TomletMain.RegisterMapper<IControlMapping>(
-                null,
-                tomlValue =>
-                {
-                    if (!(tomlValue is Tomlet.Models.TomlTable tomlTable))
-                        throw new Tomlet.Exceptions.TomlTypeMismatchException(typeof(Tomlet.Models.TomlTable), tomlValue.GetType(), typeof(IControlMapping));
-
-                    var typeName = tomlTable.GetString("TypeName");
-                    if (typeName == null) throw new Exception("Error loading control mapping: TypeName not given!");
-
-                    var cls = allowableLoadedTypes.FirstOrDefault(cls => cls.Name == typeName);
-                    if (cls == null) throw new Exception($"Error loading control mapping: Not allowed to parse a {typeName}");
-
-                    // Use reflection to call the generic method using the type we found before 
-                    // Have fun when this inevitably breaks
-                    return (IControlMapping)typeof(TomletMain)
-                        .GetMethod("To", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static,
-                        null, System.Reflection.CallingConventions.Any,
-                        new Type[] { typeof(Tomlet.Models.TomlValue) }, null)
-                        .MakeGenericMethod(cls)
-                        .Invoke(null, parameters: new object[] { tomlTable });
-                }
-        );
-
-        // Tomlet fails to save and load chars for some reason, so fix that
-        TomletMain.RegisterMapper<char>(
-            ch => new Tomlet.Models.TomlString(ch.ToString()),
+            null,
             tomlValue =>
             {
-                if (!(tomlValue is Tomlet.Models.TomlString tomlString))
-                    throw new Tomlet.Exceptions.TomlTypeMismatchException(typeof(Tomlet.Models.TomlString), tomlValue.GetType(), typeof(char));
-                return tomlString.StringValue.Length > 0 ? tomlString.StringValue[0] : '\0';
+                if (!(tomlValue is Tomlet.Models.TomlTable tomlTable))
+                    throw new Tomlet.Exceptions.TomlTypeMismatchException(typeof(Tomlet.Models.TomlTable), tomlValue.GetType(), typeof(IControlMapping));
+
+                var typeName = tomlTable.GetString("TypeName");
+                if (typeName == null) throw new Exception("Error loading control mapping: TypeName not given!");
+
+                var cls = allowableLoadedTypes.FirstOrDefault(cls => cls.Name == typeName);
+                if (cls == null) throw new Exception($"Error loading control mapping: Not allowed to parse a {typeName}");
+
+                // Use reflection to call the generic method using the type we found before 
+                // Have fun when this inevitably breaks
+                return (IControlMapping)typeof(TomletMain)
+                    .GetMethod("To", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static,
+                    null, System.Reflection.CallingConventions.Any,
+                    new Type[] { typeof(Tomlet.Models.TomlValue) }, null)
+                    .MakeGenericMethod(cls)
+                    .Invoke(null, parameters: new object[] { tomlTable });
             }
         );
     }
@@ -60,8 +49,7 @@ public abstract partial class IControlMapping
     {
         typeof(AxisControlMapping),
         typeof(ButtonControlMapping),
-        typeof(SimpleKeyboardControlMapping),
-        typeof(ThreePosKeyboardControlMapping),
+        typeof(KeyboardControlMapping),
     };
 }
 
@@ -128,49 +116,51 @@ public partial class ButtonControlMapping : IControlMapping
     }
 }
 
-public partial class SimpleKeyboardControlMapping : IControlMapping
+public partial class KeyboardControlMapping : IControlMapping
 {
+    // A note on this mapping: it supports both basic (single key) mappings,
+    // as well as three-position mappings like you'd get from a 3 pos switch on a tx.
+    // Ideally these would be in different classes but it turns out that it makes the UI a lot simpler
+    // if there are just different types of this in which some fields are not used
+
     public uint KeyScancode { get; set; } = (uint)Key.A;
     [Tomlet.Attributes.TomlNonSerialized] public Key Key { set { KeyScancode = (uint)value; } }
-    public bool Momentary { get; set; } = true;
-    private float currentValue = -1;
+    public uint Key2Scancode { get; set; }
+    public uint Key3Scancode { get; set; }
+    public MappingTypeEnum MappingType { get; set; } = MappingTypeEnum.Momentary;
+    private float currentToggleValue = -1;
 
     public override float? ProcessEvent(InputEvent _event)
     {
-        if (_event is InputEventKey keyEvent && (uint)keyEvent.GetKeycodeWithModifiers() == KeyScancode && !keyEvent.Echo)
+        if (_event is InputEventKey keyEvent && !keyEvent.Echo)
         {
-            if (Momentary) return keyEvent.Pressed ? 1 : -1;
-            else
+            if (MappingType == MappingTypeEnum.Momentary && (uint)keyEvent.GetKeycodeWithModifiers() == KeyScancode)
+            {
+                return keyEvent.Pressed ? 1 : -1;
+            }
+            else if (MappingType == MappingTypeEnum.Toggle && (uint)keyEvent.GetKeycodeWithModifiers() == KeyScancode)
             {
                 if (keyEvent.Pressed)
                 {
-                    currentValue = -currentValue;
-                    return currentValue;
+                    currentToggleValue = -currentToggleValue;
+                    return currentToggleValue;
                 }
+            }
+            else if (MappingType == MappingTypeEnum.ThreePosition && keyEvent.Pressed)
+            {
+                var scancode = (uint)keyEvent.GetKeycodeWithModifiers();
+                if (scancode == KeyScancode) return -1;
+                if (scancode == Key2Scancode) return 0;
+                if (scancode == Key3Scancode) return 1;
             }
         }
         return null;
     }
-}
 
-public partial class ThreePosKeyboardControlMapping : IControlMapping
-{
-    // Useful for flaps
-    public uint Key1Scancode { get; set; }
-    public uint Key2Scancode { get; set; }
-    public uint Key3Scancode { get; set; }
-
-
-    public override float? ProcessEvent(InputEvent _event)
+    public enum MappingTypeEnum
     {
-        if (_event is InputEventKey keyEvent && keyEvent.Pressed && !keyEvent.Echo)
-        {
-            var scancode = (uint)keyEvent.GetKeycodeWithModifiers();
-            if (scancode == Key1Scancode) return -1;
-            if (scancode == Key2Scancode) return 0;
-            if (scancode == Key3Scancode) return 1;
-        }
-
-        return null;
+        Momentary,
+        Toggle,
+        ThreePosition
     }
 }

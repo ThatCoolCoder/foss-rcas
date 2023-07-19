@@ -14,8 +14,7 @@ public partial class NewMappingDialog : Window
     {
         {"Joystick axis", typeof(AxisControlMapping)},
         {"Joystick button", typeof(ButtonControlMapping)},
-        {"Keyboard (single key)", typeof(SimpleKeyboardControlMapping)},
-        {"Keyboard (three position)", typeof(ThreePosKeyboardControlMapping)},
+        {"Keyboard", typeof(KeyboardControlMapping)},
     };
     private OptionButton mappingTypeSelector;
     public Type SelectedMappingType { get; private set; }

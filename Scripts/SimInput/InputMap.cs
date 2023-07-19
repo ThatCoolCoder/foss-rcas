@@ -42,80 +42,77 @@ public partial class InputMap
             new SimInput.AxisControlMapping() { Axis = (uint)JoyAxis.LeftX }}
         },
         {"aircraft/aux1", new() {
-            new SimInput.ThreePosKeyboardControlMapping()
+            new SimInput.KeyboardControlMapping()
             {
-                Key1Scancode = (uint) Key.Key5,
+                KeyScancode = (uint) Key.Key5,
                 Key2Scancode = (uint) Key.Key6,
                 Key3Scancode = (uint) Key.Key7,
+
+                MappingType = SimInput.KeyboardControlMapping.MappingTypeEnum.ThreePosition
             }}
         },
         {"aircraft/aux2", new() {
-            new SimInput.SimpleKeyboardControlMapping()
+            new SimInput.KeyboardControlMapping()
             {
                 Key = Key.F,
-                Momentary = true
+                MappingType = SimInput.KeyboardControlMapping.MappingTypeEnum.Toggle
             }}
         },
         {"aircraft/aux3", new() {
-            new SimInput.ThreePosKeyboardControlMapping()
+            new SimInput.KeyboardControlMapping()
             {
-                Key1Scancode = (uint) Key.Key8,
+                KeyScancode = (uint) Key.Key8,
                 Key2Scancode = (uint) Key.Key9,
                 Key3Scancode = (uint) Key.Key0,
+                MappingType = SimInput.KeyboardControlMapping.MappingTypeEnum.ThreePosition
             }}
         },
         {"aircraft/aux4", new() {
-            new SimInput.SimpleKeyboardControlMapping()
+            new SimInput.KeyboardControlMapping()
             {
                 Key = Key.G,
-                Momentary = false
+                MappingType = SimInput.KeyboardControlMapping.MappingTypeEnum.Toggle
             }}
         },
 
         // CAMERA
         {"camera/move_backward_forward", new() },
         {"camera/move_backward", new() {
-            new SimInput.SimpleKeyboardControlMapping()
+            new SimInput.KeyboardControlMapping()
             {
-                Key = Key.S,
-                Momentary = true
+                Key = Key.S
             },
         }},
         {"camera/move_forward", new() {
-            new SimInput.SimpleKeyboardControlMapping()
+            new SimInput.KeyboardControlMapping()
             {
-                Key = Key.W,
-                Momentary = true
+                Key = Key.W
             },
         }},
         {"camera/move_left_right", new() },
         {"camera/move_left", new() {
-            new SimInput.SimpleKeyboardControlMapping()
+            new SimInput.KeyboardControlMapping()
             {
-                Key = Key.A,
-                Momentary = true
+                Key = Key.A
             },
         }},
         {"camera/move_right", new() {
-            new SimInput.SimpleKeyboardControlMapping()
+            new SimInput.KeyboardControlMapping()
             {
-                Key = Key.D,
-                Momentary = true
+                Key = Key.D
             },
         }},
         {"camera/move_down_up", new() },
         {"camera/move_down", new() {
-            new SimInput.SimpleKeyboardControlMapping()
+            new SimInput.KeyboardControlMapping()
             {
                 Key = Key.Q,
-                Momentary = true
             },
         }},
         {"camera/move_up", new() {
-            new SimInput.SimpleKeyboardControlMapping()
+            new SimInput.KeyboardControlMapping()
             {
                 Key = Key.E,
-                Momentary = true
             },
         }},
         {"camera/pan_combined", new() },
@@ -126,75 +123,65 @@ public partial class InputMap
         {"camera/tilt_up", new() },
 
         {"camera/reset", new() {
-            new SimInput.SimpleKeyboardControlMapping()
+            new SimInput.KeyboardControlMapping()
             {
                 Key = Key.C | (Key) KeyModifierMask.MaskAlt,
-                Momentary = true
             },
         }},
         {"camera/previous", new() {
-            new SimInput.SimpleKeyboardControlMapping()
+            new SimInput.KeyboardControlMapping()
             {
                 Key = Key.C | (Key) KeyModifierMask.MaskShift,
-                Momentary = true
             },
         }},
         {"camera/next", new() {
-            new SimInput.SimpleKeyboardControlMapping()
+            new SimInput.KeyboardControlMapping()
             {
                 Key = Key.C,
-                Momentary = true
             },
         }},
 
         // GAMEPLAY
         {"gameplay/launch", new() {
-            new SimInput.SimpleKeyboardControlMapping()
+            new SimInput.KeyboardControlMapping()
             {
                 Key = Key.Space,
-                Momentary = true
             },
         }},
         {"gameplay/reset", new() {
-            new SimInput.SimpleKeyboardControlMapping()
+            new SimInput.KeyboardControlMapping()
             {
                 Key = Key.R,
-                Momentary = true
             },
         }},
         {"gameplay/reload_aircraft", new() {
-            new SimInput.SimpleKeyboardControlMapping()
+            new SimInput.KeyboardControlMapping()
             {
                 Key = Key.R | (Key) KeyModifierMask.MaskCmdOrCtrl,
-                Momentary = true
             },
         }},
         {"gameplay/pause", new() {
-            new SimInput.SimpleKeyboardControlMapping()
+            new SimInput.KeyboardControlMapping()
             {
                 Key = Key.P,
-                Momentary = true
             },
         }},
         {"gameplay/more_slow_motion", new() {
-            new SimInput.SimpleKeyboardControlMapping()
+            new SimInput.KeyboardControlMapping()
             {
                 Key = Key.Comma,
-                Momentary = true
             },
         }},
         {"gameplay/less_slow_motion", new() {
-            new SimInput.SimpleKeyboardControlMapping()
+            new SimInput.KeyboardControlMapping()
             {
                 Key = Key.Period,
-                Momentary = true
             },
         }},
         {"gameplay/reset_slow_motion", new() {
-            new SimInput.SimpleKeyboardControlMapping()
+            new SimInput.KeyboardControlMapping()
             {
                 Key = Key.Slash,
-                Momentary = true
             },
         }},
     },
