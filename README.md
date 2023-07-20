@@ -80,6 +80,7 @@ Depending on how much base content is desired and how large the repository gets,
 - Physics/simulations
     - Wheels
         - Make brakes and traction work, wheels spin constantly for no reason.
+        - Make them less janky in general - they worked perfectly at this same scale in the test project
     - Make common methods in AbstractSpatialFluidForcer for getting relative & local velocity, there is no point having code for this in every derived class
     - improve wing/body aero physics
         - allow importing some better format of curves
@@ -91,7 +92,7 @@ Depending on how much base content is desired and how large the repository gets,
             is it?
         - planes feel too draggy, EG in real life the T28 carries a lot more energy and is difficult to get down, this one just mushes in
             - does it actually, though?
-            - this may have changed with the new propeller simulation.
+            - this may have changed with the new propeller & aeroobject simulation.
     - make location altitude actually change air pressure (not very useful, but why not?)
     - PropellerWithModel needs a way of fading between the two models instead of simply hiding/showing (hard to do because import from gltf)
     - Electrics simulation
@@ -140,6 +141,7 @@ Depending on how much base content is desired and how large the repository gets,
         - problem: tomlet doesn't appreciate returning null from a converter function, which is the place where we do the checks
             - hacky solution: create an InvalidMappingType
 - General refactoring/organizing
+    - rename `*.content.toml` -> `*.info.toml`
     - add some error checking for the value setter system
     - give the value setter system a cool name
     - if input settings screen becomes unperformant, make all the dialogs only be instanced when needed
@@ -153,13 +155,8 @@ Depending on how much base content is desired and how large the repository gets,
         - And what about all the cameras?
 - make gyros not suck
 - audio
-    - procedural?
-    - can link motor sound to an advanced motor simulation? (rpm, air disturbance factor, air disturbance shape)
-    - enhance prop+motor audio simulation
-        - prop: change sound (or add additional layer) when in high-power, low-speed conditions (this seems to make a coarser louder sound)
-        - add sound of electric motor, somehow taking into account both throttle and rpm
-        - add sounds for IC engines when they are made - at the very least a base sound and a throttle sound will be needed
-    - add audio for hitting things (perhaps through oncolliderenter or whatever)
+    - see `Docs/AudioNotes.md`
+    - procedural? (no too hard)
 - UI
     - UI Apps system
         - it is not saving the position correctly, there are a bunch that have moved offscreen
@@ -181,6 +178,7 @@ Depending on how much base content is desired and how large the repository gets,
 - Content
     - create some super-light locations that are actually just 3d photos and some shadow catchers
         - (it appears some other sims do this)
+        - will require a field in the metadata that specifies to lock the camera
     - Stabilise various formats, create compatibility fields
         - Thing saying what version of content file is used?
         - Thing saying what game versions are supported?
@@ -207,21 +205,13 @@ Depending on how much base content is desired and how large the repository gets,
     - requires addition of a camera ID property so that we can remember them
     - store available cameras in a tres somewhere
 - Graphics
-    - Grass overhaul again
-        - Somehow make grass not jump around when camera moves, only appear/disappear.
-            - Perhaps can use a system where we make a grid of points, wiggle them, then discard those which are outside of the radius.
-            - Would probably be a bit slow on really large patches but in that case we could use a chunk system internally to completely ignore points a certain distance away from camera
-            - Perhaps just a check for each row + col to see if it will be within distance at any point.
-        - support for grass scatter on mesh
-    - need to get it running on old hardware, and keep it running (target: Intel HD 3000 on minimum 720p)
+    - need to get it running on old hardware, and keep it running (target: Intel HD 3000 on minimum 720p gets a stable 60)
     - Come up with a setup for rendering to an intermediate viewport so we can render at lower resolution and upsample
         - Some people may not like this idea but I think it's great if you have a hi-res monitor but your GPU can't game like that.
         - (it's much simpler than adjusting the monitor resolution or whatever)
     - If FPS is terrible, have a pop up in the corner that tells you to change your graphics.
     - Update billboard exporter script + multimesh instancers + impostorsprite3d to have the option of normal maps on these (it looks a lot better)
     - Maybe make some more pine trees so they're not all the same
-- Even though the CG is apparently already really far back, the models don't fly tailheavy. If I move the CG further back, they become suddenly very tailheavy
-    - Maybe their elevator is just stalling, the flying wing flies amazingly and the CG is probably a bit forward even.
 - Mod/content system
     - There is support for loading mods as pck files at runtime, but it is a bit of a pain to make these pck files.
     - Create a content version value that lets the game know if a mod is compatible.
