@@ -1,0 +1,20 @@
+name = "FT Tiny Trainer (Floats)"
+author = "ThatCoolCoder"
+version = "0.1.0"
+date_created = 2023-07-20
+date_updated = 2023-07-20
+description = """
+Same as normal but with floats!
+"""
+
+[aircraft]
+wingspan = 0.94
+length = 0.6
+weight = 0.45
+power_type = 0
+channels = 3
+
+[aircraft.position_offset]
+X = 0
+Y = 0.2
+Z = 0

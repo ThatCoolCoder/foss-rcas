@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://ba1fxr4wl452f"]
+
+[ext_resource type="Script" path="res://Scripts/Physics/Forcers/BuoyancyForcer.cs" id="1_ga7pn"]
+[ext_resource type="Material" path="res://Art/Common/ForcerPreviewMaterial.tres" id="2_oxagu"]
+
+[node name="BuoyancyForcer" type="Node3D"]
+script = ExtResource("1_ga7pn")
+
+[node name="DebugBox" type="CSGBox3D" parent="."]
+material = ExtResource("2_oxagu")

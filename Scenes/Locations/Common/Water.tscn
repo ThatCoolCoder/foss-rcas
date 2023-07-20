@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://cmkomucxebqmy"]
+
+[ext_resource type="Script" path="res://Scripts/Physics/Fluids/Water.cs" id="1_jxfwu"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_x7v76"]
+subdivide_width = 5
+subdivide_depth = 5
+
+[node name="Water" type="MeshInstance3D"]
+mesh = SubResource("PlaneMesh_x7v76")
+script = ExtResource("1_jxfwu")

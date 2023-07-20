@@ -10,11 +10,9 @@ public abstract partial class AbstractSpatialFluidForcer : AbstractSpatialForcer
     // Base class for things that apply force because of fluids.
     // Note that this is tool-safe: extending classes can be [Tool]s without issues
 
-    [Export] public bool ForLiquid { get; set; } = false; // todo: get a proper system for setting the below list from the editor.
-    private List<Fluids.FluidType> fluidTypes = new();
 
     // If this is true, does not run CalculateForce on fluids that it's not within. Set this to false if you care about the edges of fluids (eg floating)
-    protected bool autoCheckInsideFluid { get; set; } = true;
+    protected virtual bool autoCheckInsideFluid { get; set; } = true;
     private List<Fluids.ISpatialFluid> fluids;
 
     public static bool DebugModeActive { get; private set; } = (bool)ProjectSettings.GetSetting("global/physics_debug_active");
@@ -28,9 +26,6 @@ public abstract partial class AbstractSpatialFluidForcer : AbstractSpatialForcer
 
         base._Ready();
 
-        if (ForLiquid) fluidTypes.Add(Fluids.FluidType.Liquid);
-        else fluidTypes.Add(Fluids.FluidType.Gas);
-
         fluids = Fluids.SpatialFluidRepository.FindSpatialFluidRepository(GetTree()).Fluids;
 
         debugModeWasActive = DebugModeActive;
@@ -41,7 +36,7 @@ public abstract partial class AbstractSpatialFluidForcer : AbstractSpatialForcer
 
     public override void Apply(PhysicsDirectBodyState3D state)
     {
-        var candidateFluids = fluids.Where(f => fluidTypes.Contains(f.Type));
+        var candidateFluids = fluids.AsEnumerable();
         if (autoCheckInsideFluid)
         {
             candidateFluids = candidateFluids.Where(f => f.ContainsPoint(GlobalPosition));

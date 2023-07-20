@@ -1,0 +1,16 @@
+name = "Big Flat Lake"
+author = "ThatCoolCoder"
+version = "0.1.0"
+date_created = 2023-07-20
+date_updated = 2023-07-20
+description = """
+A big expanse of lake with very still water.
+"""
+
+[location]
+world_location = "Somewhere odd"
+elevation = 0
+spawn_positions = [
+    { name = "On land", aircraft_at = "Positions/GroundEdge", camera_at = "Positions/CameraPos" },
+    { name = "In water", aircraft_at = "Positions/InWater", camera_at = "Positions/CameraPos" },
+]

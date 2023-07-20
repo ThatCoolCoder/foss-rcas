@@ -74,8 +74,7 @@ public partial class AeroSurface : AbstractSpatialFluidForcer
             DebugLineDrawer.RegisterLineStatic(this, GlobalPosition, GlobalPosition + dragVector, Colors.Red, 2);
         }
 
-        // return liftVector + dragVector;
-        return liftVector;
+        return liftVector + dragVector;
     }
 
     private Vector3 CalculateLiftForce(Basis basis, float localSpeedSquared, float aoa, Curve totalLiftCurve, Curve parasiticDragCurve, float fluidDensity)

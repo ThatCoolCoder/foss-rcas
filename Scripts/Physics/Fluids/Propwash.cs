@@ -57,6 +57,7 @@ public partial class Propwash : Node3D, ISpatialFluid
         AngleToPoint(point);
 
         // Make speed higher at the outside, since the blades spin faster there.
+        // todo: isn't the exit speed constant across the whole prop due to the twist?
         var radiusAtDistance = Mathf.Tan(spreadAngle) * localPosition.Z;
         var radialSpeedMultiplier = new Vector2(localPosition.X, localPosition.Y).Length() / radiusAtDistance;
         radialSpeedMultiplier = Mathf.Max(radialSpeedMultiplier, .25f);
@@ -79,5 +80,10 @@ public partial class Propwash : Node3D, ISpatialFluid
         return Mathf.Atan2(sideDisplacement, local.Z);
     }
 
-    public FluidType Type { get; set; } = FluidType.Gas;
+    public Vector3 BoundaryAtPoint(Vector3 point)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool HasBoundaries { get; set; } = false;
 }

@@ -21,7 +21,7 @@
 [ext_resource type="PackedScene" uid="uid://fub8ydljlksc" path="res://Art/Aircraft/Skater/RightAileron.glb" id="21_a48d6"]
 [ext_resource type="Curve" path="res://Resources/AeroCurves/DeltaWingLiftCoefficient.tres" id="22"]
 [ext_resource type="PackedScene" uid="uid://5qkkxttudln" path="res://Art/Aircraft/Skater/Rudder.glb" id="23"]
-[ext_resource type="Resource" path="res://Resources/BaseBodyLift.tres" id="23_0acyo"]
+[ext_resource type="Resource" uid="uid://cdntpqqcckl1w" path="res://Resources/BaseBodyLift.tres" id="23_0acyo"]
 [ext_resource type="PackedScene" uid="uid://0x2sgnu0ucsv" path="res://Scenes/Forcers/ControlledWheelForcer.tscn" id="24"]
 [ext_resource type="Resource" path="res://Scenes/Aircraft/Skater/BodyDrag.tres" id="24_twm50"]
 [ext_resource type="Curve" path="res://Resources/AeroCurves/naca0015_2m.tres" id="25"]

@@ -25,7 +25,7 @@
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/PropellerWithModel.tscn" id="22"]
 [ext_resource type="PackedScene" uid="uid://0x2sgnu0ucsv" path="res://Scenes/Forcers/ControlledWheelForcer.tscn" id="23"]
 [ext_resource type="PackedScene" uid="uid://17v4jwdgr8wd" path="res://Art/Aircraft/Bushplane/Wheel.glb" id="24"]
-[ext_resource type="Resource" path="res://Resources/BaseBodyLift.tres" id="24_oulko"]
+[ext_resource type="Resource" uid="uid://cdntpqqcckl1w" path="res://Resources/BaseBodyLift.tres" id="24_oulko"]
 [ext_resource type="Script" path="res://Scripts/Physics/Forcers/AeroValueCube.cs" id="25_ttgjb"]
 
 [sub_resource type="PhysicsMaterial" id="6"]

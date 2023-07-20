@@ -56,7 +56,10 @@ public partial class Air : Node3D, ISpatialFluid
         return Vector3.Up;
     }
 
-    public FluidType Type { get; set; } = FluidType.Gas;
+    public Vector3 BoundaryAtPoint(Vector3 point)
+    {
+        throw new NotImplementedException();
+    }
 
-
+    public bool HasBoundaries { get; set; } = false;
 }

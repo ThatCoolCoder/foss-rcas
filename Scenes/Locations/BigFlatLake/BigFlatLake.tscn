@@ -1,0 +1,65 @@
+[gd_scene load_steps=10 format=3 uid="uid://5rtnprq43avt"]
+
+[ext_resource type="PackedScene" uid="uid://wfhfmqv1cl37" path="res://Scenes/Locations/BaseLocation.tscn" id="1_xlqxe"]
+[ext_resource type="PackedScene" uid="uid://cmkomucxebqmy" path="res://Scenes/Locations/Common/Water.tscn" id="2_c4cpq"]
+[ext_resource type="Script" path="res://Scripts/Physics/Fluids/SpatialFluidBeacon.cs" id="3_0t0r0"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_rsojl"]
+size = Vector2(1000, 1000)
+subdivide_width = 5
+subdivide_depth = 5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rptut"]
+albedo_color = Color(0.364706, 0.388235, 0.447059, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ty4as"]
+albedo_color = Color(0.227451, 0.576471, 0.239216, 1)
+metallic_specular = 0.0
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_bmvbd"]
+mie_color = Color(0.807843, 0.694118, 0.733333, 1)
+turbidity = 5.0
+ground_color = Color(0.101961, 0.0705882, 0.0352941, 1)
+
+[sub_resource type="Sky" id="Sky_jguyn"]
+sky_material = SubResource("PhysicalSkyMaterial_bmvbd")
+
+[sub_resource type="Environment" id="Environment_46u5j"]
+background_mode = 2
+background_energy_multiplier = 4.79
+sky = SubResource("Sky_jguyn")
+
+[node name="BigFlatLake" instance=ExtResource("1_xlqxe")]
+
+[node name="Water" parent="." index="7" instance=ExtResource("2_c4cpq")]
+mesh = SubResource("PlaneMesh_rsojl")
+surface_material_override/0 = SubResource("StandardMaterial3D_rptut")
+
+[node name="SpatialFluidBeacon" type="Node3D" parent="Water" index="0"]
+script = ExtResource("3_0t0r0")
+
+[node name="Ground" type="CSGBox3D" parent="." index="8"]
+transform = Transform3D(2.13232, 0, 0, 0, 1, 0, 0, 0, 2.1154, 0, -3.81085, 0)
+use_collision = true
+size = Vector3(6.15955, 9.60907, 6.84607)
+material = SubResource("StandardMaterial3D_ty4as")
+
+[node name="Positions" type="Node3D" parent="." index="9"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.6221)
+
+[node name="CameraPos" type="Marker3D" parent="Positions" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.241184, 1.12593, -3.45022)
+
+[node name="GroundEdge" type="Marker3D" parent="Positions" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.07829, -5.58817)
+
+[node name="InWater" type="Marker3D" parent="Positions" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.307175, -14.3004)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="10"]
+environment = SubResource("Environment_46u5j")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment" index="0"]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 2.78226, 0)
+light_energy = 0.7
+shadow_enabled = true

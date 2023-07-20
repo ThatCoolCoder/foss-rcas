@@ -1,0 +1,104 @@
+[gd_scene load_steps=11 format=3 uid="uid://de60ughjvam0l"]
+
+[ext_resource type="PackedScene" uid="uid://bwr61hdp5b3v1" path="res://Scenes/Aircraft/TinyTrainer/TinyTrainer.tscn" id="1_1y8yj"]
+[ext_resource type="PackedScene" uid="uid://ba1fxr4wl452f" path="res://Scenes/Forcers/BuoyancyForcer.tscn" id="2_122un"]
+[ext_resource type="PackedScene" uid="uid://ctbbp8orqdebk" path="res://Scenes/Forcers/AeroObject.tscn" id="3_i8lm7"]
+[ext_resource type="Script" path="res://Scripts/Physics/Forcers/AeroValueCube.cs" id="4_ma61w"]
+
+[sub_resource type="Resource" id="Resource_y7lpx"]
+script = ExtResource("4_ma61w")
+Left = 0.1
+Right = 0.1
+Up = 0.1
+Down = 0.1
+Forward = 0.1
+Back = 0.0
+
+[sub_resource type="Resource" id="Resource_epccm"]
+script = ExtResource("4_ma61w")
+Left = 0.1
+Right = 0.1
+Up = 0.1
+Down = 0.1
+Forward = 0.0
+Back = 0.0
+
+[sub_resource type="Resource" id="Resource_v0xrg"]
+script = ExtResource("4_ma61w")
+Left = 0.1
+Right = 0.1
+Up = 0.1
+Down = 0.1
+Forward = 0.0
+Back = 0.1
+
+[sub_resource type="Resource" id="Resource_3k867"]
+script = ExtResource("4_ma61w")
+Left = 0.1
+Right = 0.1
+Up = 0.1
+Down = 0.1
+Forward = 0.1
+Back = 0.0
+
+[sub_resource type="Resource" id="Resource_btkuj"]
+script = ExtResource("4_ma61w")
+Left = 0.1
+Right = 0.1
+Up = 0.1
+Down = 0.1
+Forward = 0.0
+Back = 0.0
+
+[sub_resource type="Resource" id="Resource_7i0xv"]
+script = ExtResource("4_ma61w")
+Left = 0.1
+Right = 0.1
+Up = 0.1
+Down = 0.1
+Forward = 0.0
+Back = 0.1
+
+[node name="FloatyTinyTrainer" instance=ExtResource("1_1y8yj")]
+
+[node name="BuoyancyForcer" parent="." index="16" instance=ExtResource("2_122un")]
+transform = Transform3D(0.0439017, 0, 0, 0, 0.0529932, 0, 0, 0, 0.11504, 0.105002, -0.121321, -0.0854447)
+
+[node name="AeroObject" parent="BuoyancyForcer" index="1" instance=ExtResource("3_i8lm7")]
+DragCube = SubResource("Resource_y7lpx")
+TargetPath = NodePath("../..")
+
+[node name="BuoyancyForcer2" parent="." index="17" instance=ExtResource("2_122un")]
+transform = Transform3D(0.0439017, 0, 0, 0, 0.0529932, 0, 0, 0, 0.11504, 0.105002, -0.121321, 0.0306399)
+
+[node name="AeroObject" parent="BuoyancyForcer2" index="1" instance=ExtResource("3_i8lm7")]
+DragCube = SubResource("Resource_epccm")
+TargetPath = NodePath("../..")
+
+[node name="BuoyancyForcer3" parent="." index="18" instance=ExtResource("2_122un")]
+transform = Transform3D(0.0439017, 0, 0, 0, 0.0529932, 0, 0, 0, 0.11504, 0.105002, -0.121321, 0.146818)
+
+[node name="AeroObject" parent="BuoyancyForcer3" index="1" instance=ExtResource("3_i8lm7")]
+DragCube = SubResource("Resource_v0xrg")
+TargetPath = NodePath("../..")
+
+[node name="BuoyancyForcer4" parent="." index="19" instance=ExtResource("2_122un")]
+transform = Transform3D(0.0439017, 0, 0, 0, 0.0529932, 0, 0, 0, 0.11504, -0.102784, -0.121321, -0.0854447)
+
+[node name="AeroObject" parent="BuoyancyForcer4" index="1" instance=ExtResource("3_i8lm7")]
+DragCube = SubResource("Resource_3k867")
+TargetPath = NodePath("../..")
+
+[node name="BuoyancyForcer5" parent="." index="20" instance=ExtResource("2_122un")]
+transform = Transform3D(0.0439017, 0, 0, 0, 0.0529932, 0, 0, 0, 0.11504, -0.102784, -0.121321, 0.0306399)
+
+[node name="AeroObject" parent="BuoyancyForcer5" index="1" instance=ExtResource("3_i8lm7")]
+DragCube = SubResource("Resource_btkuj")
+TargetPath = NodePath("../..")
+
+[node name="BuoyancyForcer6" parent="." index="21" instance=ExtResource("2_122un")]
+transform = Transform3D(0.0439017, 0, 0, 0, 0.0529932, 0, 0, 0, 0.11504, -0.102784, -0.121321, 0.146818)
+
+[node name="AeroObject" parent="BuoyancyForcer6" index="1" instance=ExtResource("3_i8lm7")]
+DragCube = SubResource("Resource_7i0xv")
+TargetPath = NodePath("../..")

@@ -15,7 +15,7 @@
 [ext_resource type="Script" path="res://Scripts/Aircraft/ValueSetters/Values/AircraftConfig.cs" id="11_c57yk"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Control/MixerControlHub.tscn" id="12"]
 [ext_resource type="Script" path="res://Scripts/Aircraft/ValueSetters/Operations/ValueSet.cs" id="13_uahxl"]
-[ext_resource type="PackedScene" path="res://Scenes/Forcers/AeroObject.tscn" id="14"]
+[ext_resource type="PackedScene" uid="uid://ctbbp8orqdebk" path="res://Scenes/Forcers/AeroObject.tscn" id="14"]
 [ext_resource type="Script" path="res://Scripts/Aircraft/ValueSetters/Values/RawNumber.cs" id="14_muj30"]
 [ext_resource type="Script" path="res://Scripts/Aircraft/ValueSetters/Operations/If.cs" id="14_ueav8"]
 [ext_resource type="PackedScene" uid="uid://xyhg32rkcics" path="res://Art/Aircraft/TinyTrainer/Elevator.glb" id="15"]
