@@ -112,7 +112,6 @@ Depending on how much base content is desired and how large the repository gets,
             - have hsv-space (or hsl-space) quantisation
         - Potentially create a simulation of FPV inteference - we make a raycast from viewing position to camera, and degrade based on how many intersections.
             - viewing position is FpvGroundStation, which is attached to the ground camera
-    - Make plane support being deleted so that we can add plane spawning in location if we target multiplayer for 1.0
 - Input
     - Add a preview for all the inputs so we can check direction etc without flying (requires poking SimInput.Manager to give it a custom inputmap)
     - set the default controls to work on a ps/xbox controller without configuration
@@ -226,7 +225,8 @@ Depending on how much base content is desired and how large the repository gets,
         - But it's been decided that code-loading is beyond the scope of this project, at least for 1.0
     - What things are synced:
         - rb pos/vel/angle/angvel
-    - Options for handling addons (note: as server is always one location, if that is allowed to be an addon then it is specified by server):
+        - channels
+    - Options for handling addons
         - No addons (that's boring and sad)
         - Addons are specified by server & you're locked to that (it will install them if you don't have it)
             - if there's a repo it can contain link repo version in addition to raw pck downloads

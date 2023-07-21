@@ -27,7 +27,6 @@ public partial class Location : Node3D
         var zoomSettings = SimSettings.Settings.CloneCurrent().View.GroundCameraZoom; // todo: this could be neater than cloning the whole settings
         if (SimSettings.Settings.Current.View.AdjustZoomForAircraftSize) zoomSettings.StartDist *= AircraftInfo.WingSpan;
         groundCamera.CurrentZoomSettings = zoomSettings;
-        groundCamera.Target = Aircraft;
 
         UIAppManager.SetAvailableProfiles(SimSettings.Settings.Current.UIAppProfiles);
 
@@ -85,6 +84,7 @@ public partial class Location : Node3D
         lockedCamera.RotateWithAircraft = true;
         Aircraft.AddChild(lockedCamera);
 
+        groundCamera.Target = Aircraft;
         groundCamera.GlobalPosition = GetNode<Node3D>(CrntSpawnPosition.CameraPositionNodePath).GlobalPosition;
     }
 
@@ -107,8 +107,9 @@ public partial class Location : Node3D
                 DisplayReloadError("instance did not appear");
                 return;
             }
-            Aircraft.QueueFree(); // todo: aircraft doesn't like being deleted, fix that and make this feature work
+            Aircraft.QueueFree();
             Aircraft = instance;
+            AddChild(Aircraft);
         }
         catch (InvalidCastException)
         {
