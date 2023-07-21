@@ -1,8 +1,8 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://8lfw0k5w3wwk"]
 
-[ext_resource path="res://Scripts/Aircraft/ControlledBrushlessMotor.cs" type="Script" id=2]
+[ext_resource type="Script" path="res://Scripts/Aircraft/ControlledBrushlessMotor.cs" id="2"]
 
 [node name="ControlledBrushlessMotor" type="Node3D"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.008738, -0.226858 )
-script = ExtResource( 2 )
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.008738, -0.226858)
+script = ExtResource("2")
 ThrottleActionName = "throttle"

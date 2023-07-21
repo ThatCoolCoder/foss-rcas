@@ -15,8 +15,6 @@ public partial class Battery : Node3D
     {
         get
         {
-            if (RemainingCapacity == 0) return 0; // If it is completely flat have the plane just die
-
             var capacityUsed = 1 - (RemainingCapacity / MaxCapacity);
             var baseVoltage = Mathf.Lerp(FlatCellVoltage, ChargedCellVoltage, DischargeCurve.Sample(capacityUsed));
             baseVoltage -= CurrentDrawn * CellInternalResistance;

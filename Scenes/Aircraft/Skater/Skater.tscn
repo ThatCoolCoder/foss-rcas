@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://doweai1rwhdaf"]
+[gd_scene load_steps=32 format=3 uid="uid://doweai1rwhdaf"]
 
 [ext_resource type="Script" path="res://Scripts/Aircraft/Aircraft.cs" id="1_m1bxi"]
 [ext_resource type="Script" path="res://Scripts/Aircraft/Servo.cs" id="2"]
@@ -7,11 +7,12 @@
 [ext_resource type="PackedScene" uid="uid://b3tgwwd0ux0ga" path="res://Art/Aircraft/Skater/Wheel.glb" id="5"]
 [ext_resource type="Script" path="res://Scripts/Audio/PrerecordedPropellerNoise.cs" id="6"]
 [ext_resource type="AudioStream" uid="uid://deys0bnykpb1r" path="res://Art/Aircraft/Common/PropAudio/3S-2304-6x4E.mp3" id="7"]
-[ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/ControlledBrushlessMotor.tscn" id="8"]
+[ext_resource type="PackedScene" uid="uid://8lfw0k5w3wwk" path="res://Scenes/Aircraft/Common/ControlledBrushlessMotor.tscn" id="8"]
+[ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Propwash.tscn" id="8_02elu"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Control/MixerControlHub.tscn" id="12"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/PropellerWithModel.tscn" id="13"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Mirror.tscn" id="14"]
-[ext_resource type="PackedScene" path="res://Scenes/Forcers/AeroObject.tscn" id="15"]
+[ext_resource type="PackedScene" uid="uid://ctbbp8orqdebk" path="res://Scenes/Forcers/AeroObject.tscn" id="15"]
 [ext_resource type="PackedScene" path="res://Scenes/Forcers/AeroSurface.tscn" id="16"]
 [ext_resource type="PackedScene" uid="uid://m5bnw1qfsn8p" path="res://Art/Aircraft/Skater/SkaterBody.glb" id="17"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Battery.tscn" id="18"]
@@ -94,6 +95,10 @@ DominantFrequencyInRecording = 400.0
 InitialVolume = 10.0
 RpmOfInitialVolume = 7000.0
 DecibelsChangePer1000Rpm = -1.5
+
+[node name="Propwash" parent="Electrics/ControlledBrushlessMotor/PropellerWithModel" instance=ExtResource("8_02elu")]
+MaxDistance = 4.0
+SpreadAngleDegrees = 45.0
 
 [node name="Battery" parent="Electrics" instance=ExtResource("18")]
 CellCount = 10

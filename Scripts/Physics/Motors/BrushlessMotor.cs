@@ -1,5 +1,7 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Physics.Motors;
 
@@ -16,9 +18,14 @@ public partial class BrushlessMotor : Node3D
     [Export] public float TorqueAdjustment { get; set; } = 1; // Use this to fine-tune the rpm without messing up the regular peak torque adjustment
     [Export] public float CurrentMultiplier { get; set; } = 1; // If you have measurements of the current drawn under load, you can use this to make the calculated current match
     [Export] public bool Clockwise { get; set; } = true;
+    [Export] public float LowVoltageCutoffStart { get; set; } = 3.3f;
+    [Export] public float LowVoltageCutoffEnd { get; set; } = 2.75f;
     public float ThrustProportion { get; set; } = 0;
     public float LastTorque { get; private set; }
     public float LastCurrent { get; private set; }
+
+    private const float lowVoltageAverageDuration = 1;
+    private List<float> lastCellVoltages = new();
 
     public override void _Ready()
     {
@@ -30,9 +37,17 @@ public partial class BrushlessMotor : Node3D
 
     public override void _PhysicsProcess(double delta)
     {
-
         var noLoadRpm = KV * battery.CurrentVoltage;
         if (!Clockwise) noLoadRpm = -noLoadRpm;
+
+        // Keep track of average battery voltage
+        lastCellVoltages.Add(battery.CurrentCellVoltage);
+        var maxVoltageCount = lowVoltageAverageDuration / delta;
+        while (lastCellVoltages.Count > maxVoltageCount) lastCellVoltages.RemoveAt(0);
+        var averageCellVoltage = lastCellVoltages.Average();
+
+        // Apply low voltage cutoff
+        ThrustProportion *= Mathf.Clamp(Utils.MapNumber(averageCellVoltage, LowVoltageCutoffStart, LowVoltageCutoffEnd, 1, 0), 0, 1);
 
         float torque = 0;
         if (ThrustProportion != 0)
@@ -67,3 +82,5 @@ public partial class BrushlessMotor : Node3D
         }
     }
 }
+
+

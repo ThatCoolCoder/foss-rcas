@@ -11,7 +11,7 @@
 [ext_resource type="Curve" path="res://Resources/AeroCurves/FlatPlateLiftCoefficient.tres" id="9"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/PropellerWithModel.tscn" id="10"]
 [ext_resource type="Script" path="res://Scripts/Aircraft/ValueSetters/ValueSetter.cs" id="10_ox7fh"]
-[ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/ControlledBrushlessMotor.tscn" id="11"]
+[ext_resource type="PackedScene" uid="uid://8lfw0k5w3wwk" path="res://Scenes/Aircraft/Common/ControlledBrushlessMotor.tscn" id="11"]
 [ext_resource type="Script" path="res://Scripts/Aircraft/ValueSetters/Values/AircraftConfig.cs" id="11_c57yk"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Control/MixerControlHub.tscn" id="12"]
 [ext_resource type="Script" path="res://Scripts/Aircraft/ValueSetters/Operations/ValueSet.cs" id="13_uahxl"]

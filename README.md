@@ -42,7 +42,15 @@ Information on creating addons can be found in [Docs/ContentCreation](Docs/Conte
 
 ## Versioning
 
-Due to the large reliance on addons, it is important to have a robust means of ensuring addons work 
+Due to the large reliance on addons, it is important to have a robust means of ensuring addons work. Therefore the components available for use in content are treated as a public interface, and they will be kept stable according to semantic versioning. Both the direct interface of these components, and their behaviour, will have to be stable. In order to avoid excessively frequent major version bumps due to improving physics models etc, we may decide to keep old versions of things and just add V2 versions alongside the originals.
+
+Things that need to be backwards-compatible:
+- Available scripts
+- Common scenes
+- Common models
+- Input channels and behaviour
+- Content metadata file formats
+- Filesystem structure
 
 ## Contributing
 
