@@ -1,16 +1,13 @@
-[gd_scene load_steps=10 format=3 uid="uid://5rtnprq43avt"]
+[gd_scene load_steps=9 format=3 uid="uid://5rtnprq43avt"]
 
 [ext_resource type="PackedScene" uid="uid://wfhfmqv1cl37" path="res://Scenes/Locations/BaseLocation.tscn" id="1_xlqxe"]
 [ext_resource type="PackedScene" uid="uid://cmkomucxebqmy" path="res://Scenes/Locations/Common/Water.tscn" id="2_c4cpq"]
 [ext_resource type="Script" path="res://Scripts/Physics/Fluids/SpatialFluidBeacon.cs" id="3_0t0r0"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_rsojl"]
-size = Vector2(1000, 1000)
-subdivide_width = 5
-subdivide_depth = 5
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rptut"]
-albedo_color = Color(0.364706, 0.388235, 0.447059, 1)
+size = Vector2(150, 150)
+subdivide_width = 600
+subdivide_depth = 600
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ty4as"]
 albedo_color = Color(0.227451, 0.576471, 0.239216, 1)
@@ -19,7 +16,7 @@ metallic_specular = 0.0
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_bmvbd"]
 mie_color = Color(0.807843, 0.694118, 0.733333, 1)
 turbidity = 5.0
-ground_color = Color(0.101961, 0.0705882, 0.0352941, 1)
+ground_color = Color(0.639216, 0.835294, 0.968627, 1)
 
 [sub_resource type="Sky" id="Sky_jguyn"]
 sky_material = SubResource("PhysicalSkyMaterial_bmvbd")
@@ -33,7 +30,16 @@ sky = SubResource("Sky_jguyn")
 
 [node name="Water" parent="." index="7" instance=ExtResource("2_c4cpq")]
 mesh = SubResource("PlaneMesh_rsojl")
-surface_material_override/0 = SubResource("StandardMaterial3D_rptut")
+VertexScale = 32.0
+HeightScale = 0.45
+WaveMapSize = 31
+WaveAngle1 = Vector2(0, 0)
+WaveAngle2 = Vector2(0.5, 0.446)
+WaveAngle3 = Vector2(-0.5, -0.159)
+WaveSpeed = 2.0
+WaveHeightScale = 0.1
+DistanceFadeStart = 50.0
+DistanceFadeEnd = 75.0
 
 [node name="SpatialFluidBeacon" type="Node3D" parent="Water" index="0"]
 script = ExtResource("3_0t0r0")
@@ -48,7 +54,7 @@ material = SubResource("StandardMaterial3D_ty4as")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.6221)
 
 [node name="CameraPos" type="Marker3D" parent="Positions" index="0"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.241184, 1.12593, -3.45022)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.241184, 2.06243, -3.45022)
 
 [node name="GroundEdge" type="Marker3D" parent="Positions" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.07829, -5.58817)
@@ -60,6 +66,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.307175, -14.3004)
 environment = SubResource("Environment_46u5j")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment" index="0"]
-transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 2.78226, 0)
+transform = Transform3D(1, 0, 0, 0, 0.8343, 0.551311, 0, -0.551311, 0.8343, 0, 2.78226, 0)
 light_energy = 0.7
 shadow_enabled = true

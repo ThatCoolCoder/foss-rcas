@@ -1,11 +1,82 @@
-[gd_scene load_steps=3 format=3 uid="uid://cmkomucxebqmy"]
+[gd_scene load_steps=15 format=3 uid="uid://cmkomucxebqmy"]
 
+[ext_resource type="Shader" path="res://Art/Common/water.gdshader" id="1_5wvhk"]
 [ext_resource type="Script" path="res://Scripts/Physics/Fluids/Water.cs" id="1_jxfwu"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_x7v76"]
-subdivide_width = 5
-subdivide_depth = 5
+subdivide_width = 20
+subdivide_depth = 20
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_k1w8g"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_cfsi7"]
+seamless = true
+noise = SubResource("FastNoiseLite_k1w8g")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_oqgey"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_1236m"]
+seamless = true
+as_normal_map = true
+noise = SubResource("FastNoiseLite_oqgey")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_mc0uk"]
+seed = 115
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_p3wid"]
+seamless = true
+noise = SubResource("FastNoiseLite_mc0uk")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_46y6m"]
+seed = 375
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_vnkfg"]
+seamless = true
+noise = SubResource("FastNoiseLite_46y6m")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_3mcto"]
+seed = -140
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_88gnt"]
+seamless = true
+noise = SubResource("FastNoiseLite_3mcto")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i2cso"]
+render_priority = 0
+shader = ExtResource("1_5wvhk")
+shader_parameter/color = null
+shader_parameter/scale = 32.0
+shader_parameter/height_scale = 0.45
+shader_parameter/noise_size = 512.0
+shader_parameter/global_time = 252.151
+shader_parameter/wave_map_size = 512.0
+shader_parameter/wave_angle_1 = Vector2(0, 0)
+shader_parameter/wave_angle_2 = Vector2(0.5, 0.446)
+shader_parameter/wave_angle_3 = Vector2(-0.5, -0.159)
+shader_parameter/wave_speed = 2.0
+shader_parameter/wave_height_scale = 0.1
+shader_parameter/normal_detail_scale = -1.065
+shader_parameter/normal_detail_factor = 1.0
+shader_parameter/distance_fade_enabled = true
+shader_parameter/distance_fade_start = 50.0
+shader_parameter/distance_fade_end = 75.0
+shader_parameter/noise = SubResource("NoiseTexture2D_cfsi7")
+shader_parameter/wave_height_1 = SubResource("NoiseTexture2D_p3wid")
+shader_parameter/wave_height_2 = SubResource("NoiseTexture2D_vnkfg")
+shader_parameter/wave_height_3 = SubResource("NoiseTexture2D_88gnt")
+shader_parameter/normal_detail_noise = SubResource("NoiseTexture2D_1236m")
 
 [node name="Water" type="MeshInstance3D"]
 mesh = SubResource("PlaneMesh_x7v76")
+surface_material_override/0 = SubResource("ShaderMaterial_i2cso")
 script = ExtResource("1_jxfwu")
+VertexScale = 25.0
+HeightScale = -0.01
+Noise = SubResource("NoiseTexture2D_cfsi7")
+NoiseSize = 512
+WaveMapSize = 32
+WaveMap1 = SubResource("NoiseTexture2D_p3wid")
+WaveMap2 = SubResource("NoiseTexture2D_vnkfg")
+WaveMap3 = SubResource("NoiseTexture2D_88gnt")
+WaveSpeed = 1.89
+WaveHeightScale = 0.255
