@@ -36,10 +36,6 @@ public partial class ControlMappingPreview : Button
 
     private (string, Texture2D) CreateButtonContent()
     {
-        // todo: perhaps there is a better way to do this than a bunch of ifs?
-        // Trouble with lambdas is we need a specific type in the lambda but a dict of lamdas would have unspecific type
-
-        // todo: use icons for this instead of words
         if (controlMapping == null)
         {
             Utils.LogError("Control mapping is null", this);

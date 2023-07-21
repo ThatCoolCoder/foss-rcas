@@ -6,30 +6,35 @@
 [sub_resource type="Resource" id="Resource_yri72"]
 script = ExtResource("1_aa44p")
 Name = "Propeller debug"
+InitialSize = Vector2(150, 300)
 ScenePath = "res://Scenes/UI/Apps/PropellerDebug.tscn"
 Description = "Shows info about the thrust a propeller is producing, essential for tuning all types of power systems."
 
 [sub_resource type="Resource" id="Resource_bungh"]
 script = ExtResource("1_aa44p")
 Name = "Battery debug"
+InitialSize = Vector2(150, 300)
 ScenePath = "res://Scenes/UI/Apps/BatteryDebug.tscn"
 Description = "Shows info about a battery, helpful for tuning an electric system."
 
 [sub_resource type="Resource" id="Resource_gbyos"]
 script = ExtResource("1_aa44p")
 Name = "Brushless motor debug"
+InitialSize = Vector2(150, 300)
 ScenePath = "res://Scenes/UI/Apps/BrushlessMotorDebug.tscn"
 Description = "Shows various information about a brushless motor, essential for tuning an electric power system."
 
 [sub_resource type="Resource" id="Resource_qjwwl"]
 script = ExtResource("1_aa44p")
 Name = "Input debug (raw)"
+InitialSize = Vector2(150, 200)
 ScenePath = "res://Scenes/UI/Apps/BasicInputDebug.tscn"
 Description = "Shows the raw input values for all the aircraft channels. Mostly useful for developers."
 
 [sub_resource type="Resource" id="Resource_nve11"]
 script = ExtResource("1_aa44p")
 Name = "Channel monitor"
+InitialSize = Vector2(335, 200)
 ScenePath = "res://Scenes/UI/Apps/TxMonitor/TxMonitor.tscn"
 Description = "A transmitter showing what controls you are doing."
 

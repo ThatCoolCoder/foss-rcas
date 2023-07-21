@@ -122,6 +122,7 @@ Depending on how much base content is desired and how large the repository gets,
             - viewing position is FpvGroundStation, which is attached to the ground camera
 - Input
     - Add a preview for all the inputs so we can check direction etc without flying (requires poking SimInput.Manager to give it a custom inputmap)
+        - or it could just be within the binding menu that it shows it on a locked slider
     - set the default controls to work on a ps/xbox controller without configuration
     - Um add a thing that checks the name of the controller so you can have different bindings for different controllers
         - hide bindings from controllers that are not present then, but have an option to show them so you can delete the unneeded ones
@@ -183,9 +184,18 @@ Depending on how much base content is desired and how large the repository gets,
         - move plane to predefined location
         - move plane to custom location (because why not, this is supposed to be free-ware and free includes freedom of it not blocking you)
 - Content
-    - create some super-light locations that are actually just 3d photos and some shadow catchers
-        - (it appears some other sims do this)
-        - will require a field in the metadata that specifies to lock the camera
+    - Create (this might not all be contained in the base game)
+        - Ace's Track location (not that large)
+        - Converted golf course location (quite large)
+        - a EDF sport jet with retracts and flaps
+        - a large balsa warbird?
+        - a delta jet capable of doing more high alpha stuff?
+        - a proper bushplane about 1.1-1.3kg size
+        - T28 remaster
+        - Large oval makeover
+        - some super-light locations that are actually just 3d photos and some shadow catchers
+            - (it appears some other sims do this)
+            - will require a field in the metadata that specifies to lock the camera
     - Stabilise various formats, create compatibility fields
         - Thing saying what version of content file is used?
         - Thing saying what game versions are supported?
@@ -200,13 +210,7 @@ Depending on how much base content is desired and how large the repository gets,
                     - release candidate (rc)
                 - make the struct a static somewhere. Possibly can have some python generating it if needed
     - make thumbnails for all the scenes, at the correct resolution
-    - Create an EDF with retracts and flaps
-    - Create a bushplane about 1.1-1.3kg size
     - Mini 3d: increase control surface size in the model, make it fly more 3d, make it fly less trash
-    - Make large oval decent (model some low-poly houses, put them or impostors of them all around, put more rows so it actually looks like a place)
-    - Do a remaster of the T28
-    - Make Ace's Track (not that large)
-    - Make a converted golf course location (quite large)
     - Make a content repository and download system (that doesn't sound like a nightmare at all)
 - Settings for what cameras are active and what order they switch through
     - requires addition of a camera ID property so that we can remember them
@@ -237,6 +241,7 @@ Depending on how much base content is desired and how large the repository gets,
     - Options for handling addons
         - No addons (that's boring and sad)
         - Addons are specified by server & you're locked to that (it will install them if you don't have it)
-            - if there's a repo it can contain link repo version in addition to raw pck downloads
-        - Addons are specified by server but you can use others, it will show up as a default model if peer's don't have it
+            - if there's a repo it can contain link to repo version in addition to raw pck downloads
+        - Addons are specified by server but you can use others, it will show up as a default model if peers don't have it
+        - Addons are specified by server and the server also specifies whether others are allowed
         - No specification, you can use whatever and just hope everyone has it

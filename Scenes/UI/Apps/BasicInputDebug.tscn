@@ -7,7 +7,7 @@
 script = ExtResource("1")
 ChannelNames = Array[String](["throttle", "aileron", "elevator", "rudder", "aux1", "aux2", "aux3", "aux4"])
 BackgroundNode = NodePath("Panel")
-MinDragSize = Vector2i(200, 250)
+MinDragSize = Vector2i(150, 250)
 
 [node name="Panel" type="Panel" parent="." index="3"]
 layout_mode = 1

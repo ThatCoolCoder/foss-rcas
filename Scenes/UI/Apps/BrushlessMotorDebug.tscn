@@ -6,6 +6,7 @@
 [node name="BrushlessMotorDebug" instance=ExtResource("1")]
 script = ExtResource("2")
 RescanInterval = 240
+MinDragSize = Vector2i(300, 300)
 
 [node name="Heading" parent="Panel/MarginContainer/VBoxContainer" index="0"]
 text = "Brushless Motor Debug"

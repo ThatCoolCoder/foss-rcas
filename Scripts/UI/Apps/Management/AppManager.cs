@@ -172,8 +172,8 @@ public partial class AppManager : Control
         var appInfo = new AppLayoutInfo()
         {
             ScenePath = newAppSelector.SelectedApp.ScenePath,
-            SizeX = 200,
-            SizeY = 300, // todo: should add default size field
+            SizeX = newAppSelector.SelectedApp.InitialSize.X,
+            SizeY = newAppSelector.SelectedApp.InitialSize.Y,
             PositionX = position.X,
             PositionY = position.Y,
             AnchorLeft = .5f,

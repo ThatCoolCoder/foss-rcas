@@ -6,6 +6,7 @@
 [node name="PropellerDebug" instance=ExtResource("1")]
 script = ExtResource("2")
 RescanInterval = 240
+MinDragSize = Vector2i(250, 250)
 
 [node name="Heading" parent="Panel/MarginContainer/VBoxContainer" index="0"]
 text = "Propeller Debug"
