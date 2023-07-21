@@ -11,11 +11,12 @@ public partial class AircraftConfig : AbstractValue
 
     public override dynamic GetValue(ValueSetter valueSetter)
     {
+        GD.Print("GET!");
         return valueSetter.GetNode<Aircraft>(AircraftPath).Config[Property];
     }
 
     public override void SetValue(dynamic value, ValueSetter valueSetter)
     {
-        throw new Exception("Cannot set a raw value - it is read-only");
+        throw new Exception("Cannot set an aircraft config value - it is read-only");
     }
 }

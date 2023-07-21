@@ -7,5 +7,5 @@ namespace Aircraft;
 
 public partial class Aircraft : Physics.SpatialForceable
 {
-    public Dictionary<string, dynamic> Config { get; set; }
+    public Dictionary<string, dynamic> Config { get; set; } = new();
 }

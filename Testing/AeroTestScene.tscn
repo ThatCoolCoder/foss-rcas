@@ -1,101 +1,143 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=18 format=3 uid="uid://b3dihj42yo2b7"]
 
-[ext_resource path="res://Scripts/Physics/Fluids/SpatialFluidBeacon.cs" type="Script" id=1]
-[ext_resource path="res://Scripts/Physics/Fluids/SpatialFluidRepository.cs" type="Script" id=2]
-[ext_resource path="res://Scenes/Forcers/AeroObject.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scripts/Physics/Fluids/Air.cs" type="Script" id=5]
-[ext_resource path="res://Art/Locations/LargeOval/Grass.material" type="Material" id=6]
-[ext_resource path="res://Scripts/Physics/SpatialForceable.cs" type="Script" id=7]
-[ext_resource path="res://Testing/AeroTestScene.cs" type="Script" id=8]
+[ext_resource type="Script" path="res://Scripts/Physics/Fluids/SpatialFluidBeacon.cs" id="1"]
+[ext_resource type="Script" path="res://Scripts/Physics/Fluids/SpatialFluidRepository.cs" id="2"]
+[ext_resource type="PackedScene" uid="uid://ctbbp8orqdebk" path="res://Scenes/Forcers/AeroObject.tscn" id="3"]
+[ext_resource type="Script" path="res://Scripts/Physics/Fluids/Air.cs" id="5"]
+[ext_resource type="Material" path="res://Art/Locations/LargeOval/Grass.material" id="6"]
+[ext_resource type="Script" path="res://Scripts/Locations/FreeCamera.cs" id="6_yheto"]
+[ext_resource type="Script" path="res://Scripts/Physics/SpatialForceable.cs" id="7"]
+[ext_resource type="Script" path="res://Testing/AeroTestScene.cs" id="8"]
+[ext_resource type="PackedScene" path="res://Scenes/Forcers/AeroSurface.tscn" id="9_2sfky"]
+[ext_resource type="Script" path="res://Scripts/Physics/Forcers/AeroValueCube.cs" id="9_dx277"]
 
-[sub_resource type="BoxShape3D" id=1]
-size = Vector3( 0.53617, 0.0259237, 0.489398 )
+[sub_resource type="Resource" id="Resource_h8b1l"]
+script = ExtResource("9_dx277")
+Left = 0.0
+Right = 0.0
+Up = 0.0
+Down = 1.0
+Forward = 0.0
+Back = 0.0
+
+[sub_resource type="BoxShape3D" id="1"]
+size = Vector3(0.53617, 0.0259237, 0.489398)
+
+[sub_resource type="Curve" id="Curve_u8w8d"]
+
+[sub_resource type="Curve" id="Curve_txryq"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_58q76"]
+
+[sub_resource type="Sky" id="Sky_nq4ot"]
+sky_material = SubResource("PhysicalSkyMaterial_58q76")
+
+[sub_resource type="Environment" id="Environment_3b6tr"]
+background_mode = 2
+background_energy_multiplier = 6.0
+sky = SubResource("Sky_nq4ot")
 
 [node name="AeroTestScene" type="Node3D"]
-script = ExtResource( 8 )
+script = ExtResource("8")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D( -1952.06, 0, 0, 0, 1, 0, 0, 0, -1952.06, 0, -0.0558304, 0 )
-material_override = ExtResource( 6 )
+transform = Transform3D(-1952.06, 0, 0, 0, 1, 0, 0, 0, -1952.06, 0, -0.0558304, 0)
+material_override = ExtResource("6")
 use_collision = true
-height = 0.163316
+size = Vector3(1, 0.163316, 1)
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D( 1, 0, 0, 0, 0.50817, 0.861257, 0, -0.861257, 0.50817, -0.00241804, 2.61291, 0.00439584 )
+[node name="SpatialFluidRepository" type="Node3D" parent="."]
+script = ExtResource("2")
+
+[node name="Air" type="Node3D" parent="."]
+script = ExtResource("5")
+
+[node name="SpatialFluidBeacon" type="Node3D" parent="Air"]
+script = ExtResource("1")
+
+[node name="VisualReferences" type="Node3D" parent="."]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="VisualReferences"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.83641, 35.7605)
+use_collision = true
+size = Vector3(1, 3.61851, 1)
+
+[node name="CSGBox2" type="CSGBox3D" parent="VisualReferences"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.2254, 1.83641, 35.7605)
+use_collision = true
+size = Vector3(1, 3.61851, 1)
+
+[node name="CSGBox3" type="CSGBox3D" parent="VisualReferences"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.2254, 1.83641, 2.24596)
+use_collision = true
+size = Vector3(1, 3.61851, 1)
+
+[node name="CSGBox4" type="CSGBox3D" parent="VisualReferences"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 27.2254, 1.83641, -37.7711)
+use_collision = true
+size = Vector3(1, 3.61851, 1)
+
+[node name="CSGBox5" type="CSGBox3D" parent="VisualReferences"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.36435, 1.83641, -37.7711)
+use_collision = true
+size = Vector3(1, 3.61851, 1)
+
+[node name="CSGBox6" type="CSGBox3D" parent="VisualReferences"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.2756, 1.83641, -37.7711)
+use_collision = true
+size = Vector3(1, 3.61851, 1)
+
+[node name="CSGBox7" type="CSGBox3D" parent="VisualReferences"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.2756, 1.83641, 1.85529)
+use_collision = true
+size = Vector3(1, 3.61851, 1)
+
+[node name="CSGBox8" type="CSGBox3D" parent="VisualReferences"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -36.2756, 1.83641, 32.9856)
+use_collision = true
+size = Vector3(1, 3.61851, 1)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.999996, 0, 0.00300197, 0, 1, 0, -0.00300197, 0, 0.999996, 0, 1.25895, 4.14451)
+script = ExtResource("6_yheto")
+
+[node name="AOBody" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.03689, -0.246356)
+mass = 0.1
+script = ExtResource("7")
+
+[node name="AeroObject" parent="AOBody" instance=ExtResource("3")]
+transform = Transform3D(1, 7.45058e-09, -2.32831e-10, -2.7958e-12, 0.0986375, 1.16411e-10, 0, 1.45519e-11, 1, 0, 0, 0)
+DragCube = SubResource("Resource_h8b1l")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AOBody"]
+shape = SubResource("1")
+
+[node name="ASBody" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.13606, 2.03689, -0.246356)
+mass = 0.1
+script = ExtResource("7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ASBody"]
+shape = SubResource("1")
+
+[node name="AeroSurface" parent="ASBody" instance=ExtResource("9_2sfky")]
+TotalLiftCoefficient = SubResource("Curve_u8w8d")
+ParasiticDragCoefficient = SubResource("Curve_txryq")
+Thickness = 10.0
+TargetPath = NodePath("..")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3b6tr")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
+transform = Transform3D(1, 0, 0, 0, 0.50817, 0.861257, 0, -0.861257, 0.50817, -0.00241804, 2.61291, 0.00439584)
 light_energy = 0.503
 light_indirect_energy = 1.302
 shadow_enabled = true
 shadow_bias = -0.091
-shadow_contact = 0.149
 directional_shadow_split_1 = 0.029
 directional_shadow_split_2 = 0.106
 directional_shadow_split_3 = 0.229
-
-[node name="SpatialFluidRepository" type="Node3D" parent="."]
-script = ExtResource( 2 )
-
-[node name="Air" type="Node3D" parent="."]
-script = ExtResource( 5 )
-
-[node name="SpatialFluidBeacon" type="Node3D" parent="Air"]
-script = ExtResource( 1 )
-
-[node name="VisualReferences" type="Node3D" parent="."]
-__meta__ = {
-"_editor_description_": "It's difficult to see where the plane is going if the environment is a completely plain world, so I added these"
-}
-
-[node name="CSGBox3D" type="CSGBox3D" parent="VisualReferences"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.83641, 35.7605 )
-use_collision = true
-height = 3.61851
-
-[node name="CSGBox2" type="CSGBox3D" parent="VisualReferences"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 27.2254, 1.83641, 35.7605 )
-use_collision = true
-height = 3.61851
-
-[node name="CSGBox3" type="CSGBox3D" parent="VisualReferences"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 27.2254, 1.83641, 2.24596 )
-use_collision = true
-height = 3.61851
-
-[node name="CSGBox4" type="CSGBox3D" parent="VisualReferences"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, 27.2254, 1.83641, -37.7711 )
-use_collision = true
-height = 3.61851
-
-[node name="CSGBox5" type="CSGBox3D" parent="VisualReferences"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.36435, 1.83641, -37.7711 )
-use_collision = true
-height = 3.61851
-
-[node name="CSGBox6" type="CSGBox3D" parent="VisualReferences"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -36.2756, 1.83641, -37.7711 )
-use_collision = true
-height = 3.61851
-
-[node name="CSGBox7" type="CSGBox3D" parent="VisualReferences"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -36.2756, 1.83641, 1.85529 )
-use_collision = true
-height = 3.61851
-
-[node name="CSGBox8" type="CSGBox3D" parent="VisualReferences"]
-transform = Transform3D( 1, 0, 0, 0, 1, 0, 0, 0, 1, -36.2756, 1.83641, 32.9856 )
-use_collision = true
-height = 3.61851
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D( 0.999996, 0, 0.00300197, 0, 1, 0, -0.00300197, 0, 0.999996, 0, 1.25895, 4.14451 )
-
-[node name="RigidBody3D" type="RigidBody3D" parent="."]
-transform = Transform3D( 0.609714, 0.79262, 0.00183035, -0.792616, 0.609716, -0.00237942, -0.00300197, 0, 0.999996, 0, 2.03689, -0.246356 )
-mass = 0.1
-script = ExtResource( 7 )
-
-[node name="AeroObject" parent="RigidBody3D" instance=ExtResource( 3 )]
-transform = Transform3D( 1, 0, 0, 0, 0.0986375, 0, 0, 0, 1, 0, 0, 0 )
-LiftCubePath = "res://Testing/cube1.tres"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D"]
-shape = SubResource( 1 )

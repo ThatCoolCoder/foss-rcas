@@ -102,9 +102,20 @@ public partial class AeroSurface : AbstractSpatialFluidForcer
         // If that assumption is not valid for some calculation, calculate AOA yourself.
 
         // Probably could do this better with quaternions but this works...
+
+
+        // todo: these commented lines should fix the problem of it throwing errors occasionally but they make it worse
+        // try
+        // {
         var tr = new Transform3D().LookingAt(localVelocity, Vector3.Up);
         var euler = tr.Basis.GetEuler();
         return WrapAoa(-euler.X);
+        // }
+        // catch (System.ArgumentException)
+        // {
+        //     // At +90 and -90 the above calculation won't make sense, so fix those
+        //     return Mathf.Pi / 2 * -Mathf.Sign(localVelocity.Y);
+        // }
     }
 
     private float WrapAoa(float rawAoa)

@@ -1,104 +1,78 @@
-[gd_scene load_steps=11 format=3 uid="uid://de60ughjvam0l"]
+[gd_scene load_steps=10 format=3 uid="uid://de60ughjvam0l"]
 
 [ext_resource type="PackedScene" uid="uid://bwr61hdp5b3v1" path="res://Scenes/Aircraft/TinyTrainer/TinyTrainer.tscn" id="1_1y8yj"]
 [ext_resource type="PackedScene" uid="uid://ba1fxr4wl452f" path="res://Scenes/Forcers/BuoyancyForcer.tscn" id="2_122un"]
 [ext_resource type="PackedScene" uid="uid://ctbbp8orqdebk" path="res://Scenes/Forcers/AeroObject.tscn" id="3_i8lm7"]
 [ext_resource type="Script" path="res://Scripts/Physics/Forcers/AeroValueCube.cs" id="4_ma61w"]
+[ext_resource type="PackedScene" path="res://Scenes/Forcers/AeroSurface.tscn" id="5_f1183"]
 
-[sub_resource type="Resource" id="Resource_y7lpx"]
-script = ExtResource("4_ma61w")
-Left = 0.1
-Right = 0.1
-Up = 0.1
-Down = 0.1
-Forward = 0.1
-Back = 0.0
+[sub_resource type="Curve" id="Curve_hqk4f"]
+_data = [Vector2(0, 0), 0.0, 2.34313, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
 
-[sub_resource type="Resource" id="Resource_epccm"]
+[sub_resource type="Resource" id="Resource_rv56b"]
 script = ExtResource("4_ma61w")
-Left = 0.1
-Right = 0.1
-Up = 0.1
-Down = 0.1
+Left = 0.8
+Right = 0.8
+Up = 0.8
+Down = 0.8
 Forward = 0.0
 Back = 0.0
 
-[sub_resource type="Resource" id="Resource_v0xrg"]
-script = ExtResource("4_ma61w")
-Left = 0.1
-Right = 0.1
-Up = 0.1
-Down = 0.1
-Forward = 0.0
-Back = 0.1
+[sub_resource type="Curve" id="Curve_yd2eq"]
+min_value = -0.1
+max_value = 0.1
+_data = [Vector2(0, -0.00533807), 0.0, -0.311962, 0, 0, Vector2(0.241007, -0.0309609), -0.197865, -0.197865, 0, 0, Vector2(0.396883, -0.0366548), 0.0, 0.0, 0, 0, Vector2(0.49833, 0), 0.700046, 0.700046, 0, 0, Vector2(0.564748, 0.0345196), 0.197865, 0.197865, 0, 0, Vector2(0.7494, 0.0345196), -0.148399, -0.148399, 0, 0, Vector2(1, 0), -0.113308, 0.0, 0, 0]
+point_count = 7
 
-[sub_resource type="Resource" id="Resource_3k867"]
-script = ExtResource("4_ma61w")
-Left = 0.1
-Right = 0.1
-Up = 0.1
-Down = 0.1
-Forward = 0.1
-Back = 0.0
-
-[sub_resource type="Resource" id="Resource_btkuj"]
-script = ExtResource("4_ma61w")
-Left = 0.1
-Right = 0.1
-Up = 0.1
-Down = 0.1
-Forward = 0.0
-Back = 0.0
-
-[sub_resource type="Resource" id="Resource_7i0xv"]
-script = ExtResource("4_ma61w")
-Left = 0.1
-Right = 0.1
-Up = 0.1
-Down = 0.1
-Forward = 0.0
-Back = 0.1
+[sub_resource type="Curve" id="Curve_30kle"]
 
 [node name="FloatyTinyTrainer" instance=ExtResource("1_1y8yj")]
 
-[node name="BuoyancyForcer" parent="." index="16" instance=ExtResource("2_122un")]
-transform = Transform3D(0.0439017, 0, 0, 0, 0.0529932, 0, 0, 0, 0.11504, 0.105002, -0.121321, -0.0854447)
+[node name="LeftFloat" type="Node3D" parent="." index="16"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0216407)
 
-[node name="AeroObject" parent="BuoyancyForcer" index="1" instance=ExtResource("3_i8lm7")]
-DragCube = SubResource("Resource_y7lpx")
+[node name="BuoyancyForcer4" parent="LeftFloat" index="0" instance=ExtResource("2_122un")]
+transform = Transform3D(0.0439017, 0, 0, 0, 0.0427057, 0, 0, 0, 0.11504, -0.102784, -0.121321, -0.0697336)
+HullShapeCurve = SubResource("Curve_hqk4f")
 TargetPath = NodePath("../..")
 
-[node name="BuoyancyForcer2" parent="." index="17" instance=ExtResource("2_122un")]
-transform = Transform3D(0.0439017, 0, 0, 0, 0.0529932, 0, 0, 0, 0.11504, 0.105002, -0.121321, 0.0306399)
-
-[node name="AeroObject" parent="BuoyancyForcer2" index="1" instance=ExtResource("3_i8lm7")]
-DragCube = SubResource("Resource_epccm")
+[node name="BuoyancyForcer5" parent="LeftFloat" index="1" instance=ExtResource("2_122un")]
+transform = Transform3D(0.0439017, 0, 0, 0, 0.0427057, 0, 0, 0, 0.11504, -0.102784, -0.121321, 0.046351)
+HullShapeCurve = SubResource("Curve_hqk4f")
 TargetPath = NodePath("../..")
 
-[node name="BuoyancyForcer3" parent="." index="18" instance=ExtResource("2_122un")]
-transform = Transform3D(0.0439017, 0, 0, 0, 0.0529932, 0, 0, 0, 0.11504, 0.105002, -0.121321, 0.146818)
-
-[node name="AeroObject" parent="BuoyancyForcer3" index="1" instance=ExtResource("3_i8lm7")]
-DragCube = SubResource("Resource_v0xrg")
+[node name="LeftFloatDrag" parent="LeftFloat" index="2" instance=ExtResource("3_i8lm7")]
+transform = Transform3D(0.0460051, 0, 0, 0, 0.0271954, 0, 0, 0, 0.225121, -0.10163, -0.117568, -0.00806014)
+DragCube = SubResource("Resource_rv56b")
 TargetPath = NodePath("../..")
 
-[node name="BuoyancyForcer4" parent="." index="19" instance=ExtResource("2_122un")]
-transform = Transform3D(0.0439017, 0, 0, 0, 0.0529932, 0, 0, 0, 0.11504, -0.102784, -0.121321, -0.0854447)
-
-[node name="AeroObject" parent="BuoyancyForcer4" index="1" instance=ExtResource("3_i8lm7")]
-DragCube = SubResource("Resource_3k867")
+[node name="AeroSurface" parent="LeftFloat" index="3" instance=ExtResource("5_f1183")]
+transform = Transform3D(0.0387851, 0, 0, 0, 0.294206, -0.00266109, 0, 0.0262003, 0.0298817, -0.104309, -0.157619, -0.0626237)
+TotalLiftCoefficient = SubResource("Curve_yd2eq")
+ParasiticDragCoefficient = SubResource("Curve_30kle")
 TargetPath = NodePath("../..")
 
-[node name="BuoyancyForcer5" parent="." index="20" instance=ExtResource("2_122un")]
-transform = Transform3D(0.0439017, 0, 0, 0, 0.0529932, 0, 0, 0, 0.11504, -0.102784, -0.121321, 0.0306399)
+[node name="RightFloat" type="Node3D" parent="." index="17"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0216407)
 
-[node name="AeroObject" parent="BuoyancyForcer5" index="1" instance=ExtResource("3_i8lm7")]
-DragCube = SubResource("Resource_btkuj")
+[node name="BuoyancyForcer" parent="RightFloat" index="0" instance=ExtResource("2_122un")]
+transform = Transform3D(0.0439017, 0, 0, 0, 0.0427057, 0, 0, 0, 0.11504, 0.105002, -0.121321, -0.0697336)
+HullShapeCurve = SubResource("Curve_hqk4f")
 TargetPath = NodePath("../..")
 
-[node name="BuoyancyForcer6" parent="." index="21" instance=ExtResource("2_122un")]
-transform = Transform3D(0.0439017, 0, 0, 0, 0.0529932, 0, 0, 0, 0.11504, -0.102784, -0.121321, 0.146818)
+[node name="BuoyancyForcer2" parent="RightFloat" index="1" instance=ExtResource("2_122un")]
+transform = Transform3D(0.0439017, 0, 0, 0, 0.0427057, 0, 0, 0, 0.11504, 0.105002, -0.121321, 0.046351)
+HullShapeCurve = SubResource("Curve_hqk4f")
+TargetPath = NodePath("../..")
 
-[node name="AeroObject" parent="BuoyancyForcer6" index="1" instance=ExtResource("3_i8lm7")]
-DragCube = SubResource("Resource_7i0xv")
+[node name="RightFloatDrag" parent="RightFloat" index="2" instance=ExtResource("3_i8lm7")]
+transform = Transform3D(0.0436122, 0, 0, 0, 0.0271954, 0, 0, 0, 0.225121, 0.106707, -0.117568, -0.00806014)
+DragCube = SubResource("Resource_rv56b")
+TargetPath = NodePath("../..")
+
+[node name="AeroSurface2" parent="RightFloat" index="3" instance=ExtResource("5_f1183")]
+transform = Transform3D(0.0387851, 0, 0, 0, 0.294206, -0.00266109, 0, 0.0262003, 0.0298817, 0.101795, -0.157619, -0.0626237)
+TotalLiftCoefficient = SubResource("Curve_yd2eq")
+ParasiticDragCoefficient = SubResource("Curve_30kle")
 TargetPath = NodePath("../..")
