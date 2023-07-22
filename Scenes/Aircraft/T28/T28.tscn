@@ -6,15 +6,15 @@
 [ext_resource type="Curve" path="res://Resources/AeroCurves/FlatPlateLiftCoefficient.tres" id="4"]
 [ext_resource type="PackedScene" path="res://Scenes/Forcers/AeroSurface.tscn" id="5"]
 [ext_resource type="Curve" path="res://Resources/AeroCurves/WingLiftCoefficient.tres" id="6"]
-[ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Propwash.tscn" id="7"]
+[ext_resource type="PackedScene" uid="uid://csndd41uoyyuh" path="res://Scenes/Aircraft/Common/Propwash.tscn" id="7"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Mirror.tscn" id="8"]
 [ext_resource type="Curve" path="res://Resources/AeroCurves/WingDragCoefficient.tres" id="9"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/PropellerWithModel.tscn" id="10"]
 [ext_resource type="Script" path="res://Scripts/Audio/PrerecordedPropellerNoise.cs" id="11"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Control/MixerControlHub.tscn" id="12"]
-[ext_resource type="PackedScene" path="res://Scenes/Forcers/AeroObject.tscn" id="14"]
+[ext_resource type="PackedScene" uid="uid://ctbbp8orqdebk" path="res://Scenes/Forcers/AeroObject.tscn" id="14"]
 [ext_resource type="PackedScene" uid="uid://bd51yu0b5ems4" path="res://Scenes/Aircraft/Common/FpvCamera.tscn" id="15"]
-[ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/ControlledBrushlessMotor.tscn" id="16"]
+[ext_resource type="PackedScene" uid="uid://8lfw0k5w3wwk" path="res://Scenes/Aircraft/Common/ControlledBrushlessMotor.tscn" id="16"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Battery.tscn" id="17"]
 [ext_resource type="Resource" uid="uid://cdntpqqcckl1w" path="res://Resources/BaseBodyLift.tres" id="17_o40d3"]
 [ext_resource type="AudioStream" uid="uid://deys0bnykpb1r" path="res://Art/Aircraft/Common/PropAudio/3S-2304-6x4E.mp3" id="18"]
@@ -225,7 +225,6 @@ TargetPath = NodePath("../../..")
 transform = Transform3D(0.0495848, 0, 0, 0, 0.0469194, 0, 0, 0, 0.458425, 0, 0.00942594, 0.071843)
 LiftCube = ExtResource("17_o40d3")
 DragCube = SubResource("Resource_pfv8o")
-Enabled = false
 
 [node name="TailCamera" parent="." instance=ExtResource("15")]
 transform = Transform3D(1, 0, 0, 0, 0.999597, 0.0283927, 0, -0.0283927, 0.999597, 0, 0.119, 0.292)

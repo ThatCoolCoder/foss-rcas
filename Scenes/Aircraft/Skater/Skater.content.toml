@@ -6,6 +6,8 @@ date_updated = 2023-07-08
 description = """
 75" competition 3d aircraft. Currently it runs on a beefy 10S electric setup but when gas engines are implemented a gas version will be added.
 
+It has harrier flaps and inverted harrier flaps on aux 1, so make sure to center this channel before taking off.
+
 Will be bumped to v1.0 when the sound system has been fixed and a proper audio sample has been obtained.
 """
 
