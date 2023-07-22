@@ -145,7 +145,6 @@ func _export() -> bool:
 			var err := FileAccess.get_open_error()
 			_print_file_error(fpath, err)
 			return false
-
 		if format == FORMAT_RH:
 			float_heightmap.convert(Image.FORMAT_RH)
 			f.store_buffer(float_heightmap.get_data())

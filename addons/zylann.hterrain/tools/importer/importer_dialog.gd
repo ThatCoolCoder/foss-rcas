@@ -70,7 +70,6 @@ func _ready():
 			"exts": ["png"]
 		}
 	})
-
 	# Testing
 #	_errors_label.text = "- Hello World!"
 #	_warnings_label.text = "- Yolo Jesus!"
