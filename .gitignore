@@ -7,11 +7,11 @@ Target/
 *.png~
 
 # Godot-specific ignores
+.godot/
 .import/
 export.cfg
 
 # Mono-specific ignores
 .mono/
-.godot/
 mono_crash.*
 data_*/

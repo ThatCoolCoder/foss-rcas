@@ -1,0 +1,16 @@
+This document is rendered as bbcode in game; this line is stripped off before display.
+[p]
+We are hugely thankful to the creators of the art which has been used in game.
+[/p]
+
+[p]
+[b]AmbientCG.com[/b]
+
+This project was created using using the below assets from ambientCG.com, licensed under the Creative Commons CC0 1.0 Universal License.
+
+[ul]
+Asphalt 024 A
+Corrugated Steel 007 A
+Grass 004
+[/ul]
+[/p]
