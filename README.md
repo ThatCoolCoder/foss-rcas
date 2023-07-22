@@ -135,6 +135,8 @@ Depending on how much base content is desired and how large the repository gets,
     - If we get exotic stuff like quadcopters or cars working, create documentation on that
 - Misc bugs/problems
     - GODOT BUG: it appears that [Exported] nodes aren't assigned if the exported is a child of a Window that starts out invisible.
+    - Tomlet 5.2.0 fixed the unquoted keys issue but now it cries about missing an intermediate mapping, likely due to it quoting the first half of the key
+        - todo: make an issue on github re this
     - make slow motion only affect aircraft, not cameras.
         - would be easy if time_scale was inherited like pause_mode
             - this was proposed but the engine developers decided against it
@@ -143,7 +145,6 @@ Depending on how much base content is desired and how large the repository gets,
     - border-tree-planes in badgerfield have only collision from one direction (3 -> 4 artifact)
     - thing has a heart attack if it tries loading a content item that doesn't have a scene file
     - Anticlockwise propeller has bad shading due to the scaling by -1
-    - settings toml file is technically incorrect with slashes in keys, should hopefully be a tomlet update to fix this soon.
     - Make propellerwithmodel properly stop spinning when it hits things
     - thing has a heart attack if there is any issue at all in loading settings.
     - if there is a non-permitted class found when loading the input map, the entire game crashes. Instead it should just skip that item
