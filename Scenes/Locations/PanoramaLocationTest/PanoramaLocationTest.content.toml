@@ -1,0 +1,15 @@
+name = "Panorama Test"
+author = "ThatCoolCoder"
+version = "0.1.0"
+date_created = 2023-07-22
+date_updated = 2023-07-22
+description = """
+A test location for the technique of just using a 3d photo and shadow catchers.
+"""
+
+[location]
+world_location = "Germany"
+elevation = 0
+spawn_positions = [
+    { name = "Main", aircraft_at = "Floor/PlanePosition", camera_at = "CameraPosition" },
+]

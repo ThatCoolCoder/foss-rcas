@@ -1,0 +1,56 @@
+[gd_scene load_steps=10 format=3 uid="uid://xbumfmn3t4p3"]
+
+[ext_resource type="PackedScene" uid="uid://wfhfmqv1cl37" path="res://Scenes/Locations/BaseLocation.tscn" id="1_s25yu"]
+[ext_resource type="Texture2D" uid="uid://da0v58v77dhaw" path="res://lilienstein_1k.exr" id="2_n4oef"]
+[ext_resource type="Shader" path="res://Art/ShadowCatcher.gdshader" id="3_fnsn5"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_eqvpv"]
+panorama = ExtResource("2_n4oef")
+
+[sub_resource type="Sky" id="Sky_gh3l0"]
+sky_material = SubResource("PanoramaSkyMaterial_eqvpv")
+
+[sub_resource type="Environment" id="Environment_sp3bc"]
+background_mode = 2
+sky = SubResource("Sky_gh3l0")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_iq84x"]
+size = Vector3(250, 0.494, 250)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_kqbnj"]
+size = Vector2(200, 200)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yhtps"]
+render_priority = 0
+shader = ExtResource("3_fnsn5")
+shader_parameter/shadow_color = null
+shader_parameter/shadow_opacity = 0.6
+shader_parameter/shadow_max_opacity = 0.8
+
+[node name="PanoramaLocationTest" instance=ExtResource("1_s25yu")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="7"]
+environment = SubResource("Environment_sp3bc")
+
+[node name="Floor" type="StaticBody3D" parent="." index="8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.02946, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" index="0"]
+shape = SubResource("BoxShape3D_iq84x")
+
+[node name="ShadowCatcher" type="MeshInstance3D" parent="Floor" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.198459, 0)
+mesh = SubResource("PlaneMesh_kqbnj")
+surface_material_override/0 = SubResource("ShaderMaterial_yhtps")
+
+[node name="PlanePosition" type="Marker3D" parent="Floor" index="2"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -10.4082)
+
+[node name="CameraPosition" type="Marker3D" parent="." index="9"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." index="10"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.86029, -11.4997)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="11"]
+transform = Transform3D(0.413549, 0.820923, -0.393779, 0, 0.432495, 0.901636, 0.910482, -0.372871, 0.178858, 0, 0, 0)
+shadow_enabled = true
