@@ -22,7 +22,6 @@ public partial class GlobalKeybinds : Node
     private void SaveScreenshot()
     {
         var data = GetViewport().GetTexture().GetImage();
-        data.FlipY();
 
         var dir = OS.GetSystemDir(OS.SystemDir.Pictures);
         var formattedTime = DateTime.Now.ToString("yyyyMMdd-HHmmss");
