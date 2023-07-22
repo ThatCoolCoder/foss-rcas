@@ -1,3 +1,5 @@
+CustomDefaultValues = { aileronL = 0, aileronR = 0 }
+
 Mixes = [
 	{ InputChannelName = "throttle", OutputChannelName = "throttle" },
 	{ InputChannelName = "aileron", OutputChannelName = "aileronL", Expo = 0.6 },

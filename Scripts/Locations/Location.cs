@@ -19,11 +19,15 @@ public partial class Location : Node3D
     [Export] private GroundCamera groundCamera;
     private PackedScene orbitCameraScene = ResourceLoader.Load<PackedScene>("res://Scenes/Aircraft/Common/OrbitCamera.tscn");
 
-    public override void _Ready()
+    public override void _EnterTree()
     {
+        // Some children may need this before ready, so do it here
         SimSettings.Settings.Current.ApplyToViewport(GetViewport() as SubViewport);
         SimInput.Manager.Instance.LoadInputMap(SimSettings.Settings.Current.InputMap);
+    }
 
+    public override void _Ready()
+    {
         var zoomSettings = SimSettings.Settings.CloneCurrent().View.GroundCameraZoom; // todo: this could be neater than cloning the whole settings
         if (SimSettings.Settings.Current.View.AdjustZoomForAircraftSize) zoomSettings.StartDist *= AircraftInfo.WingSpan;
         groundCamera.CurrentZoomSettings = zoomSettings;

@@ -9,10 +9,11 @@ public partial class Manager : Node
 {
     public static Manager Instance { get; private set; }
 
-    // Map of action path to action value
+    // Maps of action path to action value
     private Dictionary<string, float> actionValues = new();
     private Dictionary<string, float> intermediateTimeActionValues = new(); // for when they're not previous yet but also not new
     private Dictionary<string, float> previousActionValues = new();
+    private List<string> actionsStillOnDefaultValue = new(); // todo: investigate if a hashset is better suited for this
 
     private Dictionary<string, List<IControlMapping>> mappings = new();
     private Dictionary<string, InputAction> actionLookup = new(); // thing for efficiency
@@ -37,6 +38,7 @@ public partial class Manager : Node
         previousActionValues = new();
         actionLookup = new();
         inputMap = new();
+        actionsStillOnDefaultValue = new();
 
         foreach (var category in AvailableInputActions.Categories)
         {
@@ -59,6 +61,7 @@ public partial class Manager : Node
                 // Set defaults
                 actionValues[actionPath] = action.DefaultValue;
                 previousActionValues[actionPath] = action.DefaultValue;
+                actionsStillOnDefaultValue.Add(actionPath);
 
                 actionLookup[actionPath] = action;
 
@@ -89,9 +92,14 @@ public partial class Manager : Node
                 if (mapping.ProcessEvent(_event) is float val)
                 {
                     actionValues[actionPath] = val;
+                    actionsStillOnDefaultValue.Remove(actionPath);
 
                     // apply extra mappings
-                    foreach (var extraMapping in action.MapTo) actionValues[extraMapping.Key] = extraMapping.Value(val);
+                    foreach (var extraMapping in action.MapTo)
+                    {
+                        actionValues[extraMapping.Key] = extraMapping.Value(val);
+                        actionsStillOnDefaultValue.Remove(extraMapping.Key);
+                    }
                 }
             }
         }
@@ -102,7 +110,6 @@ public partial class Manager : Node
         // save the previous action values at the end of each frame
         intermediateTimeActionValues = new(actionValues);
         CallDeferred("SetPreviousActionValues");
-        // SetPreviousActionValues();
     }
 
     private void SetPreviousActionValues()
@@ -161,6 +168,13 @@ public partial class Manager : Node
         }
     }
 
+    public bool HasActionBeenUsedI(string actionPath)
+    {
+        return !actionsStillOnDefaultValue.Contains(actionPath);
+    }
+
+
+
     public static float GetActionValue(string actionPath)
     {
         return Instance.GetActionValueI(actionPath);
@@ -179,6 +193,11 @@ public partial class Manager : Node
     public static bool IsActionJustReleased(string actionPath)
     {
         return Instance.IsActionJustReleasedI(actionPath);
+    }
+
+    public static bool HasActionBeenUsed(string actionPath)
+    {
+        return Instance.HasActionBeenUsedI(actionPath);
     }
 
 }

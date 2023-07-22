@@ -23,22 +23,46 @@ public partial class MixerHub : Node3D, IHub
             var content = gdFile.GetAsText();
             gdFile.Close();
             channelMixSet = TomletMain.To<ChannelMixSet>(content);
+
+            // return;
+            // Get initial values for all channels
+            ChannelValues = GetChannelValues(0);
+
+            // Override custom defaults
+            foreach (var kvp in channelMixSet.CustomDefaultValues)
+            {
+                ChannelValues[kvp.Key] = kvp.Value;
+            }
         }
     }
 
     public override void _Process(double delta)
     {
+        ChannelValues = GetChannelValues((float)delta);
+    }
+
+    private Dictionary<string, float> GetChannelValues(float delta)
+    {
         var newChannelValues = new Dictionary<string, float>();
 
         foreach (var mix in channelMixSet.Mixes)
         {
-            float previousValue = 0;
-            newChannelValues.TryGetValue(mix.OutputChannelName, out previousValue);
+            newChannelValues.TryGetValue(mix.OutputChannelName, out var previousValue);
 
-            var rawValue = SimInput.Manager.GetActionValue("aircraft/" + mix.InputChannelName);
-            newChannelValues[mix.OutputChannelName] = mix.Apply(rawValue, previousValue, (float)delta);
+            var actionPath = "aircraft/" + mix.InputChannelName;
+            var rawValue = SimInput.Manager.GetActionValue(actionPath);
+
+            if (ChannelValues.TryGetValue(mix.OutputChannelName, out var existingValue) && !SimInput.Manager.HasActionBeenUsed(actionPath))
+            {
+                // Avoid putting in this case as it would overwrite the custom defaults with the standard defaults
+                newChannelValues[mix.OutputChannelName] = existingValue;
+            }
+            else
+            {
+                newChannelValues[mix.OutputChannelName] = mix.Apply(rawValue, previousValue, delta);
+            }
         }
 
-        ChannelValues = newChannelValues.ToDictionary(kvp => kvp.Key, kvp => Mathf.Clamp(kvp.Value, -1, 1));
+        return newChannelValues.ToDictionary(kvp => kvp.Key, kvp => Mathf.Clamp(kvp.Value, -1, 1));
     }
 }

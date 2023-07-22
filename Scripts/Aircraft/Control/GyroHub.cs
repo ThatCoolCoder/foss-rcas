@@ -73,6 +73,7 @@ public partial class GyroHub : MixerHub
 
     public override void _Process(double delta)
     {
+        // todo: this probably doesn't work since we refactored MixerHub and added custom default channel values
         var fdelta = (float)delta;
         var angularVelocity = rigidBody.AngularVelocity;
         angularVelocity = GlobalTransform.Basis.Inverse() * angularVelocity;
