@@ -8,7 +8,7 @@
 [ext_resource type="Script" path="res://Scripts/Audio/PrerecordedPropellerNoise.cs" id="6"]
 [ext_resource type="AudioStream" uid="uid://deys0bnykpb1r" path="res://Art/Aircraft/Common/PropAudio/3S-2304-6x4E.mp3" id="7"]
 [ext_resource type="PackedScene" uid="uid://8lfw0k5w3wwk" path="res://Scenes/Aircraft/Common/ControlledBrushlessMotor.tscn" id="8"]
-[ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Propwash.tscn" id="8_02elu"]
+[ext_resource type="PackedScene" uid="uid://csndd41uoyyuh" path="res://Scenes/Aircraft/Common/Propwash.tscn" id="8_02elu"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Control/MixerControlHub.tscn" id="12"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/PropellerWithModel.tscn" id="13"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Mirror.tscn" id="14"]
@@ -99,6 +99,7 @@ DecibelsChangePer1000Rpm = -1.5
 [node name="Propwash" parent="Electrics/ControlledBrushlessMotor/PropellerWithModel" instance=ExtResource("8_02elu")]
 MaxDistance = 4.0
 SpreadAngleDegrees = 45.0
+RadialSpeedFalloff = false
 
 [node name="Battery" parent="Electrics" instance=ExtResource("18")]
 CellCount = 10

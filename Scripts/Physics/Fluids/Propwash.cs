@@ -22,6 +22,7 @@ public partial class Propwash : Node3D, ISpatialFluid
         }
     }
     private float spreadAngle = Mathf.DegToRad(20);
+    [Export] public bool RadialSpeedFalloff { get; set; } = true;
 
     private Forcers.Propeller propeller;
 
@@ -44,6 +45,7 @@ public partial class Propwash : Node3D, ISpatialFluid
 
     public bool ContainsPoint(Vector3 point)
     {
+        return true;
         return (GlobalPosition.DistanceSquaredTo(point) < MaxDistance * MaxDistance &&
             AngleToPoint(point) < spreadAngle);
     }
@@ -54,16 +56,19 @@ public partial class Propwash : Node3D, ISpatialFluid
 
         // Make speed fall off further away from prop
         var axialSpeedMultiplier = Mathf.Abs(localPosition.Z) / MaxDistance;
-        AngleToPoint(point);
 
         // Make speed higher at the outside, since the blades spin faster there.
         // todo: isn't the exit speed constant across the whole prop due to the twist?
-        var radiusAtDistance = Mathf.Tan(spreadAngle) * localPosition.Z;
-        var radialSpeedMultiplier = new Vector2(localPosition.X, localPosition.Y).Length() / radiusAtDistance;
-        radialSpeedMultiplier = Mathf.Max(radialSpeedMultiplier, .25f);
+        // That's why this behaviour is currently behind a boolean flag
+        float radialSpeedMultiplier = 1;
+        if (RadialSpeedFalloff)
+        {
+            var radiusAtDistance = Mathf.Tan(spreadAngle) * localPosition.Z;
+            radialSpeedMultiplier = new Vector2(localPosition.X, localPosition.Y).Length() / radiusAtDistance;
+            radialSpeedMultiplier = Mathf.Max(radialSpeedMultiplier, .25f);
+        }
 
-        var directionToPoint = localPosition.Normalized();
-        var velocity = directionToPoint * axialSpeedMultiplier * radialSpeedMultiplier * Mathf.Max(propeller.LastExitSpeed, 0); // don't let the wash go backwards
+        var velocity = GlobalTransform.Basis.Z * axialSpeedMultiplier * radialSpeedMultiplier * Mathf.Max(propeller.LastExitSpeed, 0); // don't let the wash go backwards
         return velocity + propeller.LastEntryVelocity;
     }
 

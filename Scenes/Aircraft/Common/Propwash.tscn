@@ -1,10 +1,10 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://csndd41uoyyuh"]
 
-[ext_resource path="res://Scripts/Physics/Fluids/SpatialFluidBeacon.cs" type="Script" id=1]
-[ext_resource path="res://Scripts/Physics/Fluids/Propwash.cs" type="Script" id=2]
+[ext_resource type="Script" path="res://Scripts/Physics/Fluids/SpatialFluidBeacon.cs" id="1"]
+[ext_resource type="Script" path="res://Scripts/Physics/Fluids/Propwash.cs" id="2"]
 
 [node name="Propwash" type="Node3D"]
-script = ExtResource( 2 )
+script = ExtResource("2")
 
 [node name="SpatialFluidBeacon" type="Node3D" parent="."]
-script = ExtResource( 1 )
+script = ExtResource("1")
