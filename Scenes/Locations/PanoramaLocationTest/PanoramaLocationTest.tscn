@@ -1,11 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://xbumfmn3t4p3"]
+[gd_scene load_steps=15 format=3 uid="uid://xbumfmn3t4p3"]
 
 [ext_resource type="PackedScene" uid="uid://wfhfmqv1cl37" path="res://Scenes/Locations/BaseLocation.tscn" id="1_s25yu"]
-[ext_resource type="Texture2D" uid="uid://da0v58v77dhaw" path="res://lilienstein_1k.exr" id="2_n4oef"]
+[ext_resource type="Texture2D" uid="uid://cjxd1nvyno04l" path="res://Art/approaching_storm_4k.exr" id="2_jbt3c"]
 [ext_resource type="Shader" path="res://Art/ShadowCatcher.gdshader" id="3_fnsn5"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_eqvpv"]
-panorama = ExtResource("2_n4oef")
+panorama = ExtResource("2_jbt3c")
 
 [sub_resource type="Sky" id="Sky_gh3l0"]
 sky_material = SubResource("PanoramaSkyMaterial_eqvpv")
@@ -27,30 +27,83 @@ shader_parameter/shadow_color = null
 shader_parameter/shadow_opacity = 0.6
 shader_parameter/shadow_max_opacity = 0.8
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_1cmxv"]
+size = Vector3(1, 13.523, 19.809)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yv3pp"]
+size = Vector3(2.885, 4.951, 5.82)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tqvgd"]
+size = Vector3(2.885, 8.0994, 5.82)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_t02a5"]
+size = Vector3(13.73, 15.284, 11.375)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_kxfuk"]
+size = Vector3(12.995, 11.144, 9.575)
+
 [node name="PanoramaLocationTest" instance=ExtResource("1_s25yu")]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." index="7"]
 environment = SubResource("Environment_sp3bc")
 
-[node name="Floor" type="StaticBody3D" parent="." index="8"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.02946, 0)
+[node name="CollidableWorld" type="Node3D" parent="." index="8"]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor" index="0"]
+[node name="Floor" type="StaticBody3D" parent="CollidableWorld" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CollidableWorld/Floor" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 shape = SubResource("BoxShape3D_iq84x")
 
-[node name="ShadowCatcher" type="MeshInstance3D" parent="Floor" index="1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.198459, 0)
+[node name="ShadowCatcher" type="MeshInstance3D" parent="CollidableWorld/Floor" index="1"]
 mesh = SubResource("PlaneMesh_kqbnj")
+skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("ShaderMaterial_yhtps")
 
-[node name="PlanePosition" type="Marker3D" parent="Floor" index="2"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -10.4082)
+[node name="PlanePosition" type="Marker3D" parent="CollidableWorld/Floor" index="2"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, -10.408)
 
-[node name="CameraPosition" type="Marker3D" parent="." index="9"]
+[node name="CameraPosition" type="Marker3D" parent="CollidableWorld" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.635066, 0)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="." index="10"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.86029, -11.4997)
+[node name="Trees" type="StaticBody3D" parent="CollidableWorld" index="2"]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="11"]
-transform = Transform3D(0.413549, 0.820923, -0.393779, 0, 0.432495, 0.901636, 0.910482, -0.372871, 0.178858, 0, 0, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CollidableWorld/Trees" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.9784, 7.94799, 17.6454)
+shape = SubResource("BoxShape3D_1cmxv")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="CollidableWorld/Trees" index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -62.9784, 7.94799, 37.8168)
+shape = SubResource("BoxShape3D_1cmxv")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="CollidableWorld/Trees" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -77.7184, 7.94766, 74.8114)
+shape = SubResource("BoxShape3D_1cmxv")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="CollidableWorld/Trees" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -77.7184, 7.94766, 95.0043)
+shape = SubResource("BoxShape3D_1cmxv")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="CollidableWorld/Trees" index="4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -77.7184, 7.94766, 114.72)
+shape = SubResource("BoxShape3D_1cmxv")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="CollidableWorld/Trees" index="5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.62148, 4.74476, -21.0915)
+shape = SubResource("BoxShape3D_yv3pp")
+
+[node name="CollisionShape3D7" type="CollisionShape3D" parent="CollidableWorld/Trees" index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.57697, 5.30891, 19.31)
+shape = SubResource("BoxShape3D_tqvgd")
+
+[node name="CollisionShape3D8" type="CollisionShape3D" parent="CollidableWorld/Trees" index="7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.17112, 11.4534, 101.236)
+shape = SubResource("BoxShape3D_t02a5")
+
+[node name="CollisionShape3D9" type="CollisionShape3D" parent="CollidableWorld/Trees" index="8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.3623, 5.273, 113.573)
+shape = SubResource("BoxShape3D_kxfuk")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." index="9"]
+transform = Transform3D(0.789221, 0.308038, -0.531265, 0.0389818, 0.838226, 0.543928, 0.612871, -0.449989, 0.649538, 0, 0, 0)
 shadow_enabled = true
