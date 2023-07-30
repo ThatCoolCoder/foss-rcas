@@ -1,47 +1,129 @@
-[gd_scene load_steps=7 format=3 uid="uid://mciqqamx7rm1"]
+[gd_scene load_steps=20 format=3 uid="uid://mciqqamx7rm1"]
 
 [ext_resource type="PackedScene" uid="uid://wfhfmqv1cl37" path="res://Scenes/Locations/BaseLocation.tscn" id="1"]
 [ext_resource type="Script" path="res://addons/zylann.hterrain/hterrain.gd" id="2_gqr17"]
 [ext_resource type="Resource" path="res://Scenes/Locations/AceTrack/TerrainData/data.hterrain" id="3_1w7mk"]
 [ext_resource type="Script" path="res://addons/zylann.hterrain/hterrain_texture_set.gd" id="3_hqd5n"]
+[ext_resource type="Texture2D" uid="uid://dop1yo50elewi" path="res://Art/Common/NaturalMaterials/Grass001_1K-JPG/Grass001_albedo_bump.png" id="5_3jsfb"]
+[ext_resource type="Texture2D" uid="uid://bbc5m0pjx4mcy" path="res://Art/Common/NaturalMaterials/Ground023_1K-JPG/Ground023_albedo_bump.png" id="6_pi602"]
+[ext_resource type="Texture2D" uid="uid://chxefohqbia4x" path="res://Art/Common/NaturalMaterials/Ground062S_1K-JPG/Ground062S_albedo_bump.png" id="7_e0tet"]
+[ext_resource type="Texture2D" uid="uid://bsxwp3a7gj8pc" path="res://Art/Common/NaturalMaterials/Grass001_1K-JPG/Grass001_normal_roughness.png" id="8_2uuh4"]
+[ext_resource type="Texture2D" uid="uid://cffosbe7wljh1" path="res://Art/Common/NaturalMaterials/Ground023_1K-JPG/Ground023_normal_roughness.png" id="9_sylms"]
+[ext_resource type="Texture2D" uid="uid://cf5phbtu4atrd" path="res://Art/Common/NaturalMaterials/Ground062S_1K-JPG/Ground062S_normal_roughness.png" id="10_2fda6"]
+[ext_resource type="Texture2D" uid="uid://8e8ejew353wh" path="res://Art/Common/NaturalMaterials/Ground049A_1K-JPG/Ground049A_albedo_bump.png" id="11_w4jcv"]
+[ext_resource type="Texture2D" uid="uid://dpt5mooga7u70" path="res://Art/Common/NaturalMaterials/Ground049A_1K-JPG/Ground049A_normal_roughness.png" id="12_afs7r"]
+[ext_resource type="Texture2D" uid="uid://uh0vp5tw6t73" path="res://Target/acetrack.jpg" id="13_vfeso"]
+[ext_resource type="PackedScene" uid="uid://nfr3dpkykyi7" path="res://Art/Locations/AceTrack/House.glb" id="14_s88cg"]
+[ext_resource type="PackedScene" uid="uid://eitklmq0pnow" path="res://Scenes/Locations/BadgerField/ImpostorPine.tscn" id="15_hj5ws"]
+
+[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_ja3x6"]
+
+[sub_resource type="Sky" id="Sky_ncb6h"]
+sky_material = SubResource("PhysicalSkyMaterial_ja3x6")
 
 [sub_resource type="Environment" id="Environment_0xpuq"]
+background_mode = 2
+background_energy_multiplier = 2.73
+sky = SubResource("Sky_ncb6h")
+ambient_light_source = 3
 
 [sub_resource type="Resource" id="Resource_fxerr"]
 script = ExtResource("3_hqd5n")
 mode = 0
-textures = [[], []]
+textures = [[ExtResource("5_3jsfb"), ExtResource("11_w4jcv"), ExtResource("7_e0tet"), ExtResource("6_pi602")], [ExtResource("8_2uuh4"), ExtResource("12_afs7r"), ExtResource("10_2fda6"), ExtResource("9_sylms")]]
 
 [node name="AceTrack" instance=ExtResource("1")]
 
-[node name="CSGBox3D" type="CSGBox3D" parent="." index="7"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -263.104, 0, 0)
-size = Vector3(100, 100, 500)
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="8"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." index="7"]
 environment = SubResource("Environment_0xpuq")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment" index="0"]
-transform = Transform3D(1, 0, 0, 0, 0.548279, 0.836296, 0, -0.836296, 0.548279, 0, 0, 0)
-light_energy = 0.6
+transform = Transform3D(1, 0, 0, 0, 0.548279, 0.836296, 0, -0.836296, 0.548279, 0, 7.12953, 0)
+light_energy = 2.164
 shadow_enabled = true
+directional_shadow_max_distance = 500.0
 
-[node name="HTerrain" type="Node3D" parent="." index="9"]
+[node name="HTerrain" type="Node3D" parent="." index="8"]
 script = ExtResource("2_gqr17")
-map_scale = Vector3(0.5, 0.5, 0.5)
+map_scale = Vector3(0.5, 0.722, 0.5)
 centered = true
 _terrain_data = ExtResource("3_1w7mk")
 chunk_size = 32
 collision_enabled = true
 collision_layer = 1
 collision_mask = 1
-shader_type = "Classic4Lite"
+shader_type = "Classic4"
 custom_shader = null
 custom_globalmap_shader = null
 texture_set = SubResource("Resource_fxerr")
 render_layers = 1
 cast_shadow = 1
-shader_params/u_ground_uv_scale = 20
+shader_params/u_ground_uv_scale_per_texture = Vector4(15.11, 16.915, 11.11, 3.98)
 shader_params/u_depth_blending = true
-shader_params/u_triplanar = null
-shader_params/u_tile_reduction = null
+shader_params/u_triplanar = true
+shader_params/u_tile_reduction = Vector4(1, 1, 1, 1)
+shader_params/u_globalmap_blend_start = 0.0
+shader_params/u_globalmap_blend_distance = 0.0
+shader_params/u_colormap_opacity_per_texture = Vector4(0, 0, 0, 0)
+
+[node name="Sprite3D" type="Sprite3D" parent="." index="9"]
+transform = Transform3D(3.58894, 0, 0, 0, 1.06959e-07, 3.58894, 0, -3.58894, 1.06959e-07, 0, 2.9196, 0)
+visible = false
+modulate = Color(1, 1, 1, 0.647059)
+pixel_size = 0.1
+texture = ExtResource("13_vfeso")
+
+[node name="House" parent="." index="10" instance=ExtResource("14_s88cg")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 67.5904, 24.4529, -14.2754)
+
+[node name="Positions" type="Node3D" parent="." index="11"]
+
+[node name="OnDeck" type="Marker3D" parent="Positions" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 64.4918, 24.8456, -11.1517)
+gizmo_extents = 1.0
+
+[node name="BesideDeck" type="Marker3D" parent="Positions" index="1"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 64.4918, 24.8653, -4.90183)
+gizmo_extents = 1.0
+
+[node name="ImpostorPine" parent="." index="12" instance=ExtResource("15_hj5ws")]
+transform = Transform3D(1.16642, 0, 0, 0, 1.16642, 0, 0, 0, 1.16642, -116.815, 5.05632, 6.58286)
+
+[node name="ImpostorPine2" parent="." index="13" instance=ExtResource("15_hj5ws")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116.815, 5.05632, 12.1976)
+
+[node name="ImpostorPine3" parent="." index="14" instance=ExtResource("15_hj5ws")]
+transform = Transform3D(-0.999856, 0, -0.0169638, 0, 1, 0, 0.0169638, 0, -0.999856, -116.815, 5.05632, -0.735481)
+
+[node name="ImpostorPine4" parent="." index="15" instance=ExtResource("15_hj5ws")]
+transform = Transform3D(1.09032, 0, 0, 0, 1.09032, 0, 0, 0, 1.09032, -116.815, 5.05632, -10.5906)
+
+[node name="ImpostorPine5" parent="." index="16" instance=ExtResource("15_hj5ws")]
+transform = Transform3D(0.75048, 0, -0.660893, 0, 1, 0, 0.660893, 0, 0.75048, -122.043, 5.05632, -8.04597)
+
+[node name="ImpostorPine6" parent="." index="17" instance=ExtResource("15_hj5ws")]
+transform = Transform3D(1.15983, 0, 0, 0, 1.15983, 0, 0, 0, 1.15983, -124.602, 5.05632, -1.91825)
+
+[node name="ImpostorPine7" parent="." index="18" instance=ExtResource("15_hj5ws")]
+transform = Transform3D(0.794785, 0, -0.60689, 0, 0.885801, 0, 0.60689, 0, 0.794785, -128.612, 5.05632, -11.0103)
+
+[node name="ImpostorPine8" parent="." index="19" instance=ExtResource("15_hj5ws")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -122.334, 5.05632, 5.47241)
+
+[node name="ImpostorPine9" parent="." index="20" instance=ExtResource("15_hj5ws")]
+transform = Transform3D(0.753408, 0, 0.244317, 0, 0.792032, 0, -0.244317, 0, 0.753408, -126.855, 5.05632, 3.57288)
+
+[node name="ImpostorPine10" parent="." index="21" instance=ExtResource("15_hj5ws")]
+transform = Transform3D(0.542764, 0, 0.839885, 0, 1, 0, -0.839885, 0, 0.542764, -130.855, 5.05632, -3.42712)
+
+[node name="ImpostorPine11" parent="." index="22" instance=ExtResource("15_hj5ws")]
+transform = Transform3D(0.990217, 0, -0.139536, 0, 1, 0, 0.139536, 0, 0.990217, -123.94, 5.05632, 7.08981)
+
+[node name="ImpostorPine12" parent="." index="23" instance=ExtResource("15_hj5ws")]
+transform = Transform3D(0.607506, 0, 0.851723, 0, 1.04618, 0, -0.851723, 0, 0.607506, -120.602, 5.05632, 16.2463)
+
+[node name="ImpostorPine13" parent="." index="24" instance=ExtResource("15_hj5ws")]
+transform = Transform3D(0.341148, 0, -0.856093, 0, 0.921563, 0, 0.856093, 0, 0.341148, -125.631, 5.05632, 12.8077)
+
+[node name="ImpostorPine14" parent="." index="25" instance=ExtResource("15_hj5ws")]
+transform = Transform3D(0.769014, 0, 0, 0, 0.769014, 0, 0, 0, 0.769014, -130.631, 5.05632, 7.80772)
