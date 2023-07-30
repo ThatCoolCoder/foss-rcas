@@ -10,3 +10,6 @@ An FPV racing track.
 [location]
 world_location = "Suburban US"
 elevation = 0
+spawn_positions = [
+    { name = "Deck", aircraft_at = "Positions/BesideDeck", camera_at = "Positions/OnDeck" },
+]
