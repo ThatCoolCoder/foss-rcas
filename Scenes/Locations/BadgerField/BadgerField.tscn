@@ -62,6 +62,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.9925, 1.10245, 17.9634)
 [node name="FreeCamera" parent="." index="6"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.3525, 2.0807, 18.2569)
 
+[node name="MapCamera" parent="." index="7"]
+Height = 75.0
+MaxSpeed = 60.0
+Acceleration = 200.0
+MinX = -50.0
+MaxX = 50.0
+MinZ = 0.0
+MaxZ = 75.0
+
 [node name="Positions" type="Node3D" parent="." index="8"]
 
 [node name="RunwayWest" type="Marker3D" parent="Positions" index="0"]

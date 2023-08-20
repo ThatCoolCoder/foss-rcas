@@ -6,6 +6,7 @@ namespace Locations;
 
 public partial class CameraManager : Node3D
 {
+    [Export] public Camera3D MapCamera { get; set; }
     public static CameraManager instance;
     public static readonly string UIMessageCategory = "camera";
     // Use of a hashset was considered for this, since we don't want duplicate cameras.
@@ -78,7 +79,16 @@ public partial class CameraManager : Node3D
             ActivateCamera(0);
         }
 
-        if (SimInput.Manager.IsActionJustPressed("camera/previous")) PreviousCamera();
+        if (SimInput.Manager.IsActionJustPressed("gameplay/toggle_map") && MapCamera != null)
+        {
+            if (MapCamera.Current) ActivateCamera(activeCameraIndex); // reactivate normal camera
+            else
+            {
+                MapCamera.Current = true;
+                if (hasInitDefaultCamera) cameras[activeCameraIndex].Deactivate();
+            }
+        }
+        else if (SimInput.Manager.IsActionJustPressed("camera/previous")) PreviousCamera();
         else if (SimInput.Manager.IsActionJustPressed("camera/next")) NextCamera();
     }
 }

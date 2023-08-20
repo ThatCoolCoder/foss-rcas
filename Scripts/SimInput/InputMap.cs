@@ -184,6 +184,12 @@ public partial class InputMap
                 Key = Key.Slash,
             },
         }},
+        {"gameplay/toggle_map", new() {
+            new SimInput.KeyboardControlMapping()
+            {
+                Key = Key.M,
+            },
+        }},
     },
     };
 };

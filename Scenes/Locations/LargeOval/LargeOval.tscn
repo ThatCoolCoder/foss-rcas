@@ -80,3 +80,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.7928, 0.232486, 58.6506)
 
 [node name="CameraPosition" type="Marker3D" parent="." index="14"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -48.7928, 0.221284, 65.0107)
+
+[node name="MapCamera" parent="." index="15"]
+Height = 100.0
+MaxSpeed = 90.0
+Acceleration = 300.0
+MinX = -150.0
+MaxX = 150.0
+MinZ = -25.0

@@ -105,6 +105,8 @@ public static class AvailableInputActions
                 defaultValue: -1),
             new InputAction("reset_slow_motion",
                 defaultValue: -1),
+            new InputAction("toggle_map",
+                defaultValue: -1),
         })
     };
 }

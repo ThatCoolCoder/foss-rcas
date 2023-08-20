@@ -24,7 +24,7 @@
 [ext_resource type="AudioStream" uid="uid://deys0bnykpb1r" path="res://Art/Aircraft/Common/PropAudio/3S-2304-6x4E.mp3" id="17"]
 [ext_resource type="PackedScene" uid="uid://diynlfwl8wayv" path="res://Scenes/Aircraft/Common/ValueSetter.tscn" id="17_xnghx"]
 [ext_resource type="Script" path="res://Scripts/Audio/PrerecordedPropellerNoise.cs" id="18"]
-[ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Propwash.tscn" id="19"]
+[ext_resource type="PackedScene" uid="uid://csndd41uoyyuh" path="res://Scenes/Aircraft/Common/Propwash.tscn" id="19"]
 [ext_resource type="Resource" uid="uid://b861yo7rjlv2c" path="res://Resources/BaseBodyDrag.tres" id="20_l1lq0"]
 [ext_resource type="Script" path="res://Scripts/Physics/Forcers/AeroValueCube.cs" id="26_hlkfe"]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://wfhfmqv1cl37"]
+[gd_scene load_steps=17 format=3 uid="uid://wfhfmqv1cl37"]
 
 [ext_resource type="PackedScene" uid="uid://ch51rs1espjbp" path="res://Scenes/Locations/Common/GroundCamera.tscn" id="1"]
 [ext_resource type="Script" path="res://Scripts/Physics/Fluids/SpatialFluidBeacon.cs" id="2"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://addons/MaxSizeContainer/max_size_container.gd" id="13"]
 [ext_resource type="Script" path="res://Scripts/UI/MessageManager.cs" id="14"]
 [ext_resource type="Script" path="res://Scripts/Locations/FreeCamera.cs" id="15"]
+[ext_resource type="Script" path="res://Scripts/Locations/MapCamera.cs" id="16_d556s"]
 [ext_resource type="PackedScene" uid="uid://cq2yly44bwd0s" path="res://Scenes/UI/Apps/UIAppManager.tscn" id="17_s1ygv"]
 
 [node name="BaseLocation" type="Node3D" node_paths=PackedStringArray("UIAppManager", "launcher", "groundCamera")]
@@ -23,9 +24,10 @@ UIAppManager = NodePath("CanvasLayer/UIAppManager")
 launcher = NodePath("AircraftLauncher")
 groundCamera = NodePath("GroundCamera")
 
-[node name="CameraManager" type="Node3D" parent="."]
+[node name="CameraManager" type="Node3D" parent="." node_paths=PackedStringArray("MapCamera")]
 process_mode = 3
 script = ExtResource("11")
+MapCamera = NodePath("../MapCamera")
 
 [node name="SpatialFluidRepository" type="Node3D" parent="."]
 script = ExtResource("5")
@@ -51,6 +53,10 @@ process_mode = 3
 far = 50000.0
 script = ExtResource("15")
 ViewName = "Free"
+
+[node name="MapCamera" type="Camera3D" parent="."]
+transform = Transform3D(0.939693, 0.262386, -0.219389, 0, 0.64145, 0.767165, 0.34202, -0.720899, 0.602766, -7.45414, 35.9066, 1.62759)
+script = ExtResource("16_d556s")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 process_mode = 3
