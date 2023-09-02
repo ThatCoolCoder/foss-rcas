@@ -23,6 +23,7 @@ public partial class GrassScatter : MultiMeshInstance3D
     [Export] public float NormalStrength { get; set; } = 1;
     [Export] public Vector2 GrassSize { get; set; } = new Vector2(0.07f, 0.5f);
     [Export] public Vector2 GrassSizeVariation { get; set; } = Vector2.One * 0.3f; // varies by +- this amount
+    [Export] public Node3D HTerrain { get; set; } = null;
 
     // If we fail to find a position that satisfies the mask in this many tries, give up.
     // Try reducing this if grass takes too long to generate
@@ -96,6 +97,9 @@ public partial class GrassScatter : MultiMeshInstance3D
 
         multimesh.InstanceCount = positions.Count;
 
+        var hTerrainData = (Resource) HTerrain?.Call("get_data");
+        var mapScale = (Vector3?) HTerrain?.Get("map_scale");
+
         for (int i = 0; i < positions.Count; i++)
         {
             // Calculcate rotation + scale
@@ -113,7 +117,14 @@ public partial class GrassScatter : MultiMeshInstance3D
             transform = transform.Rotated(Vector3.Up, SemiRandomFloat(pos.X + pos.Z) * Mathf.Tau);
 
             // Adjust position then save
-            transform.Origin = pos.WithY(transform.Basis.Scale.Y * GrassSize.Y / 2);
+            var yPos = transform.Basis.Scale.Y * GrassSize.Y / 2 ;
+            if (hTerrainData != null)
+            {
+                // todo: terrain is broken, this appears to not work for a) centered terrains b) any terrains
+                yPos += (float)hTerrainData.Call("get_interpolated_height_at", pos) * (mapScale?.Y ?? 1);
+            }
+
+            transform.Origin = pos.WithY(yPos);
             multimesh.SetInstanceTransform(i, transform);
             multimesh.SetInstanceColor(i, Colors.Red);
         }
