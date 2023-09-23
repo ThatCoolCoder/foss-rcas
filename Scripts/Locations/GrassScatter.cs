@@ -97,8 +97,11 @@ public partial class GrassScatter : MultiMeshInstance3D
 
         multimesh.InstanceCount = positions.Count;
 
-        var hTerrainData = (Resource) HTerrain?.Call("get_data");
-        var mapScale = (Vector3?) HTerrain?.Get("map_scale");
+        var hTerrainData = (Resource)HTerrain?.Call("get_data");
+        var image = (Image)hTerrainData?.Call("get_image", 0);
+        GD.PrintS(image.GetPixel(512, 512), image.GetPixel(512, 0));
+        var mapScale = (Vector3)HTerrain?.Get("map_scale");
+        var mapCentered = (bool)HTerrain?.Get("centered");
 
         for (int i = 0; i < positions.Count; i++)
         {
@@ -117,11 +120,10 @@ public partial class GrassScatter : MultiMeshInstance3D
             transform = transform.Rotated(Vector3.Up, SemiRandomFloat(pos.X + pos.Z) * Mathf.Tau);
 
             // Adjust position then save
-            var yPos = transform.Basis.Scale.Y * GrassSize.Y / 2 ;
+            var yPos = transform.Basis.Scale.Y * GrassSize.Y / 2;
             if (hTerrainData != null)
             {
-                // todo: terrain is broken, this appears to not work for a) centered terrains b) any terrains
-                yPos += (float)hTerrainData.Call("get_interpolated_height_at", pos) * (mapScale?.Y ?? 1);
+                yPos += Utils.GetHeightFromHTerrain(pos, mapScale, image, mapCentered);
             }
 
             transform.Origin = pos.WithY(yPos);

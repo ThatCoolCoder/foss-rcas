@@ -386,7 +386,7 @@ func get_interpolated_height_at(pos: Vector3) -> float:
 			h10 = HT_Util.get_pixel_clamped(im, x0 + 1, y0).r
 			h01 = HT_Util.get_pixel_clamped(im, x0, y0 + 1).r
 			h11 = HT_Util.get_pixel_clamped(im, x0 + 1, y0 + 1).r
-		
+			
 		Image.FORMAT_RGB8:
 			var c00 := HT_Util.get_pixel_clamped(im, x0, y0)
 			var c10 := HT_Util.get_pixel_clamped(im, x0 + 1, y0)
