@@ -47,6 +47,7 @@ directional_shadow_max_distance = 500.0
 [node name="HTerrain" type="Node3D" parent="." index="8"]
 script = ExtResource("2_gqr17")
 map_scale = Vector3(0.5, 0.722, 0.5)
+centered = true
 _terrain_data = ExtResource("3_1w7mk")
 chunk_size = 32
 collision_enabled = true
@@ -68,7 +69,7 @@ shader_params/u_colormap_opacity_per_texture = Vector4(0, 0, 0, 0)
 
 [node name="GrassScatter" parent="HTerrain" index="0" node_paths=PackedStringArray("HTerrain") instance=ExtResource("13_eve8h")]
 transform = Transform3D(271.877, 0, 0, 0, 1.02261, 0, 0, 0, 453.239, 0, 0, 0)
-InstanceCount = 50000
+InstanceCount = 70000
 NormalMap = ExtResource("14_op3ul")
 HTerrain = NodePath("..")
 

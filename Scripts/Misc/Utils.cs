@@ -215,6 +215,19 @@ public static class Utils
                 SetPropertyOrField(parentVal, propertySections.ToList()[i - 1], childVal);
             }
         }
+    }
 
+    public static float GetHeightFromHTerrain(Vector3 position, Vector3 hTerrainScale, Image heightMap, bool centered = false)
+    {
+        // It appears hterrain get height is broken, so we do it ourself
+        // Assumes pos is relative to hterrain
+        // todo: make a bug report
+        // todo: makle a version of this that interpolates between pixels
+
+        var pos = new Vector2I((int)(position.X / hTerrainScale.X), (int)(position.Z / hTerrainScale.Z));
+
+        if (centered) pos += heightMap.GetSize() / 2;
+
+        return heightMap.GetPixelv(pos).R * hTerrainScale.Y;
     }
 }
