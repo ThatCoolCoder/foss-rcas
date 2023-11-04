@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://mciqqamx7rm1"]
+[gd_scene load_steps=22 format=3 uid="uid://mciqqamx7rm1"]
 
 [ext_resource type="PackedScene" uid="uid://wfhfmqv1cl37" path="res://Scenes/Locations/BaseLocation.tscn" id="1"]
 [ext_resource type="Script" path="res://addons/zylann.hterrain/hterrain.gd" id="2_gqr17"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://8e8ejew353wh" path="res://Art/Common/NaturalMaterials/Ground049A_1K-JPG/Ground049A_albedo_bump.png" id="11_w4jcv"]
 [ext_resource type="Texture2D" uid="uid://dpt5mooga7u70" path="res://Art/Common/NaturalMaterials/Ground049A_1K-JPG/Ground049A_normal_roughness.png" id="12_afs7r"]
 [ext_resource type="PackedScene" uid="uid://d053ptahqolmv" path="res://Scenes/Locations/Common/GrassScatter.tscn" id="13_eve8h"]
+[ext_resource type="Texture2D" uid="uid://csynsveq6j13s" path="res://Art/Common/GrassV2.png" id="14_cv15i"]
 [ext_resource type="Texture2D" uid="uid://cwf1r2t16nxyy" path="res://Art/Common/GrassV2Normal.png" id="14_op3ul"]
 [ext_resource type="PackedScene" uid="uid://nfr3dpkykyi7" path="res://Art/Locations/AceTrack/House.glb" id="14_s88cg"]
 [ext_resource type="PackedScene" uid="uid://eitklmq0pnow" path="res://Scenes/Locations/BadgerField/ImpostorPine.tscn" id="15_hj5ws"]
@@ -68,10 +69,11 @@ shader_params/u_specular = 0.37
 [node name="GrassScatter" parent="HTerrain" index="0" node_paths=PackedStringArray("HTerrain") instance=ExtResource("13_eve8h")]
 transform = Transform3D(271.877, 0, 0, 0, 1, 0, 0, 0, 453.239, 0, 0, 0)
 InstanceCount = 70000
+Texture = ExtResource("14_cv15i")
 NormalMap = ExtResource("14_op3ul")
 HTerrain = NodePath("..")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="HTerrain" index="2"]
+[node name="CSGBox3D" type="CSGBox3D" parent="HTerrain" index="1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.70765, 0)
 size = Vector3(1, 3.45933, 1)
 
