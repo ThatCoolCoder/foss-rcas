@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://c4lnwayphj5t2"]
+[gd_scene load_steps=25 format=3 uid="uid://c4lnwayphj5t2"]
 
 [ext_resource type="PackedScene" uid="uid://wfhfmqv1cl37" path="res://Scenes/Locations/BaseLocation.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://boicgaslj3qqk" path="res://Art/Locations/BadgerField/BadgerField.glb" id="2"]
@@ -8,7 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://riadj4pa5sfk" path="res://Scenes/Locations/Common/TreeScatter.tscn" id="6"]
 [ext_resource type="Texture2D" uid="uid://qs8i37h44tn1" path="res://Art/Common/Trees/PineV2/Render/Pine0.png" id="7"]
 [ext_resource type="PackedScene" uid="uid://d053ptahqolmv" path="res://Scenes/Locations/Common/GrassScatter.tscn" id="8"]
+[ext_resource type="Shader" path="res://Resources/Grass.gdshader" id="8_cvsdn"]
 [ext_resource type="Texture2D" uid="uid://cwf1r2t16nxyy" path="res://Art/Common/GrassV2Normal.png" id="9"]
+[ext_resource type="Texture2D" uid="uid://csynsveq6j13s" path="res://Art/Common/GrassV2.png" id="9_njrgu"]
 [ext_resource type="Texture2D" uid="uid://cyvexhh7k4x4j" path="res://Art/Locations/BadgerField/GrassMask.png" id="11"]
 [ext_resource type="Texture2D" uid="uid://cokid8ftn0iil" path="res://Art/Common/Bushes/Basic/BasicBush0.png" id="12"]
 [ext_resource type="Texture2D" uid="uid://ch0elub6u0tsv" path="res://Art/Common/Bushes/Basic/BasicBush240.png" id="13"]
@@ -203,6 +205,7 @@ transform = Transform3D(0.296678, 0, -0.647822, 0, 0.712524, 0, 0.647822, 0, 0.2
 transform = Transform3D(213.348, 0, 0, 0, 1.023, 0, 0, 0, 135.522, -9.4665, 0.29859, -5.88435)
 InstanceCount = 100000
 Mask = ExtResource("11")
+Texture = ExtResource("9_njrgu")
 NormalMap = ExtResource("9")
 NormalStrength = 2.0
 
