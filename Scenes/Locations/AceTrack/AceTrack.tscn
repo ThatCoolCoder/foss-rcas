@@ -67,9 +67,11 @@ shader_params/u_tile_reduction = Vector4(1.17, 0.245, 0.26, 0.24)
 shader_params/u_specular = 0.37
 
 [node name="GrassScatter" parent="HTerrain" index="0" node_paths=PackedStringArray("HTerrain") instance=ExtResource("13_eve8h")]
-transform = Transform3D(271.877, 0, 0, 0, 1, 0, 0, 0, 453.239, 0, 0, 0)
+transform = Transform3D(547.906, 0, 0, 0, 1, 0, 0, 0, 537.128, 0, 0, 0)
 InstanceCount = 70000
 Texture = ExtResource("14_cv15i")
+BrightnessAdjust = 1.777
+ColorAdjust = Color(0, 0.266667, 0.164706, 1)
 NormalMap = ExtResource("14_op3ul")
 HTerrain = NodePath("..")
 

@@ -1,7 +1,9 @@
 shader_type spatial;
-render_mode blend_mix,depth_draw_opaque,cull_disabled,diffuse_burley,specular_disabled;
+render_mode blend_mix,depth_draw_opaque,cull_disabled,unshaded;
 
-uniform sampler2D albedo;
+uniform sampler2D albedo : source_color;
+uniform float bright_adjust = 1;
+uniform vec4 color_adjust : source_color;
 uniform sampler2D normal;
 uniform float normal_strength = 1;
 uniform bool use_normal;
@@ -13,7 +15,7 @@ void vertex() {
 }
 
 void fragment() {
-	ALBEDO = texture(albedo, UV).rgb;
+	ALBEDO = texture(albedo, UV).rgb * bright_adjust + color_adjust.rgb;
     ALPHA = texture(albedo, UV).a;
     if (use_normal) NORMAL_MAP = texture(normal, UV).rgb * normal_strength;
     ROUGHNESS = 1.;
