@@ -33,7 +33,7 @@ point_count = 7
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0216407)
 
 [node name="BuoyancyForcer4" parent="LeftFloat" index="0" instance=ExtResource("2_122un")]
-transform = Transform3D(0.0439017, 0, 0, 0, 0.0427057, 0, 0, 0, 0.11504, -0.102784, -0.121321, -0.0697336)
+transform = Transform3D(0.0439017, 0, 0, 0, 0.0427057, 0, 0, 0, 0.11504, -0.102784, -0.121321, -0.118933)
 HullShapeCurve = SubResource("Curve_hqk4f")
 TargetPath = NodePath("../..")
 
@@ -48,7 +48,7 @@ DragCube = SubResource("Resource_rv56b")
 TargetPath = NodePath("../..")
 
 [node name="AeroSurface" parent="LeftFloat" index="3" instance=ExtResource("5_f1183")]
-transform = Transform3D(0.0387851, 0, 0, 0, 0.294206, -0.00266109, 0, 0.0262003, 0.0298817, -0.104309, -0.157619, -0.0626237)
+transform = Transform3D(0.0387851, 0, 0, 0, 0.287682, -0.00680004, 0, 0.0669511, 0.0292191, -0.104309, -0.143555, -0.156892)
 TotalLiftCoefficient = SubResource("Curve_yd2eq")
 ParasiticDragCoefficient = SubResource("Curve_30kle")
 TargetPath = NodePath("../..")
@@ -57,7 +57,7 @@ TargetPath = NodePath("../..")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0216407)
 
 [node name="BuoyancyForcer" parent="RightFloat" index="0" instance=ExtResource("2_122un")]
-transform = Transform3D(0.0439017, 0, 0, 0, 0.0427057, 0, 0, 0, 0.11504, 0.105002, -0.121321, -0.0697336)
+transform = Transform3D(0.0439017, 0, 0, 0, 0.0427057, 0, 0, 0, 0.11504, 0.105002, -0.121321, -0.118933)
 HullShapeCurve = SubResource("Curve_hqk4f")
 TargetPath = NodePath("../..")
 
@@ -72,7 +72,7 @@ DragCube = SubResource("Resource_rv56b")
 TargetPath = NodePath("../..")
 
 [node name="AeroSurface2" parent="RightFloat" index="3" instance=ExtResource("5_f1183")]
-transform = Transform3D(0.0387851, 0, 0, 0, 0.294206, -0.00266109, 0, 0.0262003, 0.0298817, 0.101795, -0.157619, -0.0626237)
+transform = Transform3D(0.0387851, 0, 0, 0, 0.287682, -0.00680004, 0, 0.0669511, 0.0292191, 0.101795, -0.143555, -0.156892)
 TotalLiftCoefficient = SubResource("Curve_yd2eq")
 ParasiticDragCoefficient = SubResource("Curve_30kle")
 TargetPath = NodePath("../..")
