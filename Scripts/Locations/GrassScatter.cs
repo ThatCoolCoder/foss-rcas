@@ -18,7 +18,7 @@ public partial class GrassScatter : MultiMeshInstance3D
     [Export] public float CameraMoveDistBeforeUpdate { get; set; } = 10; // Update grass falloff when camera moves this far
     [Export] public int InstanceCount { get; set; } = 100;
     [Export] public Texture2D Mask { get; set; } // Only on white regions of this texture is grass spawned. If you leave it out then it's just everywhere
-    [Export] public Texture2D Texture2D { get; set; }
+    [Export] public Texture2D Texture { get; set; }
     [Export] public Texture2D NormalMap { get; set; }
     [Export] public float NormalStrength { get; set; } = 1;
     [Export] public Vector2 GrassSize { get; set; } = new Vector2(0.07f, 0.5f);
@@ -51,6 +51,7 @@ public partial class GrassScatter : MultiMeshInstance3D
     private Vector3 crntCameraPos;
     private Vector3 lastUpdatePos;
     private bool generatedInitialGrass = false;
+    private readonly Shader shader = ResourceLoader.Load<Shader>("Resources/Grass.gdshader");
 
     public override void _Ready()
     {
@@ -68,28 +69,31 @@ public partial class GrassScatter : MultiMeshInstance3D
         // todo: probably we could move some of this code to ready()
         MultiMesh multimesh = new();
         multimesh.TransformFormat = MultiMesh.TransformFormatEnum.Transform3D;
+
         var mesh = new QuadMesh();
-        mesh.Size = GrassSize;
         multimesh.Mesh = mesh;
+        mesh.Size = GrassSize;
         multimesh.UseColors = true;
 
-        var material = new StandardMaterial3D();
-        material.AlbedoTexture = Texture2D;
-        material.Transparency = BaseMaterial3D.TransparencyEnum.AlphaScissor;
+        // var material = new StandardMaterial3D();
+        // mesh.Material = material;
+        // material.AlbedoTexture = Texture2D;
+        // material.Transparency = BaseMaterial3D.TransparencyEnum.AlphaScissor;
+        // material.CullMode = BaseMaterial3D.CullModeEnum.Disabled;
+
+        // material.DistanceFadeMaxDistance = Mathf.Sqrt(trueFalloffMaxDistance);
+        // material.DistanceFadeMinDistance = trueFalloffMaxDistance;
+        // material.DistanceFadeMode = StandardMaterial3D.DistanceFadeModeEnum.PixelDither;
+
+        var material = new ShaderMaterial();
         mesh.Material = material;
-        material.CullMode = BaseMaterial3D.CullModeEnum.Disabled;
+        material.Shader = shader;
 
-        material.DistanceFadeMaxDistance = Mathf.Sqrt(trueFalloffMaxDistance);
-        material.DistanceFadeMinDistance = trueFalloffMaxDistance;
-        material.DistanceFadeMode = StandardMaterial3D.DistanceFadeModeEnum.PixelDither;
-
-        if (NormalMap == null) material.NormalEnabled = false;
-        else
-        {
-            material.NormalEnabled = true;
-            material.NormalTexture = NormalMap;
-            material.NormalScale = NormalStrength;
-        }
+        material.SetShaderParameter("albedo", Texture);
+        material.SetShaderParameter("normal", NormalMap);
+        material.SetShaderParameter("use_normal", NormalMap != null);
+        material.SetShaderParameter("normal_strength", NormalStrength);
+        material.SetShaderParameter("falloff_max_distance", trueFalloffMaxDistance);
 
         var cameraPos = crntCameraPos;
         lastUpdatePos = cameraPos;
@@ -99,11 +103,9 @@ public partial class GrassScatter : MultiMeshInstance3D
 
         var hTerrainData = (Resource)HTerrain?.Call("get_data");
         var image = (Image)hTerrainData?.Call("get_image", 0);
-        var heightMapSize = (Vector2I)image?.GetSize();
-        var mapScale = (Vector3)HTerrain?.Get("map_scale");
-        var mapCentered = (bool)HTerrain?.Get("centered");
-
-        GD.Print(Utils.GetHeightFromHTerrainInterpolated(Vector3.Zero, mapScale, image, heightMapSize, mapCentered));
+        var heightMapSize = image?.GetSize();
+        var mapScale = HTerrain?.Get("map_scale");
+        var mapCentered = HTerrain?.Get("centered");
 
         for (int i = 0; i < positions.Count; i++)
         {
@@ -125,7 +127,7 @@ public partial class GrassScatter : MultiMeshInstance3D
             var yPos = transform.Basis.Scale.Y * GrassSize.Y / 2;
             if (hTerrainData != null)
             {
-                yPos += Utils.GetHeightFromHTerrainInterpolated(pos, mapScale, image, heightMapSize, mapCentered);
+                yPos += Utils.GetHeightFromHTerrainInterpolated(pos, (Vector3)mapScale, image, (Vector2I)heightMapSize, (bool)mapCentered);
                 // var s = image.GetSize() / 2;
                 // var p = new Vector3(pos.X / mapScale.X + s.X, 0, pos.Z / mapScale.Z + s.Y);
                 // yPos += (float)hTerrainData.Call("get_interpolated_height_at", p);
