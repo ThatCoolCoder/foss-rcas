@@ -5,6 +5,7 @@ using System.Collections.Generic;
 
 namespace Locations;
 
+[Tool]
 public partial class GrassScatter : MultiMeshInstance3D
 {
     // Thing that scatters grass within a rectangular region while also respecting a mask and only creating it within a certain distance of the camera.
@@ -14,6 +15,7 @@ public partial class GrassScatter : MultiMeshInstance3D
     // Potential improvement: make it a tool script and make the mask editable in the editor.
     // todo: Is a bit hacky, could do with some refactoring
 
+    [Export] public Vector2 Size { get; set; } = Vector2.One * 100;
     [Export] public float FalloffMaxDistance { get; set; } = 100;
     [Export] public float CameraMoveDistBeforeUpdate { get; set; } = 10; // Update grass falloff when camera moves this far
     [Export] public int InstanceCount { get; set; } = 100;
@@ -30,6 +32,7 @@ public partial class GrassScatter : MultiMeshInstance3D
     // If we fail to find a position that satisfies the mask in this many tries, give up.
     // Try reducing this if grass takes too long to generate
     [Export] public int MaxMaskTries { get; set; } = 10;
+    private CsgBox3D csgBox;
 
     public int trueInstanceCount
     {
@@ -48,7 +51,6 @@ public partial class GrassScatter : MultiMeshInstance3D
     }
 
 
-    private Vector3 size;
     private GodotThread generateGrassThread;
     private Vector3 crntCameraPos;
     private Vector3 lastUpdatePos;
@@ -58,10 +60,10 @@ public partial class GrassScatter : MultiMeshInstance3D
     public override void _Ready()
     {
         // Clean up the editor visualisations
-        GetNode<Node3D>("CSGBox3D").Visible = false;
+        csgBox = GetNode<CsgBox3D>("CSGBox3D");
 
-        size = Scale;
-        GetNode<Node3D>("CSGBox3D").Scale = Scale;
+        if (!Engine.IsEditorHint()) csgBox.Visible = false;
+
         Scale = Vector3.One;
     }
 
@@ -157,13 +159,13 @@ public partial class GrassScatter : MultiMeshInstance3D
                 var pos = ToLocal(relativeToCamera + falloffCenter);
 
                 // Check if within bounds
-                if (Mathf.Abs(pos.X) > (size.X / 2) || Mathf.Abs(pos.Z) > (size.Z / 2)) continue;
+                if (Mathf.Abs(pos.X) > (Size.X / 2) || Mathf.Abs(pos.Z) > (Size.Y / 2)) continue;
 
                 // Check if within mask
                 if (Mask != null)
                 {
-                    var x = (pos.X / size.X + 0.5f) * Mask.GetWidth();
-                    var y = (pos.Z / size.Z + 0.5f) * Mask.GetHeight();
+                    var x = (pos.X / Size.X + 0.5f) * Mask.GetWidth();
+                    var y = (pos.Z / Size.Y + 0.5f) * Mask.GetHeight();
                     if (maskImage.GetPixel((int)x, (int)y).R < 0.5f) continue;
                 }
 
@@ -207,13 +209,13 @@ public partial class GrassScatter : MultiMeshInstance3D
                 var pos = ToLocal(relativeToCamera + falloffCenter);
 
                 // Check if within bounds
-                if (Mathf.Abs(pos.X) > (size.X / 2) || Mathf.Abs(pos.Z) > (size.Z / 2)) continue;
+                if (Mathf.Abs(pos.X) > (Size.X / 2) || Mathf.Abs(pos.Z) > (Size.Y / 2)) continue;
 
                 // Check if within mask
                 if (Mask != null)
                 {
-                    var x = (pos.X / size.X + 0.5f) * Mask.GetWidth();
-                    var y = (pos.Z / size.Z + 0.5f) * Mask.GetHeight();
+                    var x = (pos.X / Size.X + 0.5f) * Mask.GetWidth();
+                    var y = (pos.Z / Size.Y + 0.5f) * Mask.GetHeight();
                     if (maskImage.GetPixel((int)x, (int)y).R < 0.5f) continue;
                 }
 
@@ -263,13 +265,13 @@ public partial class GrassScatter : MultiMeshInstance3D
                 var finalPos = snappedPos + jiggle;
 
                 // Check if within bounds
-                if (Mathf.Abs(finalPos.X) > (size.X / 2) || Mathf.Abs(finalPos.Z) > (size.Z / 2)) continue;
+                if (Mathf.Abs(finalPos.X) > (Size.X / 2) || Mathf.Abs(finalPos.Z) > (Size.Y / 2)) continue;
 
                 // Check if within mask
                 if (Mask != null)
                 {
-                    var x = (finalPos.X / size.X + 0.5f) * Mask.GetWidth();
-                    var y = (finalPos.Z / size.Z + 0.5f) * Mask.GetHeight();
+                    var x = (finalPos.X / Size.X + 0.5f) * Mask.GetWidth();
+                    var y = (finalPos.Z / Size.Y + 0.5f) * Mask.GetHeight();
                     if (maskImage.GetPixel((int)x, (int)y).R < 0.5f) continue;
                 }
 
@@ -292,8 +294,8 @@ public partial class GrassScatter : MultiMeshInstance3D
         // because it turns out that the intersecting blades in the center of the other places are what slowed it down.
 
         // Don't even bother trying if we're far enough away
-        var maxPos = size / 2 + trueFalloffMaxDistance * Vector3.One;
-        if (Mathf.Abs(center.X) > maxPos.X || Mathf.Abs(center.Z) > maxPos.Z) return new();
+        var maxPos = Size / 2 + trueFalloffMaxDistance * Vector2.One;
+        if (Mathf.Abs(center.X) > maxPos.X || Mathf.Abs(center.Z) > maxPos.Y) return new();
 
         var g = SimSettings.Settings.Current.Graphics;
         int targetInstanceCount = (int)(InstanceCount * g.GrassMultiplier * g.GrassDistanceMultiplier * g.GrassDistanceMultiplier);
@@ -323,13 +325,13 @@ public partial class GrassScatter : MultiMeshInstance3D
                 var finalPos = pos + jiggle;
 
                 // Check if within bounds
-                if (Mathf.Abs(finalPos.X) > (size.X / 2) || Mathf.Abs(finalPos.Z) > (size.Z / 2)) continue;
+                if (Mathf.Abs(finalPos.X) > (Size.X / 2) || Mathf.Abs(finalPos.Z) > (Size.Y / 2)) continue;
 
                 // Check if within mask
                 if (Mask != null)
                 {
-                    var x = (finalPos.X / size.X + 0.5f) * Mask.GetWidth();
-                    var y = (finalPos.Z / size.Z + 0.5f) * Mask.GetHeight();
+                    var x = (finalPos.X / Size.X + 0.5f) * Mask.GetWidth();
+                    var y = (finalPos.Z / Size.Y + 0.5f) * Mask.GetHeight();
                     if (maskImage.GetPixel((int)x, (int)y).R < 0.5f) continue;
                 }
 
@@ -374,10 +376,24 @@ public partial class GrassScatter : MultiMeshInstance3D
             generatedInitialGrass = true;
             GenerateGrassOnThread();
         }
-        else if (Engine.GetFramesDrawn() % 30 == 0 &&
-            GetCameraPos().DistanceSquaredTo(lastUpdatePos) > CameraMoveDistBeforeUpdate * CameraMoveDistBeforeUpdate)
+        else
         {
-            GenerateGrassOnThread();
+
+            if (Engine.IsEditorHint())
+            {
+                // todo: when godot 4.2 releases, use the new editor-camera-position-getter
+                if (Engine.GetFramesDrawn() % 120 == 0)
+                {
+                    GenerateGrassOnThread();
+                }
+                csgBox.Size = new Vector3(Size.X, 0.1f, Size.Y);
+            }
+
+            else if (Engine.GetFramesDrawn() % 30 == 0 &&
+                GetCameraPos().DistanceSquaredTo(lastUpdatePos) > CameraMoveDistBeforeUpdate * CameraMoveDistBeforeUpdate)
+            {
+                GenerateGrassOnThread();
+            }
         }
     }
 
