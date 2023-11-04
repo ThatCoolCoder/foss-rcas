@@ -4,7 +4,7 @@ shader_type spatial;
 // it should be preferred for high-end graphics cards.
 // For less features but lower-end targets, see the lite version.
 
-#include "include/heightmap.gdshaderinc"
+#include "res://addons/zylann.hterrain/shaders/include/heightmap.gdshaderinc"
 
 uniform sampler2D u_terrain_heightmap;
 uniform sampler2D u_terrain_normalmap;
@@ -43,6 +43,8 @@ uniform float u_globalmap_blend_start;
 uniform float u_globalmap_blend_distance;
 
 uniform vec4 u_colormap_opacity_per_texture = vec4(1.0, 1.0, 1.0, 1.0);
+
+uniform float u_specular = 0.5;
 
 varying float v_hole;
 varying vec3 v_tint0;
@@ -326,4 +328,5 @@ void fragment() {
 //	}
 
 	NORMAL = (VIEW_MATRIX * (vec4(normal, 0.0))).xyz;
+	SPECULAR = u_specular;
 }

@@ -53,25 +53,27 @@ chunk_size = 32
 collision_enabled = true
 collision_layer = 1
 collision_mask = 1
-shader_type = "Classic4"
+shader_type = "Classic4Lite"
 custom_shader = null
 custom_globalmap_shader = null
 texture_set = SubResource("Resource_fxerr")
 render_layers = 1
 cast_shadow = 1
-shader_params/u_ground_uv_scale_per_texture = Vector4(15.11, 16.915, 11.11, 3.98)
-shader_params/u_depth_blending = true
+shader_params/u_ground_uv_scale = 10.0
+shader_params/u_depth_blending = false
 shader_params/u_triplanar = true
-shader_params/u_tile_reduction = Vector4(1, 1, 1, 1)
-shader_params/u_globalmap_blend_start = 0.0
-shader_params/u_globalmap_blend_distance = 0.0
-shader_params/u_colormap_opacity_per_texture = Vector4(0, 0, 0, 0)
+shader_params/u_tile_reduction = Vector4(1.17, 0.245, 0.26, 0.24)
+shader_params/u_specular = 0.37
 
 [node name="GrassScatter" parent="HTerrain" index="0" node_paths=PackedStringArray("HTerrain") instance=ExtResource("13_eve8h")]
-transform = Transform3D(271.877, 0, 0, 0, 1.02261, 0, 0, 0, 453.239, 0, 0, 0)
+transform = Transform3D(271.877, 0, 0, 0, 1, 0, 0, 0, 453.239, 0, 0, 0)
 InstanceCount = 70000
 NormalMap = ExtResource("14_op3ul")
 HTerrain = NodePath("..")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="HTerrain" index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.70765, 0)
+size = Vector3(1, 3.45933, 1)
 
 [node name="Sprite3D" type="Sprite3D" parent="." index="9"]
 transform = Transform3D(3.58894, 0, 0, 0, 1.06959e-07, 3.58894, 0, -3.58894, 1.06959e-07, 0, 2.9196, 0)

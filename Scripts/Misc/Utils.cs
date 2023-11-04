@@ -217,17 +217,31 @@ public static class Utils
         }
     }
 
-    public static float GetHeightFromHTerrain(Vector3 position, Vector3 hTerrainScale, Image heightMap, bool centered = false)
+    public static float GetHeightFromHTerrainInterpolated(Vector3 position, Vector3 hTerrainScale, Image heightMap, Vector2I heightMapSize = default, bool centered = false)
     {
-        // It appears hterrain get height is broken, so we do it ourself
-        // Assumes pos is relative to hterrain
-        // todo: make a bug report
-        // todo: makle a version of this that interpolates between pixels
+        // Faster & easier to use version of hterrain.get_interpolated_height_at
+        // (making tonnes of calls to gdscript was too slow)
+        // Position should be a vector relative to the hterrain node
+        // Logic is the same as that of the gdscript.
+        // Need to supply heightMapSize if centered true
 
-        var pos = new Vector2I((int)(position.X / hTerrainScale.X), (int)(position.Z / hTerrainScale.Z));
+        var pos = new Vector2(position.X / hTerrainScale.X, position.Z / hTerrainScale.Z);
 
-        if (centered) pos += heightMap.GetSize() / 2;
+        if (centered) pos += heightMapSize / 2;
 
-        return heightMap.GetPixelv(pos).R * hTerrainScale.Y;
+        if (pos.X < 0 || pos.Y < 0 || pos.X > heightMapSize.X || pos.Y > heightMapSize.Y) return 0;
+
+        var x0 = (int)pos.X;
+        var y0 = (int)pos.Y;
+
+        var xf = pos.X - x0;
+        var yf = pos.Y - y0;
+
+        var h00 = heightMap.GetPixel(x0, y0).R;
+        var h01 = heightMap.GetPixel(x0, y0 + 1).R;
+        var h10 = heightMap.GetPixel(x0 + 1, y0).R;
+        var h11 = heightMap.GetPixel(x0 + 1, y0 + 1).R;
+
+        return Mathf.Lerp(Mathf.Lerp(h00, h10, xf), Mathf.Lerp(h01, h11, xf), yf) * hTerrainScale.Y;
     }
 }
