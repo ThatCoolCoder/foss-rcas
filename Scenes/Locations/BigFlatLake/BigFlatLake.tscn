@@ -23,8 +23,10 @@ sky_material = SubResource("PhysicalSkyMaterial_bmvbd")
 
 [sub_resource type="Environment" id="Environment_46u5j"]
 background_mode = 2
-background_energy_multiplier = 4.79
+background_energy_multiplier = 5.0
 sky = SubResource("Sky_jguyn")
+ambient_light_sky_contribution = 0.45
+ambient_light_energy = 1.17
 
 [node name="BigFlatLake" instance=ExtResource("1_xlqxe")]
 
