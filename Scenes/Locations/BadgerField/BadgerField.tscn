@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://c4lnwayphj5t2"]
+[gd_scene load_steps=21 format=3 uid="uid://c4lnwayphj5t2"]
 
 [ext_resource type="PackedScene" uid="uid://wfhfmqv1cl37" path="res://Scenes/Locations/BaseLocation.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://boicgaslj3qqk" path="res://Art/Locations/BadgerField/BadgerField.glb" id="2"]
@@ -8,7 +8,6 @@
 [ext_resource type="PackedScene" uid="uid://riadj4pa5sfk" path="res://Scenes/Locations/Common/TreeScatter.tscn" id="6"]
 [ext_resource type="Texture2D" uid="uid://qs8i37h44tn1" path="res://Art/Common/Trees/PineV2/Render/Pine0.png" id="7"]
 [ext_resource type="PackedScene" uid="uid://d053ptahqolmv" path="res://Scenes/Locations/Common/GrassScatter.tscn" id="8"]
-[ext_resource type="Shader" path="res://Resources/Grass.gdshader" id="8_cvsdn"]
 [ext_resource type="Texture2D" uid="uid://cwf1r2t16nxyy" path="res://Art/Common/GrassV2Normal.png" id="9"]
 [ext_resource type="Texture2D" uid="uid://csynsveq6j13s" path="res://Art/Common/GrassV2.png" id="9_njrgu"]
 [ext_resource type="Texture2D" uid="uid://cyvexhh7k4x4j" path="res://Art/Locations/BadgerField/GrassMask.png" id="11"]
@@ -45,8 +44,6 @@ ambient_light_color = Color(0.862745, 0.858824, 0.784314, 1)
 ambient_light_sky_contribution = 0.39
 ambient_light_energy = 1.92
 tonemap_mode = 2
-tonemap_exposure = 0.7
-tonemap_white = 16.0
 fog_enabled = true
 fog_density = 0.0001
 fog_sky_affect = 0.0
@@ -197,6 +194,8 @@ transform = Transform3D(213.348, 0, 0, 0, 1.023, 0, 0, 0, 135.522, -9.4665, 0.29
 InstanceCount = 100000
 Mask = ExtResource("11")
 Texture = ExtResource("9_njrgu")
+BrightnessAdjust = 1.192
+ColorAdjust = Color(0, 0, 0.109804, 1)
 NormalMap = ExtResource("9")
 NormalStrength = 2.0
 
