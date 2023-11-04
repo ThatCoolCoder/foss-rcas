@@ -99,13 +99,15 @@ public partial class GrassScatter : MultiMeshInstance3D
 
         var hTerrainData = (Resource)HTerrain?.Call("get_data");
         var image = (Image)hTerrainData?.Call("get_image", 0);
-        GD.PrintS(image.GetPixel(512, 512), image.GetPixel(512, 0));
+        var heightMapSize = (Vector2I)image?.GetSize();
         var mapScale = (Vector3)HTerrain?.Get("map_scale");
         var mapCentered = (bool)HTerrain?.Get("centered");
 
+        GD.Print(Utils.GetHeightFromHTerrainInterpolated(Vector3.Zero, mapScale, image, heightMapSize, mapCentered));
+
         for (int i = 0; i < positions.Count; i++)
         {
-            // Calculcate rotation + scale
+            // Calculate rotation + scale
             var transform = Transform3D.Identity;
             var pos = positions[i];
 
@@ -123,7 +125,10 @@ public partial class GrassScatter : MultiMeshInstance3D
             var yPos = transform.Basis.Scale.Y * GrassSize.Y / 2;
             if (hTerrainData != null)
             {
-                yPos += Utils.GetHeightFromHTerrain(pos, mapScale, image, mapCentered);
+                yPos += Utils.GetHeightFromHTerrainInterpolated(pos, mapScale, image, heightMapSize, mapCentered);
+                // var s = image.GetSize() / 2;
+                // var p = new Vector3(pos.X / mapScale.X + s.X, 0, pos.Z / mapScale.Z + s.Y);
+                // yPos += (float)hTerrainData.Call("get_interpolated_height_at", p);
             }
 
             transform.Origin = pos.WithY(yPos);
