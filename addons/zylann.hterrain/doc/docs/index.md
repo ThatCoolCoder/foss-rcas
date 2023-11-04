@@ -478,79 +478,6 @@ It can also be done using [packed texture importers](packed-texture-importers), 
 	Because Godot would strip out the alpha channel if a packed texture was imported as a normal map, you should not make your texture import as "Normal Map" in the importer dock.
 
 
-### Packed texture importers
-
-In order to support the [import tool](#using-the-import-tool), this plugin defines two special texture importers, which allow to pack multiple input textures into one. They otherwise behave the same as Godot's default importers.
-
-The type of file they import are JSON files, which refer to the source image files you wish to pack together, along with a few other options.
-
-#### Packed textures
-
-File extension: `.packed_tex`
-
-Example for an albedo+bump texture:
-```json
-{
-    "contains_albedo": true,
-    "src": {
-        "rgb": "res://textures/src/grass_albedo.png",
-        "a": "res://textures/src/grass_bump.png",
-    }
-}
-```
-
-Example for a normal+roughness texture, with conversion from DirectX to OpenGL (optional):
-```json
-{
-    "src": {
-        "rgb": "res://textures/src/rocks_normal.png",
-        "a": "res://textures/src/rocks_roughness.png",
-        "normalmap_flip_y": true
-    }
-}
-```
-
-You can also specify a plain color instead of a path, if you don't need a texture. It will act as if the source texture was filled with this color. The expected format is ARGB.
-
-```
-    "rgb": "#ff888800"
-```
-
-#### Packed texture arrays
-
-File extension: `.packed_texarr`
-
-This one requires you to specify a `resolution`, because each layer of the texture array must have the same size and be square. The resolution is a single integer number.
-What you can put in each layer is the same as for [packed textures](#packed-textures).
-
-```json
-{
-    "contains_albedo": true,
-    "resolution": 1024,
-    "layers": [
-        {
-            "rgb": "res://textures/src/grass_albedo.png",
-            "a": "res://textures/src/grass_bump.png"
-        },
-        {
-            "rgb": "res://textures/src/rocks_albedo.png",
-            "a": "res://textures/src/rocks_bump.png"
-        },
-        {
-            "rgb": "res://textures/src/sand_albedo.png",
-            "a": "res://textures/src/sand_bump.png"
-        }
-    ]
-}
-```
-
-#### Limitations
-
-Such importers support most of the features needed for terrain textures, however some features found in Godot's importers are not implemented. This is because Godot does not have any API to extend the existing importers, so they had to be re-implemented from scratch in GDScript. For example, lossy compression to save disk space is not supported, because it requires access to WebP compression API which is not exposed.
-
-See [Godot proposal](https://github.com/godotengine/godot-proposals/issues/1943)
-
-
 ### Depth blending
 
 `Bump` textures holds a particular usage in this plugin:
@@ -692,7 +619,7 @@ This window allows you to import several kinds of data, such as heightmap but al
 There are a few things to check before you can successfully import a terrain though:
 
 - The resolution should be power of two + 1, and square. If it isn't, the plugin will attempt to crop it, which might be OK or not if you can deal with map borders that this will produce.
-- If you import a RAW heightmap, it has to be encoded using 16-bit unsigned integer format.
+- If you import a RAW heightmap, it has to be encoded using either 16-bit or 32-bit unsigned integer format. Upon selecting a file via the file chooser dialog, the importer will attempt to deduce the bit depth.
 - If you import a PNG heightmap, Godot can only load it as 8-bit depth, so it is not recommended for high-range terrains because it doesn't have enough height precision.
 
 This feature also can't be undone when executed, as all terrain data will be overwritten with the new one. If anything isn't correct, the tool will warn you before to prevent data loss.
@@ -894,7 +821,7 @@ For example, this code will tint the ground red at a specific position (in pixel
 ```gdscript
 const HTerrainData = preload("res://addons/zylann.hterrain/hterrain_data.gd")
 
-onready var _terrain = $Path/To/Terrain
+@onready var _terrain = $Path/To/Terrain
 
 func test():
     # Get the image
@@ -903,9 +830,7 @@ func test():
 
     # Modify the image
     var position = Vector2(42, 36)
-    colormap.lock()
     colormap.set_pixel(position, Color(1, 0, 0))
-    colormap.unlock()
 
     # Notify the terrain of our change
     data.notify_region_changed(Rect2(position.x, position.y, 1, 1), HTerrainData.CHANNEL_COLOR)
@@ -944,17 +869,13 @@ func _ready():
     var terrain_data = HTerrainData.new()
     terrain_data.resize(513)
     
-    var noise = OpenSimplexNoise.new()
+    var noise = FastNoiseLite.new()
     var noise_multiplier = 50.0
 
     # Get access to terrain maps
     var heightmap: Image = terrain_data.get_image(HTerrainData.CHANNEL_HEIGHT)
     var normalmap: Image = terrain_data.get_image(HTerrainData.CHANNEL_NORMAL)
     var splatmap: Image = terrain_data.get_image(HTerrainData.CHANNEL_SPLAT)
-    
-    heightmap.lock()
-    normalmap.lock()
-    splatmap.lock()
     
     # Generate terrain maps
     # Note: this is an example with some arbitrary formulas,
@@ -984,10 +905,6 @@ func _ready():
             normalmap.set_pixel(x, z, HTerrainData.encode_normal(normal))
             splatmap.set_pixel(x, z, splat)
     
-    heightmap.unlock()
-    normalmap.unlock()
-    splatmap.unlock()
-    
     # Commit modifications so they get uploaded to the graphics card
     var modified_region = Rect2(Vector2(), heightmap.get_size())
     terrain_data.notify_region_change(modified_region, HTerrainData.CHANNEL_HEIGHT)
@@ -1015,6 +932,26 @@ func _ready():
     # No need to call this, but you may need to if you edit the terrain later on
     #terrain.update_collider()
 ```
+
+
+### Reload while the game is running
+
+If your want to reload a terrain without restarting the game, you can do the following with a script:
+
+```gdscript
+# Reload terrain data from files, disregarding cached resources
+terrain.data.reload()
+
+# Update the collider, as it won't update automatically
+terrain.update_collider()
+```
+
+So the following workflow is possible:
+
+- While the game runs, do some changes to the terrain in the editor
+- Save the scene containing the terrain
+- Optional: tab in/out of Godot to make sure terrain textures get re-imported (if you don't do it, only the heightmap will update and shading might look wrong in changed areas)
+- Press a hotkey in the game calling the code that reloads the terrain.
 
 
 Export

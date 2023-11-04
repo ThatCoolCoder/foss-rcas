@@ -3,7 +3,7 @@ shader_type spatial;
 // This is a shader with less textures, in case the main one doesn't run on your GPU.
 // It's mostly a big copy/paste, because Godot doesn't support #include or #ifdef...
 
-#include "include/heightmap.gdshaderinc"
+#include "res://addons/zylann.hterrain/shaders/include/heightmap.gdshaderinc"
 
 uniform sampler2D u_terrain_heightmap;
 uniform sampler2D u_terrain_normalmap;
@@ -24,6 +24,7 @@ uniform bool u_depth_blending = true;
 uniform bool u_triplanar = false;
 // Each component corresponds to a ground texture. Set greater than zero to enable.
 uniform vec4 u_tile_reduction = vec4(0.0, 0.0, 0.0, 0.0);
+uniform float u_specular = 0.5;
 
 varying vec4 v_tint;
 varying vec4 v_splat;
@@ -204,6 +205,7 @@ void fragment() {
 	ROUGHNESS = 1.0;
 	
 	NORMAL = (VIEW_MATRIX * (vec4(terrain_normal_world, 0.0))).xyz;
+	SPECULAR = u_specular;
 
 	//ALBEDO = w.rgb;
 	//ALBEDO = v_ground_uv.xyz;

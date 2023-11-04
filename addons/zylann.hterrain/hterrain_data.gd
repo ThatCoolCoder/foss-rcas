@@ -12,6 +12,12 @@ const HT_Logger = preload("./util/logger.gd")
 const HT_ImageFileCache = preload("./util/image_file_cache.gd")
 const HT_XYZFormat = preload("./util/xyz_format.gd")
 
+enum {
+	BIT_DEPTH_UNDEFINED = 0,
+	BIT_DEPTH_16 = 16,
+	BIT_DEPTH_32 = 32
+}
+
 # Note: indexes matters for saving, don't re-order
 # TODO Rename "CHANNEL" to "MAP", makes more sense and less confusing with RGBA channels
 const CHANNEL_HEIGHT = 0
@@ -446,6 +452,43 @@ func get_heights_region(x0: int, y0: int, w: int, h: int) -> PackedFloat32Array:
 		_logger.error(str("Unknown heightmap format! ", im.get_format()))
 
 	return heights
+
+
+# Checks that all images stored in maps have the correct format.
+# May be called in case someone uses `copy_from()` to update images and uses wrong formats.
+func check_images():
+	var errors := PackedStringArray()
+	
+	for map_type in _maps.size():
+		var map_list : Array = _maps[map_type]
+
+		for map_index in map_list.size():
+			var map : HT_Map = map_list[map_index]
+			var im := map.image
+
+			if im == null:
+				continue
+			
+			if im.get_width() != im.get_height():
+				errors.append(
+					str("Terrain image ", get_map_debug_name(map_type, map_index), 
+					" is not square (", im.get_width(), "x", im.get_height(), "). ",
+					"Did you modify it directly?"))
+
+			elif im.get_width() != get_resolution():
+				errors.append(
+					str("Terrain image ", get_map_debug_name(map_type, map_index), 
+					" resolution (", im.get_width(), ") does not match the expected ",
+					"resolution (", get_resolution(), "). Did you modify it directly?"))
+
+			var expected_format : int = _map_types[map_type].texture_format
+			if im.get_format() != expected_format:
+				errors.append(
+					str("Terrain image ", get_map_debug_name(map_type, map_index), 
+					" has an unexpected format (expected ", expected_format, ", found ", 
+					im.get_format(), "). Did you modify it directly?"))
+	
+	assert(errors.size() == 0, " ".join(errors))
 
 
 # Gets all heights as an array indexed as [x + y * width].
@@ -1081,7 +1124,10 @@ func _deserialize_metadata(dict: Dictionary) -> bool:
 	return true
 
 
-func load_data(dir_path: String):
+func load_data(dir_path: String, 
+	# Same as default in ResourceLoader.load()
+	resource_loader_cache_mode := ResourceLoader.CACHE_MODE_REUSE):
+	
 	_locked = true
 
 	_load_metadata(dir_path.path_join(META_FILENAME))
@@ -1090,7 +1136,7 @@ func load_data(dir_path: String):
 
 	var channel_instance_sum = _get_total_map_count()
 	var pi = 0
-
+	
 	# Note: if we loaded all maps at once before uploading them to VRAM,
 	# it would take a lot more RAM than if we load them one by one
 	for map_type in len(_maps):
@@ -1100,7 +1146,7 @@ func load_data(dir_path: String):
 			_logger.debug(str("Loading map ", get_map_debug_name(map_type, index),
 				" from ", _get_map_filename(map_type, index), "..."))
 
-			_load_map(dir_path, map_type, index)
+			_load_map(dir_path, map_type, index, resource_loader_cache_mode)
 
 			# A map that was just loaded is considered not modified yet
 			maps[index].modified = false
@@ -1114,6 +1160,26 @@ func load_data(dir_path: String):
 
 	_locked = false
 	resolution_changed.emit()
+
+
+# Reloads the entire terrain from files, disregarding cached resources.
+# This could be useful to reload a terrain while playing the game. You can do some edits in the
+# editor, save the terrain and then reload in-game.
+func reload():
+	_logger.debug("Reloading terrain data...")
+	var dir_path := resource_path.get_base_dir()
+	load_data(dir_path, ResourceLoader.CACHE_MODE_IGNORE)
+	_logger.debug("Reloading terrain data done")
+	
+	# Debug
+#	var heightmap := get_image(CHANNEL_HEIGHT, 0)
+#	var im = Image.create(heightmap.get_width(), heightmap.get_height(), false, Image.FORMAT_RGB8)
+#	for y in heightmap.get_height():
+#		for x in heightmap.get_width():
+#			var h := heightmap.get_pixel(x, y).r * 0.1
+#			var g := h - floorf(h)
+#			im.set_pixel(x, y, Color(g, g, g, 1.0))
+#	im.save_png("local_tests/debug_data/reloaded_heightmap.png")
 
 
 func get_data_dir() -> String:
@@ -1238,7 +1304,7 @@ static func _try_write_default_import_options(
 	HT_Util.write_import_file(defaults, imp_fpath, logger)
 
 
-func _load_map(dir: String, map_type: int, index: int) -> bool:
+func _load_map(dir: String, map_type: int, index: int, resource_loader_cache_mode : int) -> bool:
 	var fpath := dir.path_join(_get_map_filename(map_type, index))
 
 	# Maps must be configured before being loaded
@@ -1257,14 +1323,14 @@ func _load_map(dir: String, map_type: int, index: int) -> bool:
 	else:
 		fpath += ".res"
 	
-	var tex = load(fpath)
+	var tex = ResourceLoader.load(fpath, "", resource_loader_cache_mode)
 	
 	var must_load_image_in_editor := true
 	
 	# Short-term compatibility with RGB8 encoding from the godot4 branch
 	if Engine.is_editor_hint() and tex == null and map_type == CHANNEL_HEIGHT:
 		var legacy_fpath := fpath.get_basename() + ".png"
-		var temp = load(legacy_fpath)
+		var temp = ResourceLoader.load(legacy_fpath, "", resource_loader_cache_mode)
 		if temp != null:
 			if temp is Texture2D:
 				temp = temp.get_image()
@@ -1284,7 +1350,8 @@ func _load_map(dir: String, map_type: int, index: int) -> bool:
 		map.image = tex
 		tex = ImageTexture.create_from_image(map.image)
 		must_load_image_in_editor = false
-
+	
+	var texture_changed : bool = (tex != map.texture)
 	map.texture = tex
 
 	if Engine.is_editor_hint():
@@ -1299,6 +1366,11 @@ func _load_map(dir: String, map_type: int, index: int) -> bool:
 	
 	if map_type == CHANNEL_HEIGHT:
 		_resolution = map.image.get_width()
+
+	# Initially added to support reloading of an existing terrain (otherwise it's pointless to emit
+	# during scene loading when the resource isn't assigned yet)
+	if texture_changed:
+		map_changed.emit(map_type, index)
 
 	return true
 
@@ -1327,7 +1399,7 @@ func _edit_import_maps(input: Dictionary) -> bool:
 	if input.has(CHANNEL_HEIGHT):
 		var params = input[CHANNEL_HEIGHT]
 		if not _import_heightmap(
-			params.path, params.min_height, params.max_height, params.big_endian):
+			params.path, params.min_height, params.max_height, params.big_endian, params.bit_depth):
 			return false
 
 	# TODO Import indexed maps?
@@ -1352,7 +1424,7 @@ static func get_adjusted_map_size(width: int, height: int) -> int:
 	return size_po2
 
 
-func _import_heightmap(fpath: String, min_y: float, max_y: float, big_endian: bool) -> bool:
+func _import_heightmap(fpath: String, min_y: float, max_y: float, big_endian: bool, bit_depth: int) -> bool:
 	var ext := fpath.get_extension().to_lower()
 
 	if ext == "png":
@@ -1436,7 +1508,7 @@ func _import_heightmap(fpath: String, min_y: float, max_y: float, big_endian: bo
 				_logger.error(str("Invalid heightmap format ", im.get_format()))
 
 	elif ext == "raw":
-		# RAW files don't contain size, so we have to deduce it from 16-bit size.
+		# RAW files don't contain size, so we take the user's bit depth import choice.
 		# We also need to bring it back to float in the wanted range.
 
 		var f := FileAccess.open(fpath, FileAccess.READ)
@@ -1444,7 +1516,7 @@ func _import_heightmap(fpath: String, min_y: float, max_y: float, big_endian: bo
 			return false
 
 		var file_len := f.get_length()
-		var file_res := HT_Util.integer_square_root(file_len / 2)
+		var file_res := HT_Util.integer_square_root(file_len / (bit_depth/8))
 		if file_res == -1:
 			# Can't deduce size
 			return false
@@ -1479,22 +1551,40 @@ func _import_heightmap(fpath: String, min_y: float, max_y: float, big_endian: bo
 
 		# Convert to internal format
 		var h := 0.0
-		for y in rh:
-			for x in rw:
-				var gs := float(f.get_16()) / 65535.0
-				h = min_y + hrange * float(gs)
-				match im.get_format():
-					Image.FORMAT_RF:
-						im.set_pixel(x, y, Color(h, 0, 0))
-					Image.FORMAT_RGB8:
-						im.set_pixel(x, y, encode_height_to_rgb8_unorm(h))
-					_:
-						_logger.error(str("Invalid heightmap format ", im.get_format()))
-						return false
-				
-			# Skip next pixels if the file is bigger than the accepted resolution
-			for x in range(rw, file_res):
-				f.get_16()
+		if bit_depth == BIT_DEPTH_32:
+			for y in rh:
+				for x in rw:
+					var gs := float(f.get_32()) / 4294967295.0
+					h = min_y + hrange * float(gs)
+					match im.get_format():
+						Image.FORMAT_RF:
+							im.set_pixel(x, y, Color(h, 0, 0))
+						Image.FORMAT_RGB8:
+							im.set_pixel(x, y, encode_height_to_rgb8_unorm(h))
+						_:
+							_logger.error(str("Invalid heightmap format ", im.get_format()))
+							return false
+
+				# Skip next pixels if the file is bigger than the accepted resolution
+				for x in range(rw, file_res):
+					f.get_32()
+		else:
+			for y in rh:
+				for x in rw:
+					var gs := float(f.get_16()) / 65535.0
+					h = min_y + hrange * float(gs)
+					match im.get_format():
+						Image.FORMAT_RF:
+							im.set_pixel(x, y, Color(h, 0, 0))
+						Image.FORMAT_RGB8:
+							im.set_pixel(x, y, encode_height_to_rgb8_unorm(h))
+						_:
+							_logger.error(str("Invalid heightmap format ", im.get_format()))
+							return false
+
+				# Skip next pixels if the file is bigger than the accepted resolution
+				for x in range(rw, file_res):
+					f.get_16()
 
 	elif ext == "xyz":
 		var f := FileAccess.open(fpath, FileAccess.READ)

@@ -4,7 +4,7 @@ shader_type spatial;
 // This shader uses a texture array with multiple splatmaps, allowing up to 16 textures.
 // Only the 4 textures having highest blending weight are sampled.
 
-#include "include/heightmap.gdshaderinc"
+#include "res://addons/zylann.hterrain/shaders/include/heightmap.gdshaderinc"
 
 uniform sampler2D u_terrain_heightmap;
 uniform sampler2D u_terrain_normalmap;
@@ -25,6 +25,7 @@ uniform float u_ground_uv_scale = 20.0;
 uniform bool u_depth_blending = true;
 uniform float u_globalmap_blend_start;
 uniform float u_globalmap_blend_distance;
+uniform float u_specular = 0.5;
 
 varying float v_hole;
 varying vec3 v_tint;
@@ -251,4 +252,5 @@ void fragment() {
 //	}
 
 	NORMAL = (VIEW_MATRIX * (vec4(terrain_normal_world, 0.0))).xyz;
+	SPECULAR = u_specular;
 }
