@@ -21,8 +21,6 @@ public partial class GrassScatter : MultiMeshInstance3D
     [Export] public int InstanceCount { get; set; } = 100;
     [Export] public Texture2D Mask { get; set; } // Only on white regions of this texture is grass spawned. If you leave it out then it's just everywhere
     [Export] public Texture2D Texture { get; set; }
-    [Export] public float BrightnessAdjust { get; set; } = 1;
-    [Export] public Color ColorAdjust { get; set; } = Colors.Black;
     [Export] public Texture2D NormalMap { get; set; }
     [Export] public float NormalStrength { get; set; } = 1;
     [Export] public Vector2 GrassSize { get; set; } = new Vector2(0.07f, 0.5f);
@@ -80,13 +78,21 @@ public partial class GrassScatter : MultiMeshInstance3D
         mesh.Size = GrassSize;
         multimesh.UseColors = true;
 
+        // var material = new StandardMaterial3D();
+        // mesh.Material = material;
+        // material.AlbedoTexture = Texture2D;
+        // material.Transparency = BaseMaterial3D.TransparencyEnum.AlphaScissor;
+        // material.CullMode = BaseMaterial3D.CullModeEnum.Disabled;
+
+        // material.DistanceFadeMaxDistance = Mathf.Sqrt(trueFalloffMaxDistance);
+        // material.DistanceFadeMinDistance = trueFalloffMaxDistance;
+        // material.DistanceFadeMode = StandardMaterial3D.DistanceFadeModeEnum.PixelDither;
+
         var material = new ShaderMaterial();
         mesh.Material = material;
         material.Shader = shader;
 
         material.SetShaderParameter("albedo", Texture);
-        material.SetShaderParameter("bright_adjust", BrightnessAdjust);
-        material.SetShaderParameter("color_adjust", ColorAdjust);
         material.SetShaderParameter("normal", NormalMap);
         material.SetShaderParameter("use_normal", NormalMap != null);
         material.SetShaderParameter("normal_strength", NormalStrength);
@@ -103,8 +109,6 @@ public partial class GrassScatter : MultiMeshInstance3D
         var heightMapSize = image?.GetSize();
         var mapScale = HTerrain?.Get("map_scale");
         var mapCentered = HTerrain?.Get("centered");
-
-        GD.Print(Utils.GetHeightFromHTerrainInterpolated(Vector3.Zero, mapScale, image, heightMapSize, mapCentered));
 
         for (int i = 0; i < positions.Count; i++)
         {
@@ -127,6 +131,9 @@ public partial class GrassScatter : MultiMeshInstance3D
             if (hTerrainData != null)
             {
                 yPos += Utils.GetHeightFromHTerrainInterpolated(pos, (Vector3)mapScale, image, (Vector2I)heightMapSize, (bool)mapCentered);
+                // var s = image.GetSize() / 2;
+                // var p = new Vector3(pos.X / mapScale.X + s.X, 0, pos.Z / mapScale.Z + s.Y);
+                // yPos += (float)hTerrainData.Call("get_interpolated_height_at", p);
             }
 
             transform.Origin = pos.WithY(yPos);
