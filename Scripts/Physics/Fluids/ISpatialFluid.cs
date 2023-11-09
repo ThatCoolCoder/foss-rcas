@@ -14,13 +14,13 @@ public interface ISpatialFluid
     // Whether the given point is within the fluid
     bool ContainsPoint(Vector3 point);
 
-    // Nearest point on the boundary of the fluid. Can be undefined if this fluid does not have boundaries
+    // Nearest point on the boundary of the fluid. Can be undefined behavior if this fluid does not have boundaries
     Vector3 BoundaryAtPoint(Vector3 point);
 
     // Velocity of the fluid flow at any given point
     Vector3 VelocityAtPoint(Vector3 point);
 
-    // Calculate the normal vector of the surface closest to the given point
+    // Calculate the normal vector of the surface closest to the given point. Can be undefined behavior if this fluid does not have boundaries
     Vector3 NormalAtPoint(Vector3 point);
 
     // Note: this a little complex. Even if a fluid is bounded, this value can be false.
