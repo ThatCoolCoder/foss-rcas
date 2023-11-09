@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode blend_mix,depth_draw_opaque,cull_disabled,unshaded;
+render_mode blend_mix,depth_draw_opaque,cull_disabled,unshaded,world_vertex_coords;
 
 uniform sampler2D albedo : source_color;
 uniform float bright_adjust = 1;
@@ -8,10 +8,21 @@ uniform sampler2D normal;
 uniform float normal_strength = 1;
 uniform bool use_normal;
 uniform float falloff_max_distance;
-
+uniform sampler2D wind_velocity_map;
+uniform vec3 wind_velocity_map_corner;
+uniform float wind_velocity_map_size; 
 
 void vertex() {
-	
+	float bendiness = 0.02f;
+
+	// pos -> coord
+	vec3 coord = (VERTEX - wind_velocity_map_corner) / wind_velocity_map_size;
+	vec2 wind = texture(wind_velocity_map, vec2(coord.x, coord.z)).rg;
+
+	vec3 dir = normalize(vec3(wind.x, 0, wind.y));
+	float mag = length(wind);
+
+	VERTEX +=  dir * bendiness * (1. - UV.y) * min(mag, 10.);
 }
 
 void fragment() {

@@ -28,6 +28,7 @@ public partial class GrassScatter : MultiMeshInstance3D
     [Export] public Vector2 GrassSize { get; set; } = new Vector2(0.07f, 0.5f);
     [Export] public Vector2 GrassSizeVariation { get; set; } = Vector2.One * 0.3f; // varies by +- this amount
     [Export] public Node3D HTerrain { get; set; } = null;
+    [Export] public Physics.Fluids.Air Air { get; set; } = null;
 
     // If we fail to find a position that satisfies the mask in this many tries, give up.
     // Try reducing this if grass takes too long to generate
@@ -93,7 +94,7 @@ public partial class GrassScatter : MultiMeshInstance3D
 
         var cameraPos = crntCameraPos;
         lastUpdatePos = cameraPos;
-        var positions = GenerateGrassPositionsV4(cameraPos);
+        var positions = GenerateGrassPositions(cameraPos);
 
         multimesh.InstanceCount = positions.Count;
 
@@ -124,9 +125,6 @@ public partial class GrassScatter : MultiMeshInstance3D
             if (hTerrainData != null)
             {
                 yPos += Utils.GetHeightFromHTerrainInterpolated(pos, (Vector3)mapScale, image, (Vector2I)heightMapSize, (bool)mapCentered);
-                // var s = image.GetSize() / 2;
-                // var p = new Vector3(pos.X / mapScale.X + s.X, 0, pos.Z / mapScale.Z + s.Y);
-                // yPos += (float)hTerrainData.Call("get_interpolated_height_at", p);
             }
 
             transform.Origin = pos.WithY(yPos);
@@ -136,154 +134,7 @@ public partial class GrassScatter : MultiMeshInstance3D
 
         Multimesh = multimesh;
     }
-
-    private List<Vector3> GenerateGrassPositionsV1(Vector3 falloffCenter)
-    {
-        // Create the positions for the grass
-        // the blades may need to be moved up or down depending on their height
-
-        // Most basic algorithm, just places them in a circle around the camera
-
-        int targetInstanceCount = trueInstanceCount;
-
-        var maskImage = Mask == null ? null : Mask.GetImage();
-
-        var positions = new List<Vector3>();
-
-        for (int i = 0; i < targetInstanceCount; i++)
-        {
-            for (int attemptNum = 0; attemptNum < MaxMaskTries; attemptNum++)
-            {
-                var distMultiplier = GD.Randf();
-                var relativeToCamera = Vector3.Forward.Rotated(Vector3.Up, GD.Randf() * Mathf.Tau) * distMultiplier * trueFalloffMaxDistance;
-                var pos = ToLocal(relativeToCamera + falloffCenter);
-
-                // Check if within bounds
-                if (Mathf.Abs(pos.X) > (Size.X / 2) || Mathf.Abs(pos.Z) > (Size.Y / 2)) continue;
-
-                // Check if within mask
-                if (Mask != null)
-                {
-                    var x = (pos.X / Size.X + 0.5f) * Mask.GetWidth();
-                    var y = (pos.Z / Size.Y + 0.5f) * Mask.GetHeight();
-                    if (maskImage.GetPixel((int)x, (int)y).R < 0.5f) continue;
-                }
-
-                positions.Add(pos);
-                break;
-            }
-        };
-
-
-        return positions;
-    }
-
-    private List<Vector3> GenerateGrassPositionsV2(Vector3 falloffCenter)
-    {
-        // Create the positions for the grass
-        // the blades may need to be moved up or down depending on their height
-
-        // Overview of the algorithm used:
-        // - Generate points in a grid pattern centered around the camera
-        // - Deterministically jiggle those points within their "cells"
-        // - Remove positions with a probability based on how far they are from the camera
-
-        int targetInstanceCount = trueInstanceCount;
-        int preCullInstanceCount = Mathf.FloorToInt(targetInstanceCount * 4 / Mathf.Pi); // todo: this only accounts for the hard cutoff at radius, not the fade
-        int rowCount = Mathf.FloorToInt(Mathf.Sqrt(preCullInstanceCount));
-        var gridSpacing = 2 * trueFalloffMaxDistance / Mathf.Sqrt(preCullInstanceCount);
-
-        var maskImage = Mask == null ? null : Mask.GetImage();
-
-        var initialPositions = new List<Vector3>();
-
-        // Generate initial positions
-        for (int i = 0; i < preCullInstanceCount; i++)
-        {
-            for (int attemptNum = 0; attemptNum < MaxMaskTries; attemptNum++)
-            {
-                int row = i / rowCount - rowCount / 2;
-                int column = i % rowCount - rowCount / 2;
-
-                var relativeToCamera = new Vector3(column, 0, row) * gridSpacing;
-                var pos = ToLocal(relativeToCamera + falloffCenter);
-
-                // Check if within bounds
-                if (Mathf.Abs(pos.X) > (Size.X / 2) || Mathf.Abs(pos.Z) > (Size.Y / 2)) continue;
-
-                // Check if within mask
-                if (Mask != null)
-                {
-                    var x = (pos.X / Size.X + 0.5f) * Mask.GetWidth();
-                    var y = (pos.Z / Size.Y + 0.5f) * Mask.GetHeight();
-                    if (maskImage.GetPixel((int)x, (int)y).R < 0.5f) continue;
-                }
-
-                initialPositions.Add(pos);
-                break;
-            }
-        };
-
-        return initialPositions;
-    }
-
-    private List<Vector3> GenerateGrassPositionsV3(Vector3 falloffCenter)
-    {
-        // Create the positions for the grass
-        // the blades may need to be moved up or down depending on their height
-
-        // Overview of the algorithm used:
-        // - Generate points in a circle around the camera, with exponential falloff
-        // - Snap them to a grid
-        // - Deterministically jiggle those points based on their grid position
-        // - Remove points which do not satisfy the bounds and mask.
-
-        var g = SimSettings.Settings.Current.Graphics;
-        int targetInstanceCount = (int)(InstanceCount * g.GrassMultiplier * g.GrassDistanceMultiplier * g.GrassDistanceMultiplier);
-        var gridSpacing = 2 * trueFalloffMaxDistance / Mathf.Sqrt(targetInstanceCount);
-
-        var maskImage = Mask == null ? null : Mask.GetImage();
-
-        var positions = new List<Vector3>();
-
-        for (int i = 0; i < targetInstanceCount; i++)
-        {
-            for (int attemptNum = 0; attemptNum < MaxMaskTries; attemptNum++)
-            {
-                var distMultiplier = SemiRandomFloat(i * 2.235f + attemptNum);
-                var relativeToCamera = Vector3.Forward.Rotated(Vector3.Up, SemiRandomFloat(i * 4.554f + attemptNum) * Mathf.Tau) * distMultiplier * trueFalloffMaxDistance;
-                var pos = ToLocal(relativeToCamera + falloffCenter);
-
-                // Snap to grid
-                var snappedPos = new Vector3(Utils.RoundTo(pos.X, gridSpacing), 0, Utils.RoundTo(pos.Z, gridSpacing));
-
-                // Jiggle
-                var jiggle = new Vector3(
-                    SemiRandomFloat(pos.X + 3 * pos.Z) * gridSpacing,
-                    0,
-                    SemiRandomFloat(3 * pos.X + pos.Z) * gridSpacing);
-                var finalPos = snappedPos + jiggle;
-
-                // Check if within bounds
-                if (Mathf.Abs(finalPos.X) > (Size.X / 2) || Mathf.Abs(finalPos.Z) > (Size.Y / 2)) continue;
-
-                // Check if within mask
-                if (Mask != null)
-                {
-                    var x = (finalPos.X / Size.X + 0.5f) * Mask.GetWidth();
-                    var y = (finalPos.Z / Size.Y + 0.5f) * Mask.GetHeight();
-                    if (maskImage.GetPixel((int)x, (int)y).R < 0.5f) continue;
-                }
-
-                positions.Add(finalPos);
-                break;
-            }
-        };
-
-        return positions;
-    }
-
-    private List<Vector3> GenerateGrassPositionsV4(Vector3 center)
+    private List<Vector3> GenerateGrassPositions(Vector3 center)
     {
         // Make square grid around camera
         // jiggle points deterministically
@@ -395,10 +246,44 @@ public partial class GrassScatter : MultiMeshInstance3D
                 GenerateGrassOnThread();
             }
         }
+        UpdateWindInShader();
     }
 
     public override void _ExitTree()
     {
         if (generateGrassThread != null) generateGrassThread.WaitToFinish();
+    }
+
+    private void UpdateWindInShader()
+    {
+        // Yes we could just calc the wind in the shader. But I'm lazy and 100x100 samples should be enough.
+        // Todo: make size sampled adjustable
+
+        if (Air == null || trueInstanceCount == 0 || Engine.IsEditorHint()) return;
+
+        var material = (Multimesh.Mesh as QuadMesh).Material as ShaderMaterial;
+
+        var numSamples = 100;
+        float size = 50;
+        var corner = crntCameraPos - new Vector3(size / 2, 0, size / 2);
+
+        var windVelocityMap = Image.Create(numSamples, numSamples, false, Image.Format.Rgf);
+
+        var interval = size / (float)numSamples;
+
+        for (int xS = 0; xS < numSamples; xS++) // xS as in x sample number
+        {
+            for (int zS = 0; zS < numSamples; zS++)
+            {
+                var posGlobal = new Vector3(corner.X + xS * interval, 0, corner.Z + zS * interval);
+                posGlobal.Y = 0;
+                var wind = Air.VelocityAtPoint(posGlobal);
+                windVelocityMap.SetPixel(xS, zS, new Color(wind.X, wind.Z, 0));
+            }
+        }
+
+        material.SetShaderParameter("wind_velocity_map", ImageTexture.CreateFromImage(windVelocityMap));
+        material.SetShaderParameter("wind_velocity_map_corner", corner);
+        material.SetShaderParameter("wind_velocity_map_size", size);
     }
 }
