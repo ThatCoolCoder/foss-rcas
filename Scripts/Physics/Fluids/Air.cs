@@ -9,23 +9,27 @@ public partial class Air : Node3D, ISpatialFluid
 
     [Export] public float DensityMultiplier { get; set; } = 1;
 
-    public WindSettings WindSettings { get; set; } = new();
+    public WindSettings WindSettings { get; set; } = WindSettings.SlightGusts;
 
-    private FastNoiseLite speedNoise = new();
-    private FastNoiseLite directionNoise = new();
+    private FastNoiseLite turbulenceSpeedNoise = new();
+    private FastNoiseLite turbulenceDirectionNoise = new();
+    private FastNoiseLite windshearNoise = new();
     private float time = 0;
 
     public override void _Ready()
     {
-        directionNoise.NoiseType = FastNoiseLite.NoiseTypeEnum.Simplex;
-        speedNoise.Seed = 25;
-        speedNoise.NoiseType = FastNoiseLite.NoiseTypeEnum.Simplex;
-        speedNoise.FractalGain = 0.75f;
+        turbulenceSpeedNoise.NoiseType = FastNoiseLite.NoiseTypeEnum.Value;
+        turbulenceSpeedNoise.FractalOctaves = 1;
     }
 
     public override void _PhysicsProcess(double delta)
     {
         time += (float)delta;
+    }
+
+    public override void _Process(double delta)
+    {
+        // GD.Print(VelocityAtPoint(Vector3.Zero));
     }
 
     public float DensityAtPoint(Vector3 _point)
@@ -38,15 +42,23 @@ public partial class Air : Node3D, ISpatialFluid
         return true; // air is everywhere, except underground or underwater, but air is so much less dense than those places that it doesn't matter
     }
 
-    public Vector3 VelocityAtPoint(Vector3 _point)
+    public Vector3 VelocityAtPoint(Vector3 point)
     {
-        var gustSpeed = (speedNoise.GetNoise1D(time * WindSettings.GustFrequency) / 2 + 0.5f) * WindSettings.GustSpeedDelta;
-        var finalSpeed = WindSettings.Speed + gustSpeed;
+        // todo: add base flow as well as flow field
+        var flow = Vector3.Zero;
 
-        var directionDelta = (directionNoise.GetNoise1D(time * WindSettings.DirectionChangeFrequency)) * WindSettings.DirectionVariability;
-        var finalDirection = WindSettings.Direction + directionDelta;
+        // Define these for setting sensible base values for the frequencies to be based on
+        var baseTime = time * 50f;
+        var basePos = point;
 
-        var flow = new Vector3(finalSpeed, 0, 0).Rotated(Vector3.Up, finalDirection);
+        var turbulenceSpeed = Utils.MapNumber(turbulenceSpeedNoise.GetNoise3D(basePos.X, basePos.Y, baseTime * WindSettings.TurbulenceFrequency), -1, 1, 0, WindSettings.TurbulenceMaxSpeed);
+        // Mapping direction from 0 to 4 rotations in an effort to make it not biased to center
+        var turbulenceDirection = Utils.MapNumber(turbulenceSpeedNoise.GetNoise3D(basePos.X, basePos.Y + 1000, baseTime * .5f * WindSettings.TurbulenceFrequency), -1, 1, 0, Mathf.Pi * 2 * 4);
+
+        var windshearSpeed = Utils.MapNumber(turbulenceDirectionNoise.GetNoise3D(basePos.X, basePos.Y + 1100, baseTime * WindSettings.TurbulenceFrequency), -1, 1,
+            -WindSettings.WindshearMaxSpeed, WindSettings.WindshearMaxSpeed);
+
+        flow += new Vector3(Mathf.Cos(turbulenceDirection) * turbulenceSpeed, windshearSpeed, Mathf.Sin(turbulenceDirection) * turbulenceSpeed);
 
         return flow;
     }
