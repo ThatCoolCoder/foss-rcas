@@ -16,6 +16,10 @@ public partial class WindSettings
     public float WindshearMaxSpeed { get; set; } = 0; // i.e vertical turbulence
     public float TurbulenceFrequency { get; set; } = 1;
 
+    public float TurbulenceMaxSpeed { get; set; } = 0; // (horizontal turbulence)
+    public float WindshearMaxSpeed { get; set; } = 0; // i.e vertical turbulence
+    public float TurbulenceFrequency { get; set; } = 1;
+
     public static WindSettings SlightGusts = new()
     {
         TurbulenceMaxSpeed = 2,

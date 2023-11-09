@@ -44,6 +44,11 @@ public partial class Air : Node3D, ISpatialFluid
         // GD.Print(VelocityAtPoint(Vector3.Zero));
     }
 
+    public override void _Process(double delta)
+    {
+        // GD.Print(VelocityAtPoint(Vector3.Zero));
+    }
+
     public float DensityAtPoint(Vector3 _point)
     {
         return 1.293f * DensityMultiplier;
