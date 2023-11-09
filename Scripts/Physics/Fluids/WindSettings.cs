@@ -6,7 +6,7 @@ namespace Physics.Fluids;
 public partial class WindSettings
 {
     public float Speed { get; set; } = 0;
-    public float GustSpeedDelta { get; set; } = 0; // max gust speed = speed + gust speed delta
+    public float GustSpeedDelta { get; set; } = 0;
     public float GustFrequency { get; set; } = 20;
     public float DirectionDegrees
     {
@@ -34,8 +34,14 @@ public partial class WindSettings
     public float DirectionVariability = 0.4f;
     public float DirectionChangeFrequency = 30;
 
+    public float TurbulenceMaxSpeed { get; set; } = 0; // (horizontal turbulence)
+    public float WindshearMaxSpeed { get; set; } = 0; // i.e vertical turbulence
+    public float TurbulenceFrequency { get; set; } = 1;
+
     public static WindSettings SlightGusts = new()
     {
-        GustSpeedDelta = 2
+        TurbulenceMaxSpeed = 2,
+        WindshearMaxSpeed = .5f,
+        TurbulenceFrequency = 1,
     };
 }
