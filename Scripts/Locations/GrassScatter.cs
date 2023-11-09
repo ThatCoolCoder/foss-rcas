@@ -125,9 +125,6 @@ public partial class GrassScatter : MultiMeshInstance3D
             if (hTerrainData != null)
             {
                 yPos += Utils.GetHeightFromHTerrainInterpolated(pos, (Vector3)mapScale, image, (Vector2I)heightMapSize, (bool)mapCentered);
-                // var s = image.GetSize() / 2;
-                // var p = new Vector3(pos.X / mapScale.X + s.X, 0, pos.Z / mapScale.Z + s.Y);
-                // yPos += (float)hTerrainData.Call("get_interpolated_height_at", p);
             }
 
             transform.Origin = pos.WithY(yPos);
