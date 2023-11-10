@@ -13,7 +13,7 @@ uniform vec3 wind_velocity_map_corner;
 uniform float wind_velocity_map_size; 
 
 void vertex() {
-	float bendiness = 0.02f;
+	float bendiness = 0.04f;
 
 	// pos -> coord
 	vec3 coord = (VERTEX - wind_velocity_map_corner) / wind_velocity_map_size;
@@ -22,7 +22,10 @@ void vertex() {
 	vec3 dir = normalize(vec3(wind.x, 0, wind.y));
 	float mag = length(wind);
 
-	VERTEX +=  dir * bendiness * (1. - UV.y) * min(mag, 10.);
+	float bend_amount = bendiness * min(mag, 10.);
+	bend_amount += bend_amount * .5 * sin(TIME * 10. + VERTEX.x * 201. + VERTEX.z * 1000.);
+
+	VERTEX += dir * (1. - UV.y) * bend_amount;
 }
 
 void fragment() {
