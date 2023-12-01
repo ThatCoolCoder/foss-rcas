@@ -14,7 +14,8 @@ public partial class Aircraft : ContentItem
     [PropName("custom_power_type")] public string CustomPowerType { get; set; } = null;
     [PropName("channels")] public int ChannelCount { get; set; }
     [PropName("position_offset")] public Vector3 PositionOffset { get; set; } = Vector3.Zero;
-    public bool NeedsLauncher { get; set; } = false;
+    [PropName("config_properties")] public List<AircraftConfigProperty> ConfigProperties { get; set; } = new();
+    [TomlNonSerialized] public bool NeedsLauncher { get; set; } = false;
     [PropName("launcher.height")] public float LauncherHeight { get; set; }
     [PropName("launcher.speed")] public float LauncherSpeed { get; set; }
     [PropName("launcher.angle")] public float LauncherAngleDegrees { get; set; }

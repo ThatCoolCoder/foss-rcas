@@ -41,6 +41,7 @@ public abstract partial class IControlMapping
                     .Invoke(null, parameters: new object[] { tomlTable });
             }
         );
+        // Misc.TomletSubclassMapper.CreateMapping<IControlMapping>(allowableLoadedTypes.ToArray(), "TypeName");
     }
 
     // Types we are allowed to load through the reflection-based stuff above.

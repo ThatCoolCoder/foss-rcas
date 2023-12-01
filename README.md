@@ -201,8 +201,9 @@ Depending on how much base content is desired and how large the repository gets,
     - Stabilise various formats, create compatibility fields
         - Thing saying what version of content file is used?
         - Thing saying what game versions are supported?
+        - We should consider whether compatibility should be tied to versioning of the game or a separate addon versioning. The game is really just an engine, and the engine is no more than its api. Therefore I think that it should be tied to game version.
         - What does dev game do, does it just ignore compatibility and maybe show a warning
-            - don't tie it to editor but make the game know it's version:
+            - don't tie it to editor but make the game know its version:
                 - struct with major/minor/patch/subpatch + flags: (subpatch is used for rc number for instance)
                     - dev
                         - should this imply that it's based on the version numbering bits

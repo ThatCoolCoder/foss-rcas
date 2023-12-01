@@ -17,7 +17,7 @@ public partial class MixerHub : Node3D, IHub
     public override void _Ready()
     {
         var gdFile = FileAccess.Open(MixesFile, FileAccess.ModeFlags.Read);
-        if (gdFile == null) Utils.LogError("Failed opening mixes file ({MixesFile})", this);
+        if (gdFile == null) Utils.LogError($"Failed opening mixes file ({MixesFile})", this);
         else
         {
             var content = gdFile.GetAsText();
