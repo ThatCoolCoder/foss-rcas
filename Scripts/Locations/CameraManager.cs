@@ -84,8 +84,8 @@ public partial class CameraManager : Node3D
             if (MapCamera.Current) ActivateCamera(activeCameraIndex); // reactivate normal camera
             else
             {
-                MapCamera.Current = true;
                 if (hasInitDefaultCamera) cameras[activeCameraIndex].Deactivate();
+                MapCamera.Current = true;
             }
         }
         else if (SimInput.Manager.IsActionJustPressed("camera/previous")) PreviousCamera();

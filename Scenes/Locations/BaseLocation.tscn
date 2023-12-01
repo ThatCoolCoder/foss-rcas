@@ -24,9 +24,10 @@ UIAppManager = NodePath("CanvasLayer/UIAppManager")
 launcher = NodePath("AircraftLauncher")
 groundCamera = NodePath("GroundCamera")
 
-[node name="CameraManager" type="Node3D" parent="."]
+[node name="CameraManager" type="Node3D" parent="." node_paths=PackedStringArray("MapCamera")]
 process_mode = 3
 script = ExtResource("11")
+MapCamera = NodePath("../MapCamera")
 
 [node name="SpatialFluidRepository" type="Node3D" parent="."]
 script = ExtResource("5")
