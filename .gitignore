@@ -6,6 +6,8 @@ Target/
 *.blend1
 *.png~
 
+*.csproj.old.*
+
 # Godot-specific ignores
 .godot/
 .import/

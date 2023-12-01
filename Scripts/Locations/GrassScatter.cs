@@ -104,8 +104,6 @@ public partial class GrassScatter : MultiMeshInstance3D
         var mapScale = HTerrain?.Get("map_scale");
         var mapCentered = HTerrain?.Get("centered");
 
-        GD.Print(Utils.GetHeightFromHTerrainInterpolated(Vector3.Zero, mapScale, image, heightMapSize, mapCentered));
-
         for (int i = 0; i < positions.Count; i++)
         {
             // Calculate rotation + scale
