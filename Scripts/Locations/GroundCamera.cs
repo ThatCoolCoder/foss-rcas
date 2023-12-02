@@ -19,6 +19,7 @@ public partial class GroundCamera : CharacterBody3D, IFlightCamera
 
 
     public ZoomSettings CurrentZoomSettings;
+    public float ZoomDistMultiplier = 1;
     public Node3D Target { get; set; }
 
     private bool isWalkMode = false;
@@ -76,7 +77,7 @@ public partial class GroundCamera : CharacterBody3D, IFlightCamera
 
             if (CurrentZoomSettings.Enabled)
             {
-                var fovProportion = Mathf.Atan(1 / CurrentZoomSettings.StartDist) / Mathf.DegToRad(CurrentZoomSettings.BaseFov);
+                var fovProportion = Mathf.Atan(1 / CurrentZoomSettings.StartDist * ZoomDistMultiplier) / Mathf.DegToRad(CurrentZoomSettings.BaseFov);
 
                 var distance = Target.GlobalPosition.DistanceTo(GlobalPosition);
                 var angle = Mathf.Atan(1 / (distance * CurrentZoomSettings.Factor)) / fovProportion;

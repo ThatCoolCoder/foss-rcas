@@ -13,10 +13,10 @@ public partial class SliderInput : AbstractInput
 
     public override void _Ready()
     {
-        base._Ready();
         hSlider.MinValue = Property.Min;
         hSlider.MaxValue = Property.Max;
         hSlider.Step = Property.Step;
+        base._Ready();
     }
 
     public override void Reset()

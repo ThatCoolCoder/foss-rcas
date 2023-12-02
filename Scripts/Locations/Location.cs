@@ -28,9 +28,8 @@ public partial class Location : Node3D
 
     public override void _Ready()
     {
-        var zoomSettings = SimSettings.Settings.CloneCurrent().View.GroundCameraZoom; // todo: this could be neater than cloning the whole settings
-        if (SimSettings.Settings.Current.View.AdjustZoomForAircraftSize) zoomSettings.StartDist *= AircraftInfo.WingSpan;
-        groundCamera.CurrentZoomSettings = zoomSettings;
+        if (SimSettings.Settings.Current.View.AdjustZoomForAircraftSize) groundCamera.ZoomDistMultiplier = AircraftInfo.WingSpan;
+        groundCamera.CurrentZoomSettings = SimSettings.Settings.Current.View.GroundCameraZoom;
 
         UIAppManager.SetAvailableProfiles(SimSettings.Settings.Current.UIAppProfiles);
 

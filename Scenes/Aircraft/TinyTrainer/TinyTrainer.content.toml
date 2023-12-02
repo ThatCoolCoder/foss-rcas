@@ -20,7 +20,7 @@ channels = 3
 
 config_properties = [
     { Name = "is_heavy", DisplayName = "Is Heavy", PropertyType = "Boolean", DefaultValue = true },
-    { Name = "cg_offset_cm", DisplayName = "CG Forward Offset (cm)", PropertyType = "SpinBox", Min = -10, Max = 10, Step = 0.5, DefaultValue = 0 },
+    { Name = "cg_offset_cm", DisplayName = "CG Forward Offset (cm)", PropertyType = "SpinBox", Min = -10, Max = 10, Step = 0.5 },
 ]
 
 

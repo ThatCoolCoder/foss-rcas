@@ -12,9 +12,9 @@ public partial class EnumInput : AbstractInput
 
     public override void _Ready()
     {
-        base._Ready();
         optionButton.Clear();
         foreach (var value in Property.PossibleValues) optionButton.AddItem(value);
+        base._Ready();
     }
 
     public override void Reset()

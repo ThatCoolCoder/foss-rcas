@@ -32,7 +32,7 @@ public static class AvailableInputActions
         }),
         new("camera", "camera", new () {
             new InputAction("move_backward_forward", "move forward/backward (combined)",
-                " (in some camera modes this zooms instead)"),
+                " (zooms in some camera modes)"),
             new InputAction("move_backward", "move backward", defaultValue: -1,
                 mapTo: new () {
                     {"camera/move_backward_forward", extraMapperNegativeHalf}

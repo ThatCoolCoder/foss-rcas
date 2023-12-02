@@ -52,7 +52,7 @@ public partial class ViewTab : Control
             "Adjust zoom for aircraft size",
             s => s.View.AdjustZoomForAircraftSize,
             (s, v) => s.View.AdjustZoomForAircraftSize = v,
-            toolTip: "Makes the camera start zooming in faster when flying small aircraft and vice versa.\n1m is the base size; an aircraft this wingspan will start zooming at the regular distance");
+            toolTip: "Makes the camera zoom in earlier when flying small aircraft and later for large aircraft.\n1 m is the base size; an aircraft this wingspan will start zooming at the regular distance");
     }
 
     public void _on_Reset_pressed()

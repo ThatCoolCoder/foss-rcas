@@ -83,8 +83,6 @@ public abstract partial class AbstractContentSelector<T> : Control where T : Con
 
     private Texture2D LoadThumbnail()
     {
-        // todo: very weird bug: in v3.6 installed from aur, the failed loading thumbnail line is not displayed more than once,
-        // unless a print is put before the following line
         var texture = ResourceLoader.Load<Texture2D>(SelectedItem.GetThumbnailPath());
         if (texture == null)
         {
