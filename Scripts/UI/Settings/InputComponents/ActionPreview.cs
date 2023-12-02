@@ -59,7 +59,7 @@ public partial class ActionPreview : Control
         SettingsScreen.OnSettingsChanged -= OnSettingsChanged;
     }
 
-    private void DeleteControlMapping(SimInput.IControlMapping mapping)
+    private void DeleteControlMapping(SimInput.AbstractControlMapping mapping)
     {
         SettingsScreen.NewSettings.InputMap.GetMappingsForAction(actionPath).Remove(mapping);
         UpdateMappings();

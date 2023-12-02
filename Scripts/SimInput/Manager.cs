@@ -15,7 +15,7 @@ public partial class Manager : Node
     private Dictionary<string, float> previousActionValues = new();
     private List<string> actionsStillOnDefaultValue = new(); // todo: investigate if a hashset is better suited for this
 
-    private Dictionary<string, List<IControlMapping>> mappings = new();
+    private Dictionary<string, List<AbstractControlMapping>> mappings = new();
     private Dictionary<string, InputAction> actionLookup = new(); // thing for efficiency
     private InputMap inputMap = new();
 

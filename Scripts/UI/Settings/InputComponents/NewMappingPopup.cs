@@ -10,8 +10,8 @@ using Components;
 
 public partial class NewMappingPopup : Window
 {
-    private SimInput.IControlMapping candidateNewMapping;
-    public SimInput.IControlMapping NewMapping { get; private set; }
+    private SimInput.AbstractControlMapping candidateNewMapping;
+    public SimInput.AbstractControlMapping NewMapping { get; private set; }
     private Dictionary<JoyAxis, (float min, float max)> axisValues { get; set; } = new();
     private const float minAxisTravel = 0.4f; // axis has to move this much to be registered, combats noisy controls
     private Label infoLabel;

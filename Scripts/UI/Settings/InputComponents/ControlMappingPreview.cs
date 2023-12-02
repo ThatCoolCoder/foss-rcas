@@ -12,13 +12,13 @@ public partial class ControlMappingPreview : Button
 {
     public static PackedScene Scene = ResourceLoader.Load<PackedScene>("res://Scenes/UI/Settings/InputComponents/ControlMappingPreview.tscn");
 
-    private IControlMapping controlMapping;
-    private Action<IControlMapping> deleteFunc;
+    private AbstractControlMapping controlMapping;
+    private Action<AbstractControlMapping> deleteFunc;
     private static readonly Texture2D axisIcon = ResourceLoader.Load<Texture2D>("res://Art/Icons/joystick.png");
     private static readonly Texture2D buttonIcon = ResourceLoader.Load<Texture2D>("res://Art/Icons/button.png");
     private static readonly Texture2D keyboardIcon = ResourceLoader.Load<Texture2D>("res://Art/Icons/keyboard.png");
 
-    public ControlMappingPreview Config(Node parent, SimInput.IControlMapping _controlMapping, Action<IControlMapping> _deleteFunc)
+    public ControlMappingPreview Config(Node parent, SimInput.AbstractControlMapping _controlMapping, Action<AbstractControlMapping> _deleteFunc)
     {
         controlMapping = _controlMapping;
         deleteFunc = _deleteFunc;

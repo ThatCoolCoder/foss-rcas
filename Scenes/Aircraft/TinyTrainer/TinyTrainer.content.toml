@@ -16,6 +16,11 @@ weight = 0.45
 power_type = 0
 channels = 3
 
+config_properties = [
+    { Name = "is_heavy", DisplayName = "Is Heavy", PropertyType = "Boolean", DefaultValue = false }
+]
+
+
 [aircraft.position_offset]
 X = 0
 Y = 0.2

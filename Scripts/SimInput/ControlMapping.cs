@@ -6,29 +6,23 @@ using Tomlet;
 
 namespace SimInput;
 
-public abstract partial class IControlMapping
+public abstract partial class AbstractControlMapping
 {
     // Try to process event that is given. Return null if event isn't bound to the mapping 
     public abstract float? ProcessEvent(InputEvent _event);
 
-    // A static constructor is used to register the mapper since Godot doesn't provide access to the entry point of the project
-    // Perhaps this should be somewhere in the SimSettings namespace since that's where all the other persistence stuff is
-    static IControlMapping()
+    public static void CreateSubclassMappers()
     {
-        Misc.TomletSubclassMapper.CreateMapping<IControlMapping>(allowableLoadedTypes.ToArray(), "MappingType");
+        Misc.TomletSubclassMapper.CreateMapping<AbstractControlMapping>(new Type[]
+        {
+            typeof(AxisControlMapping),
+            typeof(ButtonControlMapping),
+            typeof(KeyboardControlMapping),
+        }, "MappingType");
     }
-
-    // Types we are allowed to load through the reflection-based stuff above.
-    // Should prevent any security holes related to potentially instancing an arbitrary type
-    private static List<Type> allowableLoadedTypes = new()
-    {
-        typeof(AxisControlMapping),
-        typeof(ButtonControlMapping),
-        typeof(KeyboardControlMapping),
-    };
 }
 
-public partial class AxisControlMapping : IControlMapping
+public partial class AxisControlMapping : AbstractControlMapping
 {
     public uint Axis { get; set; }
     public float Multiplier { get; set; } = 1;
@@ -58,7 +52,7 @@ public partial class AxisControlMapping : IControlMapping
     }
 }
 
-public partial class ButtonControlMapping : IControlMapping
+public partial class ButtonControlMapping : AbstractControlMapping
 {
     public uint ButtonIndex { get; set; }
     public bool Inverted { get; set; }
@@ -91,7 +85,7 @@ public partial class ButtonControlMapping : IControlMapping
     }
 }
 
-public partial class KeyboardControlMapping : IControlMapping
+public partial class KeyboardControlMapping : AbstractControlMapping
 {
     // A note on this mapping: it supports both basic (single key) mappings,
     // as well as three-position mappings like you'd get from a 3 pos switch on a tx.

@@ -19,6 +19,11 @@ public partial class AircraftSelector : AbstractContentSelector<ContentManagemen
 
     protected override string FormatCustomInfo()
     {
+        foreach (var prop in SelectedItem.ConfigProperties)
+        {
+            GD.PrintS(prop.Name, prop.DisplayName);
+        }
+
         var needsLauncherText = SelectedItem.NeedsLauncher ? "yes" : "no";
         var formattedPowerType = SelectedItem.CustomPowerType == null
             ? PowerTypeNames[SelectedItem.PowerType]

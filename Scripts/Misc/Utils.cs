@@ -43,13 +43,6 @@ public static class Utils
         return result;
     }
 
-    public static void DPrint(params object[] items)
-    {
-        // Like GD.Print but adds a space between items
-
-        GD.Print(items.Intersperse(" ").ToArray());
-    }
-
     public static T RandomItem<T>(IList<T> items)
     {
         return items[random.Next(0, items.Count())];
@@ -243,5 +236,20 @@ public static class Utils
         var h11 = heightMap.GetPixel(x0 + 1, y0 + 1).R;
 
         return Mathf.Lerp(Mathf.Lerp(h00, h10, xf), Mathf.Lerp(h01, h11, xf), yf) * hTerrainScale.Y;
+    }
+
+    public static bool IsSubclassOf(Type type, Type baseClass)
+    {
+        // Check if type is a subclass of another, including if it's a generic such as where T : Base<int>
+        // Thank you codybartfast, https://stackoverflow.com/a/897388/12650706
+
+        var types = new List<Type>(type.GetInterfaces());
+        for (var t = type; t != null; t = t.BaseType)
+        {
+            types.Add(t);
+        }
+        return types.Any(t =>
+            t == baseClass ||
+                t.IsGenericType && (t.GetGenericTypeDefinition() == baseClass));
     }
 }
