@@ -3,18 +3,18 @@ RollRateDegrees = -360.0
 YawRateDegrees = -360.0
 
 [PitchTuning]
-P = 0.45
+P = 5
 # I = 0.8
-I = 0
+I = 1
 D = 0.3
 
 [RollTuning]
-P = 0.45
+P = 5
 # I = 0.8
-I = 0
+I = 1
 D = 0.3
 
 [YawTuning]
-P = -1
-I = 0
+P = -10
+I = -10
 D = 0

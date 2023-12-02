@@ -15,7 +15,7 @@
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/PropellerWithModel.tscn" id="14"]
 [ext_resource type="Script" path="res://Scripts/Audio/PrerecordedPropellerNoise.cs" id="15"]
 [ext_resource type="AudioStream" uid="uid://deys0bnykpb1r" path="res://Art/Aircraft/Common/PropAudio/3S-2304-6x4E.mp3" id="16"]
-[ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/ControlledBrushlessMotor.tscn" id="17"]
+[ext_resource type="PackedScene" uid="uid://8lfw0k5w3wwk" path="res://Scenes/Aircraft/Common/ControlledBrushlessMotor.tscn" id="17"]
 
 [node name="Wing" type="RigidBody3D"]
 mass = 0.3

@@ -185,7 +185,6 @@ Depending on how much base content is desired and how large the repository gets,
         - move plane to custom location (because why not, this is supposed to be free-ware and free includes freedom of it not blocking you)
 - Content
     - Create (this might not all be contained in the base game)
-        - Ace's Track location (not that large)
         - Converted golf course location (quite large)
         - a EDF sport jet with retracts and flaps
         - a large balsa warbird?

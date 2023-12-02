@@ -1,12 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://bxpxiilkpltcb"]
+[gd_scene load_steps=10 format=3 uid="uid://bxpxiilkpltcb"]
 
 [ext_resource type="Script" path="res://Scripts/Aircraft/Aircraft.cs" id="1_do251"]
 [ext_resource type="Script" path="res://Scripts/Aircraft/Control/GyroHub.cs" id="2"]
-[ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/ControlledBrushlessMotor.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://8lfw0k5w3wwk" path="res://Scenes/Aircraft/Common/ControlledBrushlessMotor.tscn" id="3"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/PropellerWithModel.tscn" id="5"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Battery.tscn" id="6"]
 [ext_resource type="AudioStream" uid="uid://deys0bnykpb1r" path="res://Art/Aircraft/Common/PropAudio/3S-2304-6x4E.mp3" id="7"]
 [ext_resource type="Script" path="res://Scripts/Audio/PrerecordedPropellerNoise.cs" id="8"]
+[ext_resource type="PackedScene" uid="uid://bd51yu0b5ems4" path="res://Scenes/Aircraft/Common/FpvCamera.tscn" id="8_j2hhx"]
 
 [sub_resource type="BoxShape3D" id="1"]
 size = Vector3(0.264434, 0.0578584, 0.280455)
@@ -52,7 +53,6 @@ max_db = 6.0
 autoplay = true
 doppler_tracking = 1
 script = ExtResource("8")
-DominantFrequency = 460.0
 
 [node name="FR" parent="." instance=ExtResource("3")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.1, 0.01, -0.1)
@@ -99,7 +99,6 @@ max_db = 6.0
 autoplay = true
 doppler_tracking = 1
 script = ExtResource("8")
-DominantFrequency = 460.0
 
 [node name="BR" parent="." instance=ExtResource("3")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.1, 0.01, 0.1)
@@ -123,3 +122,6 @@ CellInternalResistance = 0.0
 
 [node name="CSGBox3D" type="CSGBox3D" parent="."]
 transform = Transform3D(0.0340534, 0, 0, 0, 0.0340534, 0, 0, 0, 0.0340534, 0, 0, -0.110127)
+
+[node name="FpvCamera" parent="." instance=ExtResource("8_j2hhx")]
+transform = Transform3D(1, 0, 0, 0, 0.970721, -0.240211, 0, 0.240211, 0.970721, 0, 0.0233366, -0.0990319)
