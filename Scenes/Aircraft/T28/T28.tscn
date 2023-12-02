@@ -85,13 +85,12 @@ PropellerPath = NodePath("PropellerWithModel")
 TorqueRigidBodyPath = NodePath("../..")
 KV = 1950.0
 PeakTorque = 0.25
-TorqueAdjustment = 1.5
 
 [node name="PropellerWithModel" parent="Electrics/ControlledBrushlessMotor" instance=ExtResource("10")]
 DiameterInches = 6.0
 PitchInches = 4.0
-EfficiencyFactor = 0.55
-LiftToDrag = 4.5
+EfficiencyFactor = 0.7
+LiftToDrag = 6.5
 Mass = 0.005
 TargetPath = NodePath("../../..")
 

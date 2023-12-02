@@ -12,14 +12,14 @@
 [ext_resource type="Curve" path="res://Resources/AeroCurves/FlatPlateLiftCoefficient.tres" id="11"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Mirror.tscn" id="12"]
 [ext_resource type="Curve" path="res://Resources/AeroCurves/WingLiftCoefficient.tres" id="13"]
-[ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/ControlledBrushlessMotor.tscn" id="14"]
+[ext_resource type="PackedScene" uid="uid://8lfw0k5w3wwk" path="res://Scenes/Aircraft/Common/ControlledBrushlessMotor.tscn" id="14"]
 [ext_resource type="Script" path="res://Scripts/Audio/PrerecordedPropellerNoise.cs" id="15"]
 [ext_resource type="AudioStream" uid="uid://deys0bnykpb1r" path="res://Art/Aircraft/Common/PropAudio/3S-2304-6x4E.mp3" id="16"]
-[ext_resource type="PackedScene" path="res://Scenes/Forcers/AeroObject.tscn" id="17"]
+[ext_resource type="PackedScene" uid="uid://ctbbp8orqdebk" path="res://Scenes/Forcers/AeroObject.tscn" id="17"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/PropellerWithModel.tscn" id="18"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Battery.tscn" id="19"]
-[ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Propwash.tscn" id="20"]
-[ext_resource type="Resource" path="res://Resources/BaseBodyLift.tres" id="20_cfhg1"]
+[ext_resource type="PackedScene" uid="uid://csndd41uoyyuh" path="res://Scenes/Aircraft/Common/Propwash.tscn" id="20"]
+[ext_resource type="Resource" uid="uid://cdntpqqcckl1w" path="res://Resources/BaseBodyLift.tres" id="20_cfhg1"]
 [ext_resource type="Resource" uid="uid://b861yo7rjlv2c" path="res://Resources/BaseBodyDrag.tres" id="21_sb3gb"]
 
 [sub_resource type="BoxShape3D" id="1"]
@@ -66,14 +66,14 @@ TorqueRigidBodyPath = NodePath("../..")
 KV = 1850.0
 PeakTorque = 0.064
 TorqueAdjustment = 1.5
-CurrentMultiplier = 1.8
+CurrentMultiplier = 1.4
 
 [node name="PropellerWithModel" parent="Electrics/ControlledBrushlessMotor" instance=ExtResource("18")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0748984)
 DiameterInches = 6.0
 PitchInches = 4.0
-EfficiencyFactor = 0.55
-LiftToDrag = 4.5
+EfficiencyFactor = 0.7
+LiftToDrag = 6.5
 Mass = 0.005
 TargetPath = NodePath("../../..")
 

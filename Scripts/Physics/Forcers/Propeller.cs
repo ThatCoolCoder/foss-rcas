@@ -37,6 +37,7 @@ public partial class Propeller : AbstractSpatialFluidForcer
     public float LastExitSpeed { get; private set; } // last exit speed, relative to world
     public Vector3 LastEntryVelocity { get; private set; } // hacky thing we need to make propwash work with wind
     public float LastThrustMagnitude { get; private set; }
+    private float lastTheoreticalThrustMagnitude = 0; // like LastThrustMagnitude but calculated before applying efficiencyfactor
     private float currentTorques;
     private float currentBrakingTorques;
 
@@ -77,6 +78,8 @@ public partial class Propeller : AbstractSpatialFluidForcer
         // Propellers are roughly half as efficient when being used backwards.
         if (force < 0) force *= 0.5f;
 
+        lastTheoreticalThrustMagnitude = force;
+
         force *= EfficiencyFactor;
 
         LastThrustMagnitude = force;
@@ -86,9 +89,7 @@ public partial class Propeller : AbstractSpatialFluidForcer
 
     private float CalculateAirResistance()
     {
-        // A rough approximation, todo: do this better later
-
-        var dragForce = -1 * LastThrustMagnitude / LiftToDrag;
+        var dragForce = -1 * lastTheoreticalThrustMagnitude / LiftToDrag;
         if (!Clockwise) dragForce = -dragForce;
         var torqueDistance = RadiusMetres * .5f;
         return torqueDistance * dragForce;

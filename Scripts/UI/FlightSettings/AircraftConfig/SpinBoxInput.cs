@@ -21,7 +21,6 @@ public partial class SpinBoxInput : AbstractInput
 
     public override void Reset()
     {
-        GD.Print(spinBox.Step);
         spinBox.Value = Property.DefaultValue;
     }
 

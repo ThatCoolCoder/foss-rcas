@@ -6,8 +6,8 @@
 [ext_resource type="PackedScene" uid="uid://csjwol05levxt" path="res://Art/Aircraft/Bushplane/LAileron.glb" id="3"]
 [ext_resource type="PackedScene" uid="uid://d2fdi45h1avji" path="res://Art/Aircraft/Bushplane/Elevator.glb" id="5"]
 [ext_resource type="PackedScene" uid="uid://c5p1p5hg06vmo" path="res://Art/Aircraft/Bushplane/Flap.glb" id="6"]
-[ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Propwash.tscn" id="7"]
-[ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/ControlledBrushlessMotor.tscn" id="8"]
+[ext_resource type="PackedScene" uid="uid://csndd41uoyyuh" path="res://Scenes/Aircraft/Common/Propwash.tscn" id="7"]
+[ext_resource type="PackedScene" uid="uid://8lfw0k5w3wwk" path="res://Scenes/Aircraft/Common/ControlledBrushlessMotor.tscn" id="8"]
 [ext_resource type="Script" path="res://Scripts/Audio/PrerecordedPropellerNoise.cs" id="9"]
 [ext_resource type="Script" path="res://Scripts/Aircraft/Servo.cs" id="11"]
 [ext_resource type="Resource" uid="uid://bcrou7xntx2gi" path="res://Resources/LateralPacejka.tres" id="11_3ym0y"]
@@ -19,7 +19,7 @@
 [ext_resource type="PackedScene" path="res://Scenes/Forcers/AeroSurface.tscn" id="16"]
 [ext_resource type="Curve" path="res://Resources/AeroCurves/DeltaWingLiftCoefficient.tres" id="17"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Control/MixerControlHub.tscn" id="18"]
-[ext_resource type="PackedScene" path="res://Scenes/Forcers/AeroObject.tscn" id="19"]
+[ext_resource type="PackedScene" uid="uid://ctbbp8orqdebk" path="res://Scenes/Forcers/AeroObject.tscn" id="19"]
 [ext_resource type="AudioStream" uid="uid://deys0bnykpb1r" path="res://Art/Aircraft/Common/PropAudio/3S-2304-6x4E.mp3" id="20"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Battery.tscn" id="21"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/PropellerWithModel.tscn" id="22"]
@@ -92,13 +92,13 @@ TorqueRigidBodyPath = NodePath("../..")
 KV = 1850.0
 PeakTorque = 0.074
 TorqueAdjustment = 1.5
-CurrentMultiplier = 1.8
+CurrentMultiplier = 1.4
 
 [node name="PropellerWithModel" parent="Electrics/ControlledBrushlessMotor" instance=ExtResource("22")]
 DiameterInches = 6.0
 PitchInches = 4.0
-EfficiencyFactor = 0.55
-LiftToDrag = 4.5
+EfficiencyFactor = 0.7
+LiftToDrag = 6.5
 Mass = 0.005
 TargetPath = NodePath("../../..")
 
@@ -159,7 +159,7 @@ TargetPath = NodePath("..")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -0.146488, 8.5108e-05, 0.00143338)
 
 [node name="WheelBackupCollider" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0310467, -0.0695753)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0867197, -0.0695753)
 shape = SubResource("5")
 
 [node name="Wing" type="Node3D" parent="."]

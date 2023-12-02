@@ -45,7 +45,7 @@ public partial class Propwash : Node3D, ISpatialFluid
 
     public bool ContainsPoint(Vector3 point)
     {
-        return true;
+        // return true;
         return (GlobalPosition.DistanceSquaredTo(point) < MaxDistance * MaxDistance &&
             AngleToPoint(point) < spreadAngle);
     }

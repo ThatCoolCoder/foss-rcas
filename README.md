@@ -109,8 +109,6 @@ Depending on how much base content is desired and how large the repository gets,
         - Check anticlockwise physics is working as intended
         - Consider moment of inertia of motor, as prop should spin up and down differently.
             - currently it has too much aero force to weight ratio
-        - Make prop drag based on raw force, not efficiency factor force. This makes it way easier to tune to have the right rpm, current and thrust.
-            - Will require retuning all the planes
     - Internal combustion engine simulation
         - Should be easier than electrics especially now that all the propeller stuff is done.
         - Just have a rpm/torque curve, then throttle directly controls torque proportion and fuel consumption
