@@ -46,7 +46,7 @@ public partial class ControlMappingPreview : Button
         if (controlMapping is KeyboardControlMapping km)
         {
             var text = OS.GetKeycodeString((Key)km.KeyScancode);
-            if (km.MappingType == SimInput.KeyboardControlMapping.MappingTypeEnum.ThreePosition)
+            if (km.KeyboardMappingType == SimInput.KeyboardControlMapping.MappingTypeEnum.ThreePosition)
                 text = $"{OS.GetKeycodeString((Key)km.KeyScancode)}, {OS.GetKeycodeString((Key)km.Key2Scancode)}, {OS.GetKeycodeString((Key)km.Key3Scancode)}";
             return (text, keyboardIcon);
         }

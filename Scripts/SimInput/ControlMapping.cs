@@ -11,37 +11,11 @@ public abstract partial class IControlMapping
     // Try to process event that is given. Return null if event isn't bound to the mapping 
     public abstract float? ProcessEvent(InputEvent _event);
 
-    public string TypeName { get { return GetType().Name; } }
-
-    // Tomlet does not appreciate loading lists of interfaces (fair enough), so here is a slightly bodgy custom mapper for IControlMappings 
     // A static constructor is used to register the mapper since Godot doesn't provide access to the entry point of the project
     // Perhaps this should be somewhere in the SimSettings namespace since that's where all the other persistence stuff is
     static IControlMapping()
     {
-        TomletMain.RegisterMapper<IControlMapping>(
-            null,
-            tomlValue =>
-            {
-                if (!(tomlValue is Tomlet.Models.TomlTable tomlTable))
-                    throw new Tomlet.Exceptions.TomlTypeMismatchException(typeof(Tomlet.Models.TomlTable), tomlValue.GetType(), typeof(IControlMapping));
-
-                var typeName = tomlTable.GetString("TypeName");
-                if (typeName == null) throw new Exception("Error loading control mapping: TypeName not given!");
-
-                var cls = allowableLoadedTypes.FirstOrDefault(cls => cls.Name == typeName);
-                if (cls == null) throw new Exception($"Error loading control mapping: Not allowed to parse a {typeName}");
-
-                // Use reflection to call the generic method using the type we found before 
-                // Have fun when this inevitably breaks
-                return (IControlMapping)typeof(TomletMain)
-                    .GetMethod("To", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static,
-                    null, System.Reflection.CallingConventions.Any,
-                    new Type[] { typeof(Tomlet.Models.TomlValue) }, null)
-                    .MakeGenericMethod(cls)
-                    .Invoke(null, parameters: new object[] { tomlTable });
-            }
-        );
-        // Misc.TomletSubclassMapper.CreateMapping<IControlMapping>(allowableLoadedTypes.ToArray(), "TypeName");
+        Misc.TomletSubclassMapper.CreateMapping<IControlMapping>(allowableLoadedTypes.ToArray(), "MappingType");
     }
 
     // Types we are allowed to load through the reflection-based stuff above.
@@ -128,18 +102,18 @@ public partial class KeyboardControlMapping : IControlMapping
     [Tomlet.Attributes.TomlNonSerialized] public Key Key { set { KeyScancode = (uint)value; } }
     public uint Key2Scancode { get; set; }
     public uint Key3Scancode { get; set; }
-    public MappingTypeEnum MappingType { get; set; } = MappingTypeEnum.Momentary;
+    public MappingTypeEnum KeyboardMappingType { get; set; } = MappingTypeEnum.Momentary;
     private float currentToggleValue = -1;
 
     public override float? ProcessEvent(InputEvent _event)
     {
         if (_event is InputEventKey keyEvent && !keyEvent.Echo)
         {
-            if (MappingType == MappingTypeEnum.Momentary && (uint)keyEvent.GetKeycodeWithModifiers() == KeyScancode)
+            if (KeyboardMappingType == MappingTypeEnum.Momentary && (uint)keyEvent.GetKeycodeWithModifiers() == KeyScancode)
             {
                 return keyEvent.Pressed ? 1 : -1;
             }
-            else if (MappingType == MappingTypeEnum.Toggle && (uint)keyEvent.GetKeycodeWithModifiers() == KeyScancode)
+            else if (KeyboardMappingType == MappingTypeEnum.Toggle && (uint)keyEvent.GetKeycodeWithModifiers() == KeyScancode)
             {
                 if (keyEvent.Pressed)
                 {
@@ -147,7 +121,7 @@ public partial class KeyboardControlMapping : IControlMapping
                     return currentToggleValue;
                 }
             }
-            else if (MappingType == MappingTypeEnum.ThreePosition && keyEvent.Pressed)
+            else if (KeyboardMappingType == MappingTypeEnum.ThreePosition && keyEvent.Pressed)
             {
                 var scancode = (uint)keyEvent.GetKeycodeWithModifiers();
                 if (scancode == KeyScancode) return -1;

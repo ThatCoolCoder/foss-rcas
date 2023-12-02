@@ -48,14 +48,14 @@ public partial class InputMap
                 Key2Scancode = (uint) Key.Key6,
                 Key3Scancode = (uint) Key.Key7,
 
-                MappingType = SimInput.KeyboardControlMapping.MappingTypeEnum.ThreePosition
+                KeyboardMappingType = SimInput.KeyboardControlMapping.MappingTypeEnum.ThreePosition
             }}
         },
         {"aircraft/aux2", new() {
             new SimInput.KeyboardControlMapping()
             {
                 Key = Key.F,
-                MappingType = SimInput.KeyboardControlMapping.MappingTypeEnum.Toggle
+                KeyboardMappingType = SimInput.KeyboardControlMapping.MappingTypeEnum.Toggle
             }}
         },
         {"aircraft/aux3", new() {
@@ -64,14 +64,14 @@ public partial class InputMap
                 KeyScancode = (uint) Key.Key8,
                 Key2Scancode = (uint) Key.Key9,
                 Key3Scancode = (uint) Key.Key0,
-                MappingType = SimInput.KeyboardControlMapping.MappingTypeEnum.ThreePosition
+                KeyboardMappingType = SimInput.KeyboardControlMapping.MappingTypeEnum.ThreePosition
             }}
         },
         {"aircraft/aux4", new() {
             new SimInput.KeyboardControlMapping()
             {
                 Key = Key.G,
-                MappingType = SimInput.KeyboardControlMapping.MappingTypeEnum.Toggle
+                KeyboardMappingType = SimInput.KeyboardControlMapping.MappingTypeEnum.Toggle
             }}
         },
 

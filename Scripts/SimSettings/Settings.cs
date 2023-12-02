@@ -50,6 +50,7 @@ public partial class Settings
         }
         else
         {
+            GD.Print("made new");
             return new Settings();
         }
     }

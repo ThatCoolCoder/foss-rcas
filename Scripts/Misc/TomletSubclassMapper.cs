@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Godot;
 using System.Linq;
 using Tomlet;
@@ -7,55 +8,57 @@ namespace Misc;
 
 public static class TomletSubclassMapper
 {
-
     // Thing that allows storing polymorphic objects in toml by storing the class name in there.
     // Uses list of permitted classes to avoid vulnerabilities.
+    // Automatically allows loading the base class if it's not abstract or interface so that should not be in allowableLoadedTypes
     public static void CreateMapping<TBase>(Type[] allowableLoadedTypes, string typeNameField = "__TomlTypeName") where TBase : class
     {
+        // These are internal so we have to be a bit cheeky to grab them
+        var tomlCompositeSerializer = typeof(TomletMain).Assembly.GetType("Tomlet.TomlCompositeSerializer");
+        var tomlCompositeDeserializer = typeof(TomletMain).Assembly.GetType("Tomlet.TomlCompositeDeserializer");
+
+        var internalDeserializers = new Dictionary<string, Tomlet.TomlSerializationMethods.Deserialize<object>>();
+
+        // Register serializers for all the derived types & base as well
+        if (!typeof(TBase).IsInterface && !typeof(TBase).IsAbstract) allowableLoadedTypes = allowableLoadedTypes.Append(typeof(TBase)).ToArray();
         foreach (var subType in allowableLoadedTypes)
         {
-            if (!subType.IsSubclassOf(typeof(TBase))) throw new Exception($"Allowable loaded type {subType.Name} is not a subclass of {typeof(TBase).Name}");
+            if (!subType.IsSubclassOf(typeof(TBase)) && typeof(TBase) != subType) throw new Exception($"Allowable loaded type {subType.Name} is not a subclass of {typeof(TBase).Name}");
 
-            var method = typeof(TomletMain).GetMethod("RegisterMapper", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
+            var registerMapper = typeof(TomletMain).GetMethod("RegisterMapper", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.Public);
 
-            Tomlet.TomlSerializationMethods.Serialize<TBase> converter = (TBase st) =>
+            var serializerInternal = (Tomlet.TomlSerializationMethods.Serialize<TBase>)tomlCompositeSerializer.GetMethod("For").Invoke(null, new object[] { subType });
+            var deserializerInternal = (Tomlet.TomlSerializationMethods.Deserialize<object>)tomlCompositeDeserializer.GetMethod("For").Invoke(null, new object[] { subType });
+            internalDeserializers[subType.Name] = deserializerInternal;
+
+            Tomlet.TomlSerializationMethods.Serialize<TBase> serializer = (TBase baseInstance) =>
             {
-                GD.Print(st.GetType().Name);
-                // throw new Exception("don't know what to return");
-                return Tomlet.Models.TomlBoolean.True;
+                var table = (Tomlet.Models.TomlTable)serializerInternal(baseInstance);
+                table.Put(typeNameField, baseInstance.GetType().Name);
+                return table;
             };
 
-            method
+            registerMapper
                 .MakeGenericMethod(subType)
-                .Invoke(null, parameters: new object[] { converter, null });
-            GD.Print(subType.Name);
+                .Invoke(null, parameters: new object[] { serializer, null });
         }
 
+        // Register deserializer for the base type
+        var baseDeserializerInternal = (Tomlet.TomlSerializationMethods.Deserialize<object>)tomlCompositeDeserializer.GetMethod("For").Invoke(null, new object[] { typeof(TBase) });
         TomletMain.RegisterMapper<TBase>(
-            tBase =>
-            {
-                GD.Print(tBase.GetType().Name);
-                throw new Exception("don't know what to return");
-            },
+            null,
             tomlValue =>
             {
                 if (!(tomlValue is Tomlet.Models.TomlTable tomlTable))
                     throw new Tomlet.Exceptions.TomlTypeMismatchException(typeof(Tomlet.Models.TomlTable), tomlValue.GetType(), typeof(TBase));
 
+                if (!tomlTable.ContainsKey(typeNameField)) throw new Exception("Error loading control mapping: TypeName not given!");
                 var typeName = tomlTable.GetString(typeNameField);
-                if (typeName == null) throw new Exception("Error loading control mapping: TypeName not given!");
 
                 var cls = allowableLoadedTypes.FirstOrDefault(cls => cls.Name == typeName);
                 if (cls == null) throw new Exception($"Error loading control mapping: Not allowed to parse a {typeName}");
 
-                // Use reflection to call the generic method using the type we found before 
-                // Have fun when this inevitably breaks
-                return typeof(TomletMain)
-                    .GetMethod("To", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static,
-                    null, System.Reflection.CallingConventions.Any,
-                    new Type[] { typeof(Tomlet.Models.TomlValue) }, null)
-                    .MakeGenericMethod(cls)
-                    .Invoke(null, parameters: new object[] { tomlTable }) as TBase;
+                return (TBase)internalDeserializers[typeName](tomlValue);
             }
         );
     }
