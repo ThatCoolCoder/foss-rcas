@@ -32,6 +32,7 @@ public partial class ActionPreview : Control
         GetNode<Label>("Label").Text = name;
         mappingHolder = GetNode<HBoxContainer>("HBoxContainer/MappingHolder");
         newMappingDialog = GetNode<NewMappingPopup>("NewMappingPopup");
+        TooltipText = $"(internal name {action.Name})";
 
         UpdateMappings();
 

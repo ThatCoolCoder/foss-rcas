@@ -93,9 +93,9 @@ public static class AvailableInputActions
         new("gameplay", "gameplay", new() {
             new InputAction("launch",
                 defaultValue: -1),
-            new InputAction("reset",
+            new InputAction("reset", "reset aircraft",
                 defaultValue: -1),
-            new InputAction("reload_aircraft",
+            new InputAction("reload_aircraft", "reload aicraft",
                 defaultValue: -1),
             new InputAction("pause",
                 defaultValue: -1),
