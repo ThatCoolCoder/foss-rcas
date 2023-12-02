@@ -48,11 +48,7 @@ public partial class AeroSurface : AbstractSpatialFluidForcer
     public override Vector3 CalculateForce(ISpatialFluid fluid, PhysicsDirectBodyState3D state)
     {
         var density = fluid.DensityAtPoint(GlobalPosition);
-        var relativeVelocity = state.GetVelocityAtGlobalPosition(target, this) - fluid.VelocityAtPoint(GlobalPosition);
-
-        var basis = GlobalTransform.Basis.Orthonormalized();
-        // Velocity relative to the rotation of self
-        var localVelocity = basis.Transposed() * relativeVelocity;
+        var (relativeVelocity, localVelocity, basis) = GetRelativeVelLocalVelUsableBasis(fluid, state);
 
         // Regular lift (modelled as airfoil)
         var regularLocalVelocity = localVelocity.WithX(0);

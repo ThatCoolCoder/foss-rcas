@@ -69,4 +69,15 @@ public abstract partial class AbstractSpatialFluidForcer : AbstractSpatialForcer
         target.UnregisterForcer(this);
         if (debugModeWasActive) DebugLineDrawer.ClearLinesStatic(this);
     }
+
+    protected (Vector3, Vector3, Basis) GetRelativeVelLocalVelUsableBasis(Fluids.ISpatialFluid fluid, PhysicsDirectBodyState3D state)
+    {
+        var relativeVelocity = state.GetVelocityAtGlobalPosition(target, this) - fluid.VelocityAtPoint(GlobalPosition);
+
+        var basis = GlobalTransform.Basis.Orthonormalized();
+        // Velocity relative to the rotation of self
+        var localVelocity = basis.Transposed() * relativeVelocity;
+
+        return (relativeVelocity, localVelocity, basis);
+    }
 }

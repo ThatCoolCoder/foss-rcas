@@ -89,7 +89,6 @@ Depending on how much base content is desired and how large the repository gets,
     - Wheels
         - Make brakes and traction work, wheels spin constantly for no reason.
         - Make them less janky in general - they worked perfectly at this same scale in the test project
-    - Make common methods in AbstractSpatialFluidForcer for getting relative & local velocity, there is no point having code for this in every derived class
     - improve wing/body aero physics
         - Aerosurfaces do very weird things when parasitic drag curve is null
         - allow importing some better format of curves

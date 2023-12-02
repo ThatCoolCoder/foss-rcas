@@ -26,11 +26,7 @@ public partial class AeroObject : AbstractSpatialFluidForcer
         var totalForce = Vector3.Zero;
 
         var density = fluid.DensityAtPoint(GlobalPosition);
-        var relativeVelocity = state.GetVelocityAtGlobalPosition(target, this) - fluid.VelocityAtPoint(GlobalPosition);
-
-        var basis = GlobalTransform.Basis.Orthonormalized();
-        // Velocity relative to the rotation of self
-        var localVelocity = basis.Inverse() * relativeVelocity;
+        var (relativeVelocity, localVelocity, basis) = GetRelativeVelLocalVelUsableBasis(fluid, state);
 
         var size = Scale;
         var sideAreas = new Vector3(size.Y * size.Z, size.X * size.Z, size.X * size.Y);
