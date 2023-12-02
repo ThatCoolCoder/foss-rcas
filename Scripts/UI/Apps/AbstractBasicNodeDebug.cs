@@ -9,7 +9,7 @@ public abstract partial class AbstractBasicNodeDebug<T> : Misc.UserManipulate wh
 {
     // Simple base debugger for items like motors or batteries
 
-    [Export] public int RescanInterval = 240;
+    [Export] public int RescanInterval = 60;
     protected abstract string GroupName { get; set; } // name of group containing items
     private Label label;
     private SpinBox nodeIndexSelector;
@@ -34,7 +34,8 @@ public abstract partial class AbstractBasicNodeDebug<T> : Misc.UserManipulate wh
         if (currentNodePath != null)
         {
             var node = GetNode<T>(currentNodePath);
-            if (node != null) text = GenerateText(node);
+            if (node == null) currentNodePath = null; // node was removed, we must find new node
+            else text = GenerateText(node);
         }
         label.Text = text;
 
@@ -46,11 +47,13 @@ public abstract partial class AbstractBasicNodeDebug<T> : Misc.UserManipulate wh
     private void ScanForNode()
     {
         foundNodes = GetTree().GetNodesInGroup(GroupName).ToList<Node>().Select(x => x.GetPath()).ToList();
+        GD.Print(foundNodes.Count());
         if (foundNodes.Count > 0)
         {
             nodeIndexSelector.MinValue = 0;
             nodeIndexSelector.MaxValue = foundNodes.Count - 1;
             nodeIndexSelector.Editable = true;
+            if (currentNodePath == null) _on_SpinBox_changed();
         }
         else
         {
