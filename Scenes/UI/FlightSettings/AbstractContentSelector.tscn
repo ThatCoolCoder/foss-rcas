@@ -1,41 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://biui27dnhjdor"]
+[gd_scene load_steps=2 format=3 uid="uid://biui27dnhjdor"]
 
-[ext_resource type="Theme" uid="uid://bwto58nxsnhtl" path="res://Resources/Theme.tres" id="2"]
-[ext_resource type="Script" path="res://Scripts/UI/FlightSettings/AircraftSelector.cs" id="3"]
 [ext_resource type="Texture2D" uid="uid://rbloam6jgu26" path="res://Scenes/Aircraft/TinyTrainer/TinyTrainer.png" id="4"]
 
-[node name="AbstractContentSelector" type="ScrollContainer" node_paths=PackedStringArray("selector", "thumbnail", "mainText")]
-offset_right = 485.0
-offset_bottom = 595.0
+[node name="AbstractContentSelector" type="ScrollContainer"]
+offset_right = 1193.0
+offset_bottom = 553.0
 size_flags_horizontal = 3
-script = ExtResource("3")
-selector = NodePath("VBoxContainer/OptionButton")
-thumbnail = NodePath("VBoxContainer/MarginContainer/Image")
-mainText = NodePath("VBoxContainer/RichTextLabel")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="HSplitContainer" type="HSplitContainer" parent="."]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = ExtResource("2")
 
-[node name="Heading" type="Label" parent="VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="HSplitContainer"]
 layout_mode = 2
-theme_type_variation = &"Heading2"
-text = "Content Type"
-
-[node name="OptionButton" type="OptionButton" parent="VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
-layout_mode = 2
+size_flags_horizontal = 3
 theme_override_constants/margin_left = 0
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 50
 theme_override_constants/margin_bottom = 20
 
-[node name="Image" type="TextureRect" parent="VBoxContainer/MarginContainer"]
+[node name="Image" type="TextureRect" parent="HSplitContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -43,7 +28,21 @@ texture = ExtResource("4")
 expand_mode = 5
 stretch_mode = 5
 
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HSplitContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.75
+
+[node name="Heading" type="Label" parent="HSplitContainer/VBoxContainer"]
+layout_mode = 2
+theme_type_variation = &"HeaderSmall"
+text = "Content Type"
+
+[node name="OptionButton" type="OptionButton" parent="HSplitContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HSplitContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 bbcode_enabled = true
@@ -54,4 +53,4 @@ Credits:
 John Doe: art"
 tab_size = 8
 
-[connection signal="item_selected" from="VBoxContainer/OptionButton" to="." method="_on_OptionButton_item_selected"]
+[connection signal="item_selected" from="HSplitContainer/VBoxContainer/OptionButton" to="." method="_on_OptionButton_item_selected"]

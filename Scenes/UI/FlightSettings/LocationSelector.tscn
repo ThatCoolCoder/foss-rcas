@@ -3,8 +3,11 @@
 [ext_resource type="PackedScene" uid="uid://biui27dnhjdor" path="res://Scenes/UI/FlightSettings/AbstractContentSelector.tscn" id="1"]
 [ext_resource type="Script" path="res://Scripts/UI/FlightSettings/LocationSelector.cs" id="2"]
 
-[node name="LocationSelector" instance=ExtResource("1")]
+[node name="LocationSelector" node_paths=PackedStringArray("selector", "thumbnail", "mainText") instance=ExtResource("1")]
 script = ExtResource("2")
+selector = NodePath("HSplitContainer/VBoxContainer/OptionButton")
+thumbnail = NodePath("HSplitContainer/MarginContainer/Image")
+mainText = NodePath("HSplitContainer/VBoxContainer/RichTextLabel")
 
-[node name="Heading" parent="VBoxContainer" index="0"]
+[node name="Heading" parent="HSplitContainer/VBoxContainer" index="0"]
 text = "Location"

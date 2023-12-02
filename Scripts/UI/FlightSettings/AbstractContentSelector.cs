@@ -61,6 +61,8 @@ public abstract partial class AbstractContentSelector<T> : Control where T : Con
             };
 
             mainText.Text = String.Join("\n\n", sections.Select(x => x.Trim()).Where(x => x != ""));
+
+            OnItemSelected();
         }
         else
         {
@@ -72,6 +74,11 @@ public abstract partial class AbstractContentSelector<T> : Control where T : Con
                 selector.Text = "No items found, the game is likely corrupted";
             }
         }
+    }
+
+    protected virtual void OnItemSelected()
+    {
+        // override to add behavior
     }
 
     private Texture2D LoadThumbnail()

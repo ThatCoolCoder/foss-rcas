@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://bwr61hdp5b3v1"]
+[gd_scene load_steps=49 format=3 uid="uid://bwr61hdp5b3v1"]
 
 [ext_resource type="Script" path="res://Scripts/Aircraft/Aircraft.cs" id="1_w3gm1"]
 [ext_resource type="PackedScene" uid="uid://csgmaf2piqj3e" path="res://Art/Aircraft/TinyTrainer/TinyTrainer.glb" id="2"]
@@ -20,8 +20,10 @@
 [ext_resource type="Script" path="res://Scripts/Aircraft/ValueSetters/Operations/If.cs" id="14_ueav8"]
 [ext_resource type="PackedScene" uid="uid://xyhg32rkcics" path="res://Art/Aircraft/TinyTrainer/Elevator.glb" id="15"]
 [ext_resource type="PackedScene" uid="uid://cta8nbpcw7xlm" path="res://Art/Aircraft/TinyTrainer/Rudder.glb" id="16"]
+[ext_resource type="Script" path="res://Scripts/Aircraft/ValueSetters/Values/Variable.cs" id="16_38tbs"]
 [ext_resource type="Script" path="res://Scripts/Aircraft/ValueSetters/Values/NodeProperty.cs" id="16_tkydb"]
 [ext_resource type="AudioStream" uid="uid://deys0bnykpb1r" path="res://Art/Aircraft/Common/PropAudio/3S-2304-6x4E.mp3" id="17"]
+[ext_resource type="Script" path="res://Scripts/Aircraft/ValueSetters/Operations/NumberBinaryOperation.cs" id="17_5hxao"]
 [ext_resource type="PackedScene" uid="uid://diynlfwl8wayv" path="res://Scenes/Aircraft/Common/ValueSetter.tscn" id="17_xnghx"]
 [ext_resource type="Script" path="res://Scripts/Audio/PrerecordedPropellerNoise.cs" id="18"]
 [ext_resource type="PackedScene" uid="uid://csndd41uoyyuh" path="res://Scenes/Aircraft/Common/Propwash.tscn" id="19"]
@@ -53,7 +55,7 @@ Value = 0.27
 [sub_resource type="Resource" id="Resource_8rtbm"]
 script = ExtResource("11_c57yk")
 AircraftPath = NodePath("../..")
-Property = "heavy"
+Property = "is_heavy"
 
 [sub_resource type="Resource" id="Resource_wfh3r"]
 script = ExtResource("16_tkydb")
@@ -71,20 +73,39 @@ TrueCase = SubResource("Resource_sxndg")
 FalseCase = SubResource("Resource_ihs7v")
 Output = SubResource("Resource_wfh3r")
 
-[sub_resource type="Resource" id="Resource_x4rg5"]
+[sub_resource type="Resource" id="Resource_xtel1"]
 script = ExtResource("11_c57yk")
 AircraftPath = NodePath("../..")
-Property = "CGOffset"
+Property = "cg_offset_cm"
 
-[sub_resource type="Resource" id="Resource_oi7lh"]
+[sub_resource type="Resource" id="Resource_ylypi"]
+script = ExtResource("16_38tbs")
+Name = "cg_offset_m"
+
+[sub_resource type="Resource" id="Resource_23wai"]
+script = ExtResource("14_muj30")
+Value = -100.0
+
+[sub_resource type="Resource" id="Resource_osekk"]
+script = ExtResource("17_5hxao")
+LeftHandSide = SubResource("Resource_xtel1")
+Operation = 3
+RightHandSide = SubResource("Resource_23wai")
+Output = SubResource("Resource_ylypi")
+
+[sub_resource type="Resource" id="Resource_4wkcv"]
+script = ExtResource("16_38tbs")
+Name = "cg_offset_m"
+
+[sub_resource type="Resource" id="Resource_fek5y"]
 script = ExtResource("16_tkydb")
 NodePath = NodePath("../..")
-Property = "CenterOfMass.X"
+Property = "CenterOfMass.Z"
 
-[sub_resource type="Resource" id="Resource_5brpw"]
+[sub_resource type="Resource" id="Resource_600wt"]
 script = ExtResource("13_uahxl")
-Input = SubResource("Resource_x4rg5")
-Output = SubResource("Resource_oi7lh")
+Input = SubResource("Resource_4wkcv")
+Output = SubResource("Resource_fek5y")
 
 [sub_resource type="Resource" id="Resource_5svxq"]
 script = ExtResource("26_hlkfe")
@@ -174,13 +195,11 @@ SpreadAngleDegrees = 30.0
 
 [node name="MassValueSetter" type="Node3D" parent="ValueSetters"]
 script = ExtResource("10_ox7fh")
-Enabled = false
 UpdateMode = 0
 Operations = Array[Object]([SubResource("Resource_ekdrh")])
 
 [node name="CGValueSetter" parent="ValueSetters" instance=ExtResource("17_xnghx")]
-Enabled = false
-Operations = Array[Object]([SubResource("Resource_5brpw")])
+Operations = Array[Object]([SubResource("Resource_osekk"), SubResource("Resource_600wt")])
 
 [node name="Wing" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0203834, -0.0246674)

@@ -76,6 +76,7 @@ public partial class FlightSettingsScreen : Control
 
         var aircraft = ResourceLoader.Load<PackedScene>(aircraftSelector.SelectedItem.GetScenePath()).Instantiate<Aircraft.Aircraft>();
         location.AircraftInfo = aircraftSelector.SelectedItem;
+        aircraft.Config = aircraftSelector.GetAircraftConfig();
 
         location.AddChild(aircraft);
         location.Aircraft = aircraft;

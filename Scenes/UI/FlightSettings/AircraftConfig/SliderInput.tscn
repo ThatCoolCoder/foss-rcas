@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=3 uid="uid://frwaoy8tmuk0"]
+
+[ext_resource type="PackedScene" uid="uid://eqfhxm16mjnd" path="res://Scenes/UI/FlightSettings/AircraftConfig/AbstractInput.tscn" id="1_w145c"]
+[ext_resource type="Script" path="res://Scripts/UI/FlightSettings/AircraftConfig/SliderInput.cs" id="2_esjcf"]
+
+[node name="SliderInput" node_paths=PackedStringArray("hSlider", "displayLabel", "label") instance=ExtResource("1_w145c")]
+offset_right = -1002.0
+offset_bottom = -671.0
+size_flags_horizontal = 3
+script = ExtResource("2_esjcf")
+hSlider = NodePath("HBoxContainer/HSlider")
+displayLabel = NodePath("HBoxContainer/Label")
+label = NodePath("Label")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." index="1"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HSlider" type="HSlider" parent="HBoxContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="Label" type="Label" parent="HBoxContainer" index="1"]
+layout_mode = 2
+text = "Value"
+
+[connection signal="value_changed" from="HBoxContainer/HSlider" to="." method="_on_h_slider_value_changed"]

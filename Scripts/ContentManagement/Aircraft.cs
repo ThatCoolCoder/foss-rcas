@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using Tomlet.Attributes;
 
@@ -36,6 +37,19 @@ public partial class Aircraft : ContentItem
         if (WingSpan == 0) problems.Add(new("Wingspan is zero"));
         if (Length == 0) problems.Add(new("Length is zero"));
         if (Weight == 0) problems.Add(new("Weight is zero"));
+
+        var groupedByName = ConfigProperties.GroupBy(x => x.Name);
+        if (groupedByName.Count() > 0 && groupedByName.Max(x => x.Count()) > 1)
+        {
+            var duplicatedNamesText = String.Join(", ", groupedByName.Where(x => x.Count() > 1).Select(x => x.Key));
+            problems.Add(new($"There are multiple config properties with these internal names: {duplicatedNamesText}. Duplicates have been ignored"));
+
+            foreach (var group in groupedByName.Where(x => x.Count() > 1))
+            {
+                // Delete all but first occurrence of name
+                foreach (var item in group.Skip(1)) ConfigProperties.Remove(item);
+            }
+        }
 
         return problems;
     }

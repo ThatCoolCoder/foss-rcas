@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bmbbs81xysoyg"]
+
+[ext_resource type="PackedScene" uid="uid://eqfhxm16mjnd" path="res://Scenes/UI/FlightSettings/AircraftConfig/AbstractInput.tscn" id="1_h1ha1"]
+[ext_resource type="Script" path="res://Scripts/UI/FlightSettings/AircraftConfig/SpinBoxInput.cs" id="2_f6vy1"]
+
+[node name="SpinBoxInput" node_paths=PackedStringArray("spinBox", "label") instance=ExtResource("1_h1ha1")]
+script = ExtResource("2_f6vy1")
+spinBox = NodePath("SpinBox")
+label = NodePath("Label")
+
+[node name="SpinBox" type="SpinBox" parent="." index="1"]
+layout_mode = 2

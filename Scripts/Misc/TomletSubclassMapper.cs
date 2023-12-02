@@ -27,7 +27,6 @@ public static class TomletSubclassMapper
         if (!baseType.IsInterface && !baseType.IsAbstract) allowableLoadedTypes = allowableLoadedTypes.Append(baseType).ToArray();
         foreach (var subType in allowableLoadedTypes)
         {
-            GD.Print("Allowing " + subType.Name);
             if (!subType.IsSubclassOf(baseType) && baseType != subType) throw new Exception($"Allowable loaded type {subType.Name} is not a subclass of {baseType.Name}");
 
 
@@ -56,11 +55,11 @@ public static class TomletSubclassMapper
                 if (!(tomlValue is Tomlet.Models.TomlTable tomlTable))
                     throw new Tomlet.Exceptions.TomlTypeMismatchException(typeof(Tomlet.Models.TomlTable), tomlValue.GetType(), typeof(TBase));
 
-                if (!tomlTable.ContainsKey(typeNameField)) throw new Exception("Error loading control mapping: TypeName not given!");
+                if (!tomlTable.ContainsKey(typeNameField)) throw new Exception("Error loading {baseType.Name}: TypeName not given!");
                 var typeName = tomlTable.GetString(typeNameField);
 
                 var cls = allowableLoadedTypes.FirstOrDefault(cls => cls.Name == typeName);
-                if (cls == null) throw new Exception($"Error loading control mapping: Not allowed to parse a {typeName}");
+                if (cls == null) throw new Exception($"Error loading {baseType.Name}: Not allowed to parse a {typeName}");
 
                 return (TBase)internalDeserializers[typeName](tomlValue);
             }

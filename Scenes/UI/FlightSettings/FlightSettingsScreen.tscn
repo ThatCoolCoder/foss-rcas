@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://c7e82kjwuwpl"]
 
 [ext_resource type="Script" path="res://Scripts/UI/FlightSettings/FlightSettingsScreen.cs" id="1"]
-[ext_resource type="PackedScene" path="res://Scenes/UI/FlightSettings/AircraftSelector.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://busgyr7wcbv3g" path="res://Scenes/UI/FlightSettings/AircraftSelector.tscn" id="3"]
 [ext_resource type="PackedScene" uid="uid://ct24hx2k4xd3w" path="res://Scenes/UI/FlightSettings/LocationSelector.tscn" id="5"]
 [ext_resource type="Texture2D" uid="uid://djmgvuhdf5kq8" path="res://Art/Icons/exclamation.png" id="5_fqgov"]
 [ext_resource type="Texture2D" uid="uid://b2a4jkt5yj1jq" path="res://Art/Icons/cross.png" id="6_i7ec7"]
@@ -17,8 +17,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1")
-aircraftSelector = NodePath("MarginContainer/VBoxContainer/HSplitContainer/AircraftSelector")
-locationSelector = NodePath("MarginContainer/VBoxContainer/HSplitContainer/LocationSelector")
+aircraftSelector = NodePath("MarginContainer/VBoxContainer/TabContainer/Aircraft/AircraftSelector")
+locationSelector = NodePath("MarginContainer/VBoxContainer/TabContainer/Location/LocationSelector")
 failedLoadingInfoButton = NodePath("FailedLoadingInfoButton")
 failedLoadingPopup = NodePath("FailedLoadingPopup")
 failedLoadingInfo = NodePath("FailedLoadingPopup/MarginContainer/ScrollContainer/RichTextLabel")
@@ -47,17 +47,23 @@ size_flags_horizontal = 4
 theme_type_variation = &"Heading1"
 text = "Flight Options"
 
-[node name="HSplitContainer" type="HSplitContainer" parent="MarginContainer/VBoxContainer"]
+[node name="TabContainer" type="TabContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 3
 size_flags_vertical = 3
-split_offset = 1
-dragger_visibility = 1
 
-[node name="LocationSelector" parent="MarginContainer/VBoxContainer/HSplitContainer" instance=ExtResource("5")]
+[node name="Location" type="MarginContainer" parent="MarginContainer/VBoxContainer/TabContainer"]
+layout_mode = 2
+theme_type_variation = &"SettingsMargin"
+
+[node name="LocationSelector" parent="MarginContainer/VBoxContainer/TabContainer/Location" instance=ExtResource("5")]
 layout_mode = 2
 
-[node name="AircraftSelector" parent="MarginContainer/VBoxContainer/HSplitContainer" instance=ExtResource("3")]
+[node name="Aircraft" type="MarginContainer" parent="MarginContainer/VBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+theme_type_variation = &"SettingsMargin"
+
+[node name="AircraftSelector" parent="MarginContainer/VBoxContainer/TabContainer/Aircraft" instance=ExtResource("3")]
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]

@@ -29,7 +29,7 @@ public partial class NumberBinaryOperation : AbstractValueSetterOperation
         if (Operation == OperationType.Add) result = lhs + rhs;
         if (Operation == OperationType.Sub) result = lhs - rhs;
         if (Operation == OperationType.Mul) result = lhs * rhs;
-        if (Operation == OperationType.Div) result = rhs / lhs;
+        if (Operation == OperationType.Div) result = lhs / rhs;
         if (Operation == OperationType.Exponent) result = Mathf.Pow(lhs, rhs);
 
         Output.SetValue(result, valueSetter);

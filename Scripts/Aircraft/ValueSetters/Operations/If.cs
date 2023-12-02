@@ -13,7 +13,9 @@ public partial class If : AbstractValueSetterOperation
 
     public override void Execute(ValueSetter valueSetter)
     {
-        var outputValue = Input.GetValue(valueSetter) > 0 ? TrueCase.GetValue(valueSetter) : FalseCase.GetValue(valueSetter);
-        Output.SetValue(outputValue, valueSetter);
+        var input = Input.GetValue(valueSetter);
+        if (input is int i) Output.SetValue(i > 0 ? TrueCase.GetValue(valueSetter) : FalseCase.GetValue(valueSetter), valueSetter);
+        else if (input is bool b) Output.SetValue(b ? TrueCase.GetValue(valueSetter) : FalseCase.GetValue(valueSetter), valueSetter);
+        else throw new Exception("Can only do if on int or bool");
     }
 }

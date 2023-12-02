@@ -134,7 +134,8 @@ Depending on how much base content is desired and how large the repository gets,
     - Write about content creation, make these docs as friendly as possible to non-coders
     - If we get exotic stuff like quadcopters or cars working, create documentation on that
 - Misc bugs/problems
-    - GODOT BUG: it appears that [Exported] nodes aren't assigned if the exported is a child of a Window that starts out invisible.
+    - SpinBoxInput for aircraft config doesn't show right value on init, likely due to step not being set correctly yet
+    - GODOT BUG: it appears that [Export]ed nodes aren't assigned if the exported is a child of a Window that starts out invisible.
     - Tomlet 5.2.0 fixed the unquoted keys issue but now it cries about missing an intermediate mapping, likely due to it quoting the first half of the key
         - todo: make an issue on github re this
     - make slow motion only affect aircraft, not cameras.

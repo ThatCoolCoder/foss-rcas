@@ -11,7 +11,6 @@ public partial class AircraftConfig : AbstractValue
 
     public override dynamic GetValue(ValueSetter valueSetter)
     {
-        GD.Print("GET!");
         return valueSetter.GetNode<Aircraft>(AircraftPath).Config[Property];
     }
 

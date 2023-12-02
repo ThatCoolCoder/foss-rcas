@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://52kcl1bevly7"]
+
+[ext_resource type="PackedScene" uid="uid://eqfhxm16mjnd" path="res://Scenes/UI/FlightSettings/AircraftConfig/AbstractInput.tscn" id="1_vmfxd"]
+[ext_resource type="Script" path="res://Scripts/UI/FlightSettings/AircraftConfig/BooleanInput.cs" id="2_ki88g"]
+
+[node name="BooleanInput" node_paths=PackedStringArray("checkBox", "label") instance=ExtResource("1_vmfxd")]
+script = ExtResource("2_ki88g")
+checkBox = NodePath("CheckBox")
+label = NodePath("Label")
+
+[node name="CheckBox" type="CheckBox" parent="." index="1"]
+layout_mode = 2

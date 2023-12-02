@@ -6,7 +6,9 @@ date_updated = 2023-05-07
 description = """
 A simple plane with generally good flying characterics.
 This model is based on the author's example, which happens to be very overweight.
-Despite that, it still has enough power to fly and perform basic maneuvers
+Despite that, it still has enough power to fly and perform basic maneuvers.
+
+A normal-weight model can be obtained by altering Is Heavy in the configuration below. You might want to move the CG forward in that case.
 """
 
 [aircraft]
@@ -17,7 +19,8 @@ power_type = 0
 channels = 3
 
 config_properties = [
-    { Name = "is_heavy", DisplayName = "Is Heavy", PropertyType = "Boolean", DefaultValue = false }
+    { Name = "is_heavy", DisplayName = "Is Heavy", PropertyType = "Boolean", DefaultValue = true },
+    { Name = "cg_offset_cm", DisplayName = "CG Forward Offset (cm)", PropertyType = "SpinBox", Min = -10, Max = 10, Step = 0.5, DefaultValue = 0 },
 ]
 
 

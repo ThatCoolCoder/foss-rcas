@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://dul6fc5j46082"]
+
+[ext_resource type="PackedScene" uid="uid://eqfhxm16mjnd" path="res://Scenes/UI/FlightSettings/AircraftConfig/AbstractInput.tscn" id="1_5lhij"]
+[ext_resource type="Script" path="res://Scripts/UI/FlightSettings/AircraftConfig/StringInput.cs" id="2_sjcix"]
+
+[node name="StringInput" node_paths=PackedStringArray("LineEdit", "label") instance=ExtResource("1_5lhij")]
+script = ExtResource("2_sjcix")
+LineEdit = NodePath("LineEdit")
+label = NodePath("Label")
+
+[node name="LineEdit" type="LineEdit" parent="." index="1"]
+layout_mode = 2
