@@ -7,6 +7,7 @@ namespace Locations;
 public partial class Location : Node3D
 {
     [Export] public UI.Apps.Management.AppManager UIAppManager { get; set; }
+    [Export] public CameraManager CameraManager { get; set; }
     public Aircraft.Aircraft Aircraft { get; set; }
     public ContentManagement.Aircraft AircraftInfo { get; set; }
     public ContentManagement.Location LocationInfo { get; set; }
@@ -113,6 +114,7 @@ public partial class Location : Node3D
             Aircraft.QueueFree();
             Aircraft = instance;
             AddChild(Aircraft);
+            CameraManager.ActivateCamera(0);
         }
         catch (InvalidCastException)
         {

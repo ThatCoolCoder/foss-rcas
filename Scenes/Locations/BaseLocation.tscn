@@ -17,10 +17,11 @@
 [ext_resource type="Script" path="res://Scripts/Locations/MapCamera.cs" id="16_d556s"]
 [ext_resource type="PackedScene" uid="uid://cq2yly44bwd0s" path="res://Scenes/UI/Apps/UIAppManager.tscn" id="17_s1ygv"]
 
-[node name="BaseLocation" type="Node3D" node_paths=PackedStringArray("UIAppManager", "launcher", "groundCamera")]
+[node name="BaseLocation" type="Node3D" node_paths=PackedStringArray("UIAppManager", "CameraManager", "launcher", "groundCamera")]
 process_mode = 3
 script = ExtResource("6")
 UIAppManager = NodePath("CanvasLayer/UIAppManager")
+CameraManager = NodePath("CameraManager")
 launcher = NodePath("AircraftLauncher")
 groundCamera = NodePath("GroundCamera")
 
