@@ -16,7 +16,7 @@ public partial class NumberMap : AbstractValueSetterOperation
 
     public override void Execute(ValueSetter valueSetter)
     {
-        var v = (Values.AbstractValue v) => v.GetValue(valueSetter);
+        var v = (Values.AbstractValue v) => Misc.TryCast<float>(v.GetValue(valueSetter));
 
         var newMin = v(NewMin);
         var newMax = v(NewMax);

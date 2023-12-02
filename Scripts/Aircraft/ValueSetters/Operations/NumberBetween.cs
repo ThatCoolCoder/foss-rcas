@@ -14,9 +14,9 @@ public partial class NumberBetween : AbstractValueSetterOperation
 
     public override void Execute(ValueSetter valueSetter)
     {
-        var value = Number.GetValue(valueSetter);
-        var lower = LowerNumber.GetValue(valueSetter);
-        var upper = UpperNumber.GetValue(valueSetter);
+        var value = Misc.TryCast<float>(Number.GetValue(valueSetter));
+        var lower = Misc.TryCast<float>(LowerNumber.GetValue(valueSetter));
+        var upper = Misc.TryCast<float>(UpperNumber.GetValue(valueSetter));
 
         int result = 0;
         if (Inclusive) result = lower <= value && value <= upper;

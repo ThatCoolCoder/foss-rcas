@@ -22,8 +22,8 @@ public partial class NumberBinaryOperation : AbstractValueSetterOperation
 
     public override void Execute(ValueSetter valueSetter)
     {
-        var lhs = LeftHandSide.GetValue(valueSetter);
-        var rhs = RightHandSide.GetValue(valueSetter);
+        var lhs = Misc.TryCast<float>(LeftHandSide.GetValue(valueSetter));
+        var rhs = Misc.TryCast<float>(RightHandSide.GetValue(valueSetter));
 
         float result = 0;
         if (Operation == OperationType.Add) result = lhs + rhs;

@@ -13,9 +13,9 @@ public partial class NumberClamp : AbstractValueSetterOperation
 
     public override void Execute(ValueSetter valueSetter)
     {
-        var value = Number.GetValue(valueSetter);
-        var lower = LowerNumber.GetValue(valueSetter);
-        var upper = UpperNumber.GetValue(valueSetter);
+        var value = Misc.TryCast<float>(Number.GetValue(valueSetter));
+        var lower = Misc.TryCast<float>(LowerNumber.GetValue(valueSetter));
+        var upper = Misc.TryCast<float>(UpperNumber.GetValue(valueSetter));
 
         Output.SetValue(Mathf.Clamp(value, lower, upper), valueSetter);
     }

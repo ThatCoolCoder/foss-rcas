@@ -6,13 +6,13 @@ namespace Aircraft.ValueSetters.Values;
 [GlobalClass]
 public partial class ConstFalse : AbstractValue
 {
-    public override dynamic GetValue(ValueSetter valueSetter)
+    protected override dynamic InternalGetValue(ValueSetter valueSetter)
     {
         return 0;
     }
 
-    public override void SetValue(dynamic value, ValueSetter valueSetter)
+    protected override void InternalSetValue(dynamic value, ValueSetter valueSetter)
     {
-        throw new Exception("Cannot set a raw value - it is read-only");
+        throw new Exceptions.CannotSetException("a raw value (true)");
     }
 }

@@ -9,12 +9,12 @@ public partial class NodeProperty : AbstractValue
     [Export] public NodePath NodePath { get; set; }
     [Export] public string Property { get; set; }
 
-    public override dynamic GetValue(ValueSetter valueSetter)
+    protected override dynamic InternalGetValue(ValueSetter valueSetter)
     {
         return Utils.GetValueNested(valueSetter.GetNode(NodePath), Property);
     }
 
-    public override void SetValue(dynamic value, ValueSetter valueSetter)
+    protected override void InternalSetValue(dynamic value, ValueSetter valueSetter)
     {
         Utils.SetValueNested(valueSetter.GetNode(NodePath), Property, value);
     }

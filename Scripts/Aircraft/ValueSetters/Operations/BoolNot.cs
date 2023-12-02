@@ -11,6 +11,6 @@ public partial class BoolNot : AbstractValueSetterOperation
 
     public override void Execute(ValueSetter valueSetter)
     {
-        Output.SetValue((int)Input.GetValue(valueSetter) == 0, valueSetter);
+        Output.SetValue(Misc.TryCast<float>(Input.GetValue(valueSetter)) == 0, valueSetter);
     }
 }

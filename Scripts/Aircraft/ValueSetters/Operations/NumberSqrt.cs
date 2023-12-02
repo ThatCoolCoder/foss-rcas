@@ -11,6 +11,6 @@ public partial class NumberSqrt : AbstractValueSetterOperation
 
     public override void Execute(ValueSetter valueSetter)
     {
-        Output.SetValue(Mathf.Sqrt(Input.GetValue(valueSetter)), valueSetter);
+        Output.SetValue(Mathf.Sqrt(Misc.TryCast<float>(Input.GetValue(valueSetter))), valueSetter);
     }
 }

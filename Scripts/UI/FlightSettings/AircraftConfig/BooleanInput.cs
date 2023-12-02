@@ -17,6 +17,6 @@ public partial class BooleanInput : AbstractInput
 
     public override dynamic GetValue()
     {
-        return checkBox.ButtonPressed;
+        return checkBox.ButtonPressed ? 1 : 0;
     }
 }

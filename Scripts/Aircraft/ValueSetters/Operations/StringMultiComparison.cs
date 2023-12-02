@@ -25,15 +25,15 @@ public partial class StringMultiComparison : AbstractValueSetterOperation
     public override void Execute(ValueSetter valueSetter)
     {
         var result = false;
-        var value = String.GetValue(valueSetter);
-        if (Mode == ComparisonMode.EqualToAny) result = OtherStrings.Any(x => value == x.GetValue(valueSetter));
-        if (Mode == ComparisonMode.EqualToAll) result = OtherStrings.All(x => value == x.GetValue(valueSetter));
+        var value = Misc.TryCast<string>(String.GetValue(valueSetter));
+        if (Mode == ComparisonMode.EqualToAny) result = OtherStrings.Any(x => value == Misc.TryCast<string>(x.GetValue(valueSetter)));
+        if (Mode == ComparisonMode.EqualToAll) result = OtherStrings.All(x => value == Misc.TryCast<string>(x.GetValue(valueSetter)));
 
-        if (Mode == ComparisonMode.ContainsAny) result = OtherStrings.Any(x => value.Contains(x.GetValue(valueSetter)));
-        if (Mode == ComparisonMode.ContainsAll) result = OtherStrings.All(x => value.Contains(x.GetValue(valueSetter)));
+        if (Mode == ComparisonMode.ContainsAny) result = OtherStrings.Any(x => value.Contains(Misc.TryCast<string>(x.GetValue(valueSetter))));
+        if (Mode == ComparisonMode.ContainsAll) result = OtherStrings.All(x => value.Contains(Misc.TryCast<string>(x.GetValue(valueSetter))));
 
-        if (Mode == ComparisonMode.ContainedByAny) result = OtherStrings.Any(x => x.GetValue(valueSetter).Contains(value));
-        if (Mode == ComparisonMode.ContainedByAll) result = OtherStrings.All(x => x.GetValue(valueSetter).Contains(value));
+        if (Mode == ComparisonMode.ContainedByAny) result = OtherStrings.Any(x => Misc.TryCast<string>(x.GetValue(valueSetter)).Contains(value));
+        if (Mode == ComparisonMode.ContainedByAll) result = OtherStrings.All(x => Misc.TryCast<string>(x.GetValue(valueSetter)).Contains(value));
 
         Output.SetValue(Convert.ToInt32(result), valueSetter);
     }

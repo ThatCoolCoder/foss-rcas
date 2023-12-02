@@ -9,13 +9,13 @@ public partial class AircraftConfig : AbstractValue
     [Export] public NodePath AircraftPath { get; set; }
     [Export] public string Property { get; set; }
 
-    public override dynamic GetValue(ValueSetter valueSetter)
+    protected override dynamic InternalGetValue(ValueSetter valueSetter)
     {
         return valueSetter.GetNode<Aircraft>(AircraftPath).Config[Property];
     }
 
-    public override void SetValue(dynamic value, ValueSetter valueSetter)
+    protected override void InternalSetValue(dynamic value, ValueSetter valueSetter)
     {
-        throw new Exception("Cannot set an aircraft config value - it is read-only");
+        throw new Exceptions.CannotSetException("an aircraft config value");
     }
 }

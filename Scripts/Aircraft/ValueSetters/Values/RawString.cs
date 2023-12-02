@@ -8,13 +8,13 @@ public partial class RawString : AbstractValue
 {
     [Export] public string Value { get; set; }
 
-    public override dynamic GetValue(ValueSetter valueSetter)
+    protected override dynamic InternalGetValue(ValueSetter valueSetter)
     {
         return Value;
     }
 
-    public override void SetValue(dynamic value, ValueSetter valueSetter)
+    protected override void InternalSetValue(dynamic value, ValueSetter valueSetter)
     {
-        throw new Exception("Cannot set a raw value - it is read-only");
+        throw new Exceptions.CannotSetException("a raw string");
     }
 }

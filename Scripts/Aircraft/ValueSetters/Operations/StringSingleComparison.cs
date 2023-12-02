@@ -20,8 +20,8 @@ public partial class StringSingleComparison : AbstractValueSetterOperation
 
     public override void Execute(ValueSetter valueSetter)
     {
-        var value1 = Value1.GetValue(valueSetter);
-        var value2 = Value2.GetValue(valueSetter);
+        var value1 = Misc.TryCast<float>(Value1.GetValue(valueSetter));
+        var value2 = Misc.TryCast<float>(Value2.GetValue(valueSetter));
 
         var result = false;
         if (Mode == ComparisonMode.Equal) result = value1 == value2;

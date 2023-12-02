@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace Aircraft.ValueSetters;
@@ -38,13 +39,33 @@ public partial class ValueSetter : Node3D
     private void Update()
     {
         variables = new();
-        foreach (var operation in Operations) operation.Execute(this);
+        foreach (var (operation, index) in Operations.Select((item, index) => (item, index)))
+        {
+            try
+            {
+                operation.Execute(this);
+            }
+            catch (Exception e)
+            {
+                if (e is not Exceptions.ValueSetterException)
+                {
+                    e = new Exceptions.ValueSetterException(e.Message, e);
+                }
+                var valueSetterException = (Exceptions.ValueSetterException)e;
+                valueSetterException.OperationName = operation.GetType().Name;
+                valueSetterException.OperationNumber = index + 1;
+
+                GD.PrintS($"Error in {operation.GetType().Name} (operation {index + 1}):", e); // todo: get some in-game console
+                break;
+            }
+        }
     }
 
     public dynamic GetVariable(string name)
     {
         // todo: make error checking
-        return variables[name];
+        if (!variables.TryGetValue(name, out var result)) throw new Exception($"Variable \"{name}\" does not exist");
+        return result;
     }
 
     public void SetVariable(string name, dynamic value)

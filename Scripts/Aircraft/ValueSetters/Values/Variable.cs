@@ -7,12 +7,12 @@ namespace Aircraft.ValueSetters.Values;
 public partial class Variable : AbstractValue
 {
     [Export] public string Name { get; set; }
-    public override dynamic GetValue(ValueSetter valueSetter)
+    protected override dynamic InternalGetValue(ValueSetter valueSetter)
     {
         return valueSetter.GetVariable(Name);
     }
 
-    public override void SetValue(dynamic value, ValueSetter valueSetter)
+    protected override void InternalSetValue(dynamic value, ValueSetter valueSetter)
     {
         valueSetter.SetVariable(Name, value);
     }

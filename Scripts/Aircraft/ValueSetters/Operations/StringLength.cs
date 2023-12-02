@@ -11,6 +11,6 @@ public partial class StringLength : AbstractValueSetterOperation
 
     public override void Execute(ValueSetter valueSetter)
     {
-        Output.SetValue(Input.GetValue(valueSetter).Length, valueSetter);
+        Output.SetValue(Misc.TryCast<string>(Input.GetValue(valueSetter)).Length, valueSetter);
     }
 }
