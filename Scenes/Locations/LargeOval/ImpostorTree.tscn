@@ -1,8 +1,8 @@
 [gd_scene load_steps=7 format=3 uid="uid://dhi1kcf2pjrok"]
 
 [ext_resource type="Script" path="res://Scripts/Locations/ImpostorTree.cs" id="1"]
-[ext_resource type="PackedScene" uid="uid://bwwjqe8lhxjp8" path="res://Art/Common/Trees/GumTree/Tree.glb" id="2"]
-[ext_resource type="Texture2D" uid="uid://feamooc0pfx3" path="res://Art/Common/Trees/GumTree/Impostor.png" id="3"]
+[ext_resource type="PackedScene" uid="uid://bwwjqe8lhxjp8" path="res://Art/Locations/Common/Trees/GumTree/Tree.glb" id="2"]
+[ext_resource type="Texture2D" uid="uid://feamooc0pfx3" path="res://Art/Locations/Common/Trees/GumTree/Impostor.png" id="3"]
 [ext_resource type="Script" path="res://Scripts/Locations/ImpostorSprite.cs" id="3_nju2c"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fc75p"]

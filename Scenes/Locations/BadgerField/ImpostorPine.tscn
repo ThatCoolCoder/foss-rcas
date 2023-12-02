@@ -1,11 +1,11 @@
 [gd_scene load_steps=9 format=3 uid="uid://eitklmq0pnow"]
 
 [ext_resource type="Script" path="res://Scripts/Locations/ImpostorTree.cs" id="1"]
-[ext_resource type="PackedScene" uid="uid://bp34mn311bomf" path="res://Art/Common/Trees/PineV2/Pine.glb" id="2"]
-[ext_resource type="Texture2D" uid="uid://4l117oqsyd51" path="res://Art/Common/Trees/PineV2/Render/Pine240.png" id="3"]
+[ext_resource type="PackedScene" uid="uid://bp34mn311bomf" path="res://Art/Locations/Common/Trees/PineV2/Pine.glb" id="2"]
+[ext_resource type="Texture2D" uid="uid://4l117oqsyd51" path="res://Art/Locations/Common/Trees/PineV2/Render/Pine240.png" id="3"]
 [ext_resource type="Script" path="res://Scripts/Locations/ImpostorMultiSprite.cs" id="4"]
-[ext_resource type="Texture2D" uid="uid://gt5fqjnsjcca" path="res://Art/Common/Trees/PineV2/Render/Pine120.png" id="6"]
-[ext_resource type="Texture2D" uid="uid://qs8i37h44tn1" path="res://Art/Common/Trees/PineV2/Render/Pine0.png" id="7"]
+[ext_resource type="Texture2D" uid="uid://gt5fqjnsjcca" path="res://Art/Locations/Common/Trees/PineV2/Render/Pine120.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://qs8i37h44tn1" path="res://Art/Locations/Common/Trees/PineV2/Render/Pine0.png" id="7"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jl1sm"]
 transparency = 4

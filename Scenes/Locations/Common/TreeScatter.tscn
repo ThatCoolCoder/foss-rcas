@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://riadj4pa5sfk"]
 
-[ext_resource type="Material" path="res://Art/Common/EnvironmentPreviewMaterial.tres" id="1"]
+[ext_resource type="Material" path="res://Art/Locations/Common/EnvironmentPreviewMaterial.tres" id="1"]
 [ext_resource type="Script" path="res://Scripts/Locations/ImpostorTreeField.cs" id="2"]
 
 [node name="TreeScatter" type="MultiMeshInstance3D"]

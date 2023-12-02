@@ -1,14 +1,14 @@
 [gd_scene load_steps=18 format=3 uid="uid://chkect5bdsq6q"]
 
-[ext_resource type="Texture2D" uid="uid://cokid8ftn0iil" path="res://Art/Common/Bushes/Basic/BasicBush0.png" id="1"]
-[ext_resource type="Texture2D" uid="uid://ch0elub6u0tsv" path="res://Art/Common/Bushes/Basic/BasicBush240.png" id="2"]
-[ext_resource type="Texture2D" uid="uid://cfdb7t3s6du7u" path="res://Art/Common/Bushes/Basic/BasicBush120.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://cokid8ftn0iil" path="res://Art/Locations/Common/Bushes/Basic/BasicBush0.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://ch0elub6u0tsv" path="res://Art/Locations/Common/Bushes/Basic/BasicBush240.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://cfdb7t3s6du7u" path="res://Art/Locations/Common/Bushes/Basic/BasicBush120.png" id="3"]
 [ext_resource type="Script" path="res://Scripts/Locations/ImpostorMultiSprite.cs" id="3_xoejp"]
 [ext_resource type="Script" path="res://Scripts/Locations/ImpostorSprite.cs" id="4"]
 [ext_resource type="Script" path="res://Scripts/Locations/ImpostorTree.cs" id="5"]
-[ext_resource type="Texture2D" uid="uid://05l7e5tuf0t3" path="res://Art/Common/Bushes/Basic/BasicBushNormal0.png" id="6_anm6l"]
-[ext_resource type="Texture2D" uid="uid://ja5mx2y16cik" path="res://Art/Common/Bushes/Basic/BasicBushNormal120.png" id="8_frmys"]
-[ext_resource type="Texture2D" uid="uid://gnlpjkcn7qi2" path="res://Art/Common/Bushes/Basic/BasicBushNormal240.png" id="9_tm2xd"]
+[ext_resource type="Texture2D" uid="uid://05l7e5tuf0t3" path="res://Art/Locations/Common/Bushes/Basic/BasicBushNormal0.png" id="6_anm6l"]
+[ext_resource type="Texture2D" uid="uid://ja5mx2y16cik" path="res://Art/Locations/Common/Bushes/Basic/BasicBushNormal120.png" id="8_frmys"]
+[ext_resource type="Texture2D" uid="uid://gnlpjkcn7qi2" path="res://Art/Locations/Common/Bushes/Basic/BasicBushNormal240.png" id="9_tm2xd"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b1bfv"]
 transparency = 4
