@@ -125,7 +125,7 @@ public partial class InputMap
         {"camera/reset", new() {
             new SimInput.KeyboardControlMapping()
             {
-                Key = Key.C | (Key) KeyModifierMask.MaskAlt,
+                Key = Key.C | (Key) KeyModifierMask.MaskCmdOrCtrl,
             },
         }},
         {"camera/previous", new() {

@@ -55,7 +55,7 @@ public partial class NewMappingPopup : Window
     {
         if (!Visible) return;
 
-        if (_event is InputEventKey keyEvent)
+        if (_event is InputEventKey keyEvent && _event.IsPressed())
         {
             candidateNewMapping = new SimInput.KeyboardControlMapping()
             {
