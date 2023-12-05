@@ -14,6 +14,7 @@ public partial class UserManipulate : Control
     [Export] public bool Deletable { get; set; } = true;
     [Export] public bool AutoAdjustAnchors { get; set; } = true;
     [Export] public Control BackgroundNode { get; set; }
+    [Export] public bool HideBackgroundWhenLocked { get; set; } = false;
     [Export] public int CornerButtonSize { get; set; } = 16;
     [Export] public Texture2D ResizeButtonTexture { get; set; }
     [Export] public Texture2D DeleteButtonTexture { get; set; }
@@ -61,12 +62,15 @@ public partial class UserManipulate : Control
             deleteButton.OffsetLeft = -CornerButtonSize;
             deleteButton.OffsetBottom = CornerButtonSize;
             deleteButton.TextureNormal = DeleteButtonTexture;
+            return;
         }
 
         resizeArea.MouseDefaultCursorShape = Resizable ? CursorShape.Fdiagsize : CursorShape.Arrow;
         resizeTexture.Visible = Resizable;
         deleteButton.MouseDefaultCursorShape = Deletable ? CursorShape.PointingHand : CursorShape.Arrow;
         deleteButton.Visible = Deletable;
+
+        if (HideBackgroundWhenLocked) BackgroundNode.Visible = (Movable || Resizable);
     }
 
     public void _on_Dragger_gui_input(InputEvent _event)

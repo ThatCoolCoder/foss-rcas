@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://bgbaqnumc7te"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Apps/NotificationHolder.cs" id="1_n0l0x"]
+[ext_resource type="PackedScene" uid="uid://cggcyv0c1g0xj" path="res://Scenes/UI/Misc/UserManipulate.tscn" id="1_ula2q"]
+[ext_resource type="Texture2D" uid="uid://c7qf01bylklbr" path="res://Art/Icons/resizable.png" id="3_nhjf7"]
+[ext_resource type="Texture2D" uid="uid://b2a4jkt5yj1jq" path="res://Art/Icons/cross.png" id="4_0xflq"]
+
+[node name="NotificationHolder" node_paths=PackedStringArray("BackgroundNode") instance=ExtResource("1_ula2q")]
+script = ExtResource("1_n0l0x")
+BackgroundNode = NodePath("Panel")
+HideBackgroundWhenLocked = true
+ResizeButtonTexture = ExtResource("3_nhjf7")
+DeleteButtonTexture = ExtResource("4_0xflq")
+
+[node name="ResizeTexture" parent="." index="0"]
+texture = ExtResource("3_nhjf7")
+
+[node name="DeleteButton" parent="." index="2"]
+texture_normal = ExtResource("4_0xflq")
+
+[node name="Panel" type="Panel" parent="." index="3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel" index="0"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer" index="0"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3

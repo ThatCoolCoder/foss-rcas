@@ -1,11 +1,13 @@
 using Godot;
 using System;
 
-namespace UI;
+namespace UI.Apps;
 
-public partial class MessageBox : Control
+public partial class NotificationBox : Control
 {
-    public Message Message { get; private set; }
+    // UI for a single notification
+
+    public new UserNotification Notification { get; private set; }
     private Timer deleteTimer;
     private Label label;
     private AnimationPlayer animationPlayer;
@@ -17,11 +19,11 @@ public partial class MessageBox : Control
         animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
     }
 
-    public void SetMessage(Message _message)
+    public void SetMessage(UserNotification _notification)
     {
-        Message = _message;
-        label.Text = Message.Content;
-        deleteTimer.Start(Message.TimeDisplayed);
+        Notification = _notification;
+        label.Text = Notification.Content;
+        deleteTimer.Start(Notification.TimeDisplayed);
     }
 
     private void _on_DeleteTimer_timeout()

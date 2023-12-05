@@ -67,7 +67,7 @@ public partial class GroundCamera : CharacterBody3D, IFlightCamera
 
         if (SimInput.Manager.IsActionJustPressed("camera/reset"))
         {
-            UI.MessageManager.StaticAddMessage("Ground camera: switched to tracking mode", CameraManager.UIMessageCategory);
+            UI.NotificationManager.AddNotification("Ground camera: switched to tracking mode", CameraManager.UIMessageCategory);
             isWalkMode = false;
         }
 
@@ -96,7 +96,7 @@ public partial class GroundCamera : CharacterBody3D, IFlightCamera
         isWalkMode = true;
         camera.Fov = startingFov;
         rotationManager.SetPanAndTilt(camera.Rotation.X, camera.Rotation.Y);
-        UI.MessageManager.StaticAddMessage("Ground camera: switched to walking mode", CameraManager.UIMessageCategory);
+        UI.NotificationManager.AddNotification("Ground camera: switched to walking mode", CameraManager.UIMessageCategory);
     }
 
     private void WalkMovement(double delta)

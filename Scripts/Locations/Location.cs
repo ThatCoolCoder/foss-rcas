@@ -47,7 +47,7 @@ public partial class Location : Node3D
         {
             GetTree().Paused = !GetTree().Paused;
             var text = GetTree().Paused ? "Paused" : "Unpaused";
-            UI.MessageManager.StaticAddMessage(text, "time");
+            UI.NotificationManager.AddNotification(text, "time");
         }
 
         if (SimInput.Manager.IsActionJustPressed("gameplay/more_slow_motion")) AdjustSlowMotion(slowMotionAmount * 2);
@@ -60,8 +60,8 @@ public partial class Location : Node3D
         slowMotionAmount = Mathf.Clamp(newSlowMotionAmount, minSlowMotion, maxSlowMotion);
         Engine.TimeScale = 1f / slowMotionAmount;
 
-        if (slowMotionAmount == 1) UI.MessageManager.StaticAddMessage("Normal speed", "time");
-        else UI.MessageManager.StaticAddMessage($"1/{slowMotionAmount} speed", "time");
+        if (slowMotionAmount == 1) UI.NotificationManager.AddNotification("Normal speed", "time");
+        else UI.NotificationManager.AddNotification($"1/{slowMotionAmount} speed", "time");
     }
 
     private void SetupAircraft()
@@ -94,7 +94,7 @@ public partial class Location : Node3D
 
     private void ReloadAircraft()
     {
-        void DisplayReloadError(string message) => UI.MessageManager.StaticAddMessage($"Failed reloading aircraft: {message}", "aircraft_reload");
+        void DisplayReloadError(string message) => UI.NotificationManager.AddNotification($"Failed reloading aircraft: {message}", "aircraft_reload");
 
         var scene = ResourceLoader.Load<PackedScene>(AircraftInfo.LoadedFromWithoutExtension + ".tscn", cacheMode: ResourceLoader.CacheMode.Ignore);
         if (scene == null)

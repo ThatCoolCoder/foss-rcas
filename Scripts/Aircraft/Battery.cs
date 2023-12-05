@@ -64,7 +64,7 @@ public partial class Battery : Node3D
         RemainingCapacity = Mathf.Max(RemainingCapacity - ampHours, 0);
         currentUsageAccumulator += ampHours;
         if (RemainingCapacity == 0 && previousRemainingCapacity > 0)
-            UI.MessageManager.StaticAddMessage(new UI.Message(category: "battery", content: $"Battery flat"));
+            UI.NotificationManager.AddNotification(category: "battery", content: $"Battery flat");
     }
 
     public void Discharge(float amps, float seconds)

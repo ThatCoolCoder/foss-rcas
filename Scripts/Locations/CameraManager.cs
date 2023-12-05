@@ -68,7 +68,7 @@ public partial class CameraManager : Node3D
         if (newCameraIndex != activeCameraIndex && hasInitDefaultCamera) cameras[activeCameraIndex].Deactivate();
         activeCameraIndex = newCameraIndex;
 
-        UI.MessageManager.StaticAddMessage($"Camera: {cameras[newCameraIndex].ViewName}", UIMessageCategory);
+        UI.NotificationManager.AddNotification($"Camera: {cameras[newCameraIndex].ViewName}", UIMessageCategory);
     }
 
     public override void _Process(double delta)

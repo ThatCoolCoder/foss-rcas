@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://wfhfmqv1cl37"]
+[gd_scene load_steps=16 format=3 uid="uid://wfhfmqv1cl37"]
 
 [ext_resource type="PackedScene" uid="uid://ch51rs1espjbp" path="res://Scenes/Locations/Common/GroundCamera.tscn" id="1"]
 [ext_resource type="Script" path="res://Scripts/Physics/Fluids/SpatialFluidBeacon.cs" id="2"]
@@ -11,9 +11,8 @@
 [ext_resource type="Script" path="res://Scripts/Audio/WindNoise.cs" id="10"]
 [ext_resource type="Script" path="res://Scripts/Locations/CameraManager.cs" id="11"]
 [ext_resource type="Script" path="res://Scripts/UI/FlightUI.cs" id="12"]
-[ext_resource type="Script" path="res://addons/MaxSizeContainer/max_size_container.gd" id="13"]
-[ext_resource type="Script" path="res://Scripts/UI/MessageManager.cs" id="14"]
 [ext_resource type="Script" path="res://Scripts/Locations/FreeCamera.cs" id="15"]
+[ext_resource type="Script" path="res://Scripts/UI/NotificationManager.cs" id="15_x7554"]
 [ext_resource type="Script" path="res://Scripts/Locations/MapCamera.cs" id="16_d556s"]
 [ext_resource type="PackedScene" uid="uid://cq2yly44bwd0s" path="res://Scenes/UI/Apps/UIAppManager.tscn" id="17_s1ygv"]
 
@@ -70,34 +69,6 @@ offset_right = 50.0
 offset_bottom = 38.0
 ScenePath = "res://Scenes/UI/FlightSettings/FlightSettingsScreen.tscn"
 
-[node name="MaxSizeContainer" type="MarginContainer" parent="CanvasLayer"]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 40.0
-grow_horizontal = 0
-mouse_filter = 2
-theme_override_constants/margin_left = 0
-theme_override_constants/margin_top = 0
-theme_override_constants/margin_right = 0
-theme_override_constants/margin_bottom = 0
-script = ExtResource("13")
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/MaxSizeContainer"]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="NotificationManager" type="VBoxContainer" parent="CanvasLayer/MaxSizeContainer/MarginContainer"]
-layout_mode = 2
-mouse_filter = 2
-theme_override_constants/separation = 10
-script = ExtResource("14")
-
 [node name="FpsIndicator" type="Label" parent="CanvasLayer"]
 anchors_preset = 3
 anchor_left = 1.0
@@ -112,5 +83,8 @@ size_flags_horizontal = 10
 size_flags_vertical = 0
 text = "5 FPS"
 script = ExtResource("9")
+
+[node name="NotificationManager" type="Node" parent="."]
+script = ExtResource("15_x7554")
 
 [connection signal="ChangesSaved" from="CanvasLayer/UIAppManager" to="." method="_on_UIAppManager_ChangesSaved"]
