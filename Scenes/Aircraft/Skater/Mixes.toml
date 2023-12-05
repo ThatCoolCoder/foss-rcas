@@ -1,4 +1,4 @@
-CustomDefaultValues = { aileronL = 0, aileronR = 0 }
+CustomDefaultValues = { aux1 = 0 }
 
 Mixes = [
 	{ InputChannelName = "throttle", OutputChannelName = "throttle" },

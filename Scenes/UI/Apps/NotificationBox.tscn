@@ -59,9 +59,9 @@ _data = {
 }
 
 [node name="NotificationBox" type="PanelContainer"]
-offset_right = 40.0
-offset_bottom = 40.0
-size_flags_horizontal = 8
+offset_right = 203.0
+offset_bottom = 43.0
+size_flags_horizontal = 10
 theme_override_styles/panel = SubResource("1")
 script = ExtResource("1")
 

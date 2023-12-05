@@ -20,7 +20,6 @@
 [node name="Wing" type="RigidBody3D"]
 mass = 0.3
 center_of_mass_mode = 1
-center_of_mass = Vector3(0, 0, -0.05)
 can_sleep = false
 script = ExtResource("1_cbetr")
 

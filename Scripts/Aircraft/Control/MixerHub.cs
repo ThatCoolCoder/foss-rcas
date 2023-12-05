@@ -13,27 +13,29 @@ public partial class MixerHub : Node3D, IHub
     protected ChannelMixSet channelMixSet;
 
     public Dictionary<string, float> ChannelValues { get; set; } = new();
+    private HashSet<string> movedChannels = new();
+    private Dictionary<string, float> initialChannelValues = new();
 
     public override void _Ready()
     {
         var gdFile = FileAccess.Open(MixesFile, FileAccess.ModeFlags.Read);
-        if (gdFile == null) Utils.LogError($"Failed opening mixes file ({MixesFile})", this);
-        else
+        if (gdFile == null)
         {
-            var content = gdFile.GetAsText();
-            gdFile.Close();
-            channelMixSet = TomletMain.To<ChannelMixSet>(content);
-
-            // return;
-            // Get initial values for all channels
-            ChannelValues = GetChannelValues(0);
-
-            // Override custom defaults
-            foreach (var kvp in channelMixSet.CustomDefaultValues)
-            {
-                ChannelValues[kvp.Key] = kvp.Value;
-            }
+            Utils.LogError($"Failed opening mixes file ({MixesFile})", this);
+            return;
         }
+
+        var content = gdFile.GetAsText();
+        gdFile.Close();
+        channelMixSet = TomletMain.To<ChannelMixSet>(content);
+
+
+        initialChannelValues = SimInput.AvailableInputActions.GetActionList()
+            .ToDictionary(x => x.Key, x => SimInput.Manager.GetActionValue(x.Key));
+
+
+        // Get initial values for all channels
+        ChannelValues = GetChannelValues(0);
     }
 
     public override void _Process(double delta)
@@ -47,19 +49,34 @@ public partial class MixerHub : Node3D, IHub
 
         foreach (var mix in channelMixSet.Mixes)
         {
-            newChannelValues.TryGetValue(mix.OutputChannelName, out var previousValue);
-
             var actionPath = "aircraft/" + mix.InputChannelName;
-            var rawValue = SimInput.Manager.GetActionValue(actionPath);
+            var rawInputValue = SimInput.Manager.GetActionValue(actionPath);
 
-            if (ChannelValues.TryGetValue(mix.OutputChannelName, out var existingValue) && !SimInput.Manager.HasActionBeenUsed(actionPath))
+            if (rawInputValue != initialChannelValues[actionPath]) movedChannels.Add(actionPath);
+
+            // If channel has been moved: do normal stuff
+            if (movedChannels.Contains(actionPath))
             {
-                // Avoid putting in this case as it would overwrite the custom defaults with the standard defaults
-                newChannelValues[mix.OutputChannelName] = existingValue;
+                // If there was already stuff, apply on top of that
+                if (newChannelValues.TryGetValue(mix.OutputChannelName, out var valueFromPreviousMix))
+                {
+                    newChannelValues[mix.OutputChannelName] = mix.Apply(rawInputValue, valueFromPreviousMix, delta);
+                }
+                // Otherwise just apply as a fresh value
+                else
+                {
+                    newChannelValues[mix.OutputChannelName] = mix.Apply(rawInputValue, 0, delta);
+                }
             }
+            // else try using custom default for the output that this input would correspond to
+            else if (channelMixSet.CustomDefaultValues.TryGetValue(mix.InputChannelName, out var customDefault))
+            {
+                newChannelValues[mix.OutputChannelName] = customDefault;
+            }
+            // else use default/existing value from manager
             else
             {
-                newChannelValues[mix.OutputChannelName] = mix.Apply(rawValue, previousValue, delta);
+                newChannelValues[mix.OutputChannelName] = initialChannelValues[actionPath];
             }
         }
 

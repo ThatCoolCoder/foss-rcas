@@ -17,7 +17,7 @@ public partial class Manager : Node
 
     private Dictionary<string, List<AbstractControlMapping>> mappings = new();
     private Dictionary<string, InputAction> actionLookup = new(); // thing for efficiency
-    private InputMap inputMap = new();
+    public InputMap InputMap { get; private set; } = new();
 
     public override void _EnterTree()
     {
@@ -37,7 +37,7 @@ public partial class Manager : Node
         actionValues = new();
         previousActionValues = new();
         actionLookup = new();
-        inputMap = new();
+        InputMap = new();
         actionsStillOnDefaultValue = new();
 
         foreach (var category in AvailableInputActions.Categories)
@@ -68,7 +68,7 @@ public partial class Manager : Node
                 // Actually migrate it across
                 if (newInputMap.Mappings.TryGetValue(actionPath, out var newMappings))
                 {
-                    inputMap.Mappings[actionPath] = newMappings.ToList();
+                    InputMap.Mappings[actionPath] = newMappings.ToList();
                 }
             }
         }
@@ -81,9 +81,9 @@ public partial class Manager : Node
 
     public override void _UnhandledInput(InputEvent _event)
     {
-        foreach (var actionPath in inputMap.Mappings.Keys)
+        foreach (var actionPath in InputMap.Mappings.Keys)
         {
-            var mappings = inputMap.Mappings[actionPath];
+            var mappings = InputMap.Mappings[actionPath];
             var action = actionLookup[actionPath];
 
             foreach (var mapping in mappings)

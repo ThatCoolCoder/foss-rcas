@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace SimInput;
@@ -109,4 +110,11 @@ public static class AvailableInputActions
                 defaultValue: -1),
         })
     };
+
+    public static Dictionary<string, InputAction> GetActionList()
+    {
+        // Convert nested list of categories then actions to dict of actionpath : action
+        return Categories.SelectMany(c => c.Actions.Select(a => (c, a)))
+            .ToDictionary(x => x.c.Name + '/' + x.a.Name, x => x.a);
+    }
 }
