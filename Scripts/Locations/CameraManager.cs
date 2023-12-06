@@ -12,7 +12,7 @@ public partial class CameraManager : Node3D
     // Use of a hashset was considered for this, since we don't want duplicate cameras.
     // But we need preservation of order, so a list with manual checks in the accessors are used
     private List<IFlightCamera> cameras = new();
-    private int activeCameraIndex = 0;
+    public int ActiveCameraIndex { get; private set; } = 0;
     private bool hasInitDefaultCamera = false;
 
     public override void _EnterTree()
@@ -40,19 +40,19 @@ public partial class CameraManager : Node3D
     public void RemoveCamera(IFlightCamera camera)
     {
         int index = cameras.IndexOf(camera);
-        if (index >= 0 && index < activeCameraIndex) activeCameraIndex--; // Prevent bad things happening when the index changes
+        if (index >= 0 && index < ActiveCameraIndex) ActiveCameraIndex--; // Prevent bad things happening when the index changes
 
         cameras.Remove(camera);
     }
 
     public void NextCamera()
     {
-        ActivateCamera(activeCameraIndex + 1);
+        ActivateCamera(ActiveCameraIndex + 1);
     }
 
     public void PreviousCamera()
     {
-        ActivateCamera(activeCameraIndex - 1);
+        ActivateCamera(ActiveCameraIndex - 1);
     }
 
     public void ActivateCamera(int newCameraIndex)
@@ -65,8 +65,8 @@ public partial class CameraManager : Node3D
 
         // Handle activating
         cameras[newCameraIndex].Activate();
-        if (newCameraIndex != activeCameraIndex && hasInitDefaultCamera) cameras[activeCameraIndex].Deactivate();
-        activeCameraIndex = newCameraIndex;
+        if (newCameraIndex != ActiveCameraIndex && hasInitDefaultCamera) cameras[ActiveCameraIndex].Deactivate();
+        ActiveCameraIndex = newCameraIndex;
 
         UI.NotificationManager.AddNotification($"Camera: {cameras[newCameraIndex].ViewName}", UIMessageCategory);
     }
@@ -81,10 +81,10 @@ public partial class CameraManager : Node3D
 
         if (SimInput.Manager.IsActionJustPressed("gameplay/toggle_map") && MapCamera != null)
         {
-            if (MapCamera.Current) ActivateCamera(activeCameraIndex); // reactivate normal camera
+            if (MapCamera.Current) ActivateCamera(ActiveCameraIndex); // reactivate normal camera
             else
             {
-                if (hasInitDefaultCamera) cameras[activeCameraIndex].Deactivate();
+                if (hasInitDefaultCamera) cameras[ActiveCameraIndex].Deactivate();
                 MapCamera.Current = true;
             }
         }

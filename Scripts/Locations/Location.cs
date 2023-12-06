@@ -16,6 +16,7 @@ public partial class Location : Node3D
     private const int maxSlowMotion = 64; // as in 1/64 speed
     private const int minSlowMotion = 1;
     private int slowMotionAmount = 1; // this becomes a fraction, eg a value of 2 equals 1/2 speed
+    private int previousCameraIndex;
     [Export] private AircraftLauncher launcher;
     [Export] private GroundCamera groundCamera;
     private PackedScene orbitCameraScene = ResourceLoader.Load<PackedScene>("res://Scenes/Aircraft/Common/OrbitCamera.tscn");
@@ -94,6 +95,7 @@ public partial class Location : Node3D
 
     private void ReloadAircraft()
     {
+        previousCameraIndex = CameraManager.ActiveCameraIndex;
         void DisplayReloadError(string message) => UI.NotificationManager.AddNotification($"Failed reloading aircraft: {message}", "aircraft_reload");
 
         var scene = ResourceLoader.Load<PackedScene>(AircraftInfo.LoadedFromWithoutExtension + ".tscn", cacheMode: ResourceLoader.CacheMode.Ignore);
@@ -112,9 +114,9 @@ public partial class Location : Node3D
                 return;
             }
             Aircraft.QueueFree();
+            Aircraft.Connect("tree_exited", new Callable(this, "ReactivatePreviousCamera")); // (need to do AFTER aircraft is actually deleted)
             Aircraft = instance;
             AddChild(Aircraft);
-            CameraManager.ActivateCamera(0);
         }
         catch (InvalidCastException)
         {
@@ -124,6 +126,11 @@ public partial class Location : Node3D
 
         SetupAircraft();
         Reset();
+    }
+
+    private void ReactivatePreviousCamera()
+    {
+        CameraManager.ActivateCamera(previousCameraIndex);
     }
 
     private void Reset()
