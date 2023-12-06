@@ -4,15 +4,9 @@ FOSS RC Aviation Simulator (in early development)
 
 ## Controls
 
-- space to launch plane if it doesn't have wheels
-- r to reset plane
-- f1 to take a screenshot
-- f2 to show/hide the UI when in flight
-- p to pause.
-- ctrl+d to toggle debug mode
-- ctrl+shift+r to restart entire program
+Before flying, configure your transmitter (and view the sim controls) in `Settings>Input`.
 
-The main controls can be seen and configured through `Settings>Input Map`
+ctrl+shift+r can also be used to restart the entire program
 
 ## Misc info
 
@@ -113,7 +107,7 @@ Depending on how much base content is desired and how large the repository gets,
 - Input
     - Add a preview for all the inputs so we can check direction etc without flying (requires poking SimInput.Manager to give it a custom inputmap)
         - or it could just be within the binding menu that it shows it on a locked slider
-    - set the default controls to work on a ps/xbox controller without configuration
+    - set the default controls to work on a ps/xbox controller without configuration?
     - input map: add checkbox for showing only inputs of plugged-in devices
     - Add support for dual/triple rates.
         - Somehow add support for this in the mixer. I'd rather not have to mix every channel separately on every plane, and I also don't want to add special-case channels.
