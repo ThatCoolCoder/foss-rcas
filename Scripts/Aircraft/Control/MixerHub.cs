@@ -13,7 +13,7 @@ public partial class MixerHub : Node3D, IHub
     protected ChannelMixSet channelMixSet;
 
     public Dictionary<string, float> ChannelValues { get; set; } = new();
-    private HashSet<string> movedChannels = new();
+    private HashSet<string> movedActions = new();
     private Dictionary<string, float> initialChannelValues = new();
 
     public override void _Ready()
@@ -52,31 +52,22 @@ public partial class MixerHub : Node3D, IHub
             var actionPath = "aircraft/" + mix.InputChannelName;
             var rawInputValue = SimInput.Manager.GetActionValue(actionPath);
 
-            if (rawInputValue != initialChannelValues[actionPath]) movedChannels.Add(actionPath);
+            if (rawInputValue != initialChannelValues[actionPath]) movedActions.Add(actionPath);
 
-            // If channel has been moved: do normal stuff
-            if (movedChannels.Contains(actionPath))
+            // If not moved & we have a custom default, use that instead of normal value
+            var usedInputValue = !movedActions.Contains(actionPath) && channelMixSet.CustomDefaultValues.TryGetValue(mix.InputChannelName, out var customDefault)
+                ? customDefault
+                : rawInputValue;
+
+            // If there was already stuff from the previous mix in the list, apply on top of that
+            if (newChannelValues.TryGetValue(mix.OutputChannelName, out var valueFromPreviousMix))
             {
-                // If there was already stuff, apply on top of that
-                if (newChannelValues.TryGetValue(mix.OutputChannelName, out var valueFromPreviousMix))
-                {
-                    newChannelValues[mix.OutputChannelName] = mix.Apply(rawInputValue, valueFromPreviousMix, delta);
-                }
-                // Otherwise just apply as a fresh value
-                else
-                {
-                    newChannelValues[mix.OutputChannelName] = mix.Apply(rawInputValue, 0, delta);
-                }
+                newChannelValues[mix.OutputChannelName] = mix.Apply(usedInputValue, valueFromPreviousMix, delta);
             }
-            // else try using custom default for the output that this input would correspond to
-            else if (channelMixSet.CustomDefaultValues.TryGetValue(mix.InputChannelName, out var customDefault))
-            {
-                newChannelValues[mix.OutputChannelName] = customDefault;
-            }
-            // else use default/existing value from manager
+            // Otherwise just apply as a fresh value
             else
             {
-                newChannelValues[mix.OutputChannelName] = initialChannelValues[actionPath];
+                newChannelValues[mix.OutputChannelName] = mix.Apply(usedInputValue, 0, delta);
             }
         }
 
