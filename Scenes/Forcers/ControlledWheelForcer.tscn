@@ -5,8 +5,11 @@
 
 [node name="ControlledWheelForcer" instance=ExtResource("2")]
 script = ExtResource("1")
-DriveActionName = null
-BrakeActionName = null
+DriveActionName = ""
+BrakeActionName = ""
 ReversibleDrive = false
 Backwards = false
-ControlHubPath = null
+ControlHubPath = NodePath("")
+
+[node name="SpringArm3D" parent="." index="0"]
+margin = 0.0

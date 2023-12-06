@@ -3,6 +3,8 @@ using System;
 
 namespace Physics.Forcers;
 
+[Tool]
+[GlobalClass]
 public partial class WheelForcer : AbstractSpatialForcer
 {
     [Export] public NodePath DisplayObjectPath { get; set; }
@@ -26,6 +28,7 @@ public partial class WheelForcer : AbstractSpatialForcer
     // Nodes
     private SpringArm3D springArm;
     private RayCast3D rayCast;
+    private Node3D displayObjectTarget;
 
     // State
     private float prevCompression;
@@ -44,30 +47,39 @@ public partial class WheelForcer : AbstractSpatialForcer
     {
         base._Ready();
 
-        GetNode<Node3D>("SpringArm3D/CSGBox3D").QueueFree(); // delete visual widget
-
-        displayObject = Utils.GetNodeWithWarnings<Node3D>(this, DisplayObjectPath, "display object");
-
-        Utils.Assert(LongitudinalPacejka != null, "longitudinal pacejka is null", this);
-        Utils.Assert(LateralPacejka != null, "lateral pacejka is null", this);
 
         springArm = GetNode<SpringArm3D>("SpringArm3D");
-        rayCast = GetNode<RayCast3D>("SpringArm3D/RayCast3D");
+        rayCast = GetNode<RayCast3D>("RayCast3D");
+        displayObjectTarget = GetNode<Node3D>("SpringArm3D/DisplayObjectTarget");
 
         rayCast.TargetPosition = Vector3.Down * WheelRadius * 5;
 
-        var shape = new SphereShape3D();
-        shape.Radius = WheelRadius;
-        springArm.Shape = shape;
-        springArm.SpringLength = SuspensionTravel;
+        if (!Engine.IsEditorHint())
+        {
+            GetNode<Node3D>("SpringArm3D/CSGBox3D").QueueFree(); // delete visual widget
+
+            displayObject = Utils.GetNodeWithWarnings<Node3D>(this, DisplayObjectPath, "display object");
+
+            Utils.Assert(LongitudinalPacejka != null, "longitudinal pacejka is null", this);
+            Utils.Assert(LateralPacejka != null, "lateral pacejka is null", this);
+
+            var shape = new SphereShape3D();
+            shape.Radius = WheelRadius;
+            springArm.Shape = shape;
+            springArm.SpringLength = SuspensionTravel;
+        }
     }
 
     public override void _Process(double delta)
     {
-        if (displayObject != null)
+        if (Engine.IsEditorHint())
+        {
+            rayCast.TargetPosition = Vector3.Down * WheelRadius * 5;
+        }
+        else if (displayObject != null)
         {
             displayObject.RotateX(-angularVelocity * (float)delta);
-            displayObject.GlobalPosition = rayCast.GlobalPosition;
+            displayObject.GlobalPosition = displayObjectTarget.GlobalPosition;
         }
     }
 
@@ -94,6 +106,7 @@ public partial class WheelForcer : AbstractSpatialForcer
             angularVelocity += netTorque / momentOfInertia * state.Step;
         }
 
+        rayCast.ForceRaycastUpdate();
         if (rayCast.IsColliding())
         {
             // Suspension
@@ -120,7 +133,6 @@ public partial class WheelForcer : AbstractSpatialForcer
             // Add all the forces
             state.ApplyForce(GlobalTransform.Basis.X * xForce, contactPoint);
             state.ApplyForce(springForce * rayCast.GetCollisionNormal(), contactPoint);
-            // state.ApplyForce(-GlobalTransform.Basis.Y * zForce, contactPoint);
 
             prevZForce = -zForce;
             prevCompression = compression;

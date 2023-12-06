@@ -3,6 +3,8 @@ using System;
 
 namespace Aircraft;
 
+[Tool]
+[GlobalClass]
 public partial class ControlledWheelForcer : Physics.Forcers.WheelForcer
 {
     [Export] public string DriveActionName { get; set; }
@@ -14,19 +16,22 @@ public partial class ControlledWheelForcer : Physics.Forcers.WheelForcer
 
     public override void _Ready()
     {
-        controlHub = Utils.GetNodeWithWarnings<Control.IHub>(this, ControlHubPath, "control hub");
+        if (!Engine.IsEditorHint()) controlHub = Utils.GetNodeWithWarnings<Control.IHub>(this, ControlHubPath, "control hub");
         base._Ready();
     }
 
     public override void _Process(double delta)
     {
-        var powerProportion = (DriveActionName == null || DriveActionName == "") ? 0 : controlHub.ChannelValues[DriveActionName];
-        if (Backwards) powerProportion *= -1;
-        if (!ReversibleDrive) powerProportion = powerProportion / 2 + 0.5f;
+        if (!Engine.IsEditorHint())
+        {
+            var powerProportion = (DriveActionName == null || DriveActionName == "") ? 0 : controlHub.ChannelValues[DriveActionName];
+            if (Backwards) powerProportion *= -1;
+            if (!ReversibleDrive) powerProportion = powerProportion / 2 + 0.5f;
 
-        WheelDriveFactor = powerProportion;
-        var brakeProportion = (BrakeActionName == null || BrakeActionName == "") ? 0 : controlHub.ChannelValues[BrakeActionName];
-        WheelBrakeFactor = Utils.MapNumber(brakeProportion, -1, 1, 0, 1);
+            WheelDriveFactor = powerProportion;
+            var brakeProportion = (BrakeActionName == null || BrakeActionName == "") ? 0 : controlHub.ChannelValues[BrakeActionName];
+            WheelBrakeFactor = Utils.MapNumber(brakeProportion, -1, 1, 0, 1);
+        }
 
         base._Process(delta);
     }
