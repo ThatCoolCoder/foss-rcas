@@ -13,8 +13,7 @@ public partial class MixerHub : Node3D, IHub
     protected ChannelMixSet channelMixSet;
 
     public Dictionary<string, float> ChannelValues { get; set; } = new();
-    private HashSet<string> movedActions = new();
-    private Dictionary<string, float> initialChannelValues = new();
+    private long addedToTreeTime;
 
     public override void _Ready()
     {
@@ -29,13 +28,10 @@ public partial class MixerHub : Node3D, IHub
         gdFile.Close();
         channelMixSet = TomletMain.To<ChannelMixSet>(content);
 
-
-        initialChannelValues = SimInput.AvailableInputActions.GetActionList()
-            .ToDictionary(x => x.Key, x => SimInput.Manager.GetActionValue(x.Key));
-
-
         // Get initial values for all channels
         ChannelValues = GetChannelValues(0);
+
+        addedToTreeTime = (long)Time.GetTicksMsec();
     }
 
     public override void _Process(double delta)
@@ -52,10 +48,9 @@ public partial class MixerHub : Node3D, IHub
             var actionPath = "aircraft/" + mix.InputChannelName;
             var rawInputValue = SimInput.Manager.GetActionValue(actionPath);
 
-            if (rawInputValue != initialChannelValues[actionPath]) movedActions.Add(actionPath);
-
             // If not moved & we have a custom default, use that instead of normal value
-            var usedInputValue = !movedActions.Contains(actionPath) && channelMixSet.CustomDefaultValues.TryGetValue(mix.InputChannelName, out var customDefault)
+            var hasMoved = SimInput.Manager.ActionLastMoved(actionPath) > addedToTreeTime;
+            var usedInputValue = !hasMoved && channelMixSet.CustomDefaultValues.TryGetValue(mix.InputChannelName, out var customDefault)
                 ? customDefault
                 : rawInputValue;
 

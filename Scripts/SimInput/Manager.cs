@@ -13,7 +13,7 @@ public partial class Manager : Node
     private Dictionary<string, float> actionValues = new();
     private Dictionary<string, float> intermediateTimeActionValues = new(); // for when they're not previous yet but also not new
     private Dictionary<string, float> previousActionValues = new();
-    private List<string> actionsStillOnDefaultValue = new(); // todo: investigate if a hashset is better suited for this
+    private Dictionary<string, long> actionLastMoved = new(); // Times are in format of Time.GetTicksMsec(). -1 if never moved
 
     private Dictionary<string, List<AbstractControlMapping>> mappings = new();
     private Dictionary<string, InputAction> actionLookup = new(); // thing for efficiency
@@ -38,13 +38,12 @@ public partial class Manager : Node
         previousActionValues = new();
         actionLookup = new();
         InputMap = new();
-        actionsStillOnDefaultValue = new();
+        actionLastMoved = new();
 
         foreach (var category in AvailableInputActions.Categories)
         {
             if (category.Name.Contains('/'))
             {
-                Utils.LogError($"Category name \"{category.Name}\" is invalid - slashes are not permitted");
                 continue;
             }
 
@@ -61,7 +60,7 @@ public partial class Manager : Node
                 // Set defaults
                 actionValues[actionPath] = action.DefaultValue;
                 previousActionValues[actionPath] = action.DefaultValue;
-                actionsStillOnDefaultValue.Add(actionPath);
+                actionLastMoved[actionPath] = -1;
 
                 actionLookup[actionPath] = action;
 
@@ -92,13 +91,13 @@ public partial class Manager : Node
                 if (mapping.ProcessEvent(_event) is float val)
                 {
                     actionValues[actionPath] = val;
-                    actionsStillOnDefaultValue.Remove(actionPath);
+                    actionLastMoved[actionPath] = (long)Time.GetTicksMsec();
 
                     // apply extra mappings
                     foreach (var extraMapping in action.MapTo)
                     {
                         actionValues[extraMapping.Key] = extraMapping.Value(val);
-                        actionsStillOnDefaultValue.Remove(extraMapping.Key);
+                        actionLastMoved[extraMapping.Key] = (long)Time.GetTicksMsec();
                     }
                 }
             }
@@ -168,9 +167,17 @@ public partial class Manager : Node
         }
     }
 
-    public bool HasActionBeenUsedI(string actionPath)
+    public long ActionLastMovedI(string actionPath)
     {
-        return !actionsStillOnDefaultValue.Contains(actionPath);
+        try
+        {
+            return actionLastMoved[actionPath];
+        }
+        catch (KeyNotFoundException)
+        {
+            Utils.LogError($"Unknown action: {actionPath}");
+            return -1;
+        }
     }
 
 
@@ -195,9 +202,12 @@ public partial class Manager : Node
         return Instance.IsActionJustReleasedI(actionPath);
     }
 
-    public static bool HasActionBeenUsed(string actionPath)
+    public static long ActionLastMoved(string actionPath)
     {
-        return Instance.HasActionBeenUsedI(actionPath);
+        // Return time in Msec since the game started that this action was last moved
+        // -1 if the action is still on its default value
+
+        return Instance.ActionLastMovedI(actionPath);
     }
 
 }
