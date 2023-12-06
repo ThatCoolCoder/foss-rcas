@@ -23,7 +23,7 @@ public static class AvailableInputActions
             new InputAction("rudder"),
 
             new InputAction("aux1", "aux 1", " - used for things like flaps",
-            defaultValue: -1),
+                defaultValue: -1),
             new InputAction("aux2", "aux 2", " - used for things like bomb drops",
                 defaultValue:-1),
             new InputAction("aux3", "aux 3", " - used for things like spoilers/airbrakes",
@@ -96,7 +96,7 @@ public static class AvailableInputActions
                 defaultValue: -1),
             new InputAction("reset", "reset aircraft",
                 defaultValue: -1),
-            new InputAction("reload_aircraft", "reload aicraft",
+            new InputAction("reload_aircraft",
                 defaultValue: -1),
             new InputAction("pause",
                 defaultValue: -1),
@@ -108,7 +108,15 @@ public static class AvailableInputActions
                 defaultValue: -1),
             new InputAction("toggle_map",
                 defaultValue: -1),
-        })
+        }),
+        new("global", "general", new() {
+            new InputAction("take_screenshot",
+                defaultValue: -1),
+            new InputAction("toggle_physics_debug",
+                defaultValue: -1),
+            new InputAction("toggle_ui", "toggle interface",
+                defaultValue: -1),
+        }),
     };
 
     public static Dictionary<string, InputAction> GetActionList()

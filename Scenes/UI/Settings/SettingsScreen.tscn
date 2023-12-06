@@ -45,7 +45,7 @@ layout_mode = 2
 visible = false
 layout_mode = 2
 
-[node name="Input Map" parent="VBoxContainer/MarginContainer/MainTabs" instance=ExtResource("7")]
+[node name="Input" parent="VBoxContainer/MarginContainer/MainTabs" instance=ExtResource("7")]
 visible = false
 layout_mode = 2
 

@@ -25,7 +25,6 @@ public partial class Location : Node3D
     {
         // Some children may need this before ready, so do it here
         SimSettings.Settings.Current.ApplyToViewport(GetViewport() as SubViewport);
-        SimInput.Manager.Instance.LoadInputMap(SimSettings.Settings.Current.InputMap);
     }
 
     public override void _Ready()

@@ -190,6 +190,35 @@ public partial class InputMap
                 Key = Key.M,
             },
         }},
+
+        // GENERAL
+
+        {"general/take_screenshot", new() {
+            new SimInput.KeyboardControlMapping()
+            {
+                Key = Key.F1,
+            },
+            new SimInput.KeyboardControlMapping()
+            {
+                Key = Key.P | (Key) KeyModifierMask.MaskCmdOrCtrl,
+            },
+        }},
+        {"general/toggle_physics_debug", new() {
+            new SimInput.KeyboardControlMapping()
+            {
+                Key = Key.D | (Key) KeyModifierMask.MaskCmdOrCtrl,
+            },
+        }},
+        {"general/toggle_ui", new() {
+            new SimInput.KeyboardControlMapping()
+            {
+                Key = Key.F2,
+            },
+            new SimInput.KeyboardControlMapping()
+            {
+                Key = Key.U | (Key) KeyModifierMask.MaskCmdOrCtrl,
+            },
+        }},
     },
     };
 };

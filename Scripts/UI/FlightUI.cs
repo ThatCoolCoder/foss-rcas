@@ -7,6 +7,6 @@ public partial class FlightUI : CanvasLayer
 {
     public override void _Process(double delta)
     {
-        if (Input.IsActionJustPressed("toggle_ui")) Visible = !Visible;
+        if (SimInput.Manager.IsActionJustPressed("global/toggle_ui")) Visible = !Visible;
     }
 }
