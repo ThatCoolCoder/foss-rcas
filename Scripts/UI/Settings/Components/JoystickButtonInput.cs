@@ -5,13 +5,15 @@ using System.Linq;
 
 namespace UI.Settings.Components;
 
-public partial class JoystickButtonInput : BaseInputInput<JoyButton, JoyButton?>
+public record ButtonId(JoyButton Button, int Device);
+
+public partial class JoystickButtonInput : BaseInputInput<ButtonId, ButtonId>
 {
-    private JoyButton? lastPressedButton;
+    private ButtonId lastPressedButton;
 
     public static PackedScene Scene = ResourceLoader.Load<PackedScene>("res://Scenes/UI/Settings/Components/JoystickButtonInput.tscn");
 
-    public new JoystickButtonInput Config(Node parent, string name, SettingReader<JoyButton> read, SettingWriter<JoyButton> write, string toolTip = "")
+    public new JoystickButtonInput Config(Node parent, string name, SettingReader<ButtonId> read, SettingWriter<ButtonId> write, string toolTip = "")
     {
         base.Config(parent, name, read, write, toolTip);
 
@@ -22,12 +24,12 @@ public partial class JoystickButtonInput : BaseInputInput<JoyButton, JoyButton?>
     {
         if (_event is InputEventJoypadButton buttonEvent)
         {
-            lastPressedButton = buttonEvent.ButtonIndex;
+            lastPressedButton = new(buttonEvent.ButtonIndex, buttonEvent.Device);
             UpdatePopup();
         }
     }
 
-    protected override JoyButton? GetCandidateValue()
+    protected override ButtonId GetCandidateValue()
     {
         // Get the axis that is currently the most moved (and therefore the current candidate)
         // returns null if no axis has been moved enough
@@ -39,13 +41,14 @@ public partial class JoystickButtonInput : BaseInputInput<JoyButton, JoyButton?>
     {
         var candidate = GetCandidateValue();
 
-        if (candidate is JoyButton notNull) return $"Button {(int)notNull} selected";
+        if (candidate != null) return $"Button {(int)candidate.Button} (device {candidate.Device}) selected";
         else return "Press a button on your controller to select it";
     }
 
     protected override string GetCurrentValueText()
     {
-        return $"Button {(int)read(SettingsScreen.NewSettings)}";
+        var val = read(SettingsScreen.NewSettings);
+        return $"Button {(int)val.Button} (device {val.Device})";
     }
 
     protected override void ClearCandidateValue()

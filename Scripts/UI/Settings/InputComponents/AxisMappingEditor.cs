@@ -33,8 +33,12 @@ public partial class AxisMappingEditor : BaseControlMappingEditor
             .OnSettingsChanged();
 
         holder.GetNode<JoystickAxisInput>("JoystickAxisInput").Config(null, "Selected axis",
-            s => (JoyAxis)controlMapping.Axis,
-            (s, v) => controlMapping.Axis = (uint)v)
+            s => new AxisId((JoyAxis)controlMapping.Axis, controlMapping.Device),
+            (s, v) =>
+            {
+                controlMapping.Axis = (uint)v.Axis;
+                controlMapping.Device = v.Device;
+            })
             .OnSettingsChanged();
 
         holder.GetNode<NumericSliderInput>("Sensitivity").Config(null, "Sensitivity",
@@ -53,6 +57,12 @@ public partial class AxisMappingEditor : BaseControlMappingEditor
             s => controlMapping.DeadzoneEnd,
             (s, v) => controlMapping.DeadzoneEnd = v,
             min: 0, max: 1, step: 0.01f, _customDisplayFunc: percentageDisplayFunc)
+            .OnSettingsChanged();
+
+        holder.GetNode<BooleanInput>("AllDevices").Config(null, "All devices",
+            s => controlMapping.AllDevices,
+            (s, v) => controlMapping.AllDevices = v,
+            toolTip: "Whether to use input from all devices or only the one shown above")
             .OnSettingsChanged();
     }
 }

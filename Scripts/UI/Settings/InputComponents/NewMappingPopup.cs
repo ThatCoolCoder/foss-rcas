@@ -81,6 +81,7 @@ public partial class NewMappingPopup : Window
                 candidateNewMapping = new SimInput.AxisControlMapping()
                 {
                     Axis = (uint)axisEvent.Axis,
+                    Device = axisEvent.Device
                 };
                 infoLabel.Text = $"Axis {(uint)axisEvent.Axis}";
                 UpdateControls();
@@ -92,7 +93,8 @@ public partial class NewMappingPopup : Window
 
             candidateNewMapping = new SimInput.ButtonControlMapping()
             {
-                ButtonIndex = (uint)buttonEvent.ButtonIndex
+                ButtonIndex = (uint)buttonEvent.ButtonIndex,
+                Device = buttonEvent.Device
             };
             infoLabel.Text = $"Button {(uint)buttonEvent.ButtonIndex}";
             UpdateControls();

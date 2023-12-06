@@ -114,8 +114,7 @@ Depending on how much base content is desired and how large the repository gets,
     - Add a preview for all the inputs so we can check direction etc without flying (requires poking SimInput.Manager to give it a custom inputmap)
         - or it could just be within the binding menu that it shows it on a locked slider
     - set the default controls to work on a ps/xbox controller without configuration
-    - Um add a thing that checks the name of the controller so you can have different bindings for different controllers
-        - hide bindings from controllers that are not present then, but have an option to show them so you can delete the unneeded ones
+    - input map: add checkbox for showing only inputs of plugged-in devices
     - Add support for dual/triple rates.
         - Somehow add support for this in the mixer. I'd rather not have to mix every channel separately on every plane, and I also don't want to add special-case channels.
         - Potentially this can be implemented as part of a flight modes system.

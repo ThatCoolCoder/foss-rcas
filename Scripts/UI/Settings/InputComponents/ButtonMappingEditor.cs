@@ -27,8 +27,12 @@ public partial class ButtonMappingEditor : BaseControlMappingEditor
         var holder = GetMainItemHolder();
 
         holder.GetNode<JoystickButtonInput>("JoystickButtonInput").Config(null, "Button",
-            s => (JoyButton)controlMapping.ButtonIndex,
-            (s, v) => controlMapping.ButtonIndex = (uint)v)
+            s => new((JoyButton)controlMapping.ButtonIndex, controlMapping.Device),
+            (s, v) =>
+            {
+                controlMapping.ButtonIndex = (uint)v.Button;
+                controlMapping.Device = v.Device;
+            })
             .OnSettingsChanged();
 
         holder.GetNode<BooleanInput>("MomentaryInput").Config(null, "Momentary",
@@ -41,6 +45,12 @@ public partial class ButtonMappingEditor : BaseControlMappingEditor
             s => controlMapping.Inverted,
             (s, v) => controlMapping.Inverted = v,
             toolTip: "Only applies if it is a momentary input ")
+            .OnSettingsChanged();
+
+        holder.GetNode<BooleanInput>("AllDevices").Config(null, "All devices",
+            s => controlMapping.AllDevices,
+            (s, v) => controlMapping.AllDevices = v,
+            toolTip: "Whether to use input from all devices or only the one shown above")
             .OnSettingsChanged();
     }
 }

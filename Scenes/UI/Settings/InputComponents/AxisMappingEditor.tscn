@@ -8,16 +8,11 @@
 
 [node name="AxisMappingEditor" instance=ExtResource("1")]
 title = "Edit axis mapping"
-size = Vector2i(284, 189)
+size = Vector2i(284, 217)
 script = ExtResource("5")
 
-[node name="JoystickAxisInput" parent="MarginContainer/VBoxContainer" index="0" node_paths=PackedStringArray("currentValueLabel", "popupText", "dialog", "selectAgainButton", "okButton") instance=ExtResource("4")]
+[node name="JoystickAxisInput" parent="MarginContainer/VBoxContainer" index="0" instance=ExtResource("4")]
 layout_mode = 2
-currentValueLabel = NodePath("")
-popupText = NodePath("")
-dialog = NodePath("")
-selectAgainButton = NodePath("")
-okButton = NodePath("")
 
 [node name="InvertedInput" parent="MarginContainer/VBoxContainer" index="1" instance=ExtResource("3")]
 layout_mode = 2
@@ -29,4 +24,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="DeadzoneEnd" parent="MarginContainer/VBoxContainer" index="4" instance=ExtResource("2")]
+layout_mode = 2
+
+[node name="AllDevices" parent="MarginContainer/VBoxContainer" index="5" instance=ExtResource("3")]
 layout_mode = 2

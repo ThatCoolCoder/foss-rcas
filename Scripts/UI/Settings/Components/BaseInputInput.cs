@@ -78,7 +78,7 @@ public abstract partial class BaseInputInput<T, TNullable> : SettingsRow<T>
     protected abstract string GetCurrentValueText(); // text to show when not popped up
     protected abstract string GetPopupText(); // text to show in the pop up. EG "select an axis" or "axis 5 selected"
     protected abstract TNullable GetCandidateValue();
-    protected abstract void ClearCandidateValue(); // text to show when not popped up
+    protected abstract void ClearCandidateValue();
 
 
     private void _on_Window_window_input(InputEvent _event)

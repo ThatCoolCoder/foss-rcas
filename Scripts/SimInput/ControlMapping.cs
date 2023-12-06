@@ -29,10 +29,12 @@ public partial class AxisControlMapping : AbstractControlMapping
     public bool Inverted { get; set; } = false;
     public float DeadzoneEnd { get; set; } = 0.025f;
     public float DeadzoneRest { get; set; } = 0.025f;
+    public int Device { get; set; } = 0;
+    public bool AllDevices { get; set; } = false;
 
     public override float? ProcessEvent(InputEvent _event)
     {
-        if (_event is InputEventJoypadMotion motionEvent && (uint)motionEvent.Axis == Axis)
+        if (_event is InputEventJoypadMotion motionEvent && (uint)motionEvent.Axis == Axis && (motionEvent.Device == Device || AllDevices))
         {
             // Apply the mapping to the raw value
             // Inputs and outputs are in the -1 to 1 range
@@ -58,10 +60,12 @@ public partial class ButtonControlMapping : AbstractControlMapping
     public bool Inverted { get; set; }
     public bool Momentary { get; set; } = true;
     private float currentValue = -1;
+    public int Device { get; set; } = 0;
+    public bool AllDevices { get; set; } = false;
 
     public override float? ProcessEvent(InputEvent _event)
     {
-        if (_event is InputEventJoypadButton buttonEvent && (uint)buttonEvent.ButtonIndex == ButtonIndex)
+        if (_event is InputEventJoypadButton buttonEvent && (uint)buttonEvent.ButtonIndex == ButtonIndex && (buttonEvent.Device == Device || AllDevices))
         {
             // Apply the mapping to the raw value
             // Inputs and outputs are in the -1 to 1 range

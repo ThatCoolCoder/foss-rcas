@@ -5,13 +5,15 @@ using System.Linq;
 
 namespace UI.Settings.Components;
 
-public partial class JoystickAxisInput : BaseInputInput<JoyAxis, JoyAxis?>
+public record AxisId(JoyAxis Axis, int Device);
+
+public partial class JoystickAxisInput : BaseInputInput<AxisId, AxisId>
 {
-    private Dictionary<JoyAxis, (float min, float max)> CandidateAxisValues = new();
+    private Dictionary<AxisId, (float min, float max)> CandidateAxisValues = new();
 
     public static PackedScene Scene = ResourceLoader.Load<PackedScene>("res://Scenes/UI/Settings/Components/JoystickAxisInput.tscn");
 
-    public new JoystickAxisInput Config(Node parent, string name, SettingReader<JoyAxis> read, SettingWriter<JoyAxis> write, string toolTip = "")
+    public new JoystickAxisInput Config(Node parent, string name, SettingReader<AxisId> read, SettingWriter<AxisId> write, string toolTip = "")
     {
         base.Config(parent, name, read, write, toolTip);
 
@@ -22,32 +24,33 @@ public partial class JoystickAxisInput : BaseInputInput<JoyAxis, JoyAxis?>
     {
         if (_event is InputEventJoypadMotion joypadMotionEvent)
         {
-            if (!CandidateAxisValues.ContainsKey(joypadMotionEvent.Axis))
+            var id = new AxisId(joypadMotionEvent.Axis, joypadMotionEvent.Device);
+            if (!CandidateAxisValues.ContainsKey(id))
             {
-                CandidateAxisValues[joypadMotionEvent.Axis] = new();
+                CandidateAxisValues[id] = new();
             }
 
-            var valueTuple = CandidateAxisValues[joypadMotionEvent.Axis];
+            var valueTuple = CandidateAxisValues[id];
 
             if (joypadMotionEvent.AxisValue < valueTuple.min) valueTuple.min = joypadMotionEvent.AxisValue;
             if (joypadMotionEvent.AxisValue > valueTuple.max) valueTuple.max = joypadMotionEvent.AxisValue;
 
-            CandidateAxisValues[joypadMotionEvent.Axis] = valueTuple;
+            CandidateAxisValues[id] = valueTuple;
 
             UpdatePopup();
         }
     }
 
-    protected override JoyAxis? GetCandidateValue()
+    protected override AxisId? GetCandidateValue()
     {
         // Get the axis that is currently the most moved (and therefore the current candidate)
         // returns null if no axis has been moved enough
 
         return CandidateAxisValues
-            .Select(x => (x.Key, x.Value.max - x.Value.min))
+            .Select(x => (id: x.Key, delta: x.Value.max - x.Value.min))
             .Where(x => x.Item2 > 0.5f)
             .OrderByDescending(x => x.Item2)
-            .Select(x => (JoyAxis?)x.Item1)
+            .Select(x => x.id)
             .FirstOrDefault();
     }
 
@@ -56,12 +59,13 @@ public partial class JoystickAxisInput : BaseInputInput<JoyAxis, JoyAxis?>
         var candidate = GetCandidateValue();
 
         if (candidate == null) return "Move an axis to select it...";
-        else return $"Axis {(int)candidate} selected";
+        else return $"Axis {(int)candidate.Axis} (device {candidate.Device}) selected";
     }
 
     protected override string GetCurrentValueText()
     {
-        return $"Axis {(int)read(SettingsScreen.NewSettings)}";
+        var val = read(SettingsScreen.NewSettings);
+        return $"Axis {(int)val.Axis} (device {val.Device})";
     }
 
     protected override void ClearCandidateValue()
