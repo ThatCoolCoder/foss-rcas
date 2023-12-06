@@ -17,7 +17,6 @@ public partial class MapCamera : Camera3D
     public override void _Ready()
     {
         var dist = Height / Mathf.Tan(-Rotation.X);
-        GD.Print(dist);
         var pos = new Vector3(0, Height, dist).Rotated(Vector3.Up, Rotation.Y);
         Position = pos;
     }

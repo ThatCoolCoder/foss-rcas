@@ -247,8 +247,6 @@ DragCube = ExtResource("24_twm50")
 
 [node name="RightWheel" parent="." instance=ExtResource("24")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0.244932, -0.207297, -0.318569)
-DriveActionName = ""
-BrakeActionName = ""
 ControlHubPath = NodePath("../MixerControlHub")
 DisplayObjectPath = NodePath("Model")
 SuspensionTravel = 0.1
@@ -263,8 +261,6 @@ TargetPath = NodePath("..")
 
 [node name="LeftWheel" parent="." instance=ExtResource("24")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.245, -0.207757, -0.318889)
-DriveActionName = ""
-BrakeActionName = ""
 ControlHubPath = NodePath("../MixerControlHub")
 DisplayObjectPath = NodePath("Model")
 SuspensionTravel = 0.1

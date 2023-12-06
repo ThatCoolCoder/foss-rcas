@@ -28,6 +28,13 @@ public partial class MiscTab : Control
             (s, v) => s.Misc.AddonRepositoryPath = v,
             _mode: FileDialog.FileModeEnum.OpenDir,
             toolTip: "(doesn't do anything yet)");
+
+        BooleanInput.Scene.Instantiate<BooleanInput>().Config(
+            Holder,
+            "Refuel aircraft on reset",
+            s => s.Misc.RefuelAircraftOnReset,
+            (s, v) => s.Misc.RefuelAircraftOnReset = v,
+            toolTip: "Refuels gas planes and recharges electric planes when they are reset");
     }
 
 }

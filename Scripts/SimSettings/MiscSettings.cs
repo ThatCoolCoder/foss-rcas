@@ -9,6 +9,7 @@ public partial class MiscSettings
     public string LastLoadedLocation { get; set; } = null;
     public int PhysicsFps { get; set; } = 60 * 8; // might as well make this configurable since this might be a bit much for old computers, or computers where the GPU can't keep up
     public string AddonRepositoryPath { get; set; } = "user://AddonContent/";
+    public bool RefuelAircraftOnReset { get; set; } = true;
 
     public void Apply()
     {

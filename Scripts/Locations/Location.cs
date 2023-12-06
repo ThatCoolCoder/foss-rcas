@@ -147,6 +147,7 @@ public partial class Location : Node3D
             Aircraft.GlobalTransform = aircraftTransform;
             Aircraft.GlobalPosition += aircraftTransform.Basis * AircraftInfo.PositionOffset;
         }
+        Aircraft.Reset();
     }
 
     public override void _ExitTree()

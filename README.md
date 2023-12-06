@@ -90,6 +90,7 @@ Depending on how much base content is desired and how large the repository gets,
     - make location altitude actually change air pressure (not very useful, but why not?)
     - PropellerWithModel needs a way of fading between the two models instead of simply hiding/showing (hard to do because import from gltf)
     - Electrics simulation
+        - motor uses 300 amps when throttle is at 0 on skater
         - revamp motor sim to blend between power torque and stopping force instead of sudden cutoff
         - Check anticlockwise physics is working as intended
         - Consider moment of inertia of motor, as prop should spin up and down differently.

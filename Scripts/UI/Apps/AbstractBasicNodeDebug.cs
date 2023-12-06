@@ -47,7 +47,6 @@ public abstract partial class AbstractBasicNodeDebug<T> : Misc.UserManipulate wh
     private void ScanForNode()
     {
         foundNodes = GetTree().GetNodesInGroup(GroupName).ToList<Node>().Select(x => x.GetPath()).ToList();
-        GD.Print(foundNodes.Count());
         if (foundNodes.Count > 0)
         {
             nodeIndexSelector.MinValue = 0;

@@ -44,6 +44,15 @@ public partial class Battery : Node3D
         AddToGroup("Battery");
     }
 
+    public void OnAircraftReset()
+    {
+        if (SimSettings.Settings.Current.Misc.RefuelAircraftOnReset)
+        {
+            currentUsageAccumulator = 0;
+            RemainingCapacity = MaxCapacity;
+        }
+    }
+
     public override void _Process(double delta)
     {
         // Calculate current.
