@@ -66,6 +66,11 @@ theme_type_variation = &"SettingsMargin"
 [node name="AircraftSelector" parent="MarginContainer/VBoxContainer/TabContainer/Aircraft" instance=ExtResource("3")]
 layout_mode = 2
 
+[node name="Wind" type="MarginContainer" parent="MarginContainer/VBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+theme_type_variation = &"SettingsMargin"
+
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 alignment = 2
