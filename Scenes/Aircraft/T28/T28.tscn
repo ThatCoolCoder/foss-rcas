@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Scripts/Aircraft/Servo.cs" id="2"]
 [ext_resource type="PackedScene" uid="uid://px77cy4geupc" path="res://Art/Aircraft/T28/T28.glb" id="3"]
 [ext_resource type="Curve" path="res://Resources/AeroCurves/FlatPlateLiftCoefficient.tres" id="4"]
-[ext_resource type="PackedScene" path="res://Scenes/Forcers/AeroSurface.tscn" id="5"]
+[ext_resource type="PackedScene" path="res://Scenes/Forcers/AeroSurfaceV1.tscn" id="5"]
 [ext_resource type="Curve" path="res://Resources/AeroCurves/WingLiftCoefficient.tres" id="6"]
 [ext_resource type="PackedScene" uid="uid://csndd41uoyyuh" path="res://Scenes/Aircraft/Common/Propwash.tscn" id="7"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Mirror.tscn" id="8"]

@@ -13,7 +13,7 @@
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/PropellerWithModel.tscn" id="13"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Mirror.tscn" id="14"]
 [ext_resource type="PackedScene" uid="uid://ctbbp8orqdebk" path="res://Scenes/Forcers/AeroObject.tscn" id="15"]
-[ext_resource type="PackedScene" path="res://Scenes/Forcers/AeroSurface.tscn" id="16"]
+[ext_resource type="PackedScene" path="res://Scenes/Forcers/AeroSurfaceV1.tscn" id="16"]
 [ext_resource type="PackedScene" uid="uid://m5bnw1qfsn8p" path="res://Art/Aircraft/Skater/SkaterBody.glb" id="17"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Battery.tscn" id="18"]
 [ext_resource type="PackedScene" uid="uid://bvxkvx7032nx7" path="res://Art/Aircraft/Skater/Elevator.glb" id="19"]

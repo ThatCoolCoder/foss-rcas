@@ -16,7 +16,7 @@
 [ext_resource type="Curve" path="res://Resources/AeroCurves/FlatPlateLiftCoefficient.tres" id="13"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Mirror.tscn" id="14"]
 [ext_resource type="Curve" path="res://Resources/AeroCurves/WingDragCoefficient.tres" id="15"]
-[ext_resource type="PackedScene" path="res://Scenes/Forcers/AeroSurface.tscn" id="16"]
+[ext_resource type="PackedScene" path="res://Scenes/Forcers/AeroSurfaceV1.tscn" id="16"]
 [ext_resource type="Curve" path="res://Resources/AeroCurves/DeltaWingLiftCoefficient.tres" id="17"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Control/MixerControlHub.tscn" id="18"]
 [ext_resource type="PackedScene" uid="uid://ctbbp8orqdebk" path="res://Scenes/Forcers/AeroObject.tscn" id="19"]

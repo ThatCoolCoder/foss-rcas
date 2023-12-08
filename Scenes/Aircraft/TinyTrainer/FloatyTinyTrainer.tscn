@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://ba1fxr4wl452f" path="res://Scenes/Forcers/BuoyancyForcer.tscn" id="2_122un"]
 [ext_resource type="PackedScene" uid="uid://ctbbp8orqdebk" path="res://Scenes/Forcers/AeroObject.tscn" id="3_i8lm7"]
 [ext_resource type="Script" path="res://Scripts/Physics/Forcers/AeroValueCube.cs" id="4_ma61w"]
-[ext_resource type="PackedScene" path="res://Scenes/Forcers/AeroSurface.tscn" id="5_f1183"]
+[ext_resource type="PackedScene" path="res://Scenes/Forcers/AeroSurfaceV1.tscn" id="5_f1183"]
 
 [sub_resource type="Curve" id="Curve_hqk4f"]
 _data = [Vector2(0, 0), 0.0, 2.34313, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
