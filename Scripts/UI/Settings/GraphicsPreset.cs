@@ -36,6 +36,11 @@ public partial class GraphicsPreset : SimSettings.GraphicsSettings
 
             AntiAliasingMode = SimSettings.AntiAliasingMode.Disabled,
             Msaa = SubViewport.Msaa.Disabled,
+
+            AmbientOcclusion = false,
+            GlobalIllumination = false,
+            IndirectLighting = false,
+            Reflections = false,
         },
         new()
         {
@@ -57,6 +62,11 @@ public partial class GraphicsPreset : SimSettings.GraphicsSettings
 
             AntiAliasingMode = SimSettings.AntiAliasingMode.Disabled,
             Msaa = SubViewport.Msaa.Disabled,
+
+            AmbientOcclusion = false,
+            GlobalIllumination = false,
+            IndirectLighting = false,
+            Reflections = false,
         },
         new()
         {
@@ -78,6 +88,11 @@ public partial class GraphicsPreset : SimSettings.GraphicsSettings
 
             AntiAliasingMode = SimSettings.AntiAliasingMode.Fast,
             Msaa = SubViewport.Msaa.Disabled,
+
+            AmbientOcclusion = false,
+            GlobalIllumination = false,
+            IndirectLighting = false,
+            Reflections = false,
         },
         new()
         {
@@ -99,6 +114,11 @@ public partial class GraphicsPreset : SimSettings.GraphicsSettings
 
             AntiAliasingMode = SimSettings.AntiAliasingMode.Quality,
             Msaa = SubViewport.Msaa.Msaa2X,
+
+            AmbientOcclusion = true,
+            GlobalIllumination = true,
+            IndirectLighting = true,
+            Reflections = false,
         },
         new()
         {
@@ -120,6 +140,11 @@ public partial class GraphicsPreset : SimSettings.GraphicsSettings
 
             AntiAliasingMode = SimSettings.AntiAliasingMode.Quality,
             Msaa = SubViewport.Msaa.Msaa4X,
+
+            AmbientOcclusion = true,
+            GlobalIllumination = true,
+            IndirectLighting = true,
+            Reflections = true,
         },
         new()
         {
@@ -141,6 +166,11 @@ public partial class GraphicsPreset : SimSettings.GraphicsSettings
 
             AntiAliasingMode = SimSettings.AntiAliasingMode.Quality,
             Msaa = SubViewport.Msaa.Msaa8X,
+
+            AmbientOcclusion = true,
+            GlobalIllumination = true,
+            IndirectLighting = true,
+            Reflections = true,
         },
     };
 }

@@ -30,6 +30,10 @@ public partial class GraphicsSettings
     // todo: these two probably need to be applied to the individual viewport.
     public AntiAliasingMode AntiAliasingMode { get; set; } = AntiAliasingMode.Fast;
     public SubViewport.Msaa Msaa { get; set; } = SubViewport.Msaa.Msaa4X;
+    public bool AmbientOcclusion { get; set; } = true;
+    public bool GlobalIllumination { get; set; } = true;
+    public bool IndirectLighting { get; set; } = true;
+    public bool Reflections { get; set; } = true;
 
     public void Apply()
     {

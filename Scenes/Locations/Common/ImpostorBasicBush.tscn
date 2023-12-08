@@ -10,46 +10,48 @@
 [ext_resource type="Texture2D" uid="uid://ja5mx2y16cik" path="res://Art/Locations/Common/Bushes/Basic/BasicBushNormal120.png" id="8_frmys"]
 [ext_resource type="Texture2D" uid="uid://gnlpjkcn7qi2" path="res://Art/Locations/Common/Bushes/Basic/BasicBushNormal240.png" id="9_tm2xd"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b1bfv"]
-transparency = 4
-cull_mode = 2
-albedo_texture = ExtResource("1")
-
-[sub_resource type="QuadMesh" id="QuadMesh_3423t"]
-material = SubResource("StandardMaterial3D_b1bfv")
-size = Vector2(5, 5)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lu48x"]
-transparency = 4
-cull_mode = 2
-albedo_texture = ExtResource("1")
-normal_enabled = true
-normal_texture = ExtResource("6_anm6l")
-
-[sub_resource type="QuadMesh" id="QuadMesh_k2upv"]
-material = SubResource("StandardMaterial3D_lu48x")
-size = Vector2(5, 5)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rpxno"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5i3le"]
 transparency = 4
 cull_mode = 2
 albedo_texture = ExtResource("3")
 normal_enabled = true
 normal_texture = ExtResource("8_frmys")
 
-[sub_resource type="QuadMesh" id="QuadMesh_hrcvw"]
-material = SubResource("StandardMaterial3D_rpxno")
+[sub_resource type="QuadMesh" id="QuadMesh_s0cqx"]
+material = SubResource("StandardMaterial3D_5i3le")
 size = Vector2(5, 5)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s5qjf"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wbp8v"]
+transparency = 4
+cull_mode = 2
+albedo_texture = ExtResource("1")
+normal_enabled = true
+normal_texture = ExtResource("6_anm6l")
+
+[sub_resource type="QuadMesh" id="QuadMesh_1uea2"]
+material = SubResource("StandardMaterial3D_wbp8v")
+size = Vector2(5, 5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k4qg8"]
+transparency = 4
+cull_mode = 2
+albedo_texture = ExtResource("3")
+normal_enabled = true
+normal_texture = ExtResource("8_frmys")
+
+[sub_resource type="QuadMesh" id="QuadMesh_xvwto"]
+material = SubResource("StandardMaterial3D_k4qg8")
+size = Vector2(5, 5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5eoge"]
 transparency = 4
 cull_mode = 2
 albedo_texture = ExtResource("2")
 normal_enabled = true
 normal_texture = ExtResource("9_tm2xd")
 
-[sub_resource type="QuadMesh" id="QuadMesh_xyau7"]
-material = SubResource("StandardMaterial3D_s5qjf")
+[sub_resource type="QuadMesh" id="QuadMesh_lnipn"]
+material = SubResource("StandardMaterial3D_5eoge")
 size = Vector2(5, 5)
 
 [node name="ImpostorBasicBush" type="Node3D"]
@@ -58,11 +60,12 @@ UpdateInterval = 100
 
 [node name="Impostor" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.375142, 0, -0.0925327, 0, 0.386386, 0, 0.0925327, 0, 0.375142, 0, 1.01663, 0)
-mesh = SubResource("QuadMesh_3423t")
+mesh = SubResource("QuadMesh_s0cqx")
 script = ExtResource("3_xoejp")
 Textures = [ExtResource("1"), ExtResource("3"), ExtResource("2")]
 NormalTextures = [ExtResource("6_anm6l"), ExtResource("8_frmys"), ExtResource("9_tm2xd")]
-Texture = ExtResource("1")
+Texture = ExtResource("3")
+NormalTexture = ExtResource("8_frmys")
 Size = Vector2(5, 5)
 
 [node name="RealNode" type="Node3D" parent="."]
@@ -70,7 +73,7 @@ transform = Transform3D(0.386386, 0, 0, 0, 0.386386, 0, 0, 0, 0.386386, 0, 0.034
 
 [node name="Angle0" type="MeshInstance3D" parent="RealNode"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.36064, 0)
-mesh = SubResource("QuadMesh_k2upv")
+mesh = SubResource("QuadMesh_1uea2")
 script = ExtResource("4")
 Texture = ExtResource("1")
 NormalTexture = ExtResource("6_anm6l")
@@ -78,7 +81,7 @@ Size = Vector2(5, 5)
 
 [node name="Angle120" type="MeshInstance3D" parent="RealNode"]
 transform = Transform3D(-0.5, 0, 0.866025, 0, 1, 0, -0.866025, 0, -0.5, 0.196603, 2.55178, -0.194591)
-mesh = SubResource("QuadMesh_hrcvw")
+mesh = SubResource("QuadMesh_xvwto")
 script = ExtResource("4")
 Texture = ExtResource("3")
 NormalTexture = ExtResource("8_frmys")
@@ -86,7 +89,7 @@ Size = Vector2(5, 5)
 
 [node name="Angle240" type="MeshInstance3D" parent="RealNode"]
 transform = Transform3D(-0.5, 0, -0.866025, 0, 1, 0, 0.866025, 0, -0.5, -0.267844, 2.55178, 0.0518798)
-mesh = SubResource("QuadMesh_xyau7")
+mesh = SubResource("QuadMesh_lnipn")
 script = ExtResource("4")
 Texture = ExtResource("2")
 NormalTexture = ExtResource("9_tm2xd")

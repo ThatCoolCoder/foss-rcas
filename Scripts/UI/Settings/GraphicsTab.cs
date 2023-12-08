@@ -111,6 +111,34 @@ public partial class GraphicsTab : Control
             typeof(SubViewport.Msaa),
             customValueFormatter: (obj) => obj.ToString().Replace("Msaa", ""),
             toolTip: "Amount of anti aliasing passes. Only applies if high quality anti aliasing is enabled");
+
+        BooleanInput.Scene.Instantiate<BooleanInput>().Config(
+            Holder,
+            "SSAO",
+            s => s.Graphics.AmbientOcclusion,
+            (s, v) => s.Graphics.AmbientOcclusion = v,
+            toolTip: "Toggle screen space ambient occlusion");
+
+        BooleanInput.Scene.Instantiate<BooleanInput>().Config(
+            Holder,
+            "Global illumination",
+            s => s.Graphics.GlobalIllumination,
+            (s, v) => s.Graphics.GlobalIllumination = v,
+            toolTip: "Toggle SDFGI lighting");
+
+        BooleanInput.Scene.Instantiate<BooleanInput>().Config(
+            Holder,
+            "Indirect lighting",
+            s => s.Graphics.IndirectLighting,
+            (s, v) => s.Graphics.IndirectLighting = v,
+            toolTip: "Toggle screen space indirect lighting");
+
+        BooleanInput.Scene.Instantiate<BooleanInput>().Config(
+            Holder,
+            "SSR",
+            s => s.Graphics.Reflections,
+            (s, v) => s.Graphics.Reflections = v,
+            toolTip: "Toggle screen space reflections");
     }
 
     private void CreatePresetButtons()
@@ -127,7 +155,7 @@ public partial class GraphicsTab : Control
 
     private void ApplyPreset(GraphicsPreset preset)
     {
-        var showFps = SettingsScreen.NewSettings.Graphics.ShowFps; // hacky way to persist this setting
+        var showFps = SettingsScreen.NewSettings.Graphics.ShowFps; // hacky way to persist this setting because it actually shouldn't be a part of presets
         SettingsScreen.NewSettings.Graphics = GraphicsPreset.Clone(preset);
         SettingsScreen.NewSettings.Graphics.ShowFps = showFps;
         SettingsScreen.ChangeSettings();

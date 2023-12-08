@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode blend_mix,depth_draw_opaque,cull_disabled,unshaded,world_vertex_coords;
+render_mode blend_mix,depth_draw_opaque,cull_disabled,world_vertex_coords;
 
 uniform sampler2D albedo : source_color;
 uniform float bright_adjust = 1;
