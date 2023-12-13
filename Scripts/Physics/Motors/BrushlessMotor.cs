@@ -50,13 +50,13 @@ public partial class BrushlessMotor : Node3D
         ThrustProportion *= Mathf.Clamp(Utils.MapNumber(averageCellVoltage, LowVoltageCutoffStart, LowVoltageCutoffEnd, 1, 0), 0, 1);
 
         float torque = 0;
-        if (ThrustProportion != 0)
+        if (ThrustProportion > 0.02f)
         {
             noLoadRpm *= ThrustProportion;
             var torqueProportion = (noLoadRpm - propeller.Rpm) / noLoadRpm;
             torque = torqueProportion * PeakTorque * TorqueAdjustment * Mathf.Sign(noLoadRpm);
 
-            torque = Mathf.Clamp(torque, -PeakTorque, PeakTorque);
+            torque = Mathf.Clamp(torque, 0, PeakTorque);
 
             var torqueConstant = 1 / (KV / 60 * Mathf.Tau);
             var current = torque / torqueConstant * CurrentMultiplier;
@@ -69,12 +69,10 @@ public partial class BrushlessMotor : Node3D
         }
         else
         {
-            torque = PeakTorque * TorqueAdjustment * 0.05f;
-            propeller.AddBrakingTorque(torque);
-
             LastTorque = 0;
             LastCurrent = 0;
         }
+        propeller.AddBrakingTorque(PeakTorque * TorqueAdjustment * 0.05f);
 
         if (torqueRigidBody != null && !torqueRigidBody.Freeze)
         {
