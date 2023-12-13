@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Locations;
 
 [Tool]
-public partial class GrassScatter : MultiMeshInstance3D
+public partial class GrassScatter : Node3D
 {
     // Thing that scatters grass within a rectangular region while also respecting a mask and only creating it within a certain distance of the camera.
     // Updates the grass when camera moves but tries not to jitter existing blades
@@ -34,6 +34,7 @@ public partial class GrassScatter : MultiMeshInstance3D
     // Try reducing this if grass takes too long to generate
     [Export] public int MaxMaskTries { get; set; } = 10;
     private CsgBox3D csgBox;
+    private MultiMeshInstance3D mmi;
 
     public int trueInstanceCount
     {
@@ -66,6 +67,9 @@ public partial class GrassScatter : MultiMeshInstance3D
         if (!Engine.IsEditorHint()) csgBox.Visible = false;
 
         Scale = Vector3.One;
+        mmi = new MultiMeshInstance3D();
+        AddChild(mmi);
+        mmi.Owner = null;
     }
 
     private void GenerateGrass()
@@ -132,7 +136,7 @@ public partial class GrassScatter : MultiMeshInstance3D
             multimesh.SetInstanceColor(i, Colors.Red);
         }
 
-        Multimesh = multimesh;
+        mmi.Multimesh = multimesh;
     }
     private List<Vector3> GenerateGrassPositions(Vector3 center)
     {
@@ -261,7 +265,7 @@ public partial class GrassScatter : MultiMeshInstance3D
 
         if (Air == null || trueInstanceCount == 0 || Engine.IsEditorHint()) return;
 
-        var material = (Multimesh.Mesh as QuadMesh).Material as ShaderMaterial;
+        var material = (mmi.Multimesh.Mesh as QuadMesh).Material as ShaderMaterial;
 
         var numSamples = 100;
         float size = 50;

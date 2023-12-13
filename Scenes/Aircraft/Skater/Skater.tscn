@@ -94,7 +94,7 @@ script = ExtResource("6")
 DominantFrequencyInRecording = 400.0
 InitialVolume = 10.0
 RpmOfInitialVolume = 7000.0
-DecibelsChangePer1000Rpm = -1.5
+DecibelsChangePer1000Rpm = -8.0
 
 [node name="Propwash" parent="Electrics/ControlledBrushlessMotor/PropellerWithModel" instance=ExtResource("8_02elu")]
 MaxDistance = 4.0
