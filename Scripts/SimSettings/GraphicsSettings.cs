@@ -7,6 +7,7 @@ namespace SimSettings;
 public partial class GraphicsSettings
 {
     public bool ShowFps { get; set; } = false;
+    public DisplayServer.VSyncMode VSyncMode { get; set; } = DisplayServer.VSyncMode.Adaptive;
     public bool UseImpostors { get; set; } = true;
     public int ImpostorDistance { get; set; } = 50;
     public bool ImpostorShadowsEnabled { get; set; } = true;
@@ -27,9 +28,12 @@ public partial class GraphicsSettings
     public int DirectionalShadowSizeExponent { get; set; } = 12;
     public int ShadowAtlasSizeExponent { get; set; } = 12;
     public int ShadowAtlasCubemapSizeExponent { get; set; } = 9;
-    // todo: these two probably need to be applied to the individual viewport.
+
+    // AA
     public AntiAliasingMode AntiAliasingMode { get; set; } = AntiAliasingMode.Fast;
     public SubViewport.Msaa Msaa { get; set; } = SubViewport.Msaa.Msaa4X;
+
+    // Lighting stuff
     public bool AmbientOcclusion { get; set; } = true;
     public bool GlobalIllumination { get; set; } = true;
     public bool IndirectLighting { get; set; } = true;
@@ -40,6 +44,7 @@ public partial class GraphicsSettings
         ProjectSettings.SetSetting("rendering/quality/directional_shadow/size", 1 << DirectionalShadowSizeExponent);
         ProjectSettings.SetSetting("rendering/quality/shadow_atlas/size", 1 << DirectionalShadowSizeExponent);
         ProjectSettings.SetSetting("rendering/quality/shadow_atlas/cubemap_size", 1 << DirectionalShadowSizeExponent);
+        DisplayServer.WindowSetVsyncMode(VSyncMode);
     }
 
     public void ApplyToViewport(SubViewport viewport)

@@ -15,16 +15,17 @@ public partial class EnumInput : SettingsRow<object>
     private List<object> items = new();
 
     public EnumInput Config(Node parent, string name, SettingReader<object> read, SettingWriter<object> write,
-        Type enumType, Func<object, string> customValueFormatter = null, string toolTip = "")
+        Type enumType, Func<object, string> customValueFormatter = null, string toolTip = "", List<object> permittedItems = null)
     {
         base.Config(parent, name, read, write, toolTip);
 
-        if (! enumType.IsEnum) Utils.LogError($"{enumType.Name} is not an enum", this);
+        if (!enumType.IsEnum) Utils.LogError($"{enumType.Name} is not an enum", this);
 
         optionButton = GetNode<OptionButton>("OptionButton");
         optionButton.Clear();
-        foreach (var v in  Enum.GetValues(enumType))
+        foreach (var v in Enum.GetValues(enumType))
         {
+            if (permittedItems != null && !permittedItems.Contains(v)) continue;
             optionButton.AddItem(customValueFormatter == null ? v.ToString() : customValueFormatter(v));
             items.Add(v);
         }

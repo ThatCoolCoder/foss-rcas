@@ -85,8 +85,10 @@ MinZ = -25.0
 [node name="GrassScatter" parent="." index="12" node_paths=PackedStringArray("Air") instance=ExtResource("5")]
 transform = Transform3D(0.987411, 0, -0.158175, 0, 1, 0, 0.158175, 0, 0.987411, -32.62, 0.2, 19.313)
 Size = Vector2(262.91, 120)
-InstanceCount = 75000
+InstanceCount = 150000
 Texture = ExtResource("7_okrlr")
+BrightnessAdjust = 1.2
+ColorAdjust = Color(0, 0, 0.117647, 1)
 NormalMap = ExtResource("6_6nb72")
 NormalStrength = 2.0
 Air = NodePath("../Air")

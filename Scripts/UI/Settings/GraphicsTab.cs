@@ -17,6 +17,20 @@ public partial class GraphicsTab : Control
 
         BooleanInput.Scene.Instantiate<BooleanInput>().Config(
             Holder,
+            "FPS counter enabled",
+            s => s.Graphics.ShowFps,
+            (s, v) => s.Graphics.ShowFps = v,
+            toolTip: "Whether to show the frames per second on screen");
+
+        EnumInput.Scene.Instantiate<EnumInput>().Config(
+            Holder,
+            "VSync mode",
+            s => s.Graphics.VSyncMode,
+            (s, v) => s.Graphics.VSyncMode = (DisplayServer.VSyncMode)v,
+            typeof(DisplayServer.VSyncMode), permittedItems: new() { DisplayServer.VSyncMode.Disabled, DisplayServer.VSyncMode.Enabled, DisplayServer.VSyncMode.Adaptive });
+
+        BooleanInput.Scene.Instantiate<BooleanInput>().Config(
+            Holder,
             "Use impostors",
             s => s.Graphics.UseImpostors,
             (s, v) => s.Graphics.UseImpostors = v,
@@ -36,13 +50,6 @@ public partial class GraphicsTab : Control
             s => s.Graphics.ImpostorShadowsEnabled,
             (s, v) => s.Graphics.ImpostorShadowsEnabled = v,
             toolTip: "Whether to draw shadows for impostor trees");
-
-        BooleanInput.Scene.Instantiate<BooleanInput>().Config(
-            Holder,
-            "FPS counter enabled",
-            s => s.Graphics.ShowFps,
-            (s, v) => s.Graphics.ShowFps = v,
-            toolTip: "Whether to show the frames per second on screen");
 
         NumericSliderInput.Scene.Instantiate<NumericSliderInput>().Config(
             Holder,
