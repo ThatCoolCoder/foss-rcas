@@ -95,6 +95,7 @@ public partial class Location : Node3D
     private void ReloadAircraft()
     {
         previousCameraIndex = CameraManager.ActiveCameraIndex;
+        var oldAircraftConfig = Aircraft.Config;
         void DisplayReloadError(string message) => UI.NotificationManager.AddNotification($"Failed reloading aircraft: {message}", "aircraft_reload");
 
         var scene = ResourceLoader.Load<PackedScene>(AircraftInfo.LoadedFromWithoutExtension + ".tscn", cacheMode: ResourceLoader.CacheMode.Ignore);
@@ -116,6 +117,7 @@ public partial class Location : Node3D
             Aircraft.Connect("tree_exited", new Callable(this, "ReactivatePreviousCamera")); // (need to do AFTER aircraft is actually deleted)
             Aircraft = instance;
             AddChild(Aircraft);
+            Aircraft.Config = oldAircraftConfig;
         }
         catch (InvalidCastException)
         {
