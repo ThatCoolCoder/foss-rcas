@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://doweai1rwhdaf"]
+[gd_scene load_steps=46 format=3 uid="uid://doweai1rwhdaf"]
 
 [ext_resource type="Script" path="res://Scripts/Aircraft/Aircraft.cs" id="1_m1bxi"]
 [ext_resource type="Script" path="res://Scripts/Aircraft/Servo.cs" id="2"]
@@ -9,11 +9,18 @@
 [ext_resource type="AudioStream" uid="uid://deys0bnykpb1r" path="res://Art/Aircraft/Common/PropAudio/3S-2304-6x4E.mp3" id="7"]
 [ext_resource type="PackedScene" uid="uid://8lfw0k5w3wwk" path="res://Scenes/Aircraft/Common/ControlledBrushlessMotor.tscn" id="8"]
 [ext_resource type="PackedScene" uid="uid://csndd41uoyyuh" path="res://Scenes/Aircraft/Common/Propwash.tscn" id="8_02elu"]
+[ext_resource type="PackedScene" uid="uid://diynlfwl8wayv" path="res://Scenes/Aircraft/Common/ValueSetter.tscn" id="10_2np7a"]
+[ext_resource type="Script" path="res://Scripts/Aircraft/ValueSetters/Values/AircraftConfig.cs" id="11_cuqsh"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Control/MixerControlHub.tscn" id="12"]
+[ext_resource type="Script" path="res://Scripts/Aircraft/ValueSetters/Values/Variable.cs" id="12_jow0v"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/PropellerWithModel.tscn" id="13"]
+[ext_resource type="Script" path="res://Scripts/Aircraft/ValueSetters/Values/RawNumber.cs" id="13_aq15l"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Mirror.tscn" id="14"]
+[ext_resource type="Script" path="res://Scripts/Aircraft/ValueSetters/Operations/NumberBinaryOperation.cs" id="14_o0qi0"]
 [ext_resource type="PackedScene" uid="uid://ctbbp8orqdebk" path="res://Scenes/Forcers/AeroObject.tscn" id="15"]
+[ext_resource type="Script" path="res://Scripts/Aircraft/ValueSetters/Values/NodeProperty.cs" id="15_v0ln5"]
 [ext_resource type="PackedScene" path="res://Scenes/Forcers/AeroSurfaceV1.tscn" id="16"]
+[ext_resource type="Script" path="res://Scripts/Aircraft/ValueSetters/Operations/ValueSet.cs" id="16_43w07"]
 [ext_resource type="PackedScene" uid="uid://m5bnw1qfsn8p" path="res://Art/Aircraft/Skater/SkaterBody.glb" id="17"]
 [ext_resource type="PackedScene" path="res://Scenes/Aircraft/Common/Battery.tscn" id="18"]
 [ext_resource type="PackedScene" uid="uid://bvxkvx7032nx7" path="res://Art/Aircraft/Skater/Elevator.glb" id="19"]
@@ -37,6 +44,40 @@ size = Vector3(0.208, 0.178, 1.48)
 
 [sub_resource type="BoxShape3D" id="3"]
 size = Vector3(0.014, 0.418, 0.182)
+
+[sub_resource type="Resource" id="Resource_uvyyw"]
+script = ExtResource("11_cuqsh")
+AircraftPath = NodePath("../..")
+Property = "cg_offset_cm"
+
+[sub_resource type="Resource" id="Resource_e3cmb"]
+script = ExtResource("12_jow0v")
+Name = "cg_offset_m"
+
+[sub_resource type="Resource" id="Resource_tvn38"]
+script = ExtResource("13_aq15l")
+Value = -100.0
+
+[sub_resource type="Resource" id="Resource_ce2d3"]
+script = ExtResource("14_o0qi0")
+LeftHandSide = SubResource("Resource_uvyyw")
+Operation = 3
+RightHandSide = SubResource("Resource_tvn38")
+Output = SubResource("Resource_e3cmb")
+
+[sub_resource type="Resource" id="Resource_ef5hu"]
+script = ExtResource("12_jow0v")
+Name = "cg_offset_m"
+
+[sub_resource type="Resource" id="Resource_tkfeg"]
+script = ExtResource("15_v0ln5")
+NodePath = NodePath("../..")
+Property = "CenterOfMass.Z"
+
+[sub_resource type="Resource" id="Resource_rv260"]
+script = ExtResource("16_43w07")
+Input = SubResource("Resource_ef5hu")
+Output = SubResource("Resource_tkfeg")
 
 [node name="Skater" type="RigidBody3D"]
 process_mode = 1
@@ -104,6 +145,11 @@ RadialSpeedFalloff = false
 [node name="Battery" parent="Electrics" instance=ExtResource("18")]
 CellCount = 10
 MaxCapacity = 4.5
+
+[node name="ValueSetters" type="Node3D" parent="."]
+
+[node name="CGValueSetter" parent="ValueSetters" instance=ExtResource("10_2np7a")]
+Operations = Array[Object]([SubResource("Resource_ce2d3"), SubResource("Resource_rv260")])
 
 [node name="Wing" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.000782432, -0.178281)
