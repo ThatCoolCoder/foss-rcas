@@ -263,8 +263,14 @@ ControlHubPath = NodePath("../../MixerControlHub")
 [node name="Model" parent="LeftAileronHolder/LeftAileron" instance=ExtResource("20")]
 transform = Transform3D(0.999708, 0, 0.024153, 0, 1, 0, -0.024153, 0, 0.999708, 0.0537564, 0, -0.00115981)
 
-[node name="AeroSurface" parent="LeftAileronHolder/LeftAileron" instance=ExtResource("16")]
-transform = Transform3D(0.870505, 0, -0.0190312, 0, 1, 0, 0.0885762, 0, 0.187034, 0.00101292, 0, 0.0469452)
+[node name="AeroSurface1" parent="LeftAileronHolder/LeftAileron" instance=ExtResource("16")]
+transform = Transform3D(0.43575, 0, -0.0190312, 0, 1, 0, 0.0443387, 0, 0.187034, 0.220184, 0, 0.101876)
+TotalLiftCoefficient = ExtResource("22")
+ParasiticDragCoefficient = ExtResource("4")
+TargetPath = NodePath("../../..")
+
+[node name="AeroSurface2" parent="LeftAileronHolder/LeftAileron" instance=ExtResource("16")]
+transform = Transform3D(0.43575, 0, -0.0190312, 0, 1, 0, 0.0443387, 0, 0.187034, -0.2185, 0, 0.0551795)
 TotalLiftCoefficient = ExtResource("22")
 ParasiticDragCoefficient = ExtResource("4")
 TargetPath = NodePath("../../..")
@@ -277,14 +283,20 @@ MaxDeflectionDegrees = 45.0
 ChannelName = "aileronR"
 ControlHubPath = NodePath("../../MixerControlHub")
 
-[node name="AeroSurface" parent="RightAileronHolder/RightAileron" instance=ExtResource("16")]
-transform = Transform3D(0.870505, 0, 0.0190312, 0, 1, 0, -0.0885762, 0, 0.187034, 0.00101286, 0, 0.0469452)
+[node name="Model" parent="RightAileronHolder/RightAileron" instance=ExtResource("21_a48d6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0526243, 0, -0.00890245)
+
+[node name="AeroSurface1" parent="RightAileronHolder/RightAileron" instance=ExtResource("16")]
+transform = Transform3D(0.43575, 0, 0.0190312, 0, 1, 0, -0.0443387, 0, 0.187034, -0.211293, 0, 0.095116)
 TotalLiftCoefficient = ExtResource("22")
 ParasiticDragCoefficient = ExtResource("4")
 TargetPath = NodePath("../../..")
 
-[node name="RightAileron" parent="RightAileronHolder/RightAileron" instance=ExtResource("21_a48d6")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0526243, 0, -0.00890245)
+[node name="AeroSurface2" parent="RightAileronHolder/RightAileron" instance=ExtResource("16")]
+transform = Transform3D(0.43575, 0, 0.0190312, 0, 1, 0, -0.0443387, 0, 0.187034, 0.220407, 0, 0.0490678)
+TotalLiftCoefficient = ExtResource("22")
+ParasiticDragCoefficient = ExtResource("4")
+TargetPath = NodePath("../../..")
 
 [node name="BodyAero" parent="." instance=ExtResource("15")]
 transform = Transform3D(0.197786, 0, 0, 0, 0.207736, 0, 0, 0, 1.37939, 0, -0.0168573, 0.0588067)

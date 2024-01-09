@@ -210,7 +210,7 @@ transform = Transform3D(0.296678, 0, -0.647822, 0, 0.712524, 0, 0.647822, 0, 0.2
 [node name="GrassScatter" parent="." index="10" node_paths=PackedStringArray("Air") instance=ExtResource("8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.164, 0.274115, -6.532)
 Size = Vector2(214.09, 146.635)
-InstanceCount = 100000
+InstanceCount = 60000
 Mask = ExtResource("11")
 Texture = ExtResource("9_njrgu")
 BrightnessAdjust = 1.192

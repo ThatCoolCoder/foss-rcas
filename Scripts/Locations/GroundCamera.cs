@@ -77,14 +77,31 @@ public partial class GroundCamera : CharacterBody3D, IFlightCamera
 
             if (CurrentZoomSettings.Enabled)
             {
-                var fovProportion = Mathf.Atan(1 / CurrentZoomSettings.StartDist * ZoomDistMultiplier) / Mathf.DegToRad(CurrentZoomSettings.BaseFov);
+                // Method:
+                // - calculate proportion of FOV that plane will take up at zoom start dist
+                // - calculate effective distance to plane to account for zoom factor reducing effect of distance for distance past zoom start dist
+                // - use tan to calculate angle that the plane takes up at this effective index
+                // - calculate fov such that the proportion filled is the same as at the base
+                // - clamp this so that it doesn't get wider as the plane gets closer, or get too narrow when it gets far away
+                // - note: all FOVs/angles subtended/horizontal distances are that of half the plane, as by doing this we split the isosceles triangle of the view into 2 right angled ones.
+                //      At the end we double the angle to undo all this.
+
+                var trueZoomStartDist = CurrentZoomSettings.StartDist * ZoomDistMultiplier;
+                var trueHalfWingspan = .5f * ZoomDistMultiplier;
+                var trueBaseFov = Mathf.DegToRad(CurrentZoomSettings.BaseFov / 2);
+                
+                // opposite over adjacent is half wingspan over zoom start dist
+                var angleSubtendedAtZoomStart = Mathf.Atan(trueHalfWingspan / trueZoomStartDist);
+                var baseFovProportion = angleSubtendedAtZoomStart / trueBaseFov;
 
                 var distance = Target.GlobalPosition.DistanceTo(GlobalPosition);
-                var angle = Mathf.Atan(1 / (distance * CurrentZoomSettings.Factor)) / fovProportion;
-                angle = Mathf.RadToDeg(angle);
-                angle = Mathf.Clamp(angle, CurrentZoomSettings.MinFov, CurrentZoomSettings.BaseFov);
+                // Effective distance = distance inside start * 1 + distance outside start * factor
+                var effectiveDistance = trueZoomStartDist + Math.Max(0, distance - trueZoomStartDist) * CurrentZoomSettings.Factor;
 
-                camera.Fov = angle;
+                var angleSubtendedHere = Mathf.Atan(trueHalfWingspan / effectiveDistance);
+                var targetHalfFov = angleSubtendedHere / baseFovProportion;
+
+                camera.Fov = Mathf.RadToDeg(targetHalfFov * 2);
             }
         }
     }
