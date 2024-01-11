@@ -69,11 +69,11 @@ public partial class GraphicsTab : Control
 
         NumericSliderInput.Scene.Instantiate<NumericSliderInput>().Config(
             Holder,
-            "Grass multiplier",
-            s => s.Graphics.GrassMultiplier,
-            (s, v) => s.Graphics.GrassMultiplier = v,
+            "Grass density multiplier",
+            s => s.Graphics.GrassDensityMultiplier,
+            (s, v) => s.Graphics.GrassDensityMultiplier = v,
             0, 3, step: .05f, _formatString: "0.00",
-            toolTip: "Amount of grass");
+            toolTip: "Grass density");
 
         NumericSliderInput.Scene.Instantiate<NumericSliderInput>().Config(
             Holder,

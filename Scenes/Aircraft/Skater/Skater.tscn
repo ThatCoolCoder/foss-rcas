@@ -108,7 +108,7 @@ shape = SubResource("3")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.110448)
 
 [node name="ControlledBrushlessMotor" parent="Electrics" instance=ExtResource("8")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0345769, -0.575092)
+transform = Transform3D(0.999391, 0, -0.0348995, 0, 1, 0, 0.0348995, 0, 0.999391, 0, 0.0345769, -0.575092)
 ControlHubPath = NodePath("../../MixerControlHub")
 BatteryPath = NodePath("../Battery")
 PropellerPath = NodePath("PropellerWithModel")

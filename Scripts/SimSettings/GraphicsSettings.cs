@@ -7,7 +7,7 @@ namespace SimSettings;
 public partial class GraphicsSettings
 {
     public bool ShowFps { get; set; } = false;
-    public DisplayServer.VSyncMode VSyncMode { get; set; } = DisplayServer.VSyncMode.Adaptive;
+    public DisplayServer.VSyncMode VSyncMode { get; set; } = DisplayServer.VSyncMode.Enabled; // Adaptive is supposedly better but it shows extreme stuttering on my system
     public bool UseImpostors { get; set; } = true;
     public int ImpostorDistance { get; set; } = 50;
     public bool ImpostorShadowsEnabled { get; set; } = true;
@@ -18,7 +18,7 @@ public partial class GraphicsSettings
     // todo: put this info in the location-creation documentation when that is made
     public float FarVegetationMultiplier { get; set; } = 1;
     public float NearVegetationMultiplier { get; set; } = 1;
-    public float GrassMultiplier { get; set; } = 1;
+    public float GrassDensityMultiplier { get; set; } = 1;
     public float GrassDistanceMultiplier { get; set; } = 1;
 
     // A note on the values labelled as exponents:

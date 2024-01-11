@@ -36,15 +36,19 @@ public partial class GrassScatter : Node3D
     private CsgBox3D csgBox;
     private MultiMeshInstance3D mmi;
 
-    public int trueInstanceCount
+    public int TrueInstanceCount
     {
         get
         {
             var g = SimSettings.Settings.Current.Graphics;
-            return (int)(InstanceCount * g.GrassMultiplier * g.GrassDistanceMultiplier * g.GrassDistanceMultiplier);
+            
+            var area = g.GrassDistanceMultiplier * g.GrassDistanceMultiplier;
+            var origDensity = InstanceCount / FalloffMaxDistance * FalloffMaxDistance;
+            var targetDensity = origDensity * g.GrassDensityMultiplier;
+            return (int)(targetDensity * area);
         }
     }
-    public float trueFalloffMaxDistance
+    public float TrueFalloffMaxDistance
     {
         get
         {
@@ -94,7 +98,7 @@ public partial class GrassScatter : Node3D
         material.SetShaderParameter("normal", NormalMap);
         material.SetShaderParameter("use_normal", NormalMap != null);
         material.SetShaderParameter("normal_strength", NormalStrength);
-        material.SetShaderParameter("falloff_max_distance", trueFalloffMaxDistance);
+        material.SetShaderParameter("falloff_max_distance", TrueFalloffMaxDistance);
 
         var cameraPos = crntCameraPos;
         lastUpdatePos = cameraPos;
@@ -149,15 +153,15 @@ public partial class GrassScatter : Node3D
         // because it turns out that the intersecting blades in the center of the other places are what slowed it down.
 
         // Don't even bother trying if we're far enough away
-        var maxPos = Size / 2 + trueFalloffMaxDistance * Vector2.One;
+        var maxPos = Size / 2 + TrueFalloffMaxDistance * Vector2.One;
         if (Mathf.Abs(center.X) > maxPos.X || Mathf.Abs(center.Z) > maxPos.Y) return new();
 
         var g = SimSettings.Settings.Current.Graphics;
-        int targetInstanceCount = (int)(InstanceCount * g.GrassMultiplier * g.GrassDistanceMultiplier * g.GrassDistanceMultiplier);
+        int targetInstanceCount = (int)(InstanceCount * g.GrassDensityMultiplier * g.GrassDistanceMultiplier * g.GrassDistanceMultiplier);
         var gridSize = Mathf.Sqrt(targetInstanceCount);
-        var gridSpacing = 2 * trueFalloffMaxDistance / gridSize;
+        var gridSpacing = 2 * TrueFalloffMaxDistance / gridSize;
 
-        var offset = ToLocal(center) - new Vector3(trueFalloffMaxDistance, 0, trueFalloffMaxDistance);
+        var offset = ToLocal(center) - new Vector3(TrueFalloffMaxDistance, 0, TrueFalloffMaxDistance);
 
         var maskImage = Mask == null ? null : Mask.GetImage();
 
@@ -263,7 +267,7 @@ public partial class GrassScatter : Node3D
         // Yes we could just calc the wind in the shader. But I'm lazy and 100x100 samples should be enough.
         // Todo: make size sampled adjustable
 
-        if (Air == null || trueInstanceCount == 0 || Engine.IsEditorHint()) return;
+        if (Air == null || TrueInstanceCount == 0 || Engine.IsEditorHint()) return;
 
         var material = (mmi.Multimesh.Mesh as QuadMesh).Material as ShaderMaterial;
 

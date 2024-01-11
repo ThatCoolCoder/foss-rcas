@@ -28,7 +28,7 @@ public partial class GraphicsPreset : SimSettings.GraphicsSettings
             FarVegetationMultiplier = 0,
             NearVegetationMultiplier = 0,
             GrassDistanceMultiplier = 0,
-            GrassMultiplier = 0,
+            GrassDensityMultiplier = 0,
 
             DirectionalShadowSizeExponent = 8,
             ShadowAtlasSizeExponent = 8,
@@ -54,7 +54,7 @@ public partial class GraphicsPreset : SimSettings.GraphicsSettings
             FarVegetationMultiplier = 0.1f,
             NearVegetationMultiplier = 0.2f,
             GrassDistanceMultiplier = 0.4f,
-            GrassMultiplier = 0.1f,
+            GrassDensityMultiplier = 0.25f,
 
             DirectionalShadowSizeExponent = 8,
             ShadowAtlasSizeExponent = 8,
@@ -80,7 +80,7 @@ public partial class GraphicsPreset : SimSettings.GraphicsSettings
             FarVegetationMultiplier = 0.25f,
             NearVegetationMultiplier = 0.4f,
             GrassDistanceMultiplier = 0.35f,
-            GrassMultiplier = 0.5f,
+            GrassDensityMultiplier = 0.5f,
 
             DirectionalShadowSizeExponent = 9,
             ShadowAtlasSizeExponent = 9,
@@ -106,7 +106,7 @@ public partial class GraphicsPreset : SimSettings.GraphicsSettings
             FarVegetationMultiplier = 0.1f,
             NearVegetationMultiplier = 0.2f,
             GrassDistanceMultiplier = 0.5f,
-            GrassMultiplier = 0.7f,
+            GrassDensityMultiplier = 0.7f,
 
             DirectionalShadowSizeExponent = 10,
             ShadowAtlasSizeExponent = 10,
@@ -132,7 +132,7 @@ public partial class GraphicsPreset : SimSettings.GraphicsSettings
             FarVegetationMultiplier = 1f,
             NearVegetationMultiplier = 1f,
             GrassDistanceMultiplier = 1f,
-            GrassMultiplier = 1f,
+            GrassDensityMultiplier = 1f,
 
             DirectionalShadowSizeExponent = 12,
             ShadowAtlasSizeExponent = 12,
@@ -158,7 +158,7 @@ public partial class GraphicsPreset : SimSettings.GraphicsSettings
             FarVegetationMultiplier = 1.2f,
             NearVegetationMultiplier = 1.2f,
             GrassDistanceMultiplier = 1.5f,
-            GrassMultiplier = 1.2f,
+            GrassDensityMultiplier = 1.2f,
 
             DirectionalShadowSizeExponent = 14,
             ShadowAtlasSizeExponent = 14,
